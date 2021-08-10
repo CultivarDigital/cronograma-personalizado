@@ -1,7 +1,8 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 
-import './models/User'
-import './models/Comment'
+require('./models/User')
+require('./models/Comment')
+require('./models/Specie')
 
 const isProduction = process.env.NODE_ENV === 'production'
 

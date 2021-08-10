@@ -123,8 +123,8 @@ router.post('/validate_recovery/:id', (req, res) => {
   }
   User.findOne(query).exec((err, user) => {
     console.log(req.body.code)
-    if (!err && user) {
-      res.send(user.validRecoveryCode(req.body.code))
+    if (!err && user && req.body.code) {
+      res.send(user.validRecoveryCode(req.body.code.toUpperCase()))
     } else {
       res.status(422).send('Usuário não encontrado')
     }

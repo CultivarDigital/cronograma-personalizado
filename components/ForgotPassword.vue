@@ -1,8 +1,8 @@
 <template>
   <div>
-    <a v-if="!recovery_response" @click="recovery"
-      ><small>Esqueci minha senha</small></a
-    >
+    <div v-if="loading" class="text-center">
+      <b-spinner></b-spinner>
+    </div>
     <div v-else>
       <div v-if="recovery_response.email">
         <p>
@@ -24,19 +24,17 @@
           >
         </div>
         <div v-if="validate_recovery_response">
-          <div>
+          <p>
             Validamos seu código de recuperação com sucesso! Agora é hora de
             criar sua nova senha:
-          </div>
+          </p>
           <b-form-group label="Digite sua nova senha">
             <b-form-input v-model="password" type="password" />
           </b-form-group>
           <b-form-group label="Confirme sua nova senha">
             <b-form-input v-model="password_confirmation" type="password" />
           </b-form-group>
-          <button type="submit" class="btn btn-primary btn-lg btn-block">
-            ENTRAR
-          </button>
+          <button class="btn btn-primary btn-lg btn-block">SALVAR SENHA</button>
         </div>
         <div v-if="validate_recovery_response === false">
           <div class="alert alert-danger">Código inválido</div>
@@ -67,22 +65,29 @@ export default {
       recovery_code: null,
       password: null,
       password_confirmation: null,
+      loading: false,
     }
+  },
+  created() {
+    this.recovery()
   },
   methods: {
     async recovery() {
+      this.loading = true
       this.recovery_code = null
-      this.recovery_response = await this.$axios.$get(
-        '/api/users/password_recovery/' + this.user.id
-      )
+      this.recovery_response = await this.$axios
+        .$get('/api/users/password_recovery/' + this.user.id)
+        .catch(this.showError)
+      this.loading = false
       this.$emit('click')
     },
     async validateRecoveryCode() {
       this.validate_recovery_response = null
-      this.validate_recovery_response = await this.$axios.$post(
-        '/api/users/validate_recovery/' + this.user.id,
-        { code: this.recovery_code }
-      )
+      this.validate_recovery_response = await this.$axios
+        .$post('/api/users/validate_recovery/' + this.user.id, {
+          code: this.recovery_code,
+        })
+        .catch(this.showError)
     },
     async setPassword() {
       if (this.password && this.password === this.password_confirmation) {

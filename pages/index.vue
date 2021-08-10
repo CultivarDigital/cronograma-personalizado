@@ -1,6 +1,6 @@
 <template>
   <div>
-    <breadcrumb active="Bem vindo!" />
+    <breadcrumb active="Cultive alimentos saudáveis em casa!" />
     <b-container fluid>
       <b-button
         block

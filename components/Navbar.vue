@@ -34,5 +34,8 @@ export default {
   components: {
     Sidebar,
   },
+  created() {
+    this.$bvModal.show('login-modal')
+  },
 }
 </script>

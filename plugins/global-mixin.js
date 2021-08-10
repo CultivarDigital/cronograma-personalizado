@@ -16,10 +16,16 @@ if (!Vue.__my_mixin__) {
         return this.$store.state.region
       },
       baseURL() {
-        return this.$axios.defaults.baseURL
+        return this.$axios.defaults.baseURL || process.env.BASE_URL
       },
     },
     methods: {
+      async getLocalItem(key) {
+        return await this.$localForage.getItem(key)
+      },
+      async setLocalItem(key, value) {
+        return await this.$localForage.setItem(key, value)
+      },
       userLabel(user) {
         return user
           ? user.name || user.username || user.email || user.phone

@@ -30,7 +30,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/global-mixin',
-    '~/plugins/persisted-state.js',
+    { src: '~/plugins/persisted-state.js', ssr: false },
     { src: '~/plugins/vue-notification', ssr: false },
   ],
 
@@ -44,6 +44,7 @@ export default {
     // https://go.nuxtjs.dev/stylelint
     // '@nuxtjs/stylelint-module',
     '@nuxtjs/google-analytics',
+    '@nuxtjs/localforage',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -103,7 +104,6 @@ export default {
     },
     workbox: {
       offlineAnalytics: true,
-      offlineStrategy: 'StaleWhileRevalidate',
       runtimeCaching: [
         {
           // You can use a RegExp as the pattern:
@@ -142,6 +142,9 @@ export default {
   },
   googleAnalytics: {
     id: 'UA-190127946-1',
+  },
+  localforage: {
+    name: process.env.npm_package_name || 'NuxtJS',
   },
   proxy: {
     pathRewrite: {

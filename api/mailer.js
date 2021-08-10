@@ -14,15 +14,12 @@ const transporter = nodemailer.createTransport({
 module.exports = {
   send: async (to, subject, text, html) => {
     const info = await transporter.sendMail({
-      from: '"Cultivar Brasil 🌱❤️🌻" <' + process.env.SMTP_USER + '>', // sender address
+      from: '"Cultivar Brasil 🌱" <' + process.env.SMTP_USER + '>', // sender address
       to,
       subject,
       text,
       html,
     })
-
-    console.log('Message sent:')
-    console.log(info)
     return info
   },
 }

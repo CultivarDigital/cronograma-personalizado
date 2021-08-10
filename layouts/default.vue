@@ -31,9 +31,25 @@ export default {
     Navbar,
     Sidebar,
   },
-  created() {
+  async created() {
     if (this.$route.query.regiao) {
       this.$store.commit('setRegion', this.$route.query.regiao)
+    }
+    const species = await this.$axios.$get('/api/species')
+    if (species) {
+      this.$store.commit('setSpecies', species)
+      const categories = {}
+      species.forEach((specie) => {
+        specie.category.forEach((category) => {
+          categories[category] = true
+        })
+      })
+      this.$store.commit(
+        'setSpecieCategories',
+        Object.keys(categories).sort(function (a, b) {
+          return a.localeCompare(b)
+        })
+      )
     }
   },
 }

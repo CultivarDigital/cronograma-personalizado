@@ -172,15 +172,18 @@ export default {
     // this.$bvModal.show('login-modal')
   },
   methods: {
+    async userLoaded(user) {
+      this.user = user
+      if (this.user && this.user.status === 'pending_password') {
+        this.user_password = 'password'
+        await this.login()
+      }
+    },
     async findUser() {
       if (this.user_login) {
         this.user = await this.$axios
           .$get('/api/users/' + this.user_login + '/find_or_create')
           .catch(this.showError)
-        if (this.user && this.user.status === 'pending_password') {
-          this.user_password = 'password'
-          await this.login()
-        }
         this.populateForm()
         this.forgot_password = null
       }
