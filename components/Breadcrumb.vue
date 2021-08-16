@@ -9,7 +9,6 @@
       </li>
       <li v-if="active" class="active">{{ active }}</li>
     </ol>
-    <Moon />
   </div>
 </template>
 

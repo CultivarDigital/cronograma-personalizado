@@ -1,4 +1,3 @@
-const axios = require('axios')
 const express = require('express')
 const mongoose = require('mongoose')
 const router = express.Router()
@@ -7,8 +6,6 @@ const { authenticated } = require('../config/auth')
 const Specie = mongoose.model('Specie')
 
 router.get('/', function (req, res) {
-  const perPage = req.query.per_page || 100000
-  const page = req.query.page || 1
   const query = {}
   if (req.query.search) {
     query.$or = [
@@ -32,8 +29,6 @@ router.get('/', function (req, res) {
   }
   Specie.find(query, req.params.select)
     .sort(req.params.sort || 'name')
-    .skip((page - 1) * perPage)
-    .limit(perPage)
     .exec(function (err, species) {
       if (err) {
         res.status(422).send(err.message)

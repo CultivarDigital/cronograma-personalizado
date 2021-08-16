@@ -19,10 +19,10 @@
         <b-dropdown-item @click="$auth.logout()">Sair</b-dropdown-item>
       </b-nav-item-dropdown>
       <b-nav-item v-else right>
-        <b-button variant="primary" @click="$bvModal.show('login-modal')">
+        <!-- <b-button variant="primary" @click="$bvModal.show('login-modal')">
           <i class="far fa-star" />
           Melhore sua experiência
-        </b-button>
+        </b-button> -->
         <!-- <Region /> -->
       </b-nav-item>
     </b-navbar-nav>

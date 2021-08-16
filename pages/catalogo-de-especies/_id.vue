@@ -1,93 +1,197 @@
 <template>
-  <div>
+  <div v-if="specie">
     <breadcrumb
       :links="[['Catálogo de espécies', '/catalogo-de-especies']]"
-      :active="especie.nome"
-      :description="especie.descricao"
-      :img="
-        'https://www.cultivarbrasil.com' +
-        require('~/assets/img/plants/' + especie.slug + '.png')
-      "
+      :active="specie.name"
+      :description="specie.description"
+      :img="'https://www.cultivarbrasil.com' + specie.images[0].url"
     />
     <b-container fluid>
       <div class="item">
-        <h2>{{ especie.nome_popular }}</h2>
-        <p>{{ especie.nome_cientifico }}</p>
+        <h3>{{ specie.name }}</h3>
+        <p>{{ specie.scientific_name }}</p>
       </div>
       <div class="item item-body">
         <div class="img-wrapper">
-          <img :src="require('~/assets/img/plants/' + especie.slug + '.png')" />
+          <CachedImage :value="specie.images[0]" />
         </div>
-        <p class="text-justify">{{ especie.descricao }}</p>
+        <!-- eslint-disable-next-line vue/no-v-html -->
+        <p v-html="specie.description"></p>
+        <table class="table description-table">
+          <tr v-if="specie.scientific_name">
+            <td>Nome científico:</td>
+            <th>{{ specie.scientific_name }}</th>
+          </tr>
+          <tr v-if="specie.popular_names">
+            <td>Nomes populares:</td>
+            <th>{{ specie.popular_names.join(', ') }}</th>
+          </tr>
+          <tr v-if="specie.family">
+            <td>Família:</td>
+            <th>{{ specie.family }}</th>
+          </tr>
+          <tr v-if="specie.family">
+            <td>Sinonímia:</td>
+            <th>{{ specie.synonymy.join(', ') }}</th>
+          </tr>
+          <tr v-if="specie.categories && specie.categories.length">
+            <td>Categoria:</td>
+            <th>{{ specie.categories.join(', ') }}</th>
+          </tr>
+          <tr v-if="specie.climate && specie.climate.length">
+            <td>Clima:</td>
+            <th>{{ specie.climate.join(', ') }}</th>
+          </tr>
+          <tr v-if="specie.origin && specie.origin.length">
+            <td>Origem:</td>
+            <th>{{ specie.origin.join(', ') }}</th>
+          </tr>
+          <tr v-if="specie.height && specie.height.length">
+            <td>Altura:</td>
+            <th>{{ specie.height.join(', ') }}</th>
+          </tr>
+          <tr v-if="specie.cycle && specie.cycle.length">
+            <td>Ciclo:</td>
+            <th>{{ specie.cycle.join(', ') }}</th>
+          </tr>
+          <tr v-if="specie.luminosity && specie.luminosity.length">
+            <td>Luminosidade:</td>
+            <th>{{ specie.luminosity.join(', ') }}</th>
+          </tr>
+          <tr v-if="specie.harvest_time">
+            <td>Tempo de colheita:</td>
+            <th>{{ specie.harvest_time }}</th>
+          </tr>
+          <tr v-if="specie.spacing">
+            <td>Espaçamento:</td>
+            <th>{{ specie.spacing }}</th>
+          </tr>
+          <template v-for="additional_field in specie.additional_fields">
+            <tr v-if="additional_field.content" :key="additional_field.name">
+              <td>{{ additional_field.name }}:</td>
+              <th>{{ additional_field.content }}</th>
+            </tr>
+          </template>
+          <template
+            v-if="
+              specie.medicinal &&
+              (specie.medicinal.indications ||
+                specie.medicinal.properties ||
+                specie.medicinal.parts_used)
+            "
+          >
+            <tr v-if="specie.medicinal.indications">
+              <td>Indicações:</td>
+              <th>{{ specie.medicinal.indications.join(', ') }}</th>
+            </tr>
+            <tr v-if="specie.medicinal.properties">
+              <td>Propriedades:</td>
+              <th>{{ specie.medicinal.properties.join(', ') }}</th>
+            </tr>
+            <tr v-if="specie.medicinal.parts_used">
+              <td>Partes utilizadas:</td>
+              <th>{{ specie.medicinal.parts_used.join(', ') }}</th>
+            </tr>
+          </template>
+          <tr v-if="specie.warning">
+            <th>
+              <strong class="text-warning">Alerta: {{ specie.warning }}</strong>
+            </th>
+          </tr>
+          <tr
+            v-if="specie.companion_plants && specie.companion_plants.length > 0"
+          >
+            <td>Plantas companheiras:</td>
+            <th>
+              <b-button v-for="p in specie.companion_plants" :key="p" size="sm">
+                {{ p }}
+              </b-button>
+            </th>
+          </tr>
+          <tr v-if="specie.images && specie.images.length > 0">
+            <td>Fotos:</td>
+            <th>
+              <Gallery :images="specie.images" />
+            </th>
+          </tr>
+          <tr v-if="specie.source">
+            <td>Fonte:</td>
+            <th>
+              <a :href="specie.source" target="_blank">{{ specie.source }}</a>
+            </th>
+          </tr>
+        </table>
+        <!-- <p class="text-justify">{{ specie.description }}</p>
         <h4>Recomendações de aproveitamento</h4>
-        <p class="text-justify">{{ especie.aproveitamento }}</p>
+        <p class="text-justify">{{ specie.aproveitamento }}</p>
         <h4>Época e regiões para plantio</h4>
         <b-row class="plantio-table" fluid no-gutters>
           <b-col class="{active: (currentRegion == 'Centro-oeste')}">
             <p>C. Oeste</p>
-            <p>{{ especie.plantio['Centro-oeste'] }}</p>
+            <p>{{ specie.plantio['Centro-oeste'] }}</p>
           </b-col>
           <b-col class="{active: (currentRegion == 'Nordeste')}">
             <p>Nordeste</p>
-            <p>{{ especie.plantio['Nordeste'] }}</p>
+            <p>{{ specie.plantio['Nordeste'] }}</p>
           </b-col>
           <b-col class="{active: (currentRegion == 'Norte')}">
             <p>Norte</p>
-            <p>{{ especie.plantio['Norte'] }}</p>
+            <p>{{ specie.plantio['Norte'] }}</p>
           </b-col>
           <b-col class="{active: (currentRegion == 'Sudeste')}">
             <p>Sudeste</p>
-            <p>{{ especie.plantio['Sudeste'] }}</p>
+            <p>{{ specie.plantio['Sudeste'] }}</p>
           </b-col>
           <b-col class="{active: (currentRegion == 'Sul')}">
             <p>Sul</p>
-            <p>{{ especie.plantio['Sul'] }}</p>
+            <p>{{ specie.plantio['Sul'] }}</p>
           </b-col>
         </b-row>
         <p
-          v-if="Object.values(especie.plantio).includes('*')"
+          v-if="Object.values(specie.plantio).includes('*')"
           class="text-right table-legend"
         >
           <small>* Cultivo não recomendado.</small>
         </p>
         <br />
-        <p class="text-justify">{{ especie.epoca_regiao }}</p>
+        <p class="text-justify">{{ specie.epoca_regiao }}</p>
         <h4>Colheita:</h4>
-        <p class="text-justify">{{ especie.colheita }} dias</p>
+        <p class="text-justify">{{ specie.colheita }} dias</p> -->
         <h4>Plantas companheiras:</h4>
         <p>
-          <span
-            v-for="companheira in especie.companheiras.split(', ')"
-            :key="companheira"
-          >
+          <span v-for="companion in specie.companion_species" :key="companion">
             <n-link
-              v-if="specieByName(companheira)"
+              v-if="specieByName(companion)"
               class="badge badge-primary"
-              :to="'/catalogo-de-especies/' + specieByName(companheira).slug"
-              >{{ specieByName(companheira).nome }}</n-link
+              :to="'/catalogo-de-especies/' + specieByName(companion).slug"
+              >{{ specieByName(companion).name }}</n-link
             >
-            <span v-else class="badge badge-default">{{ companheira }}</span>
+            <span v-else class="badge badge-default">{{ companion }}</span>
           </span>
         </p>
       </div>
-      <comments :target="'/catalogo-de-especies/' + especie.slug" />
+      <comments :target="'/catalogo-de-especies/' + specie.slug" />
+      <pre>{{ specie }}</pre>
     </b-container>
   </div>
 </template>
 <script>
 // import meses from '@/data/meses.json'
-import especies from '@/data/especies.json'
 export default {
   computed: {
-    especie() {
-      const slug = this.$route.params.id
-      return especies.find((especie) => especie.slug === slug)
+    species() {
+      return this.$store.state.species
+    },
+    specie() {
+      return this.species.find(
+        (specie) => specie.slug === this.$route.params.id
+      )
     },
   },
   methods: {
     specieByName(name) {
-      return especies.find((especie) => {
-        return especie.nome.toLowerCase() === name.toLowerCase()
+      return this.species.find((specie) => {
+        return specie.name.toLowerCase() === name.toLowerCase()
       })
     },
   },

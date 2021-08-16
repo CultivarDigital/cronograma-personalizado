@@ -1,6 +1,7 @@
 <template>
   <div>
     <breadcrumb active="Cultive alimentos saudáveis em casa!" />
+    <Moon />
     <b-container fluid>
       <b-button
         block

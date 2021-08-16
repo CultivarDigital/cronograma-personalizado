@@ -7,10 +7,15 @@
           <Sidebar />
         </b-col>
         <b-col md="9" class="main bg-white pb-4">
-          <Nuxt />
-          <div class="text-center mobile-footer">
-            <hr />
-            <Footer />
+          <div v-if="loading" class="text-center">
+            <b-spinner />
+          </div>
+          <div v-else>
+            <Nuxt />
+            <div class="text-center mobile-footer">
+              <hr />
+              <Footer />
+            </div>
           </div>
         </b-col>
       </b-row>
@@ -31,26 +36,52 @@ export default {
     Navbar,
     Sidebar,
   },
+  data() {
+    return {
+      loading: true,
+    }
+  },
   async created() {
     if (this.$route.query.regiao) {
       this.$store.commit('setRegion', this.$route.query.regiao)
     }
     const species = await this.$axios.$get('/api/species')
     if (species) {
-      this.$store.commit('setSpecies', species)
-      const categories = {}
-      species.forEach((specie) => {
-        specie.category.forEach((category) => {
-          categories[category] = true
-        })
-      })
       this.$store.commit(
-        'setSpecieCategories',
-        Object.keys(categories).sort(function (a, b) {
-          return a.localeCompare(b)
+        'setSpecies',
+        species.sort((a, b) => {
+          return a.name.localeCompare(b.name)
         })
       )
+      const filters = {
+        specie_categories: this.getFilters(species, 'categories'),
+        specie_luminosity: this.getFilters(species, 'luminosity'),
+        specie_cycle: this.getFilters(species, 'cycle'),
+        specie_climate: this.getFilters(species, 'climate'),
+        specie_origin: this.getFilters(species, 'origin'),
+        specie_height: this.getFilters(species, 'height'),
+      }
+      console.log(filters)
+      this.$store.commit('setFilters', filters)
     }
+    this.loading = false
+  },
+  methods: {
+    getFilters(species, type) {
+      const items = {}
+      species.forEach((specie) => {
+        if (specie[type]) {
+          specie[type].forEach((item) => {
+            items[item] = true
+          })
+        }
+      })
+      return Object.keys(items)
+        .sort((a, b) => {
+          return a.localeCompare(b)
+        })
+        .filter((item) => item)
+    },
   },
 }
 </script>

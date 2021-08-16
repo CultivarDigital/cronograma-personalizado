@@ -1,13 +1,11 @@
 <template>
-  <a v-if="url" :href="url" target="_blank">
-    <b-img
-      :src="url"
-      :fluid="fluid"
-      :class="cssClass"
-      :width="width"
-      :rounded="thumb"
-    />
-  </a>
+  <b-img
+    :src="url"
+    :fluid="fluid"
+    :class="cssClass"
+    :width="width"
+    :rounded="thumb"
+  />
 </template>
 
 <script>
@@ -28,8 +26,8 @@ export default {
       default: false,
     },
     width: {
-      type: Number,
-      default: 64,
+      type: String,
+      default: null,
     },
     cssClass: {
       type: String,

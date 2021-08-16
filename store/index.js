@@ -4,7 +4,7 @@ export const state = () => {
     page_title: null,
     page_description: null,
     species: [],
-    specie_categories: [],
+    filters: {},
   }
 }
 
@@ -15,8 +15,8 @@ export const mutations = {
   setSpecies(state, species) {
     state.species = species
   },
-  setSpecieCategories(state, specieCategories) {
-    state.specie_categories = specieCategories
+  setFilters(state, filters) {
+    state.filters = filters
   },
   setPageTitle(state, pageTitle) {
     state.page_title = pageTitle

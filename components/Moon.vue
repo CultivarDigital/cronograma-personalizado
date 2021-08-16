@@ -1,11 +1,6 @@
 <template>
   <div>
-    <div v-if="phase" class="moon" @click="show_moon_info = !show_moon_info">
-      <div class="earth" :style="moonStyle"></div>
-    </div>
-    <b-container
-      v-if="show_moon_info || $route.path === '/' || $route.path === '/'"
-    >
+    <b-container>
       <div v-if="moon_phase === 'nova'" class="item item-body text-center">
         <h3>Hoje é dia de Lua nova</h3>
         <small v-if="next_moon > 1">
@@ -98,45 +93,14 @@ import lune from 'lune'
 export default {
   data() {
     return {
-      phase: null,
       moon_phase: null,
       next_moon: null,
-      show_moon_info: false,
     }
-  },
-  computed: {
-    moonStyle() {
-      if (this.phase) {
-        const phase = this.phase.phase * 100
-        let curve = 50 - this.phase.illuminated * 100
-        if (curve < 0) {
-          curve = 0
-        }
-        if (phase < 50) {
-          return (
-            'margin-left: ' +
-            this.phase.illuminated * 100 * -1 +
-            '%; border-radius: ' +
-            curve +
-            '%;'
-          )
-        } else {
-          return (
-            'margin-left: ' +
-            this.phase.illuminated * 100 +
-            '%; border-radius: ' +
-            curve +
-            '%;'
-          )
-        }
-      }
-      return ''
-    },
   },
   created() {
     const today = new Date()
     today.setDate(today.getDate())
-    this.phase = this.calcMoonPhase(today)
+    this.calcMoonPhase(today)
   },
   methods: {
     calcMoonPhase(date) {
