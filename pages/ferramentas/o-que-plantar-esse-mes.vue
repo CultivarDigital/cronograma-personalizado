@@ -15,67 +15,46 @@
           >:
         </p>
       </div>
-      <ul class="list-unstyled">
-        <b-media
-          v-for="especie in especies"
-          :key="especie.id"
-          tag="li"
-          class="border-top pt-3"
-        >
-          <template #aside>
-            <n-link :to="'/catalogo-de-especies/' + especie.slug">
-              <b-img
-                :src="require('~/assets/img/plants/' + especie.slug + '.png')"
-                width="64"
-                alt="placeholder"
-              />
-            </n-link>
-          </template>
-          <h5 class="mb-1">
-            <n-link :to="'/catalogo-de-especies/' + especie.slug">{{
-              especie.nome
-            }}</n-link>
-          </h5>
-          <p>
-            {{ especie.nome_cientifico }}
-          </p>
-        </b-media>
-      </ul>
+      <Species :species="species" />
     </b-container>
   </div>
 </template>
 <script>
 import meses from '@/data/meses.json'
-import especies from '@/data/especies.json'
 export default {
   computed: {
-    especies() {
-      return especies.filter((especie) => {
-        if (!this.currentRegion) return true
-        if (especie.plantio[this.currentRegion] === 'ano todo') {
-          return true
-        } else if (especie.plantio[this.currentRegion] === '*') {
-          return false
-        } else {
-          const plantio = especie.plantio[this.currentRegion].split('-')
-          const plantio1 = meses.find((mes) => mes.code === plantio[0]).number
-          const plantio2 = meses.find((mes) => mes.code === plantio[1]).number
+    species() {
+      return this.$store.state.species.filter((specie) => {
+        if (specie.planting_time) {
+          if (!this.currentRegion) return true
+          if (specie.planting_time[this.currentRegion] === 'ano todo') {
+            return true
+          } else if (specie.planting_time[this.currentRegion] === '*') {
+            return false
+          } else {
+            const planting = specie.planting_time[this.currentRegion].split('-')
+            const planting1 = meses.find((mes) => mes.code === planting[0])
+              .number
+            const planting2 = meses.find((mes) => mes.code === planting[1])
+              .number
 
-          if (plantio1 <= plantio2) {
-            if (
-              this.currentMonth.number >= plantio1 &&
-              this.currentMonth.number <= plantio2
+            if (planting1 <= planting2) {
+              if (
+                this.currentMonth.number >= planting1 &&
+                this.currentMonth.number <= planting2
+              ) {
+                return true
+              }
+            } else if (
+              this.currentMonth.number >= planting1 &&
+              this.currentMonth.number <= 12 &&
+              this.currentMonth.number >= 1 &&
+              this.currentMonth.number <= planting2
             ) {
               return true
             }
-          } else if (
-            this.currentMonth.number >= plantio1 &&
-            this.currentMonth.number <= 12 &&
-            this.currentMonth.number >= 1 &&
-            this.currentMonth.number <= plantio2
-          ) {
-            return true
           }
+          return false
         }
         return false
       })

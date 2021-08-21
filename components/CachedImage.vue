@@ -1,5 +1,6 @@
 <template>
   <b-img
+    v-if="url"
     :src="url"
     :fluid="fluid"
     :class="cssClass"

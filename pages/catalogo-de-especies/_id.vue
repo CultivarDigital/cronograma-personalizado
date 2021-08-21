@@ -1,10 +1,16 @@
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <div v-if="specie">
     <breadcrumb
       :links="[['Catálogo de espécies', '/catalogo-de-especies']]"
       :active="specie.name"
       :description="specie.description"
-      :img="'https://www.cultivarbrasil.com' + specie.images[0].url"
+      :img="
+        'https://www.cultivarbrasil.com' +
+        (specie.images && specie.images.length
+          ? specie.images[0].url
+          : '/cultivar-cover.png')
+      "
     />
     <b-container fluid>
       <div class="item">
@@ -12,11 +18,18 @@
         <p>{{ specie.scientific_name }}</p>
       </div>
       <div class="item item-body">
-        <div class="img-wrapper">
+        <div v-if="specie.images && specie.images.length" class="img-wrapper">
           <CachedImage :value="specie.images[0]" />
         </div>
-        <!-- eslint-disable-next-line vue/no-v-html -->
-        <p v-html="specie.description"></p>
+        <p
+          v-if="specie.description"
+          class="text-justify"
+          v-html="specie.description"
+        ></p>
+        <div v-if="specie.use">
+          <h4>Recomendações de aproveitamento</h4>
+          <p class="text-justify">{{ specie.use }}</p>
+        </div>
         <table class="table description-table">
           <tr v-if="specie.scientific_name">
             <td>Nome científico:</td>
@@ -30,7 +43,7 @@
             <td>Família:</td>
             <th>{{ specie.family }}</th>
           </tr>
-          <tr v-if="specie.family">
+          <tr v-if="specie.synonymy && specie.synonymy.length">
             <td>Sinonímia:</td>
             <th>{{ specie.synonymy.join(', ') }}</th>
           </tr>
@@ -98,80 +111,67 @@
               <strong class="text-warning">Alerta: {{ specie.warning }}</strong>
             </th>
           </tr>
-          <tr
-            v-if="specie.companion_plants && specie.companion_plants.length > 0"
-          >
-            <td>Plantas companheiras:</td>
-            <th>
-              <b-button v-for="p in specie.companion_plants" :key="p" size="sm">
-                {{ p }}
-              </b-button>
-            </th>
-          </tr>
-          <tr v-if="specie.images && specie.images.length > 0">
-            <td>Fotos:</td>
-            <th>
-              <Gallery :images="specie.images" />
-            </th>
-          </tr>
-          <tr v-if="specie.source">
-            <td>Fonte:</td>
-            <th>
-              <a :href="specie.source" target="_blank">{{ specie.source }}</a>
-            </th>
-          </tr>
         </table>
-        <!-- <p class="text-justify">{{ specie.description }}</p>
-        <h4>Recomendações de aproveitamento</h4>
-        <p class="text-justify">{{ specie.aproveitamento }}</p>
-        <h4>Época e regiões para plantio</h4>
-        <b-row class="plantio-table" fluid no-gutters>
-          <b-col class="{active: (currentRegion == 'Centro-oeste')}">
-            <p>C. Oeste</p>
-            <p>{{ specie.plantio['Centro-oeste'] }}</p>
-          </b-col>
-          <b-col class="{active: (currentRegion == 'Nordeste')}">
-            <p>Nordeste</p>
-            <p>{{ specie.plantio['Nordeste'] }}</p>
-          </b-col>
-          <b-col class="{active: (currentRegion == 'Norte')}">
-            <p>Norte</p>
-            <p>{{ specie.plantio['Norte'] }}</p>
-          </b-col>
-          <b-col class="{active: (currentRegion == 'Sudeste')}">
-            <p>Sudeste</p>
-            <p>{{ specie.plantio['Sudeste'] }}</p>
-          </b-col>
-          <b-col class="{active: (currentRegion == 'Sul')}">
-            <p>Sul</p>
-            <p>{{ specie.plantio['Sul'] }}</p>
-          </b-col>
-        </b-row>
-        <p
-          v-if="Object.values(specie.plantio).includes('*')"
-          class="text-right table-legend"
-        >
-          <small>* Cultivo não recomendado.</small>
-        </p>
-        <br />
-        <p class="text-justify">{{ specie.epoca_regiao }}</p>
-        <h4>Colheita:</h4>
-        <p class="text-justify">{{ specie.colheita }} dias</p> -->
-        <h4>Plantas companheiras:</h4>
-        <p>
-          <span v-for="companion in specie.companion_species" :key="companion">
-            <n-link
-              v-if="specieByName(companion)"
-              class="badge badge-primary"
-              :to="'/catalogo-de-especies/' + specieByName(companion).slug"
-              >{{ specieByName(companion).name }}</n-link
+        <div v-if="specie.planting_time">
+          <h4>Época e regiões para plantio</h4>
+          <b-row class="plantio-table" fluid no-gutters>
+            <b-col class="{active: (currentRegion == 'Centro-oeste')}">
+              <p>C. Oeste</p>
+              <p>{{ specie.planting_time['Centro-oeste'] }}</p>
+            </b-col>
+            <b-col class="{active: (currentRegion == 'Nordeste')}">
+              <p>Nordeste</p>
+              <p>{{ specie.planting_time['Nordeste'] }}</p>
+            </b-col>
+            <b-col class="{active: (currentRegion == 'Norte')}">
+              <p>Norte</p>
+              <p>{{ specie.planting_time['Norte'] }}</p>
+            </b-col>
+            <b-col class="{active: (currentRegion == 'Sudeste')}">
+              <p>Sudeste</p>
+              <p>{{ specie.planting_time['Sudeste'] }}</p>
+            </b-col>
+            <b-col class="{active: (currentRegion == 'Sul')}">
+              <p>Sul</p>
+              <p>{{ specie.planting_time['Sul'] }}</p>
+            </b-col>
+          </b-row>
+          <p
+            v-if="
+              specie.planting_time &&
+              Object.values(specie.planting_time).includes('*')
+            "
+            class="text-right table-legend"
+          >
+            <small>* Cultivo não recomendado.</small>
+          </p>
+          <br />
+          <p class="text-justify">{{ specie.planting_time_description }}</p>
+        </div>
+        <div v-if="specie.companion_species && specie.companion_species.length">
+          <h4>Plantas companheiras:</h4>
+          <p>
+            <span
+              v-for="companion in specie.companion_species"
+              :key="companion"
             >
-            <span v-else class="badge badge-default">{{ companion }}</span>
-          </span>
-        </p>
+              <n-link
+                v-if="specieByName(companion)"
+                class="badge badge-primary"
+                :to="'/catalogo-de-especies/' + specieByName(companion).slug"
+                >{{ specieByName(companion).name }}</n-link
+              >
+              <span v-else class="badge badge-default">{{ companion }}</span>
+            </span>
+          </p>
+        </div>
+        <div v-if="specie.images && specie.images.length">
+          <h4>Fotos:</h4>
+          <Gallery :images="specie.images" />
+        </div>
       </div>
+      <br />
       <comments :target="'/catalogo-de-especies/' + specie.slug" />
-      <pre>{{ specie }}</pre>
     </b-container>
   </div>
 </template>

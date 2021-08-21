@@ -49,6 +49,16 @@
           no-item="Todas as alturas"
           @input="applyFilters"
         />
+
+        <b-input-group class="mt-3">
+          <b-input v-model="filters.search" placeholder="Buscar" />
+          <template #append>
+            <b-input-group-text>
+              <b-icon-search />
+            </b-input-group-text>
+          </template>
+          <b-input-group-append> </b-input-group-append>
+        </b-input-group>
       </div>
       <div class="text-center mb-3">
         <small v-if="species.length > 1">
@@ -89,6 +99,8 @@
   </div>
 </template>
 <script>
+import slugify from 'slugify'
+import especies from '@/data/especies'
 export default {
   data() {
     return {
@@ -111,15 +123,24 @@ export default {
     species() {
       let species = this.$store.state.species
       species = species.filter((specie) => {
-        return (
+        const isValid =
           this.includes(specie.categories, 'category') &&
           this.includes(specie.luminosity, 'luminosity') &&
           this.includes(specie.cycle, 'cycle') &&
           this.includes(specie.climate, 'climate') &&
           this.includes(specie.origin, 'origin') &&
           this.includes(specie.height, 'height')
-        )
+
+        if (this.filters.search) {
+          const search = slugify(this.filters.search).toLowerCase()
+          const text = slugify(
+            specie.name + specie.scientific_name + specie.popular_names.join('')
+          ).toLowerCase()
+          return text.includes(search)
+        }
+        return isValid
       })
+
       return species
     },
   },

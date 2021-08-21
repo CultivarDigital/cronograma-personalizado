@@ -1,12 +1,15 @@
 <template>
   <div class="mb-2 d-inline-block">
-    <b-dropdown v-if="options && options.length" variant="primary">
+    <b-dropdown
+      v-if="options && options.length"
+      :variant="value ? 'primary' : 'dark'"
+    >
       <template #button-content>
         <span v-if="value">
           <small>{{ label }}:</small> <strong>{{ value }}</strong>
         </span>
         <span v-else>
-          {{ noItem }}
+          {{ label }}
         </span>
       </template>
       <b-dropdown-item :active="!value" @click="$emit('input', null)">

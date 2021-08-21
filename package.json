@@ -47,6 +47,7 @@
     "express": "^4.17.1",
     "express-jwt": "^6.0.0",
     "express-session": "^1.17.1",
+    "fuse.js": "^6.4.6",
     "js-cookie": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
     "lune": "^0.4.0",

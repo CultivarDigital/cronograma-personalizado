@@ -23,7 +23,7 @@
           <i class="far fa-star" />
           Melhore sua experiência
         </b-button> -->
-        <!-- <Region /> -->
+        <Region />
       </b-nav-item>
     </b-navbar-nav>
   </b-navbar>
