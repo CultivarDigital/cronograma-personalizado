@@ -16,6 +16,15 @@ router.get('/', admin, (req, res) => {
   })
 })
 
+router.get('/available/:username', (req, res) => {
+  const query = {
+    username: req.params.username,
+  }
+  User.findOne(query).then((user) => {
+    return res.send(!user)
+  })
+})
+
 router.get('/:id', (req, res) => {
   const query = {
     $or: [

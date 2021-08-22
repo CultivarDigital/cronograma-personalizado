@@ -4,29 +4,37 @@
       <b-form-group label="Qual seu nome?">
         <validation-provider v-slot="{ errors }" name="nome" rules="required">
           <b-form-input v-model="form.name" />
-          <Error :errors="errors" />
+          <Error :list="errors" />
         </validation-provider>
       </b-form-group>
       <b-form-group label="Vamos criar nome de usuário pra você?">
         <validation-provider
           v-slot="{ errors }"
           name="nome de usuário"
-          rules="required"
+          rules="required|min:4"
         >
           <b-input-group prepend="@">
-            <b-form-input v-model="form.username" />
+            <b-form-input v-model="form.username" @input="validateUsername" />
           </b-input-group>
-          <small v-if="form.username">
+          <small v-if="form.username && usernameIsValid">
             Seu nome de usuário será
             <strong>@{{ form.username }}</strong>
           </small>
-          <Error :errors="errors" />
+          <Error
+            v-if="!usernameIsValid"
+            :errors="['Este nome de usuário já está sendo usado']"
+          />
+          <Error :list="errors" />
         </validation-provider>
       </b-form-group>
       <b-form-group label="Crie uma senha">
-        <validation-provider v-slot="{ errors }" name="senha" rules="required">
+        <validation-provider
+          v-slot="{ errors }"
+          name="senha"
+          rules="required|min:4"
+        >
           <b-form-input v-model="form.password" type="password" />
-          <Error :errors="errors" />
+          <Error :list="errors" />
         </validation-provider>
       </b-form-group>
       <b-form-group label="Confirme sua senha">
@@ -36,13 +44,13 @@
           rules="required"
         >
           <b-form-input v-model="form.password_confirmation" type="password" />
-          <Error :errors="errors" />
+          <Error :list="errors" />
         </validation-provider>
       </b-form-group>
       <button
         type="submit"
         class="btn btn-primary btn-lg btn-block"
-        :disabled="invalid"
+        :disabled="invalid || !usernameIsValid"
       >
         CADASTRAR
       </button>
@@ -60,6 +68,7 @@ export default {
   },
   data() {
     return {
+      usernameIsValid: true,
       form: {
         name: '',
         username: '',
@@ -90,6 +99,14 @@ export default {
         }
       } else {
         this.notify('As duas senhas devem ser iguais', 'error')
+      }
+    },
+    async validateUsername() {
+      this.usernameIsValid = true
+      if (this.form.username && this.form.username.length > 3) {
+        this.usernameIsValid = await this.$axios
+          .$get('/api/users/available/' + this.form.username, this.form)
+          .catch(this.showError)
       }
     },
   },

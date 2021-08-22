@@ -9,7 +9,12 @@
           <b-form-group label="Digite seu nome de usuário, e-mail ou telefone">
             <b-form-input v-model="login" />
           </b-form-group>
-          <b-btn block variant="primary" type="submit"> Recuperar senha </b-btn>
+          <b-btn block variant="primary" type="submit" size="lg">
+            Recuperar senha
+          </b-btn>
+          <b-btn block variant="secondary" @click="$emit('cancel')">
+            Cancelar
+          </b-btn>
         </form>
       </div>
       <div v-else>

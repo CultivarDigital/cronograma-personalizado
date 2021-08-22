@@ -4,9 +4,12 @@
       <div class="pb-4">
         <div v-if="$auth.loggedIn">Você já está logado!</div>
         <div v-else>
-          <ForgotPassword v-if="forgot_password" />
-          <Register v-else-if="register" @registered="register = false" />
-          <Login v-else @forgotPassword="forgot_password = true" />
+          <ForgotPassword
+            v-if="tab == 'forgot_password'"
+            @cancel="tab = null"
+          />
+          <Register v-else-if="tab == 'register'" @registered="tab = null" />
+          <Login v-else @forgotPassword="tab = 'forgot_password'" />
         </div>
       </div>
     </b-modal>
@@ -20,14 +23,15 @@ export default {
   components: { Login, ForgotPassword, Register },
   data() {
     return {
-      forgot_password: false,
-      register: true,
+      tab: null,
     }
   },
   computed: {
     title() {
-      if (this.forgot_password) {
+      if (this.tab === 'forgot_password') {
         return 'Esqueci minha senha'
+      } else if (this.tab === 'register') {
+        return 'Informe seus dados para cadastrar'
       } else {
         return 'Faça o login para continuar'
       }

@@ -1,19 +1,44 @@
 <template>
-  <form @submit.prevent="login">
-    <b-form-group label="Digite seu nome de usuário, e-mail ou telefone">
-      <b-form-input v-model="form.login" />
-    </b-form-group>
-    <b-form-group label="Digite sua senha">
-      <b-form-input v-model="form.password" type="password" />
-    </b-form-group>
-    <b-button @click="$emit('forgotPassword')">Esqueci minha senha</b-button>
-    <button type="submit" class="btn btn-primary btn-lg btn-block">
-      ENTRAR
-    </button>
-  </form>
+  <ValidationObserver v-slot="{ validate, invalid }">
+    <form @submit.prevent="validate().then(login)">
+      <b-form-group label="Digite seu nome de usuário, e-mail ou telefone">
+        <validation-provider
+          v-slot="{ errors }"
+          name="nome de usuário, e-mail ou telefone"
+          rules="required"
+        >
+          <b-form-input v-model="form.login" />
+          <Error :list="errors" />
+        </validation-provider>
+      </b-form-group>
+      <b-form-group label="Digite sua senha">
+        <validation-provider v-slot="{ errors }" name="senha" rules="required">
+          <b-form-input v-model="form.password" type="password" />
+          <Error :list="errors" />
+        </validation-provider>
+      </b-form-group>
+      <b-button class="mb-2" @click="$emit('forgotPassword')"
+        >Esqueci minha senha</b-button
+      >
+      <button
+        type="submit"
+        class="btn btn-primary btn-lg btn-block"
+        :disabled="invalid"
+      >
+        ENTRAR
+      </button>
+    </form>
+  </ValidationObserver>
 </template>
 <script>
+import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import Error from './Error.vue'
 export default {
+  components: {
+    ValidationObserver,
+    ValidationProvider,
+    Error,
+  },
   data() {
     return {
       form: {

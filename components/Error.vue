@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
-  <div v-if="errors && errors.length">
-    <span v-for="error in errors" :key="error" class="text-danger">
+  <div v-if="list && list.length">
+    <span v-for="error in list" :key="error" class="text-danger">
       {{ error }}
     </span>
   </div>
@@ -9,7 +9,7 @@
 <script>
 export default {
   props: {
-    errors: {
+    list: {
       type: Array,
       default: () => null,
     },
