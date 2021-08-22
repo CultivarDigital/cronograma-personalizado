@@ -81,6 +81,12 @@ export default {
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
     '@nuxtjs/auth-next',
+    [
+      'nuxt-validate',
+      {
+        lang: 'pt_BR',
+      },
+    ],
   ],
 
   bootstrapVue: {

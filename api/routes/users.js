@@ -1,20 +1,20 @@
 const mongoose = require('mongoose')
 const router = require('express').Router()
-const { authenticated } = require('../config/auth')
+const { authenticated, admin } = require('../config/auth')
 const mailer = require('../mailer')
 const User = mongoose.model('User')
 
-// router.get('/', auth.admin, (req, res) => {
-//   const query = {}
+router.get('/', admin, (req, res) => {
+  const query = {}
 
-//   User.find(query).exec((err, users) => {
-//     if (err) {
-//       res.status(422).send(err.response.data)
-//     } else {
-//       res.json(users.map((user) => user.data()))
-//     }
-//   })
-// })
+  User.find(query).exec((err, users) => {
+    if (err) {
+      res.status(422).send(err.response.data)
+    } else {
+      res.json(users.map((user) => user.data()))
+    }
+  })
+})
 
 router.get('/:id', (req, res) => {
   const query = {
@@ -32,6 +32,24 @@ router.get('/:id', (req, res) => {
       return res.status(422).send('Usuário não encontrado')
     }
   })
+})
+
+router.post('/register', (req, res, next) => {
+  const user = new User()
+
+  user.name = req.body.name
+  user.username = req.body.username
+
+  user.role = 'member'
+
+  user.setPassword(req.body.password)
+
+  user
+    .save()
+    .then(function () {
+      return res.send(user.data())
+    })
+    .catch(next)
 })
 
 router.put('/profile', authenticated, (req, res, next) => {
@@ -57,42 +75,13 @@ router.put('/profile', authenticated, (req, res, next) => {
   })
 })
 
-router.get('/:id/find_or_create', (req, res) => {
+router.get('/password_recovery/:login', (req, res) => {
   const query = {
     $or: [
-      { username: req.params.id },
-      { email: req.params.id },
-      { phone: req.params.id },
+      { username: req.params.login },
+      { email: req.params.login },
+      { phone: req.params.login },
     ],
-  }
-  User.findOne(query).then(async (user) => {
-    if (user) {
-      return res.send(user.data())
-    } else {
-      user = new User({ status: 'pending_password', role: 'member' })
-      const userName = req.params.id
-      if (userName.includes('@')) {
-        user.email = userName
-      } else if (!isNaN(formatPhone(userName))) {
-        user.phone = formatPhone(userName)
-      } else {
-        user.username = userName
-      }
-      if (user.email && !user.username) {
-        user.username = user.email.split('@')[0]
-      }
-
-      user.code = generateCode(user)
-      await user.save()
-
-      res.send({ user })
-    }
-  })
-})
-
-router.get('/password_recovery/:id', (req, res) => {
-  const query = {
-    _id: req.params.id,
   }
   User.findOne(query).exec(async (err, user) => {
     if (!err && user) {
@@ -109,6 +98,13 @@ router.get('/password_recovery/:id', (req, res) => {
         )
         if (mailInfo && mailInfo.accepted && mailInfo.accepted.length)
           resp = { email: user.email }
+      } else {
+        res
+          .status(422)
+          .send(
+            'Este usuário não possúi email cadastrado para recuperar a senha. Entre em contato pelo email: ' +
+              process.env.SMTP_USER
+          )
       }
       res.send(resp)
     } else {
@@ -117,12 +113,15 @@ router.get('/password_recovery/:id', (req, res) => {
   })
 })
 
-router.post('/validate_recovery/:id', (req, res) => {
+router.post('/validate_recovery/:login', (req, res) => {
   const query = {
-    _id: req.params.id,
+    $or: [
+      { username: req.params.login },
+      { email: req.params.login },
+      { phone: req.params.login },
+    ],
   }
   User.findOne(query).exec((err, user) => {
-    console.log(req.body.code)
     if (!err && user && req.body.code) {
       res.send(user.validRecoveryCode(req.body.code.toUpperCase()))
     } else {
@@ -156,14 +155,4 @@ const generateCode = (user) => {
     return code.substring(0, 2).toUpperCase()
   }
 }
-
-const formatPhone = (phone) => {
-  return phone
-    .replace('(', '')
-    .replace(')', '')
-    .replace('-', '')
-    .replace('.', '')
-    .replace(' ', '')
-}
-
 module.exports = router

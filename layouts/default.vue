@@ -20,7 +20,7 @@
         </b-col>
       </b-row>
     </div>
-    <Login />
+    <Portal />
     <client-only>
       <notifications />
     </client-only>
@@ -42,6 +42,7 @@ export default {
     }
   },
   async created() {
+    this.$bvModal.show('portal-modal')
     if (this.$route.query.regiao) {
       this.$store.commit('setRegion', this.$route.query.regiao)
     }

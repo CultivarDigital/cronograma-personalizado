@@ -59,7 +59,7 @@
 export default {
   methods: {
     editProfile() {
-      this.$bvModal.show('login-modal')
+      this.$bvModal.show('portal-modal')
     },
   },
 }

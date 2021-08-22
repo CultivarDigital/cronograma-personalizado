@@ -4,62 +4,67 @@
       <b-spinner></b-spinner>
     </div>
     <div v-else>
-      <div v-if="recovery_response.email">
-        <p>
-          Enviamos um código de recuperação para o email:
-          <strong>{{ recovery_response.email }}</strong>
-        </p>
-        <div v-if="validate_recovery_response === null">
-          <p>Insira esse código abaixo para continar</p>
-          <b-form-input
-            v-model="recovery_code"
-            @keyup.prevent.enter="validateRecoveryCode"
-          />
-          <b-btn
-            v-if="recovery_code"
-            class="mt-2"
-            variant="primary"
-            @click="validateRecoveryCode"
-            >Validar código</b-btn
-          >
-        </div>
-        <div v-if="validate_recovery_response">
-          <p>
-            Validamos seu código de recuperação com sucesso! Agora é hora de
-            criar sua nova senha:
-          </p>
-          <b-form-group label="Digite sua nova senha">
-            <b-form-input v-model="password" type="password" />
+      <div v-if="!recovery_response">
+        <form @submit.prevent="recovery">
+          <b-form-group label="Digite seu nome de usuário, e-mail ou telefone">
+            <b-form-input v-model="login" />
           </b-form-group>
-          <b-form-group label="Confirme sua nova senha">
-            <b-form-input v-model="password_confirmation" type="password" />
-          </b-form-group>
-          <button class="btn btn-primary btn-lg btn-block">SALVAR SENHA</button>
-        </div>
-        <div v-if="validate_recovery_response === false">
-          <div class="alert alert-danger">Código inválido</div>
-        </div>
+          <b-btn block variant="primary" type="submit"> Recuperar senha </b-btn>
+        </form>
       </div>
-      <div v-else-if="user.has_phone"></div>
       <div v-else>
-        Enviamos um código de 4 digitos para o email:
-        <strong>{{ user.email }}</strong>
+        <div v-if="recovery_response.email">
+          <p>
+            Enviamos um código de recuperação para o email:
+            <strong>{{ recovery_response.email }}</strong>
+          </p>
+          <div v-if="validate_recovery_response === null">
+            <p>Insira esse código abaixo para continar</p>
+            <b-form-input
+              v-model="recovery_code"
+              @keyup.prevent.enter="validateRecoveryCode"
+            />
+            <b-btn
+              v-if="recovery_code"
+              class="mt-2"
+              variant="primary"
+              @click="validateRecoveryCode"
+              >Validar código</b-btn
+            >
+          </div>
+          <div v-if="validate_recovery_response">
+            <p>
+              Validamos seu código de recuperação com sucesso! Agora é hora de
+              criar sua nova senha:
+            </p>
+            <b-form-group label="Digite sua nova senha">
+              <b-form-input v-model="password" type="password" />
+            </b-form-group>
+            <b-form-group label="Confirme sua nova senha">
+              <b-form-input v-model="password_confirmation" type="password" />
+            </b-form-group>
+            <button class="btn btn-primary btn-lg btn-block">
+              SALVAR SENHA
+            </button>
+          </div>
+          <div v-if="validate_recovery_response === false">
+            <div class="alert alert-danger">Código inválido</div>
+          </div>
+        </div>
+        <div v-else-if="user.has_phone"></div>
+        <div v-else>
+          Enviamos um código de 4 digitos para o email:
+          <strong>{{ user.email }}</strong>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
 export default {
-  props: {
-    user: {
-      type: Object,
-      default: null,
-      required: true,
-    },
-  },
   data() {
     return {
-      show: false,
+      login: 'diegomr86@gmail.com',
       recovery_response: null,
       validate_recovery_response: null,
       recovery_code: null,
@@ -69,14 +74,14 @@ export default {
     }
   },
   created() {
-    this.recovery()
+    // this.recovery()
   },
   methods: {
     async recovery() {
       this.loading = true
       this.recovery_code = null
       this.recovery_response = await this.$axios
-        .$get('/api/users/password_recovery/' + this.user.id)
+        .$get('/api/users/password_recovery/' + this.login)
         .catch(this.showError)
       this.loading = false
       this.$emit('click')
@@ -84,7 +89,7 @@ export default {
     async validateRecoveryCode() {
       this.validate_recovery_response = null
       this.validate_recovery_response = await this.$axios
-        .$post('/api/users/validate_recovery/' + this.user.id, {
+        .$post('/api/users/validate_recovery/' + this.login, {
           code: this.recovery_code,
         })
         .catch(this.showError)

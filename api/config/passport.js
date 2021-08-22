@@ -8,19 +8,16 @@ const User = mongoose.model('User')
 passport.use(
   new LocalStrategy(
     {
-      usernameField: 'email',
+      usernameField: 'login',
       passwordField: 'password',
     },
-    function (email, password, done) {
+    function (login, password, done) {
       const query = {
-        $or: [{ email }, { username: email }, { phone: email }],
+        $or: [{ login }, { username: login }, { phone: login }],
       }
       User.findOne(query)
         .then(function (user) {
-          if (
-            user &&
-            (user.status === 'pending_password' || user.validPassword(password))
-          ) {
+          if (user && user.validPassword(password)) {
             return done(null, user)
           } else {
             return done(null, false, 'Usuário ou senha inválidos')

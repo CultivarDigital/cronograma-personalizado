@@ -15,7 +15,7 @@ router.get('/user', authenticated, (req, res) => {
 })
 
 router.post('/login', (req, res) => {
-  if (!req.body.email) {
+  if (!req.body.login) {
     return res.status(422).json('Nome de usuário, e-mail ou telefone inválidos')
   }
   try {
@@ -25,7 +25,6 @@ router.post('/login', (req, res) => {
         session: true,
       },
       (err, user, info) => {
-        console.log(err)
         if (err) {
           return res.status(500).json(err)
         }

@@ -100,7 +100,6 @@
 </template>
 <script>
 import slugify from 'slugify'
-import especies from '@/data/especies'
 export default {
   data() {
     return {
