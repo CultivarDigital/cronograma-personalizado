@@ -7,10 +7,14 @@ mongoose.set('useCreateIndex', true)
 
 const UserSchema = new mongoose.Schema(
   {
+    role: {
+      type: String,
+      default: 'member',
+    },
     email: {
       type: String,
       required() {
-        return !this.phone && !this.username
+        return !this.username
       },
       index: {
         unique: true,
@@ -19,21 +23,10 @@ const UserSchema = new mongoose.Schema(
       lowercase: true,
       match: [/\S+@\S+\.\S+/, 'inválido'],
     },
-    phone: {
-      type: String,
-      required() {
-        return !this.email && !this.username
-      },
-      index: {
-        unique: true,
-        partialFilterExpression: { phone: { $type: 'string' } },
-      },
-      lowercase: true,
-    },
     username: {
       type: String,
       required() {
-        return !this.email && !this.phone
+        return !this.email
       },
       index: {
         unique: true,
@@ -42,18 +35,11 @@ const UserSchema = new mongoose.Schema(
       lowercase: true,
     },
     name: String,
-    code: String,
-    picture: Object,
+    avatar: Object,
     region: String,
-    role: {
-      type: String,
-      default: 'member',
-    },
-    status: {
-      type: String,
-      default: 'pending_password',
-      required: true,
-    },
+    phone: String,
+    code: String,
+    bio: String,
     hash: String,
     salt: String,
     recovery_hash: String,
@@ -106,9 +92,9 @@ UserSchema.methods.data = function () {
     username: this.username,
     name: this.name,
     code: this.code,
-    picture: this.picture,
+    avatar: this.avatar,
     region: this.region,
-    status: this.status,
+    bio: this.bio,
     role: this.role,
   }
 }

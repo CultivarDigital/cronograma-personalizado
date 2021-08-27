@@ -26,7 +26,7 @@
                 >
                   <b-media class="pb-4">
                     <template #aside>
-                      <User :user="user" />
+                      <User :user="user" thumb />
                     </template>
                     <h5 class="mb-0">
                       {{ userLabel(user) }}
@@ -53,13 +53,7 @@
                   </button>
                 </form>
                 <form v-else @submit.prevent="updateProfile">
-                  <div class="text-center mb-3">
-                    <pictures-upload
-                      v-model="form.picture"
-                      label="Sua foto"
-                      type="avatar"
-                    />
-                  </div>
+                  <div class="text-center mb-3"></div>
                   <b-form-group label="Nome completo">
                     <b-form-input v-model="form.name" />
                   </b-form-group>
@@ -89,7 +83,7 @@
                 <form @submit.prevent="login">
                   <b-media class="pb-4">
                     <template #aside>
-                      <User :user="user" />
+                      <User :user="user" thumb />
                     </template>
                     <h5 class="mb-0">
                       {{ userLabel(user) }}
@@ -139,7 +133,7 @@ export default {
         username: '',
         phone: '',
         name: '',
-        picture: {},
+        avatar: {},
       },
     }
   },

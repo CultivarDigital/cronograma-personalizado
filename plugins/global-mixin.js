@@ -13,7 +13,9 @@ if (!Vue.__my_mixin__) {
         }
       },
       currentRegion() {
-        return this.$store.state.region
+        return this.$auth.user && this.$auth.user.region
+          ? this.$auth.user.region
+          : this.$store.state.region
       },
       baseURL() {
         return this.$axios.defaults.baseURL || process.env.BASE_URL
@@ -27,9 +29,7 @@ if (!Vue.__my_mixin__) {
         return await this.$localForage.setItem(key, value)
       },
       userLabel(user) {
-        return user
-          ? user.name || user.username || user.email || user.phone
-          : ''
+        return user ? user.name || user.username || user.email : ''
       },
       notify(msg, type) {
         this.$notify({

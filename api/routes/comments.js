@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
   }
   Comment.find(query)
     .populate('answers')
-    .populate('user', 'username name code picture')
+    .populate('user', 'username name code avatar')
     .exec((err, comments) => {
       if (err) {
         res.status(422).send(err.message)

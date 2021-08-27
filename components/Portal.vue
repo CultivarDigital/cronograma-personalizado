@@ -1,15 +1,25 @@
 <template>
   <div>
-    <b-modal id="portal-modal" :title="title" hide-footer>
-      <div class="pb-4">
-        <div v-if="$auth.loggedIn">Você já está logado!</div>
+    <b-modal id="portal-modal" :title="title" size="lg" hide-footer>
+      <div>
+        <div v-if="$auth.loggedIn">
+          <Profile />
+        </div>
         <div v-else>
           <ForgotPassword
             v-if="tab == 'forgot_password'"
             @cancel="tab = null"
           />
-          <Register v-else-if="tab == 'register'" @registered="tab = null" />
-          <Login v-else @forgotPassword="tab = 'forgot_password'" />
+          <Register
+            v-else-if="tab == 'register'"
+            @registered="tab = null"
+            @login="tab = null"
+          />
+          <Login
+            v-else
+            @forgotPassword="tab = 'forgot_password'"
+            @register="tab = 'register'"
+          />
         </div>
       </div>
     </b-modal>
@@ -19,8 +29,9 @@
 import ForgotPassword from './ForgotPassword.vue'
 import Login from './Login.vue'
 import Register from './Register.vue'
+import Profile from './Profile.vue'
 export default {
-  components: { Login, ForgotPassword, Register },
+  components: { Login, ForgotPassword, Register, Profile },
   data() {
     return {
       tab: null,
@@ -28,7 +39,13 @@ export default {
   },
   computed: {
     title() {
-      if (this.tab === 'forgot_password') {
+      if (this.$auth.loggedIn) {
+        if (this.$auth.user.email) {
+          return 'Editar perfil'
+        } else {
+          return 'Complete seu cadastro'
+        }
+      } else if (this.tab === 'forgot_password') {
         return 'Esqueci minha senha'
       } else if (this.tab === 'register') {
         return 'Informe seus dados para cadastrar'

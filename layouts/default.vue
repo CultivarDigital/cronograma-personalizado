@@ -62,7 +62,6 @@ export default {
         specie_origin: this.getFilters(species, 'origin'),
         specie_height: this.getFilters(species, 'height'),
       }
-      console.log(filters)
       this.$store.commit('setFilters', filters)
     }
     this.loading = false

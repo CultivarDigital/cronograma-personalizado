@@ -33,6 +33,7 @@ export default {
     { src: '~/plugins/persisted-state', ssr: false },
     { src: '~/plugins/vue-notification', ssr: false },
     { src: '~/plugins/vue-infinite-loading', ssr: false },
+    { src: '~/plugins/vue-the-mask', ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

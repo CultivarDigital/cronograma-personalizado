@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const router = require('express').Router()
-const { authenticated, admin } = require('../config/auth')
+const { authenticated, admin, optional } = require('../config/auth')
 const mailer = require('../mailer')
 const User = mongoose.model('User')
 
@@ -16,9 +16,17 @@ router.get('/', admin, (req, res) => {
   })
 })
 
-router.get('/available/:username', (req, res) => {
+router.get('/available/:username', optional, (req, res) => {
+  console.log(req.user)
+  if (
+    req.user &&
+    (req.user.username === req.params.username ||
+      req.user.email === req.params.username)
+  ) {
+    return res.send(true)
+  }
   const query = {
-    username: req.params.username,
+    $or: [{ email: req.params.username }, { username: req.params.username }],
   }
   User.findOne(query).then((user) => {
     return res.send(!user)
@@ -30,7 +38,6 @@ router.get('/:id', (req, res) => {
     $or: [
       { id: req.params.id },
       { email: req.params.id },
-      { phone: req.params.id },
       { username: req.params.id },
     ],
   }
@@ -48,6 +55,7 @@ router.post('/register', (req, res, next) => {
 
   user.name = req.body.name
   user.username = req.body.username
+  user.code = generateCode(user)
 
   user.role = 'member'
 
@@ -67,8 +75,9 @@ router.put('/profile', authenticated, (req, res, next) => {
     user.phone = req.body.phone
     user.username = req.body.username
     user.name = req.body.name
-    user.picture = req.body.picture
-    user.status = 'registered'
+    user.avatar = req.body.avatar
+    user.region = req.body.region
+    user.bio = req.body.bio
     user.code = generateCode(user)
 
     if (req.body.password) {
@@ -86,11 +95,7 @@ router.put('/profile', authenticated, (req, res, next) => {
 
 router.get('/password_recovery/:login', (req, res) => {
   const query = {
-    $or: [
-      { username: req.params.login },
-      { email: req.params.login },
-      { phone: req.params.login },
-    ],
+    $or: [{ username: req.params.login }, { email: req.params.login }],
   }
   User.findOne(query).exec(async (err, user) => {
     if (!err && user) {
@@ -124,11 +129,7 @@ router.get('/password_recovery/:login', (req, res) => {
 
 router.post('/validate_recovery/:login', (req, res) => {
   const query = {
-    $or: [
-      { username: req.params.login },
-      { email: req.params.login },
-      { phone: req.params.login },
-    ],
+    $or: [{ username: req.params.login }, { email: req.params.login }],
   }
   User.findOne(query).exec((err, user) => {
     if (!err && user && req.body.code) {
@@ -139,18 +140,22 @@ router.post('/validate_recovery/:login', (req, res) => {
   })
 })
 
-router.post('/set_password', authenticated, (req, res) => {
+router.post('/set_password', (req, res) => {
   if (!req.body.password) {
     return res.status(422).json('Senha inválida')
   }
 
-  User.findById(req.user.id).exec((err, user) => {
-    if (!err && user) {
-      if (user.status === 'pending_password') {
+  const query = {
+    $or: [{ username: req.body.login }, { email: req.body.login }],
+  }
+  User.findOne(query).exec((err, user) => {
+    if (!err && user && req.body.recovery_code) {
+      if (user.validRecoveryCode(req.body.recovery_code.toUpperCase())) {
         user.setPassword(req.body.password)
-        user.status = 'pending_profile'
         user.save()
         res.send(user.data())
+      } else {
+        res.status(422).send('Código inválido')
       }
     } else {
       res.status(422).send('Usuário não encontrado')

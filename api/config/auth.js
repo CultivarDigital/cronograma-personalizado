@@ -42,6 +42,13 @@ const jwtOptions = jwt({
 })
 
 const auth = {
+  optional: jwt({
+    secret,
+    userProperty: 'user',
+    algorithms: ['HS256'],
+    credentialsRequired: false,
+    getToken: getTokenFromHeader,
+  }),
   admin: [jwtOptions, authenticatedAdmin],
   authenticated: jwtOptions,
   isAdmin,

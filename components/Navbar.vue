@@ -16,6 +16,12 @@
         :text="userLabel(currentUser)"
         right
       >
+        <template #button-content>
+          <User thumb /> {{ userLabel(currentUser) }}
+        </template>
+        <b-dropdown-item @click="$bvModal.show('portal-modal')">
+          Meus dados
+        </b-dropdown-item>
         <b-dropdown-item @click="$auth.logout()">Sair</b-dropdown-item>
       </b-nav-item-dropdown>
       <b-nav-item v-else right>

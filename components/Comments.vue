@@ -1,11 +1,16 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <div class="pt-3 pb-3">
+    <hr class="mt-0 mb-3" />
     <b-media v-for="comment in comments" :key="comment.id" class="pt-2">
       <template #aside>
-        <User :user="comment.user" />
+        <User :user="comment.user" thumb />
       </template>
-      <p>
+      <div>
+        <small
+          ><strong>{{ comment.user.name }}</strong></small
+        >
+        <br />
         {{ comment.message }}
         <a
           v-if="$auth.loggedIn && comment.user.id === $auth.user.id"
@@ -13,7 +18,7 @@
         >
           <small class="text-muted ml-1"><i class="fas fa-trash"></i></small>
         </a>
-      </p>
+      </div>
     </b-media>
     <CommentForm :target="target" @change="commentSaved" />
   </div>

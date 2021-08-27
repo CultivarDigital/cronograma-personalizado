@@ -13,7 +13,7 @@ passport.use(
     },
     function (login, password, done) {
       const query = {
-        $or: [{ login }, { username: login }, { phone: login }],
+        $or: [{ email: login }, { username: login }],
       }
       User.findOne(query)
         .then(function (user) {

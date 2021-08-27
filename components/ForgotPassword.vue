@@ -33,30 +33,37 @@
               v-if="recovery_code"
               class="mt-2"
               variant="primary"
+              block
+              size="lg"
               @click="validateRecoveryCode"
-              >Validar código</b-btn
             >
+              Validar código
+            </b-btn>
           </div>
           <div v-if="validate_recovery_response">
-            <p>
+            <div class="alert alert-success m-3">
               Validamos seu código de recuperação com sucesso! Agora é hora de
               criar sua nova senha:
-            </p>
-            <b-form-group label="Digite sua nova senha">
-              <b-form-input v-model="password" type="password" />
-            </b-form-group>
-            <b-form-group label="Confirme sua nova senha">
-              <b-form-input v-model="password_confirmation" type="password" />
-            </b-form-group>
-            <button class="btn btn-primary btn-lg btn-block">
-              SALVAR SENHA
-            </button>
+            </div>
+            <form @submit.prevent="setPassword">
+              <b-form-group label="Digite sua nova senha">
+                <b-form-input v-model="password" type="password" />
+              </b-form-group>
+              <b-form-group label="Confirme sua nova senha">
+                <b-form-input v-model="password_confirmation" type="password" />
+              </b-form-group>
+              <button type="submit" class="btn btn-primary btn-lg btn-block">
+                SALVAR SENHA
+              </button>
+            </form>
           </div>
           <div v-if="validate_recovery_response === false">
             <div class="alert alert-danger">Código inválido</div>
+            <b-btn variant="primary" block size="lg" @click="recovery">
+              Reenviar código
+            </b-btn>
           </div>
         </div>
-        <div v-else-if="user.has_phone"></div>
         <div v-else>
           Enviamos um código de 4 digitos para o email:
           <strong>{{ user.email }}</strong>
@@ -85,6 +92,7 @@ export default {
     async recovery() {
       this.loading = true
       this.recovery_code = null
+      this.validate_recovery_response = null
       this.recovery_response = await this.$axios
         .$get('/api/users/password_recovery/' + this.login)
         .catch(this.showError)
@@ -101,16 +109,25 @@ export default {
     },
     async setPassword() {
       if (this.password && this.password === this.password_confirmation) {
-        await this.$axios
-          .$post('/api/users/set_password', {
-            password: this.password,
-            password_confirmation: this.password_confirmation,
-            recovery_code: this.recovery_code,
-          })
+        const formData = {
+          login: this.login,
+          password: this.password,
+          password_confirmation: this.password_confirmation,
+          recovery_code: this.recovery_code,
+        }
+        const user = await this.$axios
+          .$post('/api/users/set_password', formData)
           .catch(this.showError)
-        if (this.user) {
-          this.$auth.setUser(this.user)
-          this.notify('Sua senha foi salva com sucesso')
+        if (user) {
+          await this.$auth
+            .loginWith('local', {
+              data: formData,
+            })
+            .catch(this.showError)
+          if (this.$auth.loggedIn) {
+            this.$bvModal.hide('portal-modal')
+            this.$notify('Sua senha foi alterada com sucesso! Seja bem vindo')
+          }
         }
       } else {
         this.notify('As duas senhas devem ser iguais', 'error')

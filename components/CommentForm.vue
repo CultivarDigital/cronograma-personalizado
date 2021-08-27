@@ -3,7 +3,7 @@
   <div>
     <b-media class="pt-2" no-body>
       <b-media-aside>
-        <User />
+        <User thumb />
       </b-media-aside>
       <b-media-body>
         <b-form-textarea

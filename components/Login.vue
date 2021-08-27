@@ -1,5 +1,12 @@
 <template>
   <ValidationObserver v-slot="{ validate, invalid }">
+    <p class="text-center">
+      Ainda não possúi uma conta?
+      <b-button variant="secondary" size="sm" @click="$emit('register')">
+        CADASTRE-SE
+      </b-button>
+    </p>
+    <hr />
     <form @submit.prevent="validate().then(login)">
       <b-form-group label="Digite seu nome de usuário, e-mail ou telefone">
         <validation-provider
@@ -11,15 +18,17 @@
           <Error :list="errors" />
         </validation-provider>
       </b-form-group>
-      <b-form-group label="Digite sua senha">
+      <b-form-group label="Digite sua senha" class="mb-0">
         <validation-provider v-slot="{ errors }" name="senha" rules="required">
           <b-form-input v-model="form.password" type="password" />
           <Error :list="errors" />
         </validation-provider>
       </b-form-group>
-      <b-button class="mb-2" @click="$emit('forgotPassword')"
-        >Esqueci minha senha</b-button
-      >
+      <div class="text-right mb-3">
+        <b-btn variant="link" class="btn-link" @click="$emit('forgotPassword')">
+          Esqueci minha senha
+        </b-btn>
+      </div>
       <button
         type="submit"
         class="btn btn-primary btn-lg btn-block"

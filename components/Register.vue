@@ -1,5 +1,11 @@
 <template>
   <ValidationObserver v-slot="{ validate, invalid }">
+    <p class="text-center">
+      Já possúi uma conta?
+      <b-button variant="secondary" size="sm" @click="$emit('login')">
+        ENTRE
+      </b-button>
+    </p>
     <form @submit.prevent="validate().then(register)">
       <b-form-group label="Qual seu nome?">
         <validation-provider v-slot="{ errors }" name="nome" rules="required">
@@ -22,7 +28,7 @@
           </small>
           <Error
             v-if="!usernameIsValid"
-            :errors="['Este nome de usuário já está sendo usado']"
+            :list="['Este nome de usuário já está sendo usado']"
           />
           <Error :list="errors" />
         </validation-provider>

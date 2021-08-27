@@ -22,16 +22,6 @@
         <b-nav-item to="/guia-de-compostagem"> Guia de compostagem </b-nav-item>
       </b-nav>
     </b-list-group-item>
-    <b-list-group-item class="d-md-none">
-      <i class="far fa-star" /> Melhore sua experiência
-    </b-list-group-item>
-    <b-list-group-item class="submenu d-md-none">
-      <b-nav vertical>
-        <b-nav-item>
-          <Region variant="secondary" :show-icon="false" />
-        </b-nav-item>
-      </b-nav>
-    </b-list-group-item>
     <b-list-group-item>
       <i class="fas fa-info-circle" /> Plataforma
     </b-list-group-item>
