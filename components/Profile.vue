@@ -120,10 +120,13 @@ export default {
         phone: '',
         region: null,
         bio: '',
-        password: '',
-        password_confirmation: '',
       },
     }
+  },
+  computed: {
+    currentUser() {
+      return this.$store.state.user
+    },
   },
   created() {
     Object.keys(this.form).forEach((key) => {

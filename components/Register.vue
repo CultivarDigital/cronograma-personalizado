@@ -83,22 +83,22 @@ export default {
       },
     }
   },
+  created() {
+    console.log(this.$fire.auth)
+  },
   methods: {
     async register() {
       if (
         this.form.password &&
         this.form.password === this.form.password_confirmation
       ) {
-        this.user = await this.$axios
-          .$post('/api/users/register', this.form)
+        this.user = await this.$fire.auth
+          .createUserWithEmailAndPassword(this.form.login, this.form.password)
           .catch(this.showError)
         if (this.user) {
-          await this.$auth
-            .loginWith('local', {
-              data: { login: this.form.username, password: this.form.password },
-            })
-            .catch(this.showError)
-          if (this.$auth.loggedIn) {
+          console.log(this.user)
+          console.log(this.$store.state.user)
+          if (this.$store.state.user) {
             this.notify('Seja bem vindo ' + this.user.name)
             this.$emit('registered')
           }

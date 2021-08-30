@@ -69,7 +69,14 @@
       </div>
       <a v-else-if="avatar" @click="upload">
         <b-avatar
-          v-if="!is_loading"
+          v-if="!is_loading && preview && typeof preview === 'string'"
+          size="6rem"
+          :src="preview"
+        >
+          <template #badge><b-icon-camera /></template>
+        </b-avatar>
+        <b-avatar
+          v-else-if="!is_loading"
           size="6rem"
           :src="
             preview && preview[0] && preview[0].thumb
@@ -183,6 +190,8 @@ export default {
         return this.value
       } else if (this.value && this.value.url) {
         return [this.value]
+      } else if (this.value && typeof this.value === 'string') {
+        return this.value
       }
       return []
     },

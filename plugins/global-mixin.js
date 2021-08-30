@@ -5,16 +5,15 @@ if (!Vue.__my_mixin__) {
 
   const globalMixin = {
     computed: {
+      isLoggedIn() {
+        return this.currentUser && this.currentUser.id
+      },
       currentUser() {
-        if (this.$auth.user && this.$auth.user.id) {
-          return this.$auth.user
-        } else {
-          return null
-        }
+        return this.$store.state.user
       },
       currentRegion() {
-        return this.$auth.user && this.$auth.user.region
-          ? this.$auth.user.region
+        return this.currentUser && this.currentUser.region
+          ? this.currentUser.region
           : this.$store.state.region
       },
       baseURL() {

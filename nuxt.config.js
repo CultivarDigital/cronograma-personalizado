@@ -88,6 +88,7 @@ export default {
         lang: 'pt_BR',
       },
     ],
+    '@nuxtjs/firebase',
   ],
 
   bootstrapVue: {
@@ -112,6 +113,7 @@ export default {
     },
     workbox: {
       offlineAnalytics: true,
+      // importScripts: ['/firebase-auth-sw.js'],
       runtimeCaching: [
         {
           // You can use a RegExp as the pattern:
@@ -119,6 +121,7 @@ export default {
           handler: 'StaleWhileRevalidate',
         },
       ],
+      dev: process.env.NODE_ENV === 'development',
     },
   },
 
@@ -145,6 +148,15 @@ export default {
           user: { url: '/api/auth/user', method: 'get' },
         },
       },
+      google: {
+        clientId:
+          '773301147332-o1q1vmrq8iamlv3jdmd9duano57qifpm.apps.googleusercontent.com',
+        responseType: 'code',
+        accessType: 'offline',
+        grantType: 'authorization_code',
+        codeChallengeMethod: 'S256',
+        redirectUri: 'http://localhost:3000/login',
+      },
     },
     scopeKey: 'role',
   },
@@ -153,6 +165,24 @@ export default {
   },
   localforage: {
     name: process.env.npm_package_name || 'NuxtJS',
+  },
+  firebase: {
+    config: {
+      apiKey: 'AIzaSyCxmQyvGXINVY0Gud9o481pC39eTaG6ne4',
+      authDomain: 'cultivar-brasil.firebaseapp.com',
+      projectId: 'cultivar-brasil',
+      storageBucket: 'cultivar-brasil.appspot.com',
+      messagingSenderId: '241587356737',
+      appId: '1:241587356737:web:3e35ab3304b0a51f71b2c0',
+      measurementId: 'G-F5H0KHPGQN',
+    },
+    services: {
+      auth: {
+        initialize: {
+          onAuthStateChangedAction: 'onAuthStateChanged',
+        },
+      },
+    },
   },
   proxy: {
     pathRewrite: {

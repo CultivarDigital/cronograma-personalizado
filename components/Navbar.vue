@@ -22,7 +22,13 @@
         <b-dropdown-item @click="$bvModal.show('portal-modal')">
           Meus dados
         </b-dropdown-item>
-        <b-dropdown-item @click="$auth.logout()">Sair</b-dropdown-item>
+        <b-dropdown-item
+          @click="
+            $fire.auth.signOut()
+            $auth.logout()
+          "
+          >Sair</b-dropdown-item
+        >
       </b-nav-item-dropdown>
       <b-nav-item v-else right>
         <b-button variant="primary" @click="$bvModal.show('portal-modal')">

@@ -13,7 +13,11 @@
         <br />
         {{ comment.message }}
         <a
-          v-if="$auth.loggedIn && comment.user.id === $auth.user.id"
+          v-if="
+            $store.state.user &&
+            $store.state.user &&
+            comment.user.id === $store.state.user.id
+          "
           @click="remove(comment)"
         >
           <small class="text-muted ml-1"><i class="fas fa-trash"></i></small>
@@ -35,6 +39,11 @@ export default {
     return {
       comments: null,
     }
+  },
+  computed: {
+    currentUser() {
+      return this.$store.state.user
+    },
   },
   created() {
     this.loadComments()

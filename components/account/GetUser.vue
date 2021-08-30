@@ -21,9 +21,14 @@ export default {
       login: 'diegomr86@gmail.com',
     }
   },
+  computed: {
+    currentUser() {
+      return this.$store.state.user
+    },
+  },
   created() {
-    if (this.$auth.user) {
-      this.$emit('change', this.$auth.user)
+    if (this.currentUser) {
+      this.$emit('change', this.currentUser)
     }
   },
   methods: {

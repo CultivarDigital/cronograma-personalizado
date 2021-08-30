@@ -124,7 +124,7 @@ export default {
               data: formData,
             })
             .catch(this.showError)
-          if (this.$auth.loggedIn) {
+          if (this.$store.state.user) {
             this.$bvModal.hide('portal-modal')
             this.$notify('Sua senha foi alterada com sucesso! Seja bem vindo')
           }

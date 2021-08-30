@@ -7,7 +7,7 @@
       </b-media-aside>
       <b-media-body>
         <b-form-textarea
-          v-if="$auth.loggedIn"
+          v-if="$store.state.user"
           v-model="form.message"
           :placeholder="form.comment ? 'Responder' : 'Deixe seu comentário'"
         />

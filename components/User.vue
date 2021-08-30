@@ -4,7 +4,18 @@
     <!-- <n-link v-if="profile" :to="'/membro/' + profile.id"> -->
     <span v-if="profile">
       <b-avatar
-        v-if="profile.avatar && (profile.avatar.thumb || profile.avatar.url)"
+        v-if="profile.avatar && typeof profile.avatar === 'string'"
+        v-b-tooltip.hover
+        :title="userLabel(profile)"
+        :alt="userLabel(profile)"
+        :src="profile.avatar"
+        class="mr-1"
+        :size="size"
+      />
+      <b-avatar
+        v-else-if="
+          profile.avatar && (profile.avatar.thumb || profile.avatar.url)
+        "
         v-b-tooltip.hover
         :title="userLabel(profile)"
         :alt="userLabel(profile)"

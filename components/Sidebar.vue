@@ -37,7 +37,7 @@
     <b-list-group-item v-if="currentUser" class="submenu">
       <b-nav vertical>
         <b-nav-item @click="editProfile">Editar perfil</b-nav-item>
-        <b-nav-item @click="$auth.logout()">Sair</b-nav-item>
+        <b-nav-item @click="$fire.auth.signOut()">Sair</b-nav-item>
       </b-nav>
     </b-list-group-item>
     <b-list-group-item>

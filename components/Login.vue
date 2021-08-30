@@ -7,6 +7,9 @@
       </b-button>
     </p>
     <hr />
+    <b-button @click="signInWithGoogle">Login com o google</b-button>
+    {{ isLoggedIn }}
+    {{ currentUser }}
     <form @submit.prevent="validate().then(login)">
       <b-form-group label="Digite seu nome de usuário, e-mail ou telefone">
         <validation-provider
@@ -57,13 +60,18 @@ export default {
     }
   },
   methods: {
+    async signInWithGoogle() {
+      const provider = new this.$fireModule.auth.GoogleAuthProvider()
+      // You can add or remove more scopes here provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+      await this.$fire.auth.signInWithPopup(provider)
+    },
     async login() {
       await this.$auth
         .loginWith('local', {
           data: this.form,
         })
         .catch(this.showError)
-      if (this.$auth.loggedIn) {
+      if (this.$store.state.user) {
         this.$bvModal.hide('portal-modal')
         this.$notify('Seja bem vindo ' + this.currentUser.name)
       }

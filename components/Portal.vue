@@ -2,7 +2,7 @@
   <div>
     <b-modal id="portal-modal" :title="title" size="lg" hide-footer>
       <div>
-        <div v-if="$auth.loggedIn">
+        <div v-if="$store.state.user">
           <Profile />
         </div>
         <div v-else>
@@ -38,9 +38,12 @@ export default {
     }
   },
   computed: {
+    currentUser() {
+      return this.$store.state.user
+    },
     title() {
-      if (this.$auth.loggedIn) {
-        if (this.$auth.user.email) {
+      if (this.currentUser) {
+        if (this.currentUser.email) {
           return 'Editar perfil'
         } else {
           return 'Complete seu cadastro'
