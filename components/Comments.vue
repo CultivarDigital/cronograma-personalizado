@@ -14,9 +14,9 @@
         {{ comment.message }}
         <a
           v-if="
-            $store.state.user &&
-            $store.state.user &&
-            comment.user.id === $store.state.user.id
+            $store.state.authUser &&
+            $store.state.authUser &&
+            comment.user.uid === $store.state.authUser.uid
           "
           @click="remove(comment)"
         >
@@ -41,8 +41,8 @@ export default {
     }
   },
   computed: {
-    currentUser() {
-      return this.$store.state.user
+    authUser() {
+      return this.$store.state.authUser
     },
   },
   created() {

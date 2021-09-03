@@ -1,102 +1,97 @@
 <template>
-  <ValidationObserver v-slot="{ validate, invalid }">
-    <form @submit.prevent="validate().then(register)">
-      <Upload
-        v-model="form.avatar"
-        type="images"
-        avatar
-        label="Sua foto"
-        prefix="avatar"
-      />
-      <b-form-group label="Seu nome">
-        <validation-provider v-slot="{ errors }" name="nome" rules="required">
-          <b-form-input v-model="form.name" />
-          <Error :list="errors" />
-        </validation-provider>
-      </b-form-group>
-      <b-form-group label="Seu email">
-        <validation-provider
-          v-slot="{ errors }"
-          name="e-mail"
-          rules="required|email"
-        >
-          <b-form-input v-model="form.email" @input="validateEmail" />
-          <Error
-            v-if="!emailIsValid"
-            :list="['Este e-mail já está sendo usado']"
+  <b-tabs v-model="tab">
+    <b-tab title="Dados do perfil">
+      <ValidationObserver v-slot="{ validate, invalid }">
+        <form @submit.prevent="validate().then(save(true))">
+          <Upload
+            v-model="form.photoURL"
+            type="images"
+            avatar
+            label="Sua foto"
+            prefix="avatar"
+            @input="validate().then(save)"
           />
-
-          <Error :list="errors" />
-        </validation-provider>
-      </b-form-group>
-      <b-form-group label="Seu telefone">
-        <b-form-input
-          v-model="form.phone"
-          v-mask="['(##) ####-####', '(##) #####-####']"
-        />
-      </b-form-group>
-      <b-form-group label="Qual sua região?">
-        <b-form-select
-          v-model="form.region"
-          :options="['Centro-oeste', 'Nordeste', 'Norte', 'Sudeste', 'Sul']"
-        />
-      </b-form-group>
-      <b-form-group label="Conte um pouco sobre você">
-        <b-form-textarea v-model="form.bio" />
-      </b-form-group>
-      <b-form-group label="Nome de usuário" class="mb-0">
-        <validation-provider
-          v-slot="{ errors }"
-          name="nome de usuário"
-          rules="required|min:4"
-        >
-          <b-input-group prepend="@">
-            <b-form-input v-model="form.username" @input="validateUsername" />
-          </b-input-group>
-          <Error
-            v-if="!usernameIsValid"
-            :list="['Este nome de usuário já está sendo usado']"
-          />
-          <Error :list="errors" />
-        </validation-provider>
-      </b-form-group>
-      <div v-if="change_password" class="mt-4">
-        <b-form-group label="Crie uma nova senha">
-          <validation-provider
-            v-slot="{ errors }"
-            name="senha"
-            rules="required|min:4"
-          >
-            <b-form-input v-model="form.password" type="password" />
-            <Error :list="errors" />
-          </validation-provider>
-        </b-form-group>
-        <b-form-group label="Confirme sua nova senha" class="mb-0">
-          <validation-provider
-            v-slot="{ errors }"
-            name="confirmação da senha"
-            rules="required"
-          >
+          <b-form-group label="Seu nome">
+            <validation-provider
+              v-slot="{ errors }"
+              name="nome"
+              rules="required"
+            >
+              <b-form-input
+                v-model="form.displayName"
+                @change="validate().then(save)"
+              />
+              <Error :list="errors" />
+            </validation-provider>
+          </b-form-group>
+          <b-form-group label="Seu email">
+            <b-form-input v-model="form.email" disabled />
+          </b-form-group>
+          <b-form-group label="Seu telefone">
             <b-form-input
-              v-model="form.password_confirmation"
-              type="password"
+              v-model="form.phone"
+              v-mask="['(##) ####-####', '(##) #####-####']"
             />
-            <Error :list="errors" />
-          </validation-provider>
-        </b-form-group>
-      </div>
-      <div class="text-right mb-3">
-        <a @click="change_password = !change_password">Alterar a senha</a>
-      </div>
-      <button
-        type="submit"
-        class="btn btn-primary btn-lg btn-block"
-        :disabled="invalid || !usernameIsValid || !emailIsValid"
-      >
-        SALVAR MEUS DADOS
-      </button>
-    </form>
-  </ValidationObserver>
+          </b-form-group>
+          <b-form-group label="Qual sua região?">
+            <b-form-select
+              v-model="form.region"
+              :options="['Centro-oeste', 'Nordeste', 'Norte', 'Sudeste', 'Sul']"
+            />
+          </b-form-group>
+          <b-form-group label="Conte um pouco sobre você">
+            <b-form-textarea v-model="form.bio" />
+          </b-form-group>
+          <button
+            type="submit"
+            class="btn btn-primary btn-lg btn-block"
+            :disabled="invalid || loading"
+          >
+            <b-spinner v-if="loading" small />
+            <span v-else>SALVAR</span>
+          </button>
+        </form>
+      </ValidationObserver>
+    </b-tab>
+    <b-tab title="Alterar senha">
+      <ValidationObserver v-slot="{ validate, invalid }">
+        <form @submit.prevent="validate().then(changePassword)">
+          <b-form-group label="Crie uma nova senha">
+            <validation-provider
+              v-slot="{ errors }"
+              name="senha"
+              rules="required|min:6"
+            >
+              <b-form-input v-model="passwordForm.password" type="password" />
+              <Error :list="errors" />
+            </validation-provider>
+          </b-form-group>
+          <b-form-group label="Confirme sua nova senha" class="mb-0">
+            <validation-provider
+              v-slot="{ errors }"
+              name="confirmação da senha"
+              rules="required"
+            >
+              <b-form-input
+                v-model="passwordForm.password_confirmation"
+                type="password"
+              />
+              <Error :list="errors" />
+            </validation-provider>
+          </b-form-group>
+          <br />
+          <button
+            type="submit"
+            class="btn btn-primary btn-lg btn-block"
+            :disabled="invalid || loading"
+          >
+            <b-spinner v-if="loading" small />
+            <span v-else>SALVAR NOVA SENHA</span>
+          </button>
+        </form>
+      </ValidationObserver>
+    </b-tab>
+  </b-tabs>
 </template>
 <script>
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
@@ -109,13 +104,15 @@ export default {
   },
   data() {
     return {
-      usernameIsValid: true,
-      emailIsValid: true,
-      change_password: false,
+      tab: 0,
+      loading: false,
+      passwordForm: {
+        password: null,
+        password_confirmation: null,
+      },
       form: {
-        avatar: null,
-        name: '',
-        username: '',
+        photoURL: null,
+        displayName: '',
         email: '',
         phone: '',
         region: null,
@@ -124,48 +121,56 @@ export default {
     }
   },
   computed: {
-    currentUser() {
-      return this.$store.state.user
+    authUser() {
+      return this.$store.state.authUser
     },
   },
   created() {
     Object.keys(this.form).forEach((key) => {
-      this.form[key] = this.currentUser[key]
+      this.form[key] = this.authUser[key]
     })
   },
   methods: {
-    async register() {
-      if (this.form.password === this.form.password_confirmation) {
-        this.user = await this.$axios
-          .$put('/api/users/profile', this.form)
-          .catch(this.showError)
-        if (this.user) {
-          this.$auth.fetchUser()
-          this.notify('Seu perfil foi atualizado com sucesso!')
-          this.$bvModal.hide('portal-modal')
-        }
+    async save(hide) {
+      this.loading = true
+      const user = this.$fire.auth.currentUser
+      await user
+        .updateProfile(this.form)
+        .then(() => {
+          this.setUser(user)
+          if (hide) {
+            this.notify('Seu perfil foi atualizado!')
+            this.$bvModal.hide('portal-modal')
+            this.loading = false
+          }
+        })
+        .catch((error) => {
+          this.firebaseError(error)
+          this.loading = false
+        })
+    },
+    async changePassword() {
+      if (
+        this.passwordForm.password === this.passwordForm.password_confirmation
+      ) {
+        this.loading = true
+
+        const user = this.$fire.auth.currentUser
+        this.$fire.auth.languageCode = 'pt-BR'
+
+        await user
+          .updatePassword(this.passwordForm.password)
+          .then(() => {
+            this.tab = 0
+            this.loading = false
+            this.notify('Sua senha foi atualizada!')
+          })
+          .catch((error) => {
+            this.firebaseError(error)
+            this.loading = false
+          })
       } else {
         this.notify('As duas senhas devem ser iguais', 'error')
-      }
-    },
-    async validateUsername() {
-      this.usernameIsValid = true
-      if (this.form.username && this.form.username.length > 3) {
-        this.usernameIsValid = await this.$axios
-          .$get('/api/users/available/' + this.form.username, this.form)
-          .catch(this.showError)
-      }
-    },
-    async validateEmail() {
-      this.emailIsValid = true
-      if (
-        this.form.email &&
-        this.form.email.includes('@') &&
-        this.form.email.includes('.')
-      ) {
-        this.emailIsValid = await this.$axios
-          .$get('/api/users/available/' + this.form.email, this.form)
-          .catch(this.showError)
       }
     },
   },

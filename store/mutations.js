@@ -1,16 +1,14 @@
-import initialState from './state'
-
 export default {
-  RESET_STORE: (state) => {
-    Object.assign(state, initialState())
+  LOGOUT: (state) => {
+    state.authUser = null
   },
-
   SET_AUTH_USER: (state, authUser) => {
-    state.user = {
-      id: authUser.uid,
+    state.authUser = {
+      uid: authUser.uid,
       email: authUser.email,
-      name: authUser.displayName,
-      avatar: authUser.photoURL,
+      displayName: authUser.displayName,
+      photoURL: authUser.photoURL,
+      emailVerified: authUser.emailVerified,
     }
   },
   setRegion(state, region) {

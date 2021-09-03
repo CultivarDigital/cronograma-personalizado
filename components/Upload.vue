@@ -58,7 +58,7 @@
       </div>
       <b-button v-if="is_loading" variant="secondary" disabled>
         <b-spinner small />
-        Enviando arquivos...
+        Enviando ({{ progress }}%) ...
       </b-button>
       <div v-if="type === 'audios'">
         <RecordAudio @result="uploadFiles" />
@@ -68,22 +68,7 @@
         </b-btn>
       </div>
       <a v-else-if="avatar" @click="upload">
-        <b-avatar
-          v-if="!is_loading && preview && typeof preview === 'string'"
-          size="6rem"
-          :src="preview"
-        >
-          <template #badge><b-icon-camera /></template>
-        </b-avatar>
-        <b-avatar
-          v-else-if="!is_loading"
-          size="6rem"
-          :src="
-            preview && preview[0] && preview[0].thumb
-              ? baseURL + preview[0].thumb
-              : null
-          "
-        >
+        <b-avatar v-if="!is_loading && preview" size="6rem" :src="preview[0]">
           <template #badge><b-icon-camera /></template>
         </b-avatar>
       </a>
@@ -104,11 +89,10 @@
 </template>
 
 <script>
-import CryptoJS from 'crypto-js'
 export default {
   props: {
     value: {
-      type: [Object, Array],
+      type: [Object, Array, String],
       default: () => null,
     },
     multiple: {
@@ -159,6 +143,7 @@ export default {
   data() {
     return {
       is_loading: false,
+      progress: null,
     }
   },
   computed: {
@@ -191,13 +176,13 @@ export default {
       } else if (this.value && this.value.url) {
         return [this.value]
       } else if (this.value && typeof this.value === 'string') {
-        return this.value
+        return [this.value]
       }
       return []
     },
   },
   methods: {
-    async uploadFiles(e) {
+    uploadFiles(e) {
       this.is_loading = true
       let files = []
       if (e.target) {
@@ -207,43 +192,55 @@ export default {
       }
       for (let i = 0; i < files.length; i++) {
         const file = files[i]
-        const filename =
-          Date.now() + '-' + (file.name || this.currentUser.id + '-audio.webm')
-        const url = 'api/uploads/' + this.type + '/' + filename
-        const hash = CryptoJS.MD5(this.baseURL + url).toString()
-
-        await this.setLocalItem(hash, file)
-
-        if (this.$nuxt.isOnline) {
-          const formData = new FormData()
-          if (this.prefix) {
-            formData.append('prefix', this.prefix)
-          }
-          formData.append('file', file, filename)
-          this.$axios
-            .$post('/api/uploads/' + this.type, formData, {
-              headers: {
-                'Content-Type': 'multipart/form-data',
-              },
-            })
-            .then((uploaded) => {
-              this.callback(uploaded)
-            })
-            .catch((error) => {
-              if (
-                error &&
-                !error.response &&
-                error.message === 'Network Error'
-              ) {
-                this.addToPool(hash, filename, url)
-              } else {
-                this.showError(error)
-              }
-            })
-        } else {
-          this.addToPool(hash, filename, url)
+        if (!files.length) {
+          return
         }
+
+        const metadata = {
+          contentType: file.type,
+        }
+
+        // Create a reference to the destination where we're uploading the file.
+        const storage = this.$fireModule.storage()
+        const imageRef = storage.ref(`${this.type}/${file.name}`)
+        const uploadTask = imageRef.put(file, metadata)
+        this.is_loading = true
+        uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+            this.progress = parseInt(
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            )
+          },
+          (error) => {
+            this.firebaseError(error)
+            this.is_loading = false
+          },
+          () => {
+            // Handle successful uploads on complete
+            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+            return uploadTask.snapshot.ref.getDownloadURL().then((url) => {
+              this.callback(url)
+              this.is_loading = false
+            })
+          }
+        )
+
+        // When the upload ends, set the value of the blog image URL
+        // and signal that uploading is done.
       }
+    },
+    deleteImage() {
+      this.$fireModule
+        .storage()
+        .refFromURL(this.blog.imageUrl)
+        .delete()
+        .then(() => {
+          this.blog.imageUrl = ''
+        })
+        .catch((error) => {
+          console.error('Error deleting image', error)
+        })
     },
     addToPool(hash, filename, url) {
       this.$store.commit('addToUploadPool', {

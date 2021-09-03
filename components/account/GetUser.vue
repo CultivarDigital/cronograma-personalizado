@@ -22,13 +22,13 @@ export default {
     }
   },
   computed: {
-    currentUser() {
-      return this.$store.state.user
+    authUser() {
+      return this.$store.state.authUser
     },
   },
   created() {
-    if (this.currentUser) {
-      this.$emit('change', this.currentUser)
+    if (this.authUser) {
+      this.$emit('change', this.authUser)
     }
   },
   methods: {

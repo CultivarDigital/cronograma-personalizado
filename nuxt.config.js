@@ -15,13 +15,6 @@ export default {
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-    script: [
-      {
-        hid: 'font-awesome',
-        src: 'https://kit.fontawesome.com/2671f33306.js',
-        crossorigin: 'anonymous',
-      },
-    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -53,6 +46,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
+    '@nuxtjs/toast',
     [
       'nuxt-twa-module',
       {
@@ -81,7 +75,6 @@ export default {
     '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
-    '@nuxtjs/auth-next',
     [
       'nuxt-validate',
       {
@@ -113,52 +106,12 @@ export default {
     },
     workbox: {
       offlineAnalytics: true,
-      // importScripts: ['/firebase-auth-sw.js'],
-      runtimeCaching: [
-        {
-          // You can use a RegExp as the pattern:
-          urlPattern: 'https://kit.fontawesome.com/.*',
-          handler: 'StaleWhileRevalidate',
-        },
-      ],
-      dev: process.env.NODE_ENV === 'development',
     },
   },
 
   // Content module configuration: https://go.nuxtjs.dev/config-content
   content: {
     liveEdit: false,
-  },
-  auth: {
-    redirect: false,
-    strategies: {
-      local: {
-        token: {
-          property: 'token',
-          // required: true,
-          type: 'Token',
-        },
-        user: {
-          property: false,
-          // autoFetch: true
-        },
-        endpoints: {
-          login: { url: '/api/auth/login', method: 'post' },
-          logout: { url: '/api/auth/logout', method: 'post' },
-          user: { url: '/api/auth/user', method: 'get' },
-        },
-      },
-      google: {
-        clientId:
-          '773301147332-o1q1vmrq8iamlv3jdmd9duano57qifpm.apps.googleusercontent.com',
-        responseType: 'code',
-        accessType: 'offline',
-        grantType: 'authorization_code',
-        codeChallengeMethod: 'S256',
-        redirectUri: 'http://localhost:3000/login',
-      },
-    },
-    scopeKey: 'role',
   },
   googleAnalytics: {
     id: 'UA-190127946-1',
@@ -179,10 +132,17 @@ export default {
     services: {
       auth: {
         initialize: {
-          onAuthStateChangedAction: 'onAuthStateChanged',
+          onAuthStateChangedAction: 'setUser',
+          onAuthStateChangedMutation: 'SET_AUTH_USER',
         },
       },
+      storage: true,
     },
+  },
+  toast: {
+    duration: 7000,
+    keepOnHover: true,
+    theme: 'bubble',
   },
   proxy: {
     pathRewrite: {

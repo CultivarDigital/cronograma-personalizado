@@ -41,32 +41,58 @@ export default {
       loading: true,
     }
   },
-  async created() {
-    this.$bvModal.show('portal-modal')
-    if (this.$route.query.regiao) {
-      this.$store.commit('setRegion', this.$route.query.regiao)
-    }
-    const species = await this.$axios.$get('/api/species')
-    if (species) {
-      this.$store.commit(
-        'setSpecies',
-        species.sort((a, b) => {
-          return a.name.localeCompare(b.name)
-        })
-      )
-      const filters = {
-        specie_categories: this.getFilters(species, 'categories'),
-        specie_luminosity: this.getFilters(species, 'luminosity'),
-        specie_cycle: this.getFilters(species, 'cycle'),
-        specie_climate: this.getFilters(species, 'climate'),
-        specie_origin: this.getFilters(species, 'origin'),
-        specie_height: this.getFilters(species, 'height'),
-      }
-      this.$store.commit('setFilters', filters)
-    }
+  created() {
+    this.checkEmailLogin()
     this.loading = false
   },
   methods: {
+    async checkEmailLogin() {
+      if (this.$route.query.email_login) {
+        const href = this.baseURL + this.$route.fullPath
+        if (this.$fire.auth.isSignInWithEmailLink(href)) {
+          // Additional state parameters can also be passed via URL.
+          // This can be used to continue the user's intended action before triggering
+          // the sign-in operation.
+          // Get the email if available. This should be available if the user completes
+          // the flow on the same device where they started it.
+          let email = await this.getLocalItem('emailForSignIn')
+          if (!email) {
+            // User opened the link on a different device. To prevent session fixation
+            // attacks, ask the user to provide the associated email again. For example:
+            email = window.prompt('Please provide your email for confirmation')
+          }
+          // The client SDK will parse the code from the link for you.
+          this.$fire.auth
+            .signInWithEmailLink(email, href)
+            .then((result) => {
+              this.setLocalItem('emailForSignIn', null)
+              this.notify('Seja bem vindo')
+              this.loading = false
+            })
+            .catch(this.firebaseError)
+        }
+      }
+    },
+    async loadData() {
+      const species = await this.$axios.$get('/api/species')
+      if (species) {
+        this.$store.commit(
+          'setSpecies',
+          species.sort((a, b) => {
+            return a.name.localeCompare(b.name)
+          })
+        )
+        const filters = {
+          specie_categories: this.getFilters(species, 'categories'),
+          specie_luminosity: this.getFilters(species, 'luminosity'),
+          specie_cycle: this.getFilters(species, 'cycle'),
+          specie_climate: this.getFilters(species, 'climate'),
+          specie_origin: this.getFilters(species, 'origin'),
+          specie_height: this.getFilters(species, 'height'),
+        }
+        this.$store.commit('setFilters', filters)
+      }
+    },
     getFilters(species, type) {
       const items = {}
       species.forEach((specie) => {

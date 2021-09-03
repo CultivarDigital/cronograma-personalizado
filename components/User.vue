@@ -4,40 +4,20 @@
     <!-- <n-link v-if="profile" :to="'/membro/' + profile.id"> -->
     <span v-if="profile">
       <b-avatar
-        v-if="profile.avatar && typeof profile.avatar === 'string'"
+        v-if="profile.photoURL"
         v-b-tooltip.hover
-        :title="userLabel(profile)"
-        :alt="userLabel(profile)"
-        :src="profile.avatar"
+        :title="profile.displayName"
+        :alt="profile.displayName"
+        :src="profile.photoURL"
         class="mr-1"
         :size="size"
-      />
-      <b-avatar
-        v-else-if="
-          profile.avatar && (profile.avatar.thumb || profile.avatar.url)
-        "
-        v-b-tooltip.hover
-        :title="userLabel(profile)"
-        :alt="userLabel(profile)"
-        :src="profile.avatar[thumb && profile.avatar.thumb ? 'thumb' : 'url']"
-        class="mr-1"
-        :size="size"
-      />
-      <b-avatar
-        v-else-if="profile.code"
-        v-b-tooltip.hover
-        class="mr-1"
-        :size="size"
-        :title="userLabel(profile)"
-        :alt="userLabel(profile)"
-        :text="profile.code"
       />
       <b-avatar
         v-else
         class="mr-1"
         :size="size"
-        :title="userLabel(profile)"
-        :alt="userLabel(profile)"
+        :title="profile.displayName"
+        :alt="profile.displayName"
       />
     </span>
     <b-avatar v-else class="mr-1" :size="size" />
@@ -76,7 +56,7 @@ export default {
       } else if (this.loadedUser) {
         return this.loadedUser
       } else {
-        return this.currentUser
+        return this.authUser
       }
     },
   },

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <form @submit.prevent="recovery">
+    <form @submit.prevent="sendEmail">
       <div v-if="success" class="alert alert-info">
         Enviamos um e-mail para <strong>{{ email }}</strong
-        >. Clique no link enviado para recuperar sua senha.
+        >. Clique no link enviado para entrar.
       </div>
       <div v-else>
         <b-form-group label="Digite seu e-mail">
@@ -18,7 +18,7 @@
           class="mb-3"
         >
           <b-spinner v-if="loading" small />
-          <span v-else>Recuperar senha</span>
+          <span v-else>Receber link para entrar</span>
         </b-btn>
       </div>
       <b-btn block variant="secondary" @click="$emit('login')"> Voltar </b-btn>
@@ -29,20 +29,35 @@
 export default {
   data() {
     return {
-      email: '',
+      email: 'diegomr86@gmail.com',
       success: false,
       loading: false,
     }
   },
   methods: {
-    recovery() {
+    sendEmail() {
       this.loading = true
       this.success = false
-      this.$fire.auth.languageCode = 'pt-BR'
 
+      const actionCodeSettings = {
+        // URL you want to redirect back to. The domain (www.example.com) for this
+        // URL must be in the authorized domains list in the Firebase Console.
+        url: this.baseURL + '?email_login=true',
+        // This must be true.
+        handleCodeInApp: true,
+        android: {
+          packageName: 'com.ionicframework.plantai563575',
+          installApp: true,
+          minimumVersion: '12',
+        },
+        dynamicLinkDomain: 'cultivarbrasil.page.link',
+      }
+      console.log(actionCodeSettings)
+      this.$fire.auth.languageCode = 'pt-BR'
       this.$fire.auth
-        .sendPasswordResetEmail(this.email)
+        .sendSignInLinkToEmail(this.email, actionCodeSettings)
         .then(() => {
+          this.setLocalItem('emailForSignIn', this.email)
           this.loading = false
           this.success = true
         })

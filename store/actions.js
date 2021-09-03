@@ -1,9 +1,12 @@
 export default {
-  onAuthStateChanged({ commit }, { authUser, claims }) {
+  setUser({ commit }, { authUser }) {
     if (!authUser) {
-      commit('RESET_STORE')
+      commit('LOGOUT')
       return
     }
     commit('SET_AUTH_USER', authUser)
+  },
+  logout({ commit }) {
+    commit('LOGOUT')
   },
 }

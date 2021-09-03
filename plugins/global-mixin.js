@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import firebaseTranslations from '@/data/firebase-translations'
 
 if (!Vue.__my_mixin__) {
   Vue.__my_mixin__ = true
@@ -6,14 +7,15 @@ if (!Vue.__my_mixin__) {
   const globalMixin = {
     computed: {
       isLoggedIn() {
-        return this.currentUser && this.currentUser.id
+        return this.authUser && this.authUser.uid
       },
-      currentUser() {
-        return this.$store.state.user
+      authUser() {
+        const user = this.$store.state.authUser
+        return user && user.uid ? user : null
       },
       currentRegion() {
-        return this.currentUser && this.currentUser.region
-          ? this.currentUser.region
+        return this.authUser && this.authUser.region
+          ? this.authUser.region
           : this.$store.state.region
       },
       baseURL() {
@@ -21,20 +23,43 @@ if (!Vue.__my_mixin__) {
       },
     },
     methods: {
+      setUser(user) {
+        this.$store.dispatch('setUser', { authUser: user })
+      },
       async getLocalItem(key) {
         return await this.$localForage.getItem(key)
       },
       async setLocalItem(key, value) {
         return await this.$localForage.setItem(key, value)
       },
-      userLabel(user) {
-        return user ? user.name || user.username || user.email : ''
-      },
       notify(msg, type) {
-        this.$notify({
-          type: type || 'success',
-          text: msg,
-        })
+        const params = {
+          action: {
+            text: 'X',
+            onClick: (e, toastObject) => {
+              toastObject.goAway(0)
+            },
+          },
+        }
+        if (type === 'error') {
+          this.$toast.error(msg, params)
+        } else {
+          this.$toast.success(msg, params)
+        }
+      },
+      firebaseError(error) {
+        console.error('Firebase error:')
+        console.error(error)
+        if (error) {
+          const msg = firebaseTranslations[error.code]
+          if (msg) {
+            this.notify(msg, 'error')
+          } else if (error.message) {
+            this.notify(error.message, 'error')
+          }
+        } else {
+          this.notify('Ocorreu um erro inesperado. Tente novamente mais tarde')
+        }
       },
       showError(error) {
         if (error.response) {

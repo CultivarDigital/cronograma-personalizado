@@ -31,13 +31,13 @@
         <b-nav-item to="/colabore"> Colabore </b-nav-item>
       </b-nav>
     </b-list-group-item>
-    <b-list-group-item v-if="currentUser">
-      <i class="fa fa-user" /> {{ userLabel(currentUser) }}
+    <b-list-group-item v-if="authUser">
+      <b-icon-person /> {{ authUser.displayName || authUser.email }}
     </b-list-group-item>
-    <b-list-group-item v-if="currentUser" class="submenu">
+    <b-list-group-item v-if="authUser" class="submenu">
       <b-nav vertical>
         <b-nav-item @click="editProfile">Editar perfil</b-nav-item>
-        <b-nav-item @click="$fire.auth.signOut()">Sair</b-nav-item>
+        <b-nav-item @click="logout">Sair</b-nav-item>
       </b-nav>
     </b-list-group-item>
     <b-list-group-item>
@@ -50,6 +50,10 @@ export default {
   methods: {
     editProfile() {
       this.$bvModal.show('portal-modal')
+    },
+    logout() {
+      this.$store.dispatch('logout')
+      this.$fire.auth.signOut()
     },
   },
 }

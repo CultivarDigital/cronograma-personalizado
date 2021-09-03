@@ -44,6 +44,8 @@ th.actions, td.actions
   box-shadow: none !important
   border-color: $gray5
   color: $gray1 !important
+.btn-lg
+  font-weight: bold
 .badge
   color: $white !important
   margin-right: 2px
@@ -164,20 +166,18 @@ th.actions, td.actions
   border-radius: 8px
   .modal-header
     font-size: 14px
-    background-color: $blue
+    background-color: $green
     .modal-title
-      font-size: 16px
+      font-weight: bold
+      font-size: 17px
       color: $white
     .close
       color: $white
 .modal-backdrop
   opacity: 0.9
-.vue-notification-group, .vue-notification, .notification-content
-  font-size: 16px
-  font-weight: bold
 
 .form-group
-  margin-bottom: 30px
+  margin-bottom: 15px
 
 form
   legend
@@ -201,3 +201,22 @@ form
     font-size: 16px
   .text-danger
     display: block
+.tabs
+  .tab-content
+    padding-top: 15px
+  .nav-link
+    border: 1px solid $gray5
+    color: $gray1
+    &.active
+      background-color: $green
+      color: $white
+
+.toasted.bubble
+  font-size: 18px !important
+  padding: 30px !important
+  .action
+    color: $white !important
+    font-weight: bold !important
+    font-size: 18px !important
+    &:hover
+      text-decoration: none !important

@@ -7,16 +7,17 @@
       </b-button>
     </p>
     <hr />
-    <b-button @click="signInWithGoogle">Login com o google</b-button>
-    {{ isLoggedIn }}
-    {{ currentUser }}
+    <div class="mb-3 text-center">
+      <b-button block @click="signInWithGoogle">
+        <b-icon-google /> &nbsp; Entrar com o google
+      </b-button>
+      <b-button block @click="$emit('signInWithEmail')">
+        <b-icon-envelope-fill /> &nbsp; Entrar com e-mail
+      </b-button>
+    </div>
     <form @submit.prevent="validate().then(login)">
-      <b-form-group label="Digite seu nome de usuário, e-mail ou telefone">
-        <validation-provider
-          v-slot="{ errors }"
-          name="nome de usuário, e-mail ou telefone"
-          rules="required"
-        >
+      <b-form-group label="Digite seu e-mail">
+        <validation-provider v-slot="{ errors }" name="e-mail" rules="required">
           <b-form-input v-model="form.login" />
           <Error :list="errors" />
         </validation-provider>
@@ -27,7 +28,7 @@
           <Error :list="errors" />
         </validation-provider>
       </b-form-group>
-      <div class="text-right mb-3">
+      <div class="text-right mb-2">
         <b-btn variant="link" class="btn-link" @click="$emit('forgotPassword')">
           Esqueci minha senha
         </b-btn>
@@ -35,9 +36,10 @@
       <button
         type="submit"
         class="btn btn-primary btn-lg btn-block"
-        :disabled="invalid"
+        :disabled="invalid || loading"
       >
-        ENTRAR
+        <b-spinner v-if="loading" small />
+        <span v-else>ENTRAR</span>
       </button>
     </form>
   </ValidationObserver>
@@ -53,6 +55,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       form: {
         login: '',
         password: '',
@@ -60,21 +63,27 @@ export default {
     }
   },
   methods: {
+    async signIn(provider) {
+      await this.$fire.auth.signInWithPopup(provider).catch(this.firebaseError)
+    },
     async signInWithGoogle() {
       const provider = new this.$fireModule.auth.GoogleAuthProvider()
+      await this.signIn(provider)
       // You can add or remove more scopes here provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-      await this.$fire.auth.signInWithPopup(provider)
     },
-    async login() {
-      await this.$auth
-        .loginWith('local', {
-          data: this.form,
+    login() {
+      this.loading = true
+      this.$fire.auth
+        .signInWithEmailAndPassword(this.form.login, this.form.password)
+        .then((userCredential) => {
+          this.$bvModal.hide('portal-modal')
+          this.notify('Seja bem vindo ' + userCredential.user.displayName)
+          this.loading = false
         })
-        .catch(this.showError)
-      if (this.$store.state.user) {
-        this.$bvModal.hide('portal-modal')
-        this.$notify('Seja bem vindo ' + this.currentUser.name)
-      }
+        .catch((error) => {
+          this.firebaseError(error)
+          this.loading = false
+        })
     },
   },
 }

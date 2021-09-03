@@ -7,33 +7,17 @@
       </b-button>
     </p>
     <form @submit.prevent="validate().then(register)">
-      <b-form-group label="Qual seu nome?">
-        <validation-provider v-slot="{ errors }" name="nome" rules="required">
-          <b-form-input v-model="form.name" />
-          <Error :list="errors" />
-        </validation-provider>
-      </b-form-group>
-      <b-form-group label="Vamos criar nome de usuário pra você?">
+      <b-form-group label="Qual seu email?">
         <validation-provider
           v-slot="{ errors }"
-          name="nome de usuário"
+          name="e-mail"
           rules="required|min:4"
         >
-          <b-input-group prepend="@">
-            <b-form-input v-model="form.username" @input="validateUsername" />
-          </b-input-group>
-          <small v-if="form.username && usernameIsValid">
-            Seu nome de usuário será
-            <strong>@{{ form.username }}</strong>
-          </small>
-          <Error
-            v-if="!usernameIsValid"
-            :list="['Este nome de usuário já está sendo usado']"
-          />
+          <b-form-input v-model="form.email" />
           <Error :list="errors" />
         </validation-provider>
       </b-form-group>
-      <b-form-group label="Crie uma senha">
+      <b-form-group label="Vamos criar uma senha pra você?">
         <validation-provider
           v-slot="{ errors }"
           name="senha"
@@ -53,12 +37,14 @@
           <Error :list="errors" />
         </validation-provider>
       </b-form-group>
+
       <button
         type="submit"
         class="btn btn-primary btn-lg btn-block"
-        :disabled="invalid || !usernameIsValid"
+        :disabled="invalid || loading"
       >
-        CADASTRAR
+        <b-spinner v-if="loading" />
+        <span v-else>CADASTRAR</span>
       </button>
     </form>
   </ValidationObserver>
@@ -74,46 +60,37 @@ export default {
   },
   data() {
     return {
-      usernameIsValid: true,
+      loading: false,
       form: {
-        name: '',
-        username: '',
+        email: '',
         password: '',
         password_confirmation: '',
       },
     }
   },
-  created() {
-    console.log(this.$fire.auth)
-  },
   methods: {
     async register() {
+      this.loading = true
       if (
         this.form.password &&
         this.form.password === this.form.password_confirmation
       ) {
-        this.user = await this.$fire.auth
-          .createUserWithEmailAndPassword(this.form.login, this.form.password)
-          .catch(this.showError)
-        if (this.user) {
-          console.log(this.user)
-          console.log(this.$store.state.user)
-          if (this.$store.state.user) {
+        try {
+          await this.$fire.auth.createUserWithEmailAndPassword(
+            this.form.email,
+            this.form.password
+          )
+          if (this.$store.state.authUser) {
             this.notify('Seja bem vindo ' + this.user.name)
             this.$emit('registered')
           }
+        } catch (error) {
+          this.firebaseError(error)
         }
       } else {
         this.notify('As duas senhas devem ser iguais', 'error')
       }
-    },
-    async validateUsername() {
-      this.usernameIsValid = true
-      if (this.form.username && this.form.username.length > 3) {
-        this.usernameIsValid = await this.$axios
-          .$get('/api/users/available/' + this.form.username, this.form)
-          .catch(this.showError)
-      }
+      this.loading = false
     },
   },
 }

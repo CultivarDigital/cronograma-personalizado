@@ -12,23 +12,17 @@
     </b-collapse>
     <b-navbar-nav class="ml-auto d-none d-md-block">
       <b-nav-item-dropdown
-        v-if="currentUser"
-        :text="userLabel(currentUser)"
+        v-if="authUser"
+        :text="authUser.displayName || authUser.email"
         right
       >
         <template #button-content>
-          <User thumb /> {{ userLabel(currentUser) }}
+          <User thumb /> {{ authUser.displayName || authUser.email }}
         </template>
         <b-dropdown-item @click="$bvModal.show('portal-modal')">
           Meus dados
         </b-dropdown-item>
-        <b-dropdown-item
-          @click="
-            $fire.auth.signOut()
-            $auth.logout()
-          "
-          >Sair</b-dropdown-item
-        >
+        <b-dropdown-item @click="logout">Sair</b-dropdown-item>
       </b-nav-item-dropdown>
       <b-nav-item v-else right>
         <b-button variant="primary" @click="$bvModal.show('portal-modal')">
@@ -46,8 +40,19 @@ export default {
   components: {
     Sidebar,
   },
+  computed: {
+    authUser() {
+      return this.$store.state.authUser
+    },
+  },
   created() {
     this.$bvModal.show('portal-modal')
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('logout')
+      this.$fire.auth.signOut()
+    },
   },
 }
 </script>

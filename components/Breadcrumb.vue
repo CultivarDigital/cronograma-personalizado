@@ -2,7 +2,7 @@
   <div class="breadcrumb-wrapper">
     <ol class="breadcrumb">
       <li>
-        <n-link to="/"><i class="fa fa-home" /> </n-link>
+        <n-link to="/"><b-icon-house-door-fill /> </n-link>
       </li>
       <li v-for="(link, index) in links" :key="index">
         <n-link :to="link[1]">{{ link[0] }}</n-link>
