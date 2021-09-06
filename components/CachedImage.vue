@@ -1,12 +1,28 @@
 <template>
-  <b-img
-    v-if="url"
-    :src="url"
-    :fluid="fluid"
-    :class="cssClass"
-    :width="width"
-    :rounded="thumb"
-  />
+  <span>
+    <b-avatar
+      v-if="avatar && url"
+      v-b-tooltip.hover
+      :src="url"
+      :fluid="fluid"
+      :class="cssClass"
+      :size="width"
+      :rounded="thumb"
+      :alt="title"
+      :title="title"
+    />
+    <b-img
+      v-else-if="url"
+      v-b-tooltip.hover
+      :src="url"
+      :fluid="fluid"
+      :class="cssClass"
+      :width="width"
+      :rounded="thumb"
+      :alt="title"
+      :title="title"
+    />
+  </span>
 </template>
 
 <script>
@@ -14,9 +30,17 @@ import CryptoJS from 'crypto-js'
 import axios from 'axios'
 export default {
   props: {
-    value: {
-      type: Object,
-      default: () => null,
+    src: {
+      type: String,
+      default: null,
+    },
+    title: {
+      type: String,
+      default: null,
+    },
+    avatar: {
+      type: Boolean,
+      default: false,
     },
     thumb: {
       type: Boolean,
@@ -41,15 +65,9 @@ export default {
     }
   },
   created() {
-    if (this.value && this.value.url) {
-      const tryThumb = this.thumb && this.value.thumb
-      try {
-        this.loadUrl(
-          this.baseURL + (tryThumb ? this.value.thumb : this.value.url)
-        )
-      } catch (error) {
-        this.loadUrl(this.baseURL + this.value.url)
-      }
+    if (this.src) {
+      // this.url = this.src
+      this.loadUrl(this.src)
     }
   },
   methods: {

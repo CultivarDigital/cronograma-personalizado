@@ -120,6 +120,7 @@ export default {
     name: process.env.npm_package_name || 'NuxtJS',
   },
   firebase: {
+    lazy: true,
     config: {
       apiKey: 'AIzaSyCxmQyvGXINVY0Gud9o481pC39eTaG6ne4',
       authDomain: 'cultivar-brasil.firebaseapp.com',
@@ -137,6 +138,7 @@ export default {
         },
       },
       storage: true,
+      firestore: true,
     },
   },
   toast: {

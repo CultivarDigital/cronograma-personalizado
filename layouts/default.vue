@@ -41,7 +41,8 @@ export default {
       loading: true,
     }
   },
-  created() {
+  async created() {
+    await this.$fire.authReady()
     this.checkEmailLogin()
     this.loading = false
   },

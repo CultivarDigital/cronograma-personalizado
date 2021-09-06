@@ -3,14 +3,14 @@
   <span>
     <!-- <n-link v-if="profile" :to="'/membro/' + profile.id"> -->
     <span v-if="profile">
-      <b-avatar
+      <CachedImage
         v-if="profile.photoURL"
-        v-b-tooltip.hover
+        avatar
         :title="profile.displayName"
         :alt="profile.displayName"
         :src="profile.photoURL"
-        class="mr-1"
-        :size="size"
+        css-class="mr-1"
+        :width="size"
       />
       <b-avatar
         v-else

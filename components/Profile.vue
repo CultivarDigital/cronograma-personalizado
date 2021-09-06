@@ -2,14 +2,13 @@
   <b-tabs v-model="tab">
     <b-tab title="Dados do perfil">
       <ValidationObserver v-slot="{ validate, invalid }">
-        <form @submit.prevent="validate().then(save(true))">
+        <form @submit.prevent="validate().then(save)">
           <Upload
             v-model="form.photoURL"
             type="images"
             avatar
             label="Sua foto"
             prefix="avatar"
-            @input="validate().then(save)"
           />
           <b-form-group label="Seu nome">
             <validation-provider
@@ -17,21 +16,9 @@
               name="nome"
               rules="required"
             >
-              <b-form-input
-                v-model="form.displayName"
-                @change="validate().then(save)"
-              />
+              <b-form-input v-model="form.displayName" />
               <Error :list="errors" />
             </validation-provider>
-          </b-form-group>
-          <b-form-group label="Seu email">
-            <b-form-input v-model="form.email" disabled />
-          </b-form-group>
-          <b-form-group label="Seu telefone">
-            <b-form-input
-              v-model="form.phone"
-              v-mask="['(##) ####-####', '(##) #####-####']"
-            />
           </b-form-group>
           <b-form-group label="Qual sua região?">
             <b-form-select
@@ -53,9 +40,18 @@
         </form>
       </ValidationObserver>
     </b-tab>
-    <b-tab title="Alterar senha">
+    <b-tab title="Email e senha">
       <ValidationObserver v-slot="{ validate, invalid }">
-        <form @submit.prevent="validate().then(changePassword)">
+        <b-form-group label="Seu email">
+          <b-form-input :value="authUser.email" disabled />
+        </b-form-group>
+        <b-btn class="mb-3" @click="change_password = !change_password">
+          <b-icon-lock /> ALTERAR SENHA
+        </b-btn>
+        <form
+          v-if="change_password"
+          @submit.prevent="validate().then(changePassword)"
+        >
           <b-form-group label="Crie uma nova senha">
             <validation-provider
               v-slot="{ errors }"
@@ -106,6 +102,7 @@ export default {
     return {
       tab: 0,
       loading: false,
+      change_password: false,
       passwordForm: {
         password: null,
         password_confirmation: null,
@@ -113,8 +110,6 @@ export default {
       form: {
         photoURL: null,
         displayName: '',
-        email: '',
-        phone: '',
         region: null,
         bio: '',
       },
@@ -127,27 +122,37 @@ export default {
   },
   created() {
     Object.keys(this.form).forEach((key) => {
-      this.form[key] = this.authUser[key]
+      if (this.authUser[key]) {
+        this.form[key] = this.authUser[key]
+      }
     })
   },
   methods: {
-    async save(hide) {
+    save() {
       this.loading = true
       const user = this.$fire.auth.currentUser
-      await user
-        .updateProfile(this.form)
+      this.$fire.firestore
+        .collection('users')
+        .doc(user.uid)
+        .set(this.form)
         .then(() => {
-          this.setUser(user)
-          if (hide) {
-            this.notify('Seu perfil foi atualizado!')
-            this.$bvModal.hide('portal-modal')
-            this.loading = false
-          }
+          user
+            .updateProfile({
+              displayName: this.form.displayName,
+              photoURL: this.form.photoURL,
+            })
+            .then(() => {
+              this.setUser(user)
+              this.notify('Seu perfil foi atualizado!')
+              this.$bvModal.hide('portal-modal')
+              this.loading = false
+            })
+            .catch((error) => {
+              this.firebaseError(error)
+              this.loading = false
+            })
         })
-        .catch((error) => {
-          this.firebaseError(error)
-          this.loading = false
-        })
+        .catch(this.firebaseError)
     },
     async changePassword() {
       if (

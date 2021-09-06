@@ -1,5 +1,6 @@
 export default {
   LOGOUT: (state) => {
+    console.log('LOGOUTLOGOUTLOGOUTLOGOUTLOGOUTLOGOUT')
     state.authUser = null
   },
   SET_AUTH_USER: (state, authUser) => {
@@ -9,7 +10,11 @@ export default {
       displayName: authUser.displayName,
       photoURL: authUser.photoURL,
       emailVerified: authUser.emailVerified,
+      bio: authUser.bio,
+      region: authUser.region,
     }
+    console.log('state.authUser')
+    console.log(state.authUser)
   },
   setRegion(state, region) {
     state.region = region

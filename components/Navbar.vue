@@ -11,25 +11,28 @@
       </div>
     </b-collapse>
     <b-navbar-nav class="ml-auto d-none d-md-block">
-      <b-nav-item-dropdown
+      <b-dropdown
         v-if="authUser"
+        variant="primary"
         :text="authUser.displayName || authUser.email"
         right
       >
         <template #button-content>
-          <User thumb /> {{ authUser.displayName || authUser.email }}
+          <User /> {{ authUser.displayName || authUser.email }}
         </template>
         <b-dropdown-item @click="$bvModal.show('portal-modal')">
           Meus dados
         </b-dropdown-item>
         <b-dropdown-item @click="logout">Sair</b-dropdown-item>
-      </b-nav-item-dropdown>
-      <b-nav-item v-else right>
-        <b-button variant="primary" @click="$bvModal.show('portal-modal')">
-          <i class="far fa-star" />
-          Melhore sua experiência
-        </b-button>
-        <Region />
+      </b-dropdown>
+      <b-nav-item
+        v-else
+        right
+        link-classes="btn btn-primary text-white"
+        @click="$bvModal.show('portal-modal')"
+      >
+        <b-icon-person />
+        Minha conta
       </b-nav-item>
     </b-navbar-nav>
   </b-navbar>
