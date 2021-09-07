@@ -42,9 +42,15 @@ export default {
     }
   },
   async created() {
+    try {
+      await this.$fire.authReady()
+    } catch (error) {
+      console.log('fire.authReady ERROR: ', error)
+    }
     await this.$fire.authReady()
     this.checkEmailLogin()
     this.loading = false
+    this.loadData()
   },
   methods: {
     async checkEmailLogin() {
@@ -85,7 +91,7 @@ export default {
         )
         const filters = {
           specie_categories: this.getFilters(species, 'categories'),
-          specie_luminosity: this.getFilters(species, 'luminosity'),
+          specie_stratum: this.getFilters(species, 'stratum'),
           specie_cycle: this.getFilters(species, 'cycle'),
           specie_climate: this.getFilters(species, 'climate'),
           specie_origin: this.getFilters(species, 'origin'),

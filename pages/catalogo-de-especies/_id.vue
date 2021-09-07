@@ -67,10 +67,6 @@
             <td>Ciclo:</td>
             <th>{{ specie.cycle.join(', ') }}</th>
           </tr>
-          <tr v-if="specie.luminosity && specie.luminosity.length">
-            <td>Luminosidade:</td>
-            <th>{{ specie.luminosity.join(', ') }}</th>
-          </tr>
           <tr v-if="specie.harvest_time">
             <td>Tempo de colheita:</td>
             <th>{{ specie.harvest_time }}</th>

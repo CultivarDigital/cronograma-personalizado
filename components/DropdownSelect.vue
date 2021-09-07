@@ -9,7 +9,7 @@
           <small>{{ label }}:</small> <strong>{{ value }}</strong>
         </span>
         <span v-else>
-          {{ label }}
+          {{ label }} <small v-if="description">({{ description }})</small>
         </span>
       </template>
       <b-dropdown-item :active="!value" @click="$emit('input', null)">
@@ -43,6 +43,10 @@ export default {
       type: String,
       default: null,
       required: true,
+    },
+    description: {
+      type: String,
+      default: null,
     },
     noItem: {
       type: String,

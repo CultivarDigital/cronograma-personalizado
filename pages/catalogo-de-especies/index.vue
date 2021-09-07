@@ -15,17 +15,10 @@
           @input="applyFilters"
         />
         <DropdownSelect
-          v-model="filters.luminosity"
-          :options="filtersOptions.specie_luminosity"
-          label="Luminosidade"
-          no-item="Todas as luminosidades"
-          @input="applyFilters"
-        />
-        <DropdownSelect
-          v-model="filters.cycle"
-          :options="filtersOptions.specie_cycle"
-          label="Cíclo"
-          no-item="Todos os cíclos"
+          v-model="filters.origin"
+          :options="filtersOptions.specie_origin"
+          label="Origem"
+          no-item="Todas as origens"
           @input="applyFilters"
         />
         <DropdownSelect
@@ -36,17 +29,26 @@
           @input="applyFilters"
         />
         <DropdownSelect
-          v-model="filters.origin"
-          :options="filtersOptions.specie_origin"
-          label="Origem"
-          no-item="Todas as origens"
-          @input="applyFilters"
-        />
-        <DropdownSelect
           v-model="filters.height"
           :options="filtersOptions.specie_height"
           label="Altura"
           no-item="Todas as alturas"
+          @input="applyFilters"
+        />
+        <DropdownSelect
+          v-model="filters.stratum"
+          :options="filtersOptions.specie_stratum"
+          label="Estrato"
+          description="Luminosidade"
+          no-item="Todas as luminosidades"
+          @input="applyFilters"
+        />
+        <DropdownSelect
+          v-model="filters.cycle"
+          :options="filtersOptions.specie_cycle"
+          label="Ciclo"
+          description="Tempo"
+          no-item="Todos os ciclos"
           @input="applyFilters"
         />
 
@@ -75,7 +77,7 @@
         >
           <template #aside>
             <n-link :to="'/catalogo-de-especies/' + specie.slug">
-              <CachedImage :value="specie.images[0]" thumb width="64" />
+              <b-img :src="specie.images[0].url" thumb width="64" />
             </n-link>
           </template>
           <h5 class="mb-1">
@@ -124,7 +126,7 @@ export default {
       species = species.filter((specie) => {
         const isValid =
           this.includes(specie.categories, 'category') &&
-          this.includes(specie.luminosity, 'luminosity') &&
+          this.includes(specie.stratum, 'stratum') &&
           this.includes(specie.cycle, 'cycle') &&
           this.includes(specie.climate, 'climate') &&
           this.includes(specie.origin, 'origin') &&

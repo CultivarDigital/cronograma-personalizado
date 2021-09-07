@@ -26,6 +26,7 @@ const SpecieSchema = mongoose.Schema(
     height: [String],
     spacing: String,
     luminosity: [String],
+    stratum: [String],
     cycle: [String],
     synonymy: [String],
     use: String,
