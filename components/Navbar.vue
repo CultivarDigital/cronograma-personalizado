@@ -4,12 +4,6 @@
       <img src="~/assets/img/logo.png" class="logo" />
       <strong>Cultivar</strong> Brasil
     </b-navbar-brand>
-    <b-navbar-toggle target="sidebar"></b-navbar-toggle>
-    <b-collapse id="sidebar" is-nav>
-      <div class="d-md-none">
-        <Sidebar />
-      </div>
-    </b-collapse>
     <b-navbar-nav class="ml-auto d-none d-md-block">
       <b-dropdown
         v-if="authUser"
@@ -38,11 +32,7 @@
   </b-navbar>
 </template>
 <script>
-import Sidebar from './Sidebar'
 export default {
-  components: {
-    Sidebar,
-  },
   computed: {
     authUser() {
       return this.$store.state.authUser

@@ -2,7 +2,7 @@
 <template>
   <div v-if="specie">
     <breadcrumb
-      :links="[['Catálogo de espécies', '/catalogo-de-especies']]"
+      :links="[['Catálogo de espécies', '/ferramentas/catalogo-de-especies']]"
       :active="specie.name"
       :description="specie.description"
       :img="
@@ -19,7 +19,7 @@
       </div>
       <div class="item item-body">
         <div v-if="specie.images && specie.images.length" class="img-wrapper">
-          <CachedImage :value="specie.images[0]" />
+          <CachedImage :src="specie.images[0]" />
         </div>
         <p
           v-if="specie.description"
@@ -154,7 +154,10 @@
               <n-link
                 v-if="specieByName(companion)"
                 class="badge badge-primary"
-                :to="'/catalogo-de-especies/' + specieByName(companion).slug"
+                :to="
+                  '/ferramentas/catalogo-de-especies/' +
+                  specieByName(companion).id
+                "
                 >{{ specieByName(companion).name }}</n-link
               >
               <span v-else class="badge badge-default">{{ companion }}</span>
@@ -167,7 +170,7 @@
         </div>
       </div>
       <br />
-      <comments :target="'/catalogo-de-especies/' + specie.slug" />
+      <Comments :target="'/ferramentas/catalogo-de-especies/' + specie.id" />
     </b-container>
   </div>
 </template>
@@ -179,9 +182,7 @@ export default {
       return this.$store.state.species
     },
     specie() {
-      return this.species.find(
-        (specie) => specie.slug === this.$route.params.id
-      )
+      return this.species.find((specie) => specie.id === this.$route.params.id)
     },
   },
   methods: {

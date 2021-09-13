@@ -13,7 +13,7 @@
         O que plantar esse mês?
       </b-button>
       <br />
-      <b-button block variant="primary" to="/catalogo-de-especies">
+      <b-button block variant="primary" to="/ferramentas/catalogo-de-especies">
         Catálogo de espécies
       </b-button>
       <br />

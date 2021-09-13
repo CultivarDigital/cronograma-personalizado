@@ -13,8 +13,6 @@ export default {
       bio: authUser.bio,
       region: authUser.region,
     }
-    console.log('state.authUser')
-    console.log(state.authUser)
   },
   setRegion(state, region) {
     state.region = region
@@ -25,11 +23,8 @@ export default {
   setFilters(state, filters) {
     state.filters = filters
   },
-  setPageTitle(state, pageTitle) {
-    state.page_title = pageTitle
-  },
-  setPageDescription(state, pageDescription) {
-    state.page_description = pageDescription
+  setPage(state, page) {
+    state.page = page
   },
   addToUploadPool(state, data) {
     const uploadPool = JSON.parse(JSON.stringify(state.uploadPool))

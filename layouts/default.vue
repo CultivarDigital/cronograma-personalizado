@@ -1,45 +1,139 @@
 <template>
-  <div id="app">
-    <div id="wrapper" class="bg-brown-1">
-      <Navbar />
-      <b-row no-gutters>
-        <b-col md="3" fluid class="sidebar-wrapper d-none d-md-block">
-          <Sidebar />
-        </b-col>
-        <b-col md="9" class="main bg-white pb-4">
-          <div v-if="loading" class="text-center">
-            <b-spinner />
+  <v-app>
+    <v-navigation-drawer v-model="show_drawer" app>
+      <v-list color="primary" :dark="true">
+        <v-list-item>
+          <v-list-item-content class="text-center pb-0">
+            <User size="64" color="white" icon-color="primary" />
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item
+          v-if="authUser"
+          link
+          @click="$bvModal.show('portal-modal')"
+        >
+          <v-list-item-content>
+            <v-list-item-title v-if="authUser.displayName" class="text-h6">
+              {{ authUser.displayName }}
+            </v-list-item-title>
+            <v-list-item-subtitle>{{ authUser.email }}</v-list-item-subtitle>
+          </v-list-item-content>
+          <v-list-item-action>
+            <v-icon>mdi-menu-down</v-icon>
+          </v-list-item-action>
+        </v-list-item>
+        <v-list-item v-else>
+          <v-list-item-content>
+            <p class="mb-4">
+              Para melhorar sua experiência e ativar novas funcionalidades:
+            </p>
+            <v-btn
+              outlined
+              color="white"
+              class="mb-0"
+              @click="$bvModal.show('portal-modal')"
+            >
+              <v-icon left dark> mdi-login </v-icon>
+              Entre
+            </v-btn>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+      <v-list nav dense class="pb-0 mt-3">
+        <v-list-item to="/">
+          <v-list-item-icon>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>Início</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+      <Menu />
+    </v-navigation-drawer>
+
+    <v-app-bar app color="primary" dark hide-on-scroll>
+      <v-img
+        v-if="$route.path === '/'"
+        :src="require('~/assets/img/cultivar-white.png')"
+        class="mr-2"
+        max-height="24px"
+        max-width="24px"
+      />
+      <v-toolbar-title v-if="$route.path === '/'" to="/">
+        <span class="text-white"> <strong>Cultivar </strong> Brasil </span>
+      </v-toolbar-title>
+      <v-btn
+        v-if="$route.path !== '/'"
+        icon
+        light
+        @click="$router.replace(previousPage)"
+      >
+        <v-icon color="white"> mdi-arrow-left </v-icon>
+      </v-btn>
+      <span v-if="$route.path !== '/' && currentPage">{{
+        currentPage.name
+      }}</span>
+      <v-spacer></v-spacer>
+      <v-app-bar-nav-icon @click="show_drawer = !show_drawer" />
+    </v-app-bar>
+
+    <!-- Sizes your content based upon application components -->
+    <v-main>
+      <!-- Provides the application the proper gutter -->
+      <v-container fluid>
+        <div v-if="loading" class="text-center">
+          <b-spinner />
+        </div>
+        <div v-else class="pt-3">
+          <Nuxt />
+          <div class="text-center mobile-footer">
+            <hr />
+            <Footer />
           </div>
-          <div v-else>
-            <Nuxt />
-            <div class="text-center mobile-footer">
-              <hr />
-              <Footer />
-            </div>
-          </div>
-        </b-col>
-      </b-row>
-    </div>
+        </div>
+      </v-container>
+    </v-main>
+
+    <v-footer app>
+      <!-- -->
+    </v-footer>
     <Portal />
     <client-only>
       <notifications />
     </client-only>
-  </div>
+  </v-app>
 </template>
 
 <script>
-import Navbar from '@/components/Navbar.vue'
-import Sidebar from '@/components/Sidebar.vue'
-
 export default {
-  components: {
-    Navbar,
-    Sidebar,
-  },
   data() {
     return {
       loading: true,
+      imported: [],
+      show_drawer: null,
     }
+  },
+  computed: {
+    authUser() {
+      return this.$store.state.authUser
+    },
+    species() {
+      return this.$store.state.species
+    },
+    currentPage() {
+      return this.$store.state.page
+    },
+    previousPage() {
+      if (
+        this.currentPage &&
+        this.currentPage.links &&
+        this.currentPage.links.length
+      ) {
+        return this.currentPage.links[this.currentPage.links.length - 1][1]
+      }
+      return '/'
+    },
   },
   async created() {
     try {
@@ -47,10 +141,11 @@ export default {
     } catch (error) {
       console.log('fire.authReady ERROR: ', error)
     }
-    await this.$fire.authReady()
-    this.checkEmailLogin()
+    await this.$fire.firestoreReady()
+    await this.$fire.storageReady()
+    await this.checkEmailLogin()
+    await this.loadData()
     this.loading = false
-    this.loadData()
   },
   methods: {
     async checkEmailLogin() {
@@ -81,7 +176,11 @@ export default {
       }
     },
     async loadData() {
-      const species = await this.$axios.$get('/api/species')
+      const speciesRef = await this.$fire.firestore.collection('species').get()
+      const species = speciesRef.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }))
       if (species) {
         this.$store.commit(
           'setSpecies',
@@ -115,6 +214,50 @@ export default {
         })
         .filter((item) => item)
     },
+    editProfile() {
+      this.$bvModal.show('portal-modal')
+    },
+    logout() {
+      this.$store.dispatch('logout')
+      this.$fire.auth.signOut()
+    },
+
+    // async importSpecies() {
+    //   this.imported = []
+    //   for (const specie of this.species) {
+    //     const newSpecie = { ...specie }
+    //     const id = newSpecie.slug
+    //     console.log('Importando ' + this.imported.length + ' - ' + id)
+    //     delete newSpecie._id
+    //     delete newSpecie.slug
+    //     delete newSpecie.createdAt
+    //     delete newSpecie.updatedAt
+
+    //     const images = []
+    //     for (const image of newSpecie.images.filter(
+    //       (img) => img.url !== '/api/uploads/images/species/www.jardineiro.net'
+    //     )) {
+    //       await this.uploadImage(image.thumb)
+    //       images.push(await this.uploadImage(image.url))
+    //     }
+    //     newSpecie.images = images
+    //     this.$fire.firestore.collection('species').doc(id).set(newSpecie)
+    //     this.imported.push(id)
+    //   }
+    // },
+    // async uploadImage(url) {
+    //   const fileToSave = await axios.get(url, {
+    //     responseType: 'blob',
+    //   })
+    //   const file = fileToSave.data
+    //   const imageRef = this.$fireModule
+    //     .storage()
+    //     .ref(url.replace('/api/uploads/', ''))
+    //   await imageRef.put(file)
+    //   const downloadURL = new URL(await imageRef.getDownloadURL())
+    //   downloadURL.searchParams.delete('token')
+    //   return downloadURL.toString()
+    // },
   },
 }
 </script>

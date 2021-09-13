@@ -8,7 +8,7 @@
           class="mr-1 mb-1 d-inline-block pointer"
           @click="() => showImg(i)"
         >
-          <CachedImage :value="image" thumb width="64" />
+          <CachedImage :src="image" thumb width="64" />
         </div>
       </div>
       <vue-easy-lightbox

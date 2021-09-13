@@ -1,23 +1,13 @@
 <template>
   <span>
-    <b-avatar
-      v-if="avatar && url"
-      v-b-tooltip.hover
-      :src="url"
-      :fluid="fluid"
-      :class="cssClass"
-      :size="width"
-      :rounded="thumb"
-      :alt="title"
-      :title="title"
-    />
-    <b-img
+    <v-avatar v-if="avatar && url" :size="size" :color="color">
+      <v-img v-b-tooltip.hover :src="url" :alt="title" :title="title" />
+    </v-avatar>
+    <v-img
       v-else-if="url"
       v-b-tooltip.hover
       :src="url"
-      :fluid="fluid"
-      :class="cssClass"
-      :width="width"
+      :max-width="size"
       :rounded="thumb"
       :alt="title"
       :title="title"
@@ -50,13 +40,13 @@ export default {
       type: Boolean,
       default: false,
     },
-    width: {
+    size: {
       type: String,
       default: null,
     },
-    cssClass: {
+    color: {
       type: String,
-      default: '',
+      default: 'blue-grey',
     },
   },
   data() {
@@ -64,10 +54,18 @@ export default {
       url: null,
     }
   },
-  created() {
+  async created() {
     if (this.src) {
-      // this.url = this.src
-      this.loadUrl(this.src)
+      if (this.thumb) {
+        const thumbURL = this.src.replace('/images', '/thumbs')
+        this.url = await this.loadUrl(thumbURL)
+      }
+      if (!this.url) {
+        this.url = await this.loadUrl(this.src)
+      }
+      if (!this.url) {
+        return this.src
+      }
     }
   },
   methods: {
@@ -75,14 +73,13 @@ export default {
       const hash = CryptoJS.MD5(url).toString()
       const cached = await this.getLocalItem(hash)
       if (cached) {
-        this.url = URL.createObjectURL(cached)
+        return URL.createObjectURL(cached)
       } else {
-        this.url = url
         try {
-          await this.cacheUrl(this.url)
+          return await this.cacheUrl(url)
         } catch (error) {
-          // eslint-disable-next-line no-console
-          console.log('Unable to cache: ' + this.url)
+          console.log('Unable to cache: ' + url)
+          return null
         }
       }
     },
@@ -92,7 +89,7 @@ export default {
       })
       const hash = CryptoJS.MD5(url).toString()
       await this.setLocalItem(hash, fileToCache.data)
-      this.url = URL.createObjectURL(fileToCache.data)
+      return URL.createObjectURL(fileToCache.data)
     },
   },
 }

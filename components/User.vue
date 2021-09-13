@@ -1,27 +1,18 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <span>
-    <!-- <n-link v-if="profile" :to="'/membro/' + profile.id"> -->
-    <span v-if="profile">
-      <CachedImage
-        v-if="profile.photoURL"
-        avatar
-        :title="profile.displayName"
-        :alt="profile.displayName"
-        :src="profile.photoURL"
-        css-class="mr-1"
-        :width="size"
-      />
-      <b-avatar
-        v-else
-        class="mr-1"
-        :size="size"
-        :title="profile.displayName"
-        :alt="profile.displayName"
-      />
-    </span>
-    <b-avatar v-else class="mr-1" :size="size" />
-    <!-- </n-link> -->
+    <CachedImage
+      v-if="profile && profile.photoURL"
+      avatar
+      :title="profile.displayName"
+      :alt="profile.displayName"
+      :src="profile.photoURL"
+      :size="size"
+      :color="color"
+    />
+    <v-avatar v-else :color="color" :size="size">
+      <v-icon :color="iconColor" :size="size / 2" dark> mdi-account </v-icon>
+    </v-avatar>
   </span>
 </template>
 <script>
@@ -37,7 +28,15 @@ export default {
     },
     size: {
       type: String,
-      default: '2rem',
+      default: '32',
+    },
+    color: {
+      type: String,
+      default: 'blue-grey',
+    },
+    iconColor: {
+      type: String,
+      default: null,
     },
     thumb: {
       type: Boolean,

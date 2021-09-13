@@ -1,7 +1,7 @@
 <template>
   <div>
     <breadcrumb
-      :links="[['Guia de cultivo', '/guia-de-cultivo']]"
+      :links="[['Guia de cultivo', '/guias/guia-de-cultivo']]"
       active="Como plantar"
       description="Veja dicas de como plantar suas plantinhas em casa"
     />
@@ -317,7 +317,7 @@
       <b-button
         block
         variant="primary"
-        to="/guia-de-cultivo/cuidados-com-a-horta"
+        to="/guias/guia-de-cultivo/cuidados-com-a-horta"
       >
         Quais os cuidados devo ter com minha horta?
       </b-button>

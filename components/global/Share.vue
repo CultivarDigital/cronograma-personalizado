@@ -204,12 +204,18 @@ export default {
       return encodeURI('https://www.cultivarbrasil.com' + this.$route.path)
     },
     currentDescription() {
-      return encodeURI(this.$store.state.page_description)
+      let description = process.env.npm_package_description
+      const page = this.$store.state.page
+      if (page && page.description) {
+        description = page.description
+      }
+      return encodeURI(description)
     },
     currentTitle() {
-      let title = this.$store.state.page_title
-      if (title) {
-        title = title.replace(' | ', ' - ')
+      let title = 'Cultivar Brasil'
+      const page = this.$store.state.page
+      if (page && page.title) {
+        title = page.title.replace(' | ', ' - ')
       }
       return encodeURI(title)
     },

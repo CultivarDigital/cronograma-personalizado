@@ -25,7 +25,6 @@ const SpecieSchema = mongoose.Schema(
     origin: [String],
     height: [String],
     spacing: String,
-    luminosity: [String],
     stratum: [String],
     cycle: [String],
     synonymy: [String],
@@ -44,4 +43,18 @@ const SpecieSchema = mongoose.Schema(
   }
 )
 
+const schemaFields = Object.keys(SpecieSchema.tree)
+
+SpecieSchema.set('toJSON', {
+  transform(doc, ret, options) {
+    const result = {}
+    Object.keys(ret).forEach((key) => {
+      if (schemaFields.includes(key)) {
+        result[key] = ret[key]
+      }
+    })
+
+    return result
+  },
+})
 mongoose.model('Specie', SpecieSchema)

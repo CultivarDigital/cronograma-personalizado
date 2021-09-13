@@ -4,11 +4,11 @@
     <hr class="mt-0 mb-3" />
     <b-media v-for="comment in comments" :key="comment.id" class="pt-2">
       <template #aside>
-        <User :user="comment.user" thumb />
+        <User :user="comment.user" thumb size="40px" />
       </template>
       <div>
         <small
-          ><strong>{{ comment.user.name }}</strong></small
+          ><strong>{{ comment.user.displayName }}</strong></small
         >
         <br />
         {{ comment.message }}
@@ -50,9 +50,14 @@ export default {
   },
   methods: {
     async loadComments() {
-      this.comments = await this.$axios.$get('/api/comments', {
-        params: { target: this.target || this.$route.path },
-      })
+      const commentsRef = await this.$fire.firestore
+        .collection('comments')
+        .where('target', '==', this.target || this.$route.path)
+        .get()
+      this.comments = commentsRef.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }))
     },
     commentSaved(comment) {
       this.loadComments()

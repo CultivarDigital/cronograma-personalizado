@@ -59,7 +59,6 @@
               <b-icon-search />
             </b-input-group-text>
           </template>
-          <b-input-group-append> </b-input-group-append>
         </b-input-group>
       </div>
       <div class="text-center mb-3">
@@ -72,16 +71,16 @@
       <div>
         <b-media
           v-for="specie in paginatedList"
-          :key="specie._id"
+          :key="specie.id"
           class="border-top py-2"
         >
           <template #aside>
-            <n-link :to="'/catalogo-de-especies/' + specie.slug">
-              <b-img :src="specie.images[0].url" thumb width="64" />
+            <n-link :to="'/ferramentas/catalogo-de-especies/' + specie.id">
+              <CachedImage :src="specie.images[0]" thumb width="64" />
             </n-link>
           </template>
           <h5 class="mb-1">
-            <n-link :to="'/catalogo-de-especies/' + specie.slug">{{
+            <n-link :to="'/ferramentas/catalogo-de-especies/' + specie.id">{{
               specie.name
             }}</n-link>
           </h5>

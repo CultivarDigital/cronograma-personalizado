@@ -64,7 +64,12 @@ export default {
   },
   methods: {
     async signIn(provider) {
-      await this.$fire.auth.signInWithPopup(provider).catch(this.firebaseError)
+      const userCredential = await this.$fire.auth
+        .signInWithPopup(provider)
+        .catch(this.firebaseError)
+      if (userCredential && userCredential.user) {
+        this.welcome(userCredential.user)
+      }
     },
     async signInWithGoogle() {
       const provider = new this.$fireModule.auth.GoogleAuthProvider()
@@ -76,14 +81,18 @@ export default {
       this.$fire.auth
         .signInWithEmailAndPassword(this.form.login, this.form.password)
         .then((userCredential) => {
-          this.$bvModal.hide('portal-modal')
-          this.notify('Seja bem vindo ' + userCredential.user.displayName)
+          this.welcome(userCredential.user)
           this.loading = false
         })
         .catch((error) => {
           this.firebaseError(error)
           this.loading = false
         })
+    },
+    welcome(user) {
+      this.setUser(user)
+      this.$bvModal.hide('portal-modal')
+      this.notify('Seja bem vindo!')
     },
   },
 }

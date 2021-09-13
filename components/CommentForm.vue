@@ -42,22 +42,31 @@ export default {
   data() {
     return {
       form: {
-        organization: 'terrakrya',
-        comment: this.comment,
+        user: null,
         target: this.target,
         message: null,
       },
     }
   },
   methods: {
-    async save() {
+    save() {
       if (this.form.message) {
-        const comment = await this.$axios.$post('/api/comments', this.form)
-        if (comment) {
-          this.notify('Comentário enviado!')
-          this.$emit('change', comment)
-          this.form.message = null
+        this.form.user = { uid: this.authUser.uid }
+        if (this.authUser.displayName) {
+          this.form.user.displayName = this.authUser.displayName
         }
+        if (this.authUser.photoURL) {
+          this.form.user.photoURL = this.authUser.photoURL
+        }
+        console.log(this.form)
+        this.$fire.firestore
+          .collection('comments')
+          .add(this.form)
+          .then((commentRef) => {
+            this.notify('Comentário enviado!')
+            this.$emit('change', { id: commentRef.id, ...commentRef })
+            this.form.message = null
+          })
       }
     },
   },

@@ -40,6 +40,7 @@ export default {
     // '@nuxtjs/stylelint-module',
     '@nuxtjs/google-analytics',
     '@nuxtjs/localforage',
+    '@nuxtjs/vuetify',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -148,6 +149,16 @@ export default {
     duration: 7000,
     keepOnHover: true,
     theme: 'bubble',
+  },
+  vuetify: {
+    theme: {
+      light: true, // you don't actually need this line as it's for default
+      themes: {
+        light: {
+          primary: '#009d6b',
+        },
+      },
+    },
   },
   proxy: {
     pathRewrite: {

@@ -2,6 +2,7 @@
   <div>
     <breadcrumb
       active="Guia de compostagem"
+      :links="[['Guias', '/guias']]"
       description="A partir de agora, os resíduos orgânicos produzidos pela sua família serão reciclados na sua própria casa."
       :img="
         'https://www.cultivarbrasil.com' +
@@ -753,7 +754,7 @@
           </section>
         </div>
       </div>
-      <comments :target="'/guia-de-compostagem'" />
+      <Comments :target="'/guias/guia-de-compostagem'" />
     </b-container>
   </div>
 </template>

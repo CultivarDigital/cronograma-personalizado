@@ -1,6 +1,7 @@
 <template>
   <div>
     <breadcrumb
+      :links="[['Guias', '/guias']]"
       active="Guia básico de cultivo"
       description="Pra cultivar plantas e alimentos saudáveis é preciso oferecer atenção, cuidado e dedicação, mas os benefícios que essa prática trará pra sua saúde física, mental, emocional e psicológica são muitos."
       :img="
@@ -24,32 +25,44 @@
       <b-button
         block
         variant="primary"
-        to="/guia-de-cultivo/planejamento-da-horta"
+        to="/guias/guia-de-cultivo/planejamento-da-horta"
       >
         Planejamento da Horta
       </b-button>
       <br />
-      <b-button block variant="primary" to="/guia-de-cultivo/quando-plantar">
+      <b-button
+        block
+        variant="primary"
+        to="/guias/guia-de-cultivo/quando-plantar"
+      >
         Quando plantar
       </b-button>
       <br />
-      <b-button block variant="primary" to="/guia-de-cultivo/como-plantar">
+      <b-button
+        block
+        variant="primary"
+        to="/guias/guia-de-cultivo/como-plantar"
+      >
         Como plantar
       </b-button>
       <br />
       <b-button
         block
         variant="primary"
-        to="/guia-de-cultivo/cuidados-com-a-horta"
+        to="/guias/guia-de-cultivo/cuidados-com-a-horta"
       >
         Cuidados com a Horta
       </b-button>
       <br />
-      <b-button block variant="primary" to="/guia-de-cultivo/dicas-basicas">
+      <b-button
+        block
+        variant="primary"
+        to="/guias/guia-de-cultivo/dicas-basicas"
+      >
         Dicas básicas
       </b-button>
       <br />
-      <comments :target="'/guia-de-cultivo'" />
+      <Comments :target="'/guias/guia-de-cultivo'" />
     </b-container>
   </div>
 </template>

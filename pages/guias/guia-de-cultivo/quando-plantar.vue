@@ -1,7 +1,7 @@
 <template>
   <div>
     <breadcrumb
-      :links="[['Guia de cultivo', '/guia-de-cultivo']]"
+      :links="[['Guia de cultivo', '/guias/guia-de-cultivo']]"
       active="Quando plantar"
       description="Saiba qual é a melhor hora para plantar seus cultivos"
     />
@@ -228,7 +228,11 @@
             suas possibilidades. Para acessar clique no link abaixo:
           </p>
           <CultivationGuideRef />
-          <b-button block variant="primary" to="/guia-de-cultivo/como-plantar">
+          <b-button
+            block
+            variant="primary"
+            to="/guias/guia-de-cultivo/como-plantar"
+          >
             Como plantar?
           </b-button>
         </div>

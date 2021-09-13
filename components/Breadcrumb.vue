@@ -1,17 +1,3 @@
-<template>
-  <div class="breadcrumb-wrapper">
-    <ol class="breadcrumb">
-      <li>
-        <n-link to="/"><b-icon-house-door-fill /> </n-link>
-      </li>
-      <li v-for="(link, index) in links" :key="index">
-        <n-link :to="link[1]">{{ link[0] }}</n-link>
-      </li>
-      <li v-if="active" class="active">{{ active }}</li>
-    </ol>
-  </div>
-</template>
-
 <script>
 export default {
   props: {
@@ -30,6 +16,10 @@ export default {
     img: {
       type: String,
       default: '',
+    },
+    color: {
+      type: String,
+      default: 'brown',
     },
   },
   head() {
@@ -69,8 +59,12 @@ export default {
     }
   },
   created() {
-    this.$store.commit('setPageTitle', this.pageTitle())
-    this.$store.commit('setPageDescription', this.pageDescription())
+    this.$store.commit('setPage', {
+      name: this.active,
+      title: this.pageTitle(),
+      description: this.pageDescription(),
+      links: this.links,
+    })
   },
   methods: {
     pageTitle() {

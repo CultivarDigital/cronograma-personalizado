@@ -81,7 +81,7 @@ export default {
             this.form.password
           )
           if (this.$store.state.authUser) {
-            this.notify('Seja bem vindo ' + this.user.name)
+            this.notify('Seja bem vindo!')
             this.$emit('registered')
           }
         } catch (error) {

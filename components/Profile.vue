@@ -1,5 +1,5 @@
 <template>
-  <b-tabs v-model="tab">
+  <b-tabs v-if="authUser" v-model="tab">
     <b-tab title="Dados do perfil">
       <ValidationObserver v-slot="{ validate, invalid }">
         <form @submit.prevent="validate().then(save)">
@@ -8,7 +8,8 @@
             type="images"
             avatar
             label="Sua foto"
-            prefix="avatar"
+            prefix="profile"
+            :filename="authUser.uid"
           />
           <b-form-group label="Seu nome">
             <validation-provider
@@ -87,6 +88,7 @@
         </form>
       </ValidationObserver>
     </b-tab>
+    <b-tab title="Sair" @click="logout"> </b-tab>
   </b-tabs>
 </template>
 <script>
@@ -177,6 +179,11 @@ export default {
       } else {
         this.notify('As duas senhas devem ser iguais', 'error')
       }
+    },
+    logout() {
+      this.$bvModal.hide('portal-modal')
+      this.$store.dispatch('logout')
+      this.$fire.auth.signOut()
     },
   },
 }

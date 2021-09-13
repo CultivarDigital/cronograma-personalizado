@@ -1,7 +1,5 @@
 export default {
   setUser({ commit }, { authUser }) {
-    console.log('this.$fire')
-    console.log(this.$fire)
     if (!authUser) {
       commit('LOGOUT')
       return
@@ -12,12 +10,10 @@ export default {
 
     profileRef.get().then((profile) => {
       if (profile.exists) {
-        console.log('Perfil já existe')
         const data = profile.data()
         authUser.bio = data.bio
         authUser.region = data.region
 
-        console.log(authUser)
         commit('SET_AUTH_USER', authUser)
       } else {
         profileRef.set({
@@ -28,6 +24,9 @@ export default {
       }
       commit('SET_AUTH_USER', authUser)
     })
+  },
+  setPage({ commit }, page) {
+    commit('setPage')
   },
   logout({ commit }) {
     commit('LOGOUT')

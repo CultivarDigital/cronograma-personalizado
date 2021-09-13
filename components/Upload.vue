@@ -119,6 +119,10 @@ export default {
       type: String,
       required: true,
     },
+    filename: {
+      type: String,
+      required: true,
+    },
     showPreview: {
       type: Boolean,
       default: true,
@@ -200,9 +204,19 @@ export default {
           contentType: file.type,
         }
 
-        // Create a reference to the destination where we're uploading the file.
         const storage = this.$fireModule.storage()
-        const imageRef = storage.ref(`${this.type}/${file.name}`)
+        let fileUrl = this.type
+        if (this.prefix) {
+          fileUrl += '/' + this.prefix
+        }
+        if (this.filename) {
+          const ext = file.name.split('.').pop()
+          fileUrl += '/' + this.filename + '.' + ext
+        } else {
+          fileUrl += '/' + file.name
+        }
+
+        const imageRef = storage.ref(fileUrl)
         const uploadTask = imageRef.put(file, metadata)
         this.is_loading = true
         uploadTask.on(
@@ -220,7 +234,9 @@ export default {
             // Handle successful uploads on complete
             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
             return uploadTask.snapshot.ref.getDownloadURL().then((url) => {
-              this.callback(url)
+              const downloadURL = new URL(url)
+              downloadURL.searchParams.delete('token')
+              this.callback(downloadURL.toString())
               this.is_loading = false
             })
           }

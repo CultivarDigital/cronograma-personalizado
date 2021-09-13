@@ -1,7 +1,7 @@
 <template>
   <div>
     <breadcrumb
-      :links="[['Guia de cultivo', '/guia-de-cultivo']]"
+      :links="[['Guia de cultivo', '/guias/guia-de-cultivo']]"
       active="Planejamento da horta"
       description="Aprenda a planejar melhor seus plantios"
     />
@@ -218,7 +218,11 @@
         </div>
       </div>
       <CultivationGuideRef />
-      <b-button block variant="primary" to="/guia-de-cultivo/quando-plantar">
+      <b-button
+        block
+        variant="primary"
+        to="/guias/guia-de-cultivo/quando-plantar"
+      >
         Quando plantar?
       </b-button>
     </b-container>
