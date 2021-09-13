@@ -6,7 +6,7 @@
       description="Veja as espécies mais cultivadas na sua região"
     />
     <b-container fluid>
-      <div class="mb-3">
+      <div class="mb-3 filters">
         <DropdownSelect
           v-model="filters.category"
           :options="filtersOptions.specie_categories"
@@ -61,13 +61,13 @@
           </template>
         </b-input-group>
       </div>
-      <div class="text-center mb-3">
+      <v-subheader class="justify-center mb-3">
         <small v-if="species.length > 1">
           {{ species.length }} espécies encontradas
         </small>
         <small v-else-if="species.length == 1"> Uma espécie encontrada </small>
         <small v-else>Nenhuma espécie encontrada</small>
-      </div>
+      </v-subheader>
       <div>
         <b-media
           v-for="specie in paginatedList"
@@ -106,6 +106,11 @@ export default {
     return {
       filters: {
         category: null,
+        origin: null,
+        climate: null,
+        height: null,
+        stratum: null,
+        cycle: null,
       },
       per_page: 15,
       page: 1,

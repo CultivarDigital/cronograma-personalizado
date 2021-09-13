@@ -1,29 +1,30 @@
 <template>
   <div class="mb-2 d-inline-block">
-    <b-dropdown
-      v-if="options && options.length"
-      :variant="value ? 'primary' : 'dark'"
-    >
-      <template #button-content>
-        <span v-if="value">
-          <small>{{ label }}:</small> <strong>{{ value }}</strong>
-        </span>
-        <span v-else>
-          {{ label }} <small v-if="description">({{ description }})</small>
-        </span>
+    <v-menu>
+      <template #activator="{ on, attrs }">
+        <v-btn color="primary" dark v-bind="attrs" v-on="on">
+          <span v-if="value">
+            <small>{{ label }}:</small> <strong>{{ value }}</strong>
+          </span>
+          <span v-else>
+            {{ label }} <small v-if="description">({{ description }})</small>
+          </span>
+          <v-icon right> mdi-chevron-down </v-icon>
+        </v-btn>
       </template>
-      <b-dropdown-item :active="!value" @click="$emit('input', null)">
-        {{ noItem }}
-      </b-dropdown-item>
-      <b-dropdown-item
-        v-for="option in options"
-        :key="option"
-        :active="value === option"
-        @click="$emit('input', option)"
-      >
-        {{ option }}
-      </b-dropdown-item>
-    </b-dropdown>
+      <v-list>
+        <v-list-item @click="$emit('input', null)">
+          {{ noItem }}
+        </v-list-item>
+        <v-list-item
+          v-for="option in options"
+          :key="option"
+          @click="$emit('input', option)"
+        >
+          <v-list-item-title>{{ option }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
   </div>
 </template>
 
