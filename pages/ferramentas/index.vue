@@ -1,6 +1,6 @@
 <template>
   <div>
-    <breadcrumb
+    <Breadcrumb
       active="Ferramentas"
       description="Ferramentas que vão auxiliar no cuidado com os seus cultivos"
     />

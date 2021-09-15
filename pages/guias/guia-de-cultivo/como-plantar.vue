@@ -1,6 +1,6 @@
 <template>
   <div>
-    <breadcrumb
+    <Breadcrumb
       :links="[['Guia de cultivo', '/guias/guia-de-cultivo']]"
       active="Como plantar"
       description="Veja dicas de como plantar suas plantinhas em casa"

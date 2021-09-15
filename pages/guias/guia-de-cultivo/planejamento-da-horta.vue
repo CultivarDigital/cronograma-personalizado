@@ -1,6 +1,6 @@
 <template>
   <div>
-    <breadcrumb
+    <Breadcrumb
       :links="[['Guia de cultivo', '/guias/guia-de-cultivo']]"
       active="Planejamento da horta"
       description="Aprenda a planejar melhor seus plantios"

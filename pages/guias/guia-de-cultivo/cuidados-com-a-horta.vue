@@ -1,6 +1,6 @@
 <template>
   <div>
-    <breadcrumb
+    <Breadcrumb
       :links="[['Guia de cultivo', '/guias/guia-de-cultivo']]"
       active="Cuidados com a Horta"
       description="Confira os cuidados que você deve ter com sua hortinha"

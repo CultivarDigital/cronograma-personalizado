@@ -1,6 +1,6 @@
 <template>
   <div>
-    <breadcrumb active="Cultive alimentos saudáveis em casa!" />
+    <Breadcrumb active="Cultive alimentos saudáveis em casa!" />
     <Moon />
     <div class="d-lg-none">
       <Menu />

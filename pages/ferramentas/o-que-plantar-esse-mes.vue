@@ -1,6 +1,6 @@
 <template>
   <div>
-    <breadcrumb
+    <Breadcrumb
       :links="[['Ferramentas', '/ferramentas']]"
       :active="'O que plantar em ' + currentMonth.name.toLowerCase()"
       :description="currentMonth.description"

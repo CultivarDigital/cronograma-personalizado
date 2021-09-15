@@ -24,7 +24,7 @@
         </v-list-item>
         <v-list-item v-else>
           <v-list-item-content>
-            <p class="mb-4">
+            <p class="mb-4 text-center">
               Para melhorar sua experiência e ativar novas funcionalidades:
             </p>
             <v-btn

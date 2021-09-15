@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <div v-if="specie">
-    <breadcrumb
+    <Breadcrumb
       :links="[['Catálogo de espécies', '/ferramentas/catalogo-de-especies']]"
       :active="specie.name"
       :description="specie.description"

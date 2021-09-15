@@ -1,17 +1,16 @@
 <template>
   <div>
-    <a
-      class="btn btn-secondary"
+    <v-btn
       href="https://www.padrim.com.br/cultivar"
       target="_blank"
-      ><i class="fas fa-hand-holding-heart" /> Apoie este projeto</a
+      color="primary"
     >
+      <v-icon left>mdi-hand-heart</v-icon> Apoie este projeto
+    </v-btn>
     <br />
     <br />
     <small>
-      Feito com
-      <client-only><i class="fas fa-heart m-0" title="Amor"></i></client-only>
-      por
+      Feito com <v-icon color="primary">mdi-heart</v-icon> por
       <br />
       <a href="https://diegomr86.github.io" target="_blank" class="text-white"
         ><strong>Diego M. Rodrigues</strong></a

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <breadcrumb
+    <Breadcrumb
       active="Guia de compostagem"
       :links="[['Guias', '/guias']]"
       description="A partir de agora, os resíduos orgânicos produzidos pela sua família serão reciclados na sua própria casa."

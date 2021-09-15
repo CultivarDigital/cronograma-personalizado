@@ -1,6 +1,6 @@
 <template>
   <div>
-    <breadcrumb
+    <Breadcrumb
       :links="[['Ferramentas', '/ferramentas']]"
       active="Catálogo de espécies"
       description="Veja as espécies mais cultivadas na sua região"
