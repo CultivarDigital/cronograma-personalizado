@@ -5,7 +5,7 @@
       active="Dicas Básicas"
       description="Dicas básicas de como cuidar melhor da sua horta"
     />
-    <b-container fluid class="guide">
+    <v-container fluid class="guide">
       <div class="cap-1">
         <div class="item item-body" padding>
           <h2 class="text-center title">O PLANTIO ORGÂNICO</h2>
@@ -169,6 +169,6 @@
       >
         Veja o que plantar esse mês
       </b-button>
-    </b-container>
+    </v-container>
   </div>
 </template>

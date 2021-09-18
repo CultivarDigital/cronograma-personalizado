@@ -1,7 +1,20 @@
 <template>
   <div>
-    <b-modal id="portal-modal" :title="title" size="lg" hide-footer>
-      <div>
+    <v-dialog
+      :value="$store.state.showPortal"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+      @input="$store.dispatch('hidePortal')"
+    >
+      <v-card>
+        <v-toolbar dark color="primary">
+          <v-btn icon dark @click="$store.dispatch('hidePortal')">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <span>{{ title }}</span>
+          <v-spacer></v-spacer>
+        </v-toolbar>
         <div v-if="$store.state.authUser">
           <Profile />
         </div>
@@ -23,8 +36,8 @@
             @signInWithEmail="tab = 'sign_in_with_email'"
           />
         </div>
-      </div>
-    </b-modal>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 <script>

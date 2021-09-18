@@ -5,7 +5,7 @@
       active="Planejamento da horta"
       description="Aprenda a planejar melhor seus plantios"
     />
-    <b-container fluid class="guide">
+    <v-container fluid class="guide">
       <div class="cap-2">
         <div class="item item-body" padding>
           <h2 class="text-center title">PLANEJANDO O CULTIVO</h2>
@@ -225,6 +225,6 @@
       >
         Quando plantar?
       </b-button>
-    </b-container>
+    </v-container>
   </div>
 </template>

@@ -1,21 +1,28 @@
 <template>
-  <div v-if="species && species.length">
-    <b-media v-for="specie in species" :key="specie.id" class="border-top py-2">
-      <template #aside>
-        <n-link :to="'/ferramentas/catalogo-de-especies/' + specie.id">
-          <CachedImage :src="specie.images[0]" thumb width="64" />
-        </n-link>
-      </template>
-      <h5 class="mb-1">
-        <n-link :to="'/ferramentas/catalogo-de-especies/' + specie.id">{{
-          specie.name
-        }}</n-link>
-      </h5>
-      <p v-if="specie.scientific_name" class="mb-0">
-        {{ specie.scientific_name }}
-      </p>
-    </b-media>
-  </div>
+  <v-list v-if="species && species.length" subheader>
+    <v-list-item
+      v-for="specie in species"
+      :key="specie.id"
+      :to="parent + '/' + specie.id"
+    >
+      <v-list-item-avatar :rounded="false">
+        <CachedImage :src="specie.images[0]" thumb />
+      </v-list-item-avatar>
+      <v-list-item-content>
+        <v-list-item-title>
+          {{ specie.name }}
+        </v-list-item-title>
+        <v-list-item-subtitle v-if="specie.scientific_name">
+          {{ specie.scientific_name }}
+        </v-list-item-subtitle>
+      </v-list-item-content>
+      <v-list-item-action>
+        <v-btn icon @click="alert('x')">
+          <v-icon color="grey lighten-1">mdi-information</v-icon>
+        </v-btn>
+      </v-list-item-action>
+    </v-list-item>
+  </v-list>
 </template>
 
 <script>
@@ -24,6 +31,12 @@ export default {
     species: {
       type: Array,
       default: () => null,
+      required: true,
+    },
+    parent: {
+      type: String,
+      default: null,
+      required: true,
     },
   },
 }

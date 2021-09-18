@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <v-navigation-drawer v-model="show_drawer" app>
-      <v-list color="primary" :dark="true">
-        <v-list-item>
+      <v-list color="primary" :dark="true" nav>
+        <v-list-item class="mb-0">
           <v-list-item-content class="text-center pb-0">
             <User size="64" color="white" icon-color="primary" />
           </v-list-item-content>
@@ -10,7 +10,7 @@
         <v-list-item
           v-if="authUser"
           link
-          @click="$bvModal.show('portal-modal')"
+          @click="$store.dispatch('showPortal')"
         >
           <v-list-item-content>
             <v-list-item-title v-if="authUser.displayName" class="text-h6">
@@ -19,7 +19,7 @@
             <v-list-item-subtitle>{{ authUser.email }}</v-list-item-subtitle>
           </v-list-item-content>
           <v-list-item-action>
-            <v-icon>mdi-menu-down</v-icon>
+            <v-icon>mdi-chevron-down</v-icon>
           </v-list-item-action>
         </v-list-item>
         <v-list-item v-else>
@@ -31,7 +31,7 @@
               outlined
               color="white"
               class="mb-0"
-              @click="$bvModal.show('portal-modal')"
+              @click="$store.dispatch('showPortal')"
             >
               <v-icon left dark> mdi-login </v-icon>
               Entre
@@ -81,27 +81,25 @@
     <!-- Sizes your content based upon application components -->
     <v-main>
       <!-- Provides the application the proper gutter -->
-      <v-container fluid>
+      <div class="pt-2">
         <div v-if="loading" class="text-center">
           <b-spinner />
         </div>
-        <div v-else class="pt-3">
+        <div v-else>
           <Nuxt />
           <div class="text-center mobile-footer">
             <hr />
             <Footer />
           </div>
         </div>
-      </v-container>
+      </div>
     </v-main>
 
     <v-footer app>
       <!-- -->
     </v-footer>
     <Portal />
-    <client-only>
-      <notifications />
-    </client-only>
+    <Snackbar />
   </v-app>
 </template>
 
@@ -215,7 +213,7 @@ export default {
         .filter((item) => item)
     },
     editProfile() {
-      this.$bvModal.show('portal-modal')
+      this.$store.dispatch('showPortal')
     },
     logout() {
       this.$store.dispatch('logout')

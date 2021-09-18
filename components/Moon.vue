@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container>
+    <v-container>
       <div v-if="moon_phase === 'nova'" class="item item-body text-center">
         <h3>Hoje é dia de Lua nova</h3>
         <small v-if="next_moon > 1">
@@ -84,7 +84,7 @@
         </p>
       </div>
       <hr />
-    </b-container>
+    </v-container>
   </div>
 </template>
 

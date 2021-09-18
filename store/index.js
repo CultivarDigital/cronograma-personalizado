@@ -6,5 +6,6 @@ export const state = () => {
     species: [],
     filters: {},
     uploadPool: [],
+    showPortal: true,
   }
 }

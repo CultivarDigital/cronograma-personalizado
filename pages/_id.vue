@@ -1,9 +1,9 @@
 <template>
   <div v-if="content">
     <Breadcrumb :active="content.title" :description="content.description" />
-    <b-container fluid>
+    <v-container fluid>
       <nuxt-content :document="content" />
-    </b-container>
+    </v-container>
   </div>
 </template>
 <script>

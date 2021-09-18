@@ -1,90 +1,103 @@
 <template>
-  <div>
-    <b-form-group :label="label" :description="description">
-      <div v-if="showPreview && !avatar && preview && preview.length">
-        <table
-          class="table b-table mb-1"
-          :class="{
-            'b-table-stacked-md': editTitle || editDescription || editLink,
-          }"
-        >
-          <tbody>
-            <tr v-for="(item, index) in preview" :key="index">
-              <td style="width: 100px" class="pl-0">
-                <CachedAudio v-if="type === 'audios'" :value="item" />
-                <CachedImage
-                  v-else-if="type === 'images'"
-                  :value="item"
-                  thumb
-                  width="100"
-                />
-                <CachedDocument v-else :value="item" />
-              </td>
-              <td v-if="editTitle || editDescription || editLink">
-                <b-form-input
-                  v-if="editTitle"
-                  v-model="item.title"
-                  placeholder="Título"
-                  class="mt-1"
-                />
-                <b-form-textarea
-                  v-if="editDescription"
-                  v-model="item.description"
-                  placeholder="Descrição"
-                  class="mt-1"
-                />
-                <b-form-input
-                  v-if="editLink"
-                  v-model="item.link"
-                  placeholder="Link"
-                  class="mt-1"
-                />
-                <b-form-input
-                  v-if="editLink"
-                  v-model="item.link_title"
-                  placeholder="Título do link"
-                  class="mt-1"
-                />
-              </td>
-              <td v-if="editDescription" />
-              <td class="text-right pr-0">
-                <b-btn variant="danger" @click="deleteFile(index)">
-                  <b-icon-trash />
-                </b-btn>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <b-button v-if="is_loading" variant="secondary" disabled>
-        <b-spinner small />
-        Enviando ({{ progress }}%) ...
-      </b-button>
-      <div v-if="type === 'audios'">
-        <RecordAudio @result="uploadFiles" />
-        <b-btn variant="success" @click="upload">
-          <b-icon-upload />
-          {{ buttonLabel }}
-        </b-btn>
-      </div>
-      <a v-else-if="avatar" @click="upload">
-        <b-avatar v-if="!is_loading && preview" size="6rem" :src="preview[0]">
-          <template #badge><b-icon-camera /></template>
-        </b-avatar>
-      </a>
-      <b-btn v-else variant="success" @click="upload">
+  <div class="mb-6">
+    <div v-if="showPreview && !avatar && preview && preview.length">
+      <table
+        class="table b-table mb-1"
+        :class="{
+          'b-table-stacked-md': editTitle || editDescription || editLink,
+        }"
+      >
+        <tbody>
+          <tr v-for="(item, index) in preview" :key="index">
+            <td style="width: 100px" class="pl-0">
+              <CachedAudio v-if="type === 'audios'" :value="item" />
+              <CachedImage
+                v-else-if="type === 'images'"
+                ignore-cache
+                :value="item"
+                thumb
+                size="64"
+              />
+              <CachedDocument v-else :value="item" />
+            </td>
+            <td v-if="editTitle || editDescription || editLink">
+              <b-form-input
+                v-if="editTitle"
+                v-model="item.title"
+                placeholder="Título"
+                class="mt-1"
+              />
+              <b-form-textarea
+                v-if="editDescription"
+                v-model="item.description"
+                placeholder="Descrição"
+                class="mt-1"
+              />
+              <b-form-input
+                v-if="editLink"
+                v-model="item.link"
+                placeholder="Link"
+                class="mt-1"
+              />
+              <b-form-input
+                v-if="editLink"
+                v-model="item.link_title"
+                placeholder="Título do link"
+                class="mt-1"
+              />
+            </td>
+            <td v-if="editDescription" />
+            <td class="text-right pr-0">
+              <b-btn color="danger" @click="deleteFile(index)">
+                <b-icon-trash />
+              </b-btn>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div v-if="type === 'audios'">
+      <RecordAudio @result="uploadFiles" />
+      <b-btn color="success" @click="upload">
         <b-icon-upload />
         {{ buttonLabel }}
       </b-btn>
-      <input
-        v-show="false"
-        :ref="'uploads-input-' + inputId"
-        :multiple="multiple"
-        :accept="accept"
-        type="file"
-        @change="uploadFiles"
-      />
-    </b-form-group>
+    </div>
+    <div v-else-if="avatar" class="text-center">
+      <v-avatar color="primary" size="64" class="mb-3">
+        <CachedImage
+          v-if="preview[0] && !is_loading"
+          ignore-cache
+          :src="preview[0]"
+          size="64"
+          thumb
+        />
+        <v-icon v-else dark> mdi-account </v-icon>
+      </v-avatar>
+      <br />
+      <v-btn
+        v-if="!is_loading && preview"
+        color="primary"
+        small
+        @click="upload"
+      >
+        {{ preview[0] ? 'Mudar foto' : 'Enviar foto' }}
+      </v-btn>
+    </div>
+    <b-btn v-else color="success" @click="upload">
+      <v-icon dark> mdi-upload </v-icon>
+      <b-icon-upload />
+      {{ buttonLabel }}
+    </b-btn>
+    <input
+      v-show="false"
+      :ref="'uploads-input-' + inputId"
+      :multiple="multiple"
+      :accept="accept"
+      type="file"
+      @change="uploadFiles"
+    />
+    <v-progress-linear v-if="is_loading" :value="progress" />
   </div>
 </template>
 

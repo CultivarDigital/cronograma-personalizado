@@ -5,7 +5,7 @@
       active="Como plantar"
       description="Veja dicas de como plantar suas plantinhas em casa"
     />
-    <b-container fluid class="guide">
+    <v-container fluid class="guide">
       <div class="cap-4">
         <div class="item item-body" padding>
           <h2 class="text-center title">DIFERENTES FORMAS DE PLANTAR</h2>
@@ -321,6 +321,6 @@
       >
         Quais os cuidados devo ter com minha horta?
       </b-button>
-    </b-container>
+    </v-container>
   </div>
 </template>

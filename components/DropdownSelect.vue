@@ -2,7 +2,12 @@
   <div class="mb-2 d-inline-block">
     <v-menu>
       <template #activator="{ on, attrs }">
-        <v-btn color="primary" dark v-bind="attrs" v-on="on">
+        <v-btn
+          :color="value ? 'primary' : 'grey'"
+          dark
+          v-bind="attrs"
+          v-on="on"
+        >
           <span v-if="value">
             <small>{{ label }}:</small> <strong>{{ value }}</strong>
           </span>

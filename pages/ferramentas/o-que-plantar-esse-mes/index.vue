@@ -5,7 +5,7 @@
       :active="'O que plantar em ' + currentMonth.name.toLowerCase()"
       :description="currentMonth.description"
     />
-    <b-container fluid>
+    <v-container>
       <div class="text-center">
         <h3 class="text-center">{{ currentMonth.name }}</h3>
         <p>{{ currentMonth.description }}</p>
@@ -15,8 +15,8 @@
           >:
         </p>
       </div>
-      <Species :species="species" />
-    </b-container>
+    </v-container>
+    <Species :species="species" parent="/ferramentas/o-que-plantar-esse-mes" />
   </div>
 </template>
 <script>

@@ -1,3 +1,6 @@
+<template>
+  <div class="d-none"></div>
+</template>
 <script>
 export default {
   props: {
@@ -59,7 +62,7 @@ export default {
     }
   },
   created() {
-    this.$store.commit('setPage', {
+    this.$store.dispatch('setPage', {
       name: this.active,
       title: this.pageTitle(),
       description: this.pageDescription(),

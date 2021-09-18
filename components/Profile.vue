@@ -1,108 +1,136 @@
 <template>
-  <b-tabs v-if="authUser" v-model="tab">
-    <b-tab title="Dados do perfil">
-      <ValidationObserver v-slot="{ validate, invalid }">
-        <form @submit.prevent="validate().then(save)">
-          <Upload
-            v-model="form.photoURL"
-            type="images"
-            avatar
-            label="Sua foto"
-            prefix="profile"
-            :filename="authUser.uid"
-          />
-          <b-form-group label="Seu nome">
-            <validation-provider
-              v-slot="{ errors }"
-              name="nome"
-              rules="required"
-            >
-              <b-form-input v-model="form.displayName" />
-              <Error :list="errors" />
-            </validation-provider>
-          </b-form-group>
-          <b-form-group label="Qual sua região?">
-            <b-form-select
-              v-model="form.region"
-              :options="['Centro-oeste', 'Nordeste', 'Norte', 'Sudeste', 'Sul']"
-            />
-          </b-form-group>
-          <b-form-group label="Conte um pouco sobre você">
-            <b-form-textarea v-model="form.bio" />
-          </b-form-group>
-          <button
-            type="submit"
-            class="btn btn-primary btn-lg btn-block"
-            :disabled="invalid || loading"
-          >
-            <b-spinner v-if="loading" small />
-            <span v-else>SALVAR</span>
-          </button>
-        </form>
-      </ValidationObserver>
-    </b-tab>
-    <b-tab title="Email e senha">
-      <ValidationObserver v-slot="{ validate, invalid }">
-        <b-form-group label="Seu email">
-          <b-form-input :value="authUser.email" disabled />
-        </b-form-group>
-        <b-btn class="mb-3" @click="change_password = !change_password">
-          <b-icon-lock /> ALTERAR SENHA
-        </b-btn>
-        <form
-          v-if="change_password"
-          @submit.prevent="validate().then(changePassword)"
-        >
-          <b-form-group label="Crie uma nova senha">
-            <validation-provider
-              v-slot="{ errors }"
-              name="senha"
-              rules="required|min:6"
-            >
-              <b-form-input v-model="passwordForm.password" type="password" />
-              <Error :list="errors" />
-            </validation-provider>
-          </b-form-group>
-          <b-form-group label="Confirme sua nova senha" class="mb-0">
-            <validation-provider
-              v-slot="{ errors }"
-              name="confirmação da senha"
-              rules="required"
-            >
-              <b-form-input
-                v-model="passwordForm.password_confirmation"
-                type="password"
+  <div>
+    <v-tabs v-if="authUser" v-model="tab">
+      <v-tab key="profile" dark> Dados do perfil </v-tab>
+      <v-tab key="credentials"> Email e senha </v-tab>
+    </v-tabs>
+    <v-tabs-items v-model="tab" class="pt-3">
+      <v-tab-item key="profile">
+        <v-container fluid>
+          <ValidationObserver v-slot="{ validate, invalid }">
+            <form @submit.prevent="validate().then(save)">
+              <Upload
+                v-model="form.photoURL"
+                type="images"
+                avatar
+                label="Sua foto"
+                prefix="profile"
+                :filename="authUser.uid"
               />
-              <Error :list="errors" />
-            </validation-provider>
-          </b-form-group>
-          <br />
-          <button
-            type="submit"
-            class="btn btn-primary btn-lg btn-block"
-            :disabled="invalid || loading"
-          >
-            <b-spinner v-if="loading" small />
-            <span v-else>SALVAR NOVA SENHA</span>
-          </button>
-        </form>
-      </ValidationObserver>
-    </b-tab>
-    <b-tab title="Sair" @click="logout"> </b-tab>
-  </b-tabs>
+              <validation-provider
+                v-slot="{ errors }"
+                name="nome"
+                rules="required"
+              >
+                <v-text-field
+                  v-model="form.displayName"
+                  outlined
+                  label="Seu nome"
+                  :error-messages="errors"
+                />
+              </validation-provider>
+              <v-select
+                v-model="form.region"
+                outlined
+                label="Qual sua região?"
+                :items="['Centro-oeste', 'Nordeste', 'Norte', 'Sudeste', 'Sul']"
+              />
+              <v-textarea
+                v-model="form.bio"
+                outlined
+                label="Conte um pouco sobre você"
+              />
+              <v-btn
+                type="submit"
+                color="success"
+                block
+                :disabled="invalid || loading"
+              >
+                <v-progress-circular
+                  v-if="loading"
+                  color="black"
+                  indeterminate
+                  size="20"
+                />
+                <span v-else>SALVAR</span>
+              </v-btn>
+            </form>
+          </ValidationObserver>
+        </v-container>
+      </v-tab-item>
+      <v-tab-item key="credentials">
+        <v-container fluid>
+          <ValidationObserver v-slot="{ validate, invalid }">
+            <v-text-field
+              :value="authUser.email"
+              disabled
+              label="Seu email"
+              outlined
+            />
+            <v-btn class="mb-6" @click="change_password = !change_password">
+              ALTERAR SENHA
+            </v-btn>
+            <form
+              v-if="change_password"
+              @submit.prevent="validate().then(changePassword)"
+            >
+              <validation-provider
+                v-slot="{ errors }"
+                name="senha"
+                rules="required|min:6"
+              >
+                <v-text-field
+                  v-model="passwordForm.password"
+                  label="Crie uma nova senha"
+                  type="password"
+                  :error-messages="errors"
+                  outlined
+                />
+              </validation-provider>
+              <validation-provider
+                v-slot="{ errors }"
+                name="confirmação da senha"
+                rules="required"
+              >
+                <v-text-field
+                  v-model="passwordForm.password_confirmation"
+                  label="Confirme sua nova senha"
+                  type="password"
+                  :error-messages="errors"
+                  outlined
+                />
+              </validation-provider>
+              <v-btn
+                color="success"
+                type="submit"
+                block
+                :disabled="invalid || loading"
+              >
+                <v-progress-circular
+                  v-if="loading"
+                  color="black"
+                  indeterminate
+                  size="20"
+                />
+                <span v-else>SALVAR NOVA SENHA</span>
+              </v-btn>
+            </form>
+          </ValidationObserver>
+        </v-container>
+      </v-tab-item>
+    </v-tabs-items>
+  </div>
 </template>
 <script>
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
-import Error from './Error.vue'
 export default {
   components: {
     ValidationObserver,
     ValidationProvider,
-    Error,
   },
   data() {
     return {
-      tab: 0,
+      tab: 'profile',
       loading: false,
       change_password: false,
       passwordForm: {
@@ -146,7 +174,7 @@ export default {
             .then(() => {
               this.setUser(user)
               this.notify('Seu perfil foi atualizado!')
-              this.$bvModal.hide('portal-modal')
+              this.$store.dispatch('hidePortal')
               this.loading = false
             })
             .catch((error) => {
@@ -181,7 +209,7 @@ export default {
       }
     },
     logout() {
-      this.$bvModal.hide('portal-modal')
+      this.$store.dispatch('hidePortal')
       this.$store.dispatch('logout')
       this.$fire.auth.signOut()
     },

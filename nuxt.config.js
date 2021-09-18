@@ -24,9 +24,8 @@ export default {
   plugins: [
     '~/plugins/global-mixin',
     { src: '~/plugins/persisted-state', ssr: false },
-    { src: '~/plugins/vue-notification', ssr: false },
-    { src: '~/plugins/vue-infinite-loading', ssr: false },
     { src: '~/plugins/vue-the-mask', ssr: false },
+    '~/plugins/notifier.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -46,7 +45,7 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/bootstrap
-    'bootstrap-vue/nuxt',
+    // 'bootstrap-vue/nuxt',
     '@nuxtjs/toast',
     [
       'nuxt-twa-module',

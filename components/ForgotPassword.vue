@@ -17,7 +17,12 @@
           :disabled="loading"
           class="mb-3"
         >
-          <b-spinner v-if="loading" small />
+          <v-progress-circular
+            v-if="loading"
+            color="black"
+            indeterminate
+            size="20"
+          />
           <span v-else>Recuperar senha</span>
         </b-btn>
       </div>

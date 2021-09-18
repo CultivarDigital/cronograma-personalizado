@@ -5,8 +5,8 @@
       active="Catálogo de espécies"
       description="Veja as espécies mais cultivadas na sua região"
     />
-    <b-container fluid>
-      <div class="mb-3 filters">
+    <v-container fluid>
+      <div class="filters">
         <DropdownSelect
           v-model="filters.category"
           :options="filtersOptions.specie_categories"
@@ -52,7 +52,7 @@
           @input="applyFilters"
         />
 
-        <b-input-group class="mt-3">
+        <b-input-group class="mt-4">
           <b-input v-model="filters.search" placeholder="Buscar" />
           <template #append>
             <b-input-group-text>
@@ -61,42 +61,23 @@
           </template>
         </b-input-group>
       </div>
-      <v-subheader class="justify-center mb-3">
-        <small v-if="species.length > 1">
-          {{ species.length }} espécies encontradas
-        </small>
-        <small v-else-if="species.length == 1"> Uma espécie encontrada </small>
-        <small v-else>Nenhuma espécie encontrada</small>
-      </v-subheader>
-      <div>
-        <b-media
-          v-for="specie in paginatedList"
-          :key="specie.id"
-          class="border-top py-2"
-        >
-          <template #aside>
-            <n-link :to="'/ferramentas/catalogo-de-especies/' + specie.id">
-              <CachedImage :src="specie.images[0]" thumb width="64" />
-            </n-link>
-          </template>
-          <h5 class="mb-1">
-            <n-link :to="'/ferramentas/catalogo-de-especies/' + specie.id">{{
-              specie.name
-            }}</n-link>
-          </h5>
-          <p v-if="specie.scientific_name" class="mb-0">
-            {{ specie.scientific_name }}
-          </p>
-        </b-media>
-      </div>
-      <client-only>
-        <infinite-loading :identifier="infiniteId" @infinite="paginate">
-          <div slot="spinner">Carregando...</div>
-          <div slot="no-more"></div>
-          <div slot="no-results"></div>
-        </infinite-loading>
-      </client-only>
-    </b-container>
+    </v-container>
+    <v-subheader class="justify-center">
+      <span v-if="species.length > 1">
+        {{ species.length }} espécies encontradas
+      </span>
+      <span v-else-if="species.length == 1"> Uma espécie encontrada </span>
+      <span v-else>Nenhuma espécie encontrada</span>
+    </v-subheader>
+    <Species
+      :species="paginatedList"
+      parent="/ferramentas/catalogo-de-especies"
+    />
+    <v-skeleton-loader
+      v-if="paginatedList.length !== species.length"
+      v-intersect="paginate"
+      type="list-item-avatar-two-line@3"
+    />
   </div>
 </template>
 <script>
@@ -114,8 +95,6 @@ export default {
       },
       per_page: 15,
       page: 1,
-      total: 0,
-      infiniteId: +new Date(),
     }
   },
   computed: {
@@ -158,15 +137,9 @@ export default {
     },
     applyFilters() {
       this.page = 1
-      this.infiniteId += 1
     },
-    paginate($state) {
+    paginate() {
       this.page += 1
-      if (this.per_page * this.page < this.species.length) {
-        $state.loaded()
-      } else {
-        $state.complete()
-      }
     },
   },
 }

@@ -38,7 +38,12 @@
         class="btn btn-primary btn-lg btn-block"
         :disabled="invalid || loading"
       >
-        <b-spinner v-if="loading" small />
+        <v-progress-circular
+          v-if="loading"
+          color="black"
+          indeterminate
+          size="20"
+        />
         <span v-else>ENTRAR</span>
       </button>
     </form>
@@ -91,7 +96,7 @@ export default {
     },
     welcome(user) {
       this.setUser(user)
-      this.$bvModal.hide('portal-modal')
+      this.$store.dispatch('hidePortal')
       this.notify('Seja bem vindo!')
     },
   },

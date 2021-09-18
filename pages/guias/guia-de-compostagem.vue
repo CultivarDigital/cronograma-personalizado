@@ -9,7 +9,7 @@
         require('~/assets/img/guia-de-compostagem/ciclo-texto.png')
       "
     />
-    <b-container fluid class="guide">
+    <v-container fluid class="guide">
       <div class="cap-1">
         <div class="item item-body" padding>
           <section>
@@ -755,7 +755,7 @@
         </div>
       </div>
       <Comments :target="'/guias/guia-de-compostagem'" />
-    </b-container>
+    </v-container>
   </div>
 </template>
 <script>

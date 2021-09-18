@@ -1,7 +1,7 @@
 export default {
   setUser({ commit }, { authUser }) {
+    commit('LOGOUT')
     if (!authUser) {
-      commit('LOGOUT')
       return
     }
     const profileRef = this.$fire.firestore
@@ -26,7 +26,13 @@ export default {
     })
   },
   setPage({ commit }, page) {
-    commit('setPage')
+    commit('setPage', page)
+  },
+  showPortal({ commit }) {
+    commit('togglePortal', true)
+  },
+  hidePortal({ commit }) {
+    commit('togglePortal', false)
   },
   logout({ commit }) {
     commit('LOGOUT')

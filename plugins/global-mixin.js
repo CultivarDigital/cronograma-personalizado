@@ -33,23 +33,12 @@ if (!Vue.__my_mixin__) {
         return await this.$localForage.setItem(key, value)
       },
       notify(msg, type) {
-        const params = {
-          action: {
-            text: 'X',
-            onClick: (e, toastObject) => {
-              toastObject.goAway(0)
-            },
-          },
-        }
-        if (type === 'error') {
-          this.$toast.error(msg, params)
-        } else {
-          this.$toast.success(msg, params)
-        }
+        this.$notifier.notify({
+          content: msg,
+          color: type === 'error' ? 'red' : 'green',
+        })
       },
       firebaseError(error) {
-        console.error('Firebase error:')
-        console.error(error)
         if (error) {
           const msg = firebaseTranslations[error.code]
           if (msg) {

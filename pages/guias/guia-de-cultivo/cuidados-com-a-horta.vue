@@ -5,7 +5,7 @@
       active="Cuidados com a Horta"
       description="Confira os cuidados que você deve ter com sua hortinha"
     />
-    <b-container fluid class="guide">
+    <v-container fluid class="guide">
       <div class="cap-5">
         <div class="item item-body" padding>
           <h2 class="text-center title">REGA</h2>
@@ -174,6 +174,6 @@
       >
         Veja nossas dicas básicas de cultivo
       </b-button>
-    </b-container>
+    </v-container>
   </div>
 </template>

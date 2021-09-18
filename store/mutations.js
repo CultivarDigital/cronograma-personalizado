@@ -4,6 +4,7 @@ export default {
     state.authUser = null
   },
   SET_AUTH_USER: (state, authUser) => {
+    state.authUser = null
     state.authUser = {
       uid: authUser.uid,
       email: authUser.email,
@@ -13,6 +14,9 @@ export default {
       bio: authUser.bio,
       region: authUser.region,
     }
+  },
+  togglePortal(state, show) {
+    state.showPortal = show
   },
   setRegion(state, region) {
     state.region = region

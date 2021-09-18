@@ -1,15 +1,16 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <span>
-    <CachedImage
-      v-if="profile && profile.photoURL"
-      avatar
-      :title="profile.displayName"
-      :alt="profile.displayName"
-      :src="profile.photoURL"
-      :size="size"
-      :color="color"
-    />
+    <v-avatar v-if="profile && profile.photoURL" :color="color" :size="size">
+      <CachedImage
+        avatar
+        :title="profile.displayName"
+        :alt="profile.displayName"
+        :src="profile.photoURL"
+        :size="size"
+        :color="color"
+      />
+    </v-avatar>
     <v-avatar v-else :color="color" :size="size">
       <v-icon :color="iconColor" :size="size / 2" dark> mdi-account </v-icon>
     </v-avatar>

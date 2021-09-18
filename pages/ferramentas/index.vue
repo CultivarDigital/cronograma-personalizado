@@ -4,7 +4,7 @@
       active="Ferramentas"
       description="Ferramentas que vão auxiliar no cuidado com os seus cultivos"
     />
-    <b-container fluid>
+    <v-container fluid>
       <b-button
         block
         variant="primary"
@@ -17,7 +17,7 @@
         Catálogo de espécies
       </b-button>
       <br />
-    </b-container>
+    </v-container>
   </div>
 </template>
 <script>

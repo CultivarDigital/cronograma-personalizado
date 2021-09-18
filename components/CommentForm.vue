@@ -11,7 +11,7 @@
           v-model="form.message"
           :placeholder="form.comment ? 'Responder' : 'Deixe seu comentário'"
         />
-        <b-btn v-else block @click="$bvModal.show('portal-modal')">
+        <b-btn v-else block @click="$store.dispatch('showPortal')">
           Deixe seu comentário
         </b-btn>
         <b-btn

@@ -5,7 +5,7 @@
       active="Quando plantar"
       description="Saiba qual é a melhor hora para plantar seus cultivos"
     />
-    <b-container fluid class="guide">
+    <v-container fluid class="guide">
       <div class="cap-3">
         <div class="item item-body" padding>
           <h2 class="text-center title">OLHANDO PARA CIMA</h2>
@@ -237,6 +237,6 @@
           </b-button>
         </div>
       </div>
-    </b-container>
+    </v-container>
   </div>
 </template>

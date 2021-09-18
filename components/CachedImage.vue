@@ -1,18 +1,28 @@
 <template>
-  <span>
-    <v-avatar v-if="avatar && url" :size="size" :color="color">
-      <v-img v-b-tooltip.hover :src="url" :alt="title" :title="title" />
-    </v-avatar>
-    <v-img
-      v-else-if="url"
-      v-b-tooltip.hover
-      :src="url"
-      :max-width="size"
-      :rounded="thumb"
-      :alt="title"
-      :title="title"
-    />
-  </span>
+  <img
+    v-if="raw && url"
+    :key="src"
+    :src="url"
+    :width="size"
+    :height="size"
+    :alt="title"
+    :title="title"
+    style="max-width: 100%"
+    :class="cssClass"
+  />
+  <v-img
+    v-else-if="url"
+    :key="src"
+    :src="url"
+    :width="size"
+    :height="size"
+    :rounded="rounded"
+    :alt="title"
+    :title="title"
+    :contain="contain"
+    :class="cssClass"
+    fluid
+  />
 </template>
 
 <script>
@@ -20,23 +30,20 @@ import CryptoJS from 'crypto-js'
 import axios from 'axios'
 export default {
   props: {
+    raw: {
+      type: Boolean,
+      default: false,
+    },
     src: {
       type: String,
       default: null,
+      required: null,
     },
     title: {
       type: String,
       default: null,
     },
-    avatar: {
-      type: Boolean,
-      default: false,
-    },
     thumb: {
-      type: Boolean,
-      default: false,
-    },
-    fluid: {
       type: Boolean,
       default: false,
     },
@@ -44,9 +51,21 @@ export default {
       type: String,
       default: null,
     },
-    color: {
+    cssClass: {
       type: String,
-      default: 'blue-grey',
+      default: null,
+    },
+    rounded: {
+      type: Boolean,
+      default: false,
+    },
+    contain: {
+      type: Boolean,
+      default: false,
+    },
+    ignoreCache: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -54,42 +73,50 @@ export default {
       url: null,
     }
   },
-  async created() {
-    if (this.src) {
-      if (this.thumb) {
-        const thumbURL = this.src.replace('/images', '/thumbs')
-        this.url = await this.loadUrl(thumbURL)
-      }
-      if (!this.url) {
-        this.url = await this.loadUrl(this.src)
-      }
-      if (!this.url) {
-        return this.src
-      }
-    }
+  created() {
+    this.load()
   },
   methods: {
+    async load() {
+      if (this.src) {
+        if (this.thumb) {
+          const thumbURL = this.src.replace('/images', '/thumbs')
+          this.url = await this.loadUrl(thumbURL)
+          if (this.url) {
+            this.loadUrl(this.src)
+          }
+        }
+        if (!this.url) {
+          this.url = await this.loadUrl(this.src)
+        }
+        if (!this.url) {
+          return this.src
+        }
+      }
+    },
     async loadUrl(url) {
       const hash = CryptoJS.MD5(url).toString()
       const cached = await this.getLocalItem(hash)
-      if (cached) {
+      if (cached && !this.ignoreCache) {
         return URL.createObjectURL(cached)
       } else {
         try {
           return await this.cacheUrl(url)
         } catch (error) {
-          console.log('Unable to cache: ' + url)
           return null
         }
       }
     },
     async cacheUrl(url) {
       const fileToCache = await axios.get(url, {
-        responseType: 'blob',
+        responseType: 'arraybuffer',
+      })
+      const blob = new Blob([fileToCache.data], {
+        type: 'image/jpg',
       })
       const hash = CryptoJS.MD5(url).toString()
-      await this.setLocalItem(hash, fileToCache.data)
-      return URL.createObjectURL(fileToCache.data)
+      await this.setLocalItem(hash, blob)
+      return URL.createObjectURL(blob)
     },
   },
 }

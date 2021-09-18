@@ -9,7 +9,7 @@
         require('~/assets/img/guia-de-cultivo/guia-de-cultivo.png')
       "
     />
-    <b-container fluid class="guide">
+    <v-container fluid class="guide">
       <div class="img-wrapper">
         <img src="~assets/img/guia-de-cultivo/guia-de-cultivo.png" />
       </div>
@@ -63,7 +63,7 @@
       </b-button>
       <br />
       <Comments :target="'/guias/guia-de-cultivo'" />
-    </b-container>
+    </v-container>
   </div>
 </template>
 <script>
