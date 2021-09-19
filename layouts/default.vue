@@ -4,7 +4,7 @@
       <v-list color="primary" :dark="true" nav>
         <v-list-item class="mb-0">
           <v-list-item-content class="text-center pb-0">
-            <User size="64" color="white" icon-color="primary" />
+            <User thumb size="64" color="white" icon-color="primary" />
           </v-list-item-content>
         </v-list-item>
         <v-list-item
@@ -55,6 +55,7 @@
     <v-app-bar app color="primary" dark hide-on-scroll>
       <v-img
         v-if="$route.path === '/'"
+        title="Cultivar Brasil"
         :src="require('~/assets/img/cultivar-white.png')"
         class="mr-2"
         max-height="24px"
@@ -88,16 +89,15 @@
         <div v-else>
           <Nuxt />
           <div class="text-center mobile-footer">
-            <hr />
+            <v-divider />
+            <br />
             <Footer />
           </div>
         </div>
       </div>
     </v-main>
 
-    <v-footer app>
-      <!-- -->
-    </v-footer>
+    <v-footer app> Base URL: {{ baseURL }} </v-footer>
     <Portal />
     <Snackbar />
   </v-app>
@@ -113,6 +113,9 @@ export default {
     }
   },
   computed: {
+    baseURL() {
+      return process.env.baseURL
+    },
     authUser() {
       return this.$store.state.authUser
     },
@@ -215,11 +218,6 @@ export default {
     editProfile() {
       this.$store.dispatch('showPortal')
     },
-    logout() {
-      this.$store.dispatch('logout')
-      this.$fire.auth.signOut()
-    },
-
     // async importSpecies() {
     //   this.imported = []
     //   for (const specie of this.species) {

@@ -9,7 +9,7 @@
     <v-icon v-if="color === 'red'" left> mdi-alert-circle </v-icon>
     {{ message }}
     <template #action="{ attrs }">
-      <v-btn text v-bind="attrs" @click="show = false">
+      <v-btn small text v-bind="attrs" @click="show = false">
         <v-icon> mdi-close </v-icon>
       </v-btn>
     </template>

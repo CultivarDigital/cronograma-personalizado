@@ -1,21 +1,20 @@
 <template>
-  <div>
-    <form @submit.prevent="recovery">
-      <div v-if="success" class="alert alert-info">
-        Enviamos um e-mail para <strong>{{ email }}</strong
+  <v-container class="mt-3">
+    <v-form @submit.prevent="recovery">
+      <v-alert v-if="success" type="success">
+        Enviamos um e-mail para
+        <strong>{{ email }}</strong
         >. Clique no link enviado para recuperar sua senha.
-      </div>
+      </v-alert>
       <div v-else>
-        <b-form-group label="Digite seu e-mail">
-          <b-form-input v-model="email" />
-        </b-form-group>
-        <b-btn
-          block
-          variant="primary"
+        <v-text-field v-model="email" label="Digite seu e-mail" outlined />
+        <v-btn
           type="submit"
-          size="lg"
+          color="success"
+          block
+          large
           :disabled="loading"
-          class="mb-3"
+          class="mb-2"
         >
           <v-progress-circular
             v-if="loading"
@@ -24,11 +23,11 @@
             size="20"
           />
           <span v-else>Recuperar senha</span>
-        </b-btn>
+        </v-btn>
       </div>
-      <b-btn block variant="secondary" @click="$emit('login')"> Voltar </b-btn>
-    </form>
-  </div>
+      <v-btn block @click="$emit('login')"> Voltar </v-btn>
+    </v-form>
+  </v-container>
 </template>
 <script>
 export default {

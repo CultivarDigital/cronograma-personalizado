@@ -67,7 +67,6 @@
       <v-avatar color="primary" size="64" class="mb-3">
         <CachedImage
           v-if="preview[0] && !is_loading"
-          ignore-cache
           :src="preview[0]"
           size="64"
           thumb

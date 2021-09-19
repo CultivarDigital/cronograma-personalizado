@@ -19,7 +19,7 @@ if (!Vue.__my_mixin__) {
           : this.$store.state.region
       },
       baseURL() {
-        return this.$axios.defaults.baseURL || process.env.BASE_URL
+        return process.env.BASE_URL
       },
     },
     methods: {
@@ -48,26 +48,6 @@ if (!Vue.__my_mixin__) {
           }
         } else {
           this.notify('Ocorreu um erro inesperado. Tente novamente mais tarde')
-        }
-      },
-      showError(error) {
-        if (error.response) {
-          if (error.response.data) {
-            if (
-              error.response.status === 401 &&
-              error.response.data.includes('invalid signature')
-            ) {
-              this.notify('Sessão expirada!', 'error')
-              this.$auth.logout()
-              this.$router.replace('/')
-            } else if (error.response.data.message) {
-              this.notify(error.response.data.message, 'error')
-            } else {
-              this.notify(error.response.data, 'error')
-            }
-          } else {
-            this.notify(error.response, 'error')
-          }
         }
       },
     },

@@ -3,6 +3,7 @@
     <v-dialog
       :value="$store.state.showPortal"
       fullscreen
+      persistent
       hide-overlay
       transition="dialog-bottom-transition"
       @input="$store.dispatch('hidePortal')"
@@ -14,14 +15,17 @@
           </v-btn>
           <span>{{ title }}</span>
           <v-spacer></v-spacer>
+          <v-btn v-if="authUser" icon dark @click="logout">
+            <v-icon>mdi-logout</v-icon>
+          </v-btn>
         </v-toolbar>
-        <div v-if="$store.state.authUser">
+        <div v-if="authUser">
           <Profile />
         </div>
         <div v-else>
           <ForgotPassword v-if="tab == 'forgot_password'" @login="tab = null" />
           <SignInWithEmail
-            v-if="tab == 'sign_in_with_email'"
+            v-else-if="tab == 'sign_in_with_email'"
             @login="tab = null"
           />
           <Register
@@ -70,6 +74,13 @@ export default {
       } else {
         return 'Faça o login para continuar'
       }
+    },
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('hidePortal')
+      this.$store.dispatch('logout')
+      this.$fire.auth.signOut()
     },
   },
 }

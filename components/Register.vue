@@ -1,62 +1,75 @@
 <template>
-  <ValidationObserver v-slot="{ validate, invalid }">
-    <p class="text-center">
-      Já possúi uma conta?
-      <b-button variant="secondary" size="sm" @click="$emit('login')">
-        ENTRE
-      </b-button>
-    </p>
-    <form @submit.prevent="validate().then(register)">
-      <b-form-group label="Qual seu email?">
+  <v-container class="mt-3">
+    <ValidationObserver v-slot="{ validate, invalid }">
+      <p class="text-center mb-6">
+        Já possúi uma conta?
+        <v-btn color="primary" @click="$emit('login')"> ENTRE </v-btn>
+      </p>
+      <v-form @submit.prevent="validate().then(register)">
         <validation-provider
           v-slot="{ errors }"
           name="e-mail"
           rules="required|min:4"
         >
-          <b-form-input v-model="form.email" />
-          <Error :list="errors" />
+          <v-text-field
+            v-model="form.email"
+            outlined
+            label="Qual seu email?"
+            :error-messages="errors"
+          />
         </validation-provider>
-      </b-form-group>
-      <b-form-group label="Vamos criar uma senha pra você?">
         <validation-provider
           v-slot="{ errors }"
           name="senha"
           rules="required|min:4"
         >
-          <b-form-input v-model="form.password" type="password" />
-          <Error :list="errors" />
+          <v-text-field
+            v-model="form.password"
+            outlined
+            type="password"
+            label="Vamos criar uma senha pra você?"
+            :error-messages="errors"
+          />
         </validation-provider>
-      </b-form-group>
-      <b-form-group label="Confirme sua senha">
         <validation-provider
           v-slot="{ errors }"
           name="confirmação da senha"
           rules="required"
         >
-          <b-form-input v-model="form.password_confirmation" type="password" />
-          <Error :list="errors" />
+          <v-text-field
+            v-model="form.password_confirmation"
+            outlined
+            type="password"
+            label="Confirme sua senha"
+            :error-messages="errors"
+          />
         </validation-provider>
-      </b-form-group>
 
-      <button
-        type="submit"
-        class="btn btn-primary btn-lg btn-block"
-        :disabled="invalid || loading"
-      >
-        <b-spinner v-if="loading" />
-        <span v-else>CADASTRAR</span>
-      </button>
-    </form>
-  </ValidationObserver>
+        <v-btn
+          type="submit"
+          color="success"
+          block
+          large
+          :disabled="invalid || loading"
+        >
+          <v-progress-circular
+            v-if="loading"
+            color="black"
+            indeterminate
+            size="20"
+          />
+          <span v-else>CADASTRAR</span>
+        </v-btn>
+      </v-form>
+    </ValidationObserver>
+  </v-container>
 </template>
 <script>
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
-import Error from './Error.vue'
 export default {
   components: {
     ValidationObserver,
     ValidationProvider,
-    Error,
   },
   data() {
     return {
@@ -88,7 +101,7 @@ export default {
           this.firebaseError(error)
         }
       } else {
-        this.notify('As duas senhas devem ser iguais', 'error')
+        this.notify('As senhas devem ser iguais', 'error')
       }
       this.loading = false
     },

@@ -1,10 +1,10 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <div class="pt-3 pb-3">
-    <hr class="mt-0 mb-3" />
+    <v-divider class="mt-0 mb-3" />
     <b-media v-for="comment in comments" :key="comment.id" class="pt-2">
       <template #aside>
-        <User :user="comment.user" thumb size="40px" />
+        <User :user="comment.user" thumb size="32" />
       </template>
       <div>
         <small

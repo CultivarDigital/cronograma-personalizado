@@ -1,62 +1,70 @@
 <template>
-  <ValidationObserver v-slot="{ validate, invalid }">
-    <p class="text-center">
-      Ainda não possúi uma conta?
-      <b-button variant="secondary" size="sm" @click="$emit('register')">
-        CADASTRE-SE
-      </b-button>
-    </p>
-    <hr />
-    <div class="mb-3 text-center">
-      <b-button block @click="signInWithGoogle">
-        <b-icon-google /> &nbsp; Entrar com o google
-      </b-button>
-      <b-button block @click="$emit('signInWithEmail')">
-        <b-icon-envelope-fill /> &nbsp; Entrar com e-mail
-      </b-button>
-    </div>
-    <form @submit.prevent="validate().then(login)">
-      <b-form-group label="Digite seu e-mail">
-        <validation-provider v-slot="{ errors }" name="e-mail" rules="required">
-          <b-form-input v-model="form.login" />
-          <Error :list="errors" />
-        </validation-provider>
-      </b-form-group>
-      <b-form-group label="Digite sua senha" class="mb-0">
-        <validation-provider v-slot="{ errors }" name="senha" rules="required">
-          <b-form-input v-model="form.password" type="password" />
-          <Error :list="errors" />
-        </validation-provider>
-      </b-form-group>
-      <div class="text-right mb-2">
-        <b-btn variant="link" class="btn-link" @click="$emit('forgotPassword')">
-          Esqueci minha senha
-        </b-btn>
+  <v-container class="mt-3">
+    <ValidationObserver v-slot="{ validate, invalid }">
+      <p class="text-center mb-6">
+        <span class="d-inline-block mb-3">Ainda não possúi uma conta?</span>
+        <v-btn color="primary" @click="$emit('register')"> CADASTRE-SE </v-btn>
+      </p>
+      <div class="mb-3 text-center">
+        <v-btn color="primary" block class="mb-2" @click="signInWithGoogle">
+          <v-icon>mdi-google</v-icon> &nbsp; Entrar com o google
+        </v-btn>
+        <v-btn block @click="$emit('signInWithEmail')">
+          <b-icon-envelope-fill /> &nbsp; Entrar com e-mail
+        </v-btn>
       </div>
-      <button
-        type="submit"
-        class="btn btn-primary btn-lg btn-block"
-        :disabled="invalid || loading"
-      >
-        <v-progress-circular
-          v-if="loading"
-          color="black"
-          indeterminate
-          size="20"
-        />
-        <span v-else>ENTRAR</span>
-      </button>
-    </form>
-  </ValidationObserver>
+      <p class="text-caption text-center pt-3 pb-2">
+        Ou informe seus dados abaixo:
+      </p>
+      <v-form @submit.prevent="validate().then(login)">
+        <validation-provider v-slot="{ errors }" name="e-mail" rules="required">
+          <v-text-field
+            v-model="form.login"
+            outlined
+            label="Digite seu e-mail"
+            :error-messages="errors"
+          />
+        </validation-provider>
+        <validation-provider v-slot="{ errors }" name="senha" rules="required">
+          <v-text-field
+            v-model="form.password"
+            outlined
+            type="password"
+            :error-messages="errors"
+            label="Digite sua senha"
+            hide-details="auto"
+          />
+        </validation-provider>
+        <div class="text-right mb-6 mt-2">
+          <v-btn small @click="$emit('forgotPassword')">
+            Esqueci minha senha
+          </v-btn>
+        </div>
+        <v-btn
+          type="submit"
+          color="success"
+          block
+          large
+          :disabled="invalid || loading"
+        >
+          <v-progress-circular
+            v-if="loading"
+            color="black"
+            indeterminate
+            size="20"
+          />
+          <span v-else>ENTRAR</span>
+        </v-btn>
+      </v-form>
+    </ValidationObserver>
+  </v-container>
 </template>
 <script>
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
-import Error from './Error.vue'
 export default {
   components: {
     ValidationObserver,
     ValidationProvider,
-    Error,
   },
   data() {
     return {

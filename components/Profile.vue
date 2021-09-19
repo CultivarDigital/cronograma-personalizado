@@ -205,13 +205,8 @@ export default {
             this.loading = false
           })
       } else {
-        this.notify('As duas senhas devem ser iguais', 'error')
+        this.notify('As senhas devem ser iguais', 'error')
       }
-    },
-    logout() {
-      this.$store.dispatch('hidePortal')
-      this.$store.dispatch('logout')
-      this.$fire.auth.signOut()
     },
   },
 }

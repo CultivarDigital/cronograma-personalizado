@@ -2,7 +2,6 @@ export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: true,
   // Global page headers: https://go.nuxtjs.dev/config-head
-  serverMiddleware: ['~/api/index.js'],
   head: {
     title: 'Cultivar',
     meta: [
@@ -83,17 +82,6 @@ export default {
     ],
     '@nuxtjs/firebase',
   ],
-
-  bootstrapVue: {
-    icons: true,
-  },
-
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {
-    baseURL: '',
-    // baseURL: process.env.BASE_URL || 'http://localhost:3000',
-  },
-
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
@@ -150,22 +138,21 @@ export default {
     theme: 'bubble',
   },
   vuetify: {
+    customVariables: ['~/assets/css/variables.sass'],
+    treeShake: true,
     theme: {
       light: true, // you don't actually need this line as it's for default
       themes: {
         light: {
           primary: '#009d6b',
+          success: '#009d6b',
         },
       },
     },
   },
-  proxy: {
-    pathRewrite: {
-      '^/api/': '/',
-    },
+  env: {
+    baseURL: process.env.BASE_URL || 'http://localhost:3000',
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
-    watch: ['api/**/*.js'],
-  },
+  build: {},
 }

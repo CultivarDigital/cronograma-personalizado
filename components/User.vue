@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <span>
-    <v-avatar v-if="profile && profile.photoURL" :color="color" :size="size">
+    <v-avatar v-if="profile && profile.photoURL" :size="size">
       <CachedImage
         avatar
         :title="profile.displayName"
@@ -9,6 +9,7 @@
         :src="profile.photoURL"
         :size="size"
         :color="color"
+        :thumb="thumb"
       />
     </v-avatar>
     <v-avatar v-else :color="color" :size="size">
