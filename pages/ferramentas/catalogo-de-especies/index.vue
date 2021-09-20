@@ -52,14 +52,15 @@
           @input="applyFilters"
         />
 
-        <b-input-group class="mt-4">
-          <b-input v-model="filters.search" placeholder="Buscar" />
-          <template #append>
-            <b-input-group-text>
-              <b-icon-search />
-            </b-input-group-text>
-          </template>
-        </b-input-group>
+        <v-text-field
+          v-model="filters.search"
+          class="mt-3"
+          placeholder="Buscar"
+          append-icon="mdi-magnify"
+          outlined
+          hide-details="true"
+          dense
+        />
       </div>
     </v-container>
     <v-subheader class="justify-center">

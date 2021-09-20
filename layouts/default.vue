@@ -83,8 +83,8 @@
     <v-main>
       <!-- Provides the application the proper gutter -->
       <div class="pt-2">
-        <div v-if="loading" class="text-center">
-          <b-spinner />
+        <div v-if="loading" class="text-center pt-10">
+          <v-progress-circular indeterminate color="primary" />
         </div>
         <div v-else>
           <Nuxt />

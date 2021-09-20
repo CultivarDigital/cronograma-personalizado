@@ -3,16 +3,18 @@
     <v-container>
       <div v-if="moon_phase === 'nova'" class="item item-body text-center">
         <h3>Hoje é dia de Lua nova</h3>
-        <small v-if="next_moon > 1">
-          Faltam {{ Math.ceil(next_moon) }} dias para o quarto crescente</small
-        >
-        <small v-else> Amanhã já entra o quarto crescente</small>
-        <br />
+        <p class="mb-3">
+          <small v-if="next_moon > 1">
+            Faltam {{ Math.ceil(next_moon) }} dias para o quarto
+            crescente</small
+          >
+          <small v-else> Amanhã já entra o quarto crescente</small>
+        </p>
         <div class="img-wrapper">
-          <b-img src="~assets/img/home-lua-nova.png"></b-img>
+          <CachedImage :src="require('~/assets/img/home-lua-nova.png')" raw />
         </div>
         <p>
-          <br />Nessa fase a seiva manifesta-se em maior quantidade no caule, em
+          Nessa fase a seiva manifesta-se em maior quantidade no caule, em
           direção aos ramos
         </p>
         <p>
@@ -23,17 +25,21 @@
       </div>
       <div v-if="moon_phase === 'crescente'" class="item item-body text-center">
         <h3>Hoje é dia de Lua crescente</h3>
-        <small v-if="next_moon > 1">
-          Faltam {{ Math.ceil(next_moon) }} dias para a Lua cheia</small
-        >
-        <small v-else> Amanhã já entra a Lua cheia</small>
-        <br />
+        <p class="mb-3">
+          <small v-if="next_moon > 1">
+            Faltam {{ Math.ceil(next_moon) }} dias para a Lua cheia</small
+          >
+          <small v-else> Amanhã já entra a Lua cheia</small>
+        </p>
         <div class="img-wrapper">
-          <b-img src="~assets/img/home-lua-crescente.png"></b-img>
+          <CachedImage
+            :src="require('~/assets/img/home-lua-crescente.png')"
+            raw
+          />
         </div>
         <p>
-          <br />Nessa fase a seiva está presente em maior quantidade no caule,
-          nos ramos e nas folhas.
+          Nessa fase a seiva está presente em maior quantidade no caule, nos
+          ramos e nas folhas.
         </p>
         <p>
           <strong>Fase boa para:</strong> plantar tomate, pimentão, jiló,
@@ -44,17 +50,19 @@
       </div>
       <div v-if="moon_phase === 'cheia'" class="item item-body text-center">
         <h3>Hoje é dia de Lua cheia</h3>
-        <small v-if="next_moon > 1">
-          Faltam {{ Math.ceil(next_moon) }} dias para o quarto minguante</small
-        >
-        <small v-else> Amanhã já entra o quarto minguante</small>
-        <br />
+        <p class="mb-3">
+          <small v-if="next_moon > 1">
+            Faltam {{ Math.ceil(next_moon) }} dias para o quarto
+            minguante</small
+          >
+          <small v-else> Amanhã já entra o quarto minguante</small>
+        </p>
         <div class="img-wrapper">
-          <b-img src="~assets/img/home-lua-cheia.png"></b-img>
+          <CachedImage :src="require('~/assets/img/home-lua-cheia.png')" raw />
         </div>
         <p>
-          <br />Nessa fase a seiva manifesta-se em maior quantidade na copa da
-          planta (ramos e folhas).
+          Nessa fase a seiva manifesta-se em maior quantidade na copa da planta
+          (ramos e folhas).
         </p>
         <p>
           <strong>Fase boa para:</strong> colheita de frutos e hortaliças de
@@ -65,17 +73,21 @@
       </div>
       <div v-if="moon_phase === 'minguante'" class="item item-body text-center">
         <h3>Hoje é dia de Lua minguante</h3>
-        <small v-if="next_moon > 1">
-          Faltam {{ Math.ceil(next_moon) }} dias para a lua nova</small
-        >
-        <small v-else> Amanhã já entra a lua nova</small>
-        <br />
+        <p class="mb-3">
+          <small v-if="next_moon > 1">
+            Faltam {{ Math.ceil(next_moon) }} dias para a lua nova</small
+          >
+          <small v-else> Amanhã já entra a lua nova</small>
+        </p>
         <div class="img-wrapper">
-          <b-img src="~assets/img/home-lua-minguante.png"></b-img>
+          <CachedImage
+            :src="require('~/assets/img/home-lua-minguante.png')"
+            raw
+          />
         </div>
         <p>
-          <br />Nessa fase a planta absorve menos quantidade de seiva no caule,
-          nas folhas e nos ramos.
+          Nessa fase a planta absorve menos quantidade de seiva no caule, nas
+          folhas e nos ramos.
         </p>
         <p>
           <strong>Fase boa para:</strong> plantar raízes como rabanetes,

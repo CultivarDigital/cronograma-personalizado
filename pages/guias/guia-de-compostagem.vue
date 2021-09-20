@@ -110,78 +110,96 @@
             </v-responsive>
             <br />
             <p>Com a composteira pronta você também precisará providenciar:</p>
-            <b-media>
-              <template #aside>
-                <b-img
-                  src="~assets/img/guia-de-compostagem/suporte.png"
-                  width="40"
-                  alt="Suporte"
-                ></b-img>
-              </template>
-              <h5 class="pt-2">UM SUPORTE</h5>
-              <p>
-                Para colocar embaixo da composteira para que a torneira fique
-                acessível no momento da retirada do composto líquido. Esse
-                suporte pode ser blocos de concreto, tijolos, caixa de feira,
-                madeira, móvel, etc.
-              </p>
-            </b-media>
-            <b-media>
-              <template #aside>
-                <b-img
-                  src="~assets/img/guia-de-compostagem/materia-seca.png"
-                  width="40"
-                  alt="Suporte"
-                ></b-img>
-              </template>
-              <h5 class="pt-2">MATÉRIA VEGETAL SECA</h5>
-              <p><b>(Serragem, folhas, palha ou grama)</b></p>
-              <p>
-                Para misturar e cobrir os resíduos de cozinha que serão
-                depositados na composteira. Encontre uma fonte natural (jardim,
-                praça, parque, etc) próxima da sua casa ou procure uma
-                marcenaria ou madeireira no seu bairro e peça para eles
-                separarem serragem grossa sem verniz para você! Não use serragem
-                de compensado ou aglomerados que possuem cola em sua composição.
-              </p>
-              <div class="box">
-                <p><strong>Importante!</strong></p>
-                A matéria vegetal seca é fundamental para que a decomposição
-                aconteça sem emissão de odores nem atração de animais
-                indesejáveis. Ela não pode faltar! Antes de acabar providencie a
-                reposição da mesma e mantenha seu estoque sempre abastecido.
-              </div>
-            </b-media>
-            <b-media>
-              <template #aside>
-                <b-img
-                  src="~assets/img/guia-de-compostagem/recipiente.png"
-                  width="40"
-                  alt="Suporte"
-                ></b-img>
-              </template>
-              <h5 class="pt-2">UM RECIPIENTE</h5>
-              <p>
-                Para armazenar a matéria vegetal seca. Recomendamos que você
-                estoque-a ao lado da composteira. Isto vai tornar a rotina
-                rápida e prática.
-              </p>
-            </b-media>
-            <b-media>
-              <template #aside>
-                <b-img
-                  src="~assets/img/guia-de-compostagem/baldinho.png"
-                  width="40"
-                  alt="Suporte"
-                ></b-img>
-              </template>
-              <h5 class="pt-2">UM BALDINHO COM TAMPA</h5>
-              <p>
-                Para ser colocado na pia da cozinha. Neste baldinho você
-                colocará os resíduos orgânicos que serão depositados na
-                composteira.
-              </p>
-            </b-media>
+            <v-container>
+              <v-row>
+                <v-col cols="12" sm="1">
+                  <div class="img-wrapper">
+                    <img
+                      src="~assets/img/guia-de-compostagem/suporte.png"
+                      alt="Suporte"
+                    />
+                  </div>
+                </v-col>
+                <v-col cols="12" sm="11">
+                  <h4 class="pt-0">UM SUPORTE</h4>
+                  <p>
+                    Para colocar embaixo da composteira para que a torneira
+                    fique acessível no momento da retirada do composto líquido.
+                    Esse suporte pode ser blocos de concreto, tijolos, caixa de
+                    feira, madeira, móvel, etc.
+                  </p>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12" sm="1">
+                  <div class="img-wrapper">
+                    <img
+                      src="~assets/img/guia-de-compostagem/materia-seca.png"
+                      alt="Suporte"
+                    />
+                  </div>
+                </v-col>
+                <v-col cols="12" sm="11">
+                  <h4 class="pt-0">MATÉRIA VEGETAL SECA</h4>
+                  <p>
+                    <strong>(Serragem, folhas, palha ou grama)</strong>
+                  </p>
+                  <p>
+                    Para misturar e cobrir os resíduos de cozinha que serão
+                    depositados na composteira. Encontre uma fonte natural
+                    (jardim, praça, parque, etc) próxima da sua casa ou procure
+                    uma marcenaria ou madeireira no seu bairro e peça para eles
+                    separarem serragem grossa sem verniz para você! Não use
+                    serragem de compensado ou aglomerados que possuem cola em
+                    sua composição.
+                  </p>
+                  <div class="box">
+                    <strong>Importante!</strong>
+                    A matéria vegetal seca é fundamental para que a decomposição
+                    aconteça sem emissão de odores nem atração de animais
+                    indesejáveis. Ela não pode faltar! Antes de acabar
+                    providencie a reposição da mesma e mantenha seu estoque
+                    sempre abastecido.
+                  </div>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12" sm="1">
+                  <div class="img-wrapper">
+                    <img
+                      src="~assets/img/guia-de-compostagem/recipiente.png"
+                      alt="Recipiente"
+                    />
+                  </div>
+                </v-col>
+                <v-col cols="12" sm="11">
+                  <h4 class="pt-0">UM RECIPIENTE</h4>
+                  <p>
+                    Para armazenar a matéria vegetal seca. Recomendamos que você
+                    estoque-a ao lado da composteira. Isto vai tornar a rotina
+                    rápida e prática.
+                  </p>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12" sm="1">
+                  <div class="img-wrapper">
+                    <img
+                      src="~assets/img/guia-de-compostagem/baldinho.png"
+                      alt="Suporte"
+                    />
+                  </div>
+                </v-col>
+                <v-col cols="12" sm="11">
+                  <h4 class="pt-0">UM BALDINHO COM TAMPA</h4>
+                  <p>
+                    Para ser colocado na pia da cozinha. Neste baldinho você
+                    colocará os resíduos orgânicos que serão depositados na
+                    composteira.
+                  </p>
+                </v-col>
+              </v-row>
+            </v-container>
           </section>
           <section>
             <h3>MONTANDO A COMPOSTEIRA</h3>
@@ -233,16 +251,13 @@
           </section>
           <section>
             <h3>O QUE COMPOSTAR?</h3>
-            <b-media>
-              <template #aside>
-                <b-img
-                  src="~assets/img/guia-de-compostagem/pode-colocar.png"
-                  width="40"
-                  alt="Pode colocar"
-                ></b-img>
-              </template>
-              <h5 class="pt-2">PODE COLOCAR À VONTADE</h5>
-            </b-media>
+            <div class="img-wrapper mb-0">
+              <img
+                src="~assets/img/guia-de-compostagem/pode-colocar.png"
+                alt="Pode colocar"
+              />
+            </div>
+            <h5 class="text-center pt-0">PODE COLOCAR À VONTADE:</h5>
             <div class="img-wrapper">
               <img
                 src="~assets/img/guia-de-compostagem/pode-colocar1.png"
@@ -255,16 +270,14 @@
                 alt="Pode colocar"
               />
             </div>
-            <b-media>
-              <template #aside>
-                <b-img
-                  src="~assets/img/guia-de-compostagem/nao-pode-colocar.png"
-                  width="40"
-                  alt="Não pode colocar"
-                ></b-img>
-              </template>
-              <h5 class="pt-2">NÃO PODE COLOCAR</h5>
-            </b-media>
+            <v-divider class="mb-6" />
+            <div class="img-wrapper mb-0">
+              <img
+                src="~assets/img/guia-de-compostagem/nao-pode-colocar.png"
+                alt="Não pode colocar"
+              />
+            </div>
+            <h5 class="text-center pt-0">EVITE COLOCAR:</h5>
             <div class="img-wrapper">
               <img
                 src="~assets/img/guia-de-compostagem/nao-pode-colocar1.png"
@@ -277,16 +290,14 @@
                 alt="Não pode colocar"
               />
             </div>
-            <b-media>
-              <template #aside>
-                <b-img
-                  src="~assets/img/guia-de-compostagem/evite-colocar.png"
-                  width="40"
-                  alt="Evite colocar"
-                ></b-img>
-              </template>
-              <h5 class="pt-2">EVITE COLOCAR</h5>
-            </b-media>
+            <v-divider class="mb-6" />
+            <div class="img-wrapper mb-0">
+              <img
+                src="~assets/img/guia-de-compostagem/evite-colocar.png"
+                alt="Evite colocar"
+              />
+            </div>
+            <h5 class="text-center pt-0">EVITE COLOCAR:</h5>
             <div class="img-wrapper">
               <img
                 src="~assets/img/guia-de-compostagem/evite-colocar1.png"
@@ -308,119 +319,127 @@
                 orgânicos!</b
               >
             </p>
-            <b-media class="mb-4">
-              <template #aside>
-                <b-img
-                  src="~assets/img/guia-de-compostagem/compostando1.png"
-                  width="100"
-                  alt="Compostando"
-                ></b-img>
-              </template>
-              <p>
+            <v-row>
+              <v-col cols="12" sm="2">
+                <div class="img-wrapper">
+                  <img
+                    src="~assets/img/guia-de-compostagem/compostando1.png"
+                    alt="Compostando"
+                  />
+                </div>
+              </v-col>
+              <v-col cols="12" sm="10">
                 Acomode os resíduos orgânicos na caixa de cima em um montinho,
                 sem espalhá-los. Desta forma, você precisará de menos matéria
                 vegetal seca para cobrí-los.
-              </p>
-            </b-media>
-            <b-media class="mb-4">
-              <template #aside>
-                <b-img
-                  src="~assets/img/guia-de-compostagem/compostando2.png"
-                  width="100"
-                  alt="Compostando"
-                ></b-img>
-              </template>
-              <p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" sm="2">
+                <div class="img-wrapper">
+                  <img
+                    src="~assets/img/guia-de-compostagem/compostando2.png"
+                    alt="Compostando"
+                  />
+                </div>
+              </v-col>
+              <v-col cols="12" sm="10">
                 Misture os resíduos recém colocados com matéria vegetal seca e
                 cubra-os completamente. Isso garantirá um processo de
                 decomposição eficaz e evitará a incidência de moscas, larvas e
                 mau cheiro.
-              </p>
-            </b-media>
-            <b-media class="mb-4">
-              <template #aside>
-                <b-img
-                  src="~assets/img/guia-de-compostagem/compostando3.png"
-                  width="100"
-                  alt="Compostando"
-                ></b-img>
-              </template>
-              <p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" sm="2">
+                <div class="img-wrapper">
+                  <img
+                    src="~assets/img/guia-de-compostagem/compostando3.png"
+                    alt="Compostando"
+                  />
+                </div>
+              </v-col>
+              <v-col cols="12" sm="10">
                 Para as minhocas digerirem os resíduos em menos tempo, corte ou
                 triture-os antes de colocá-los na composteira.
-              </p>
-            </b-media>
-            <b-media class="mb-4">
-              <template #aside>
-                <b-img
-                  src="~assets/img/guia-de-compostagem/compostando4.png"
-                  width="100"
-                  alt="Compostando"
-                ></b-img>
-              </template>
-              <p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" sm="2">
+                <div class="img-wrapper">
+                  <img
+                    src="~assets/img/guia-de-compostagem/compostando4.png"
+                    alt="Compostando"
+                  />
+                </div>
+              </v-col>
+              <v-col cols="12" sm="10">
                 Quando a caixa digestora de cima encher, faça a troca de posição
                 com a caixa do meio. A caixa que estava no meio, que acaba de
                 subir, receberá os novos resíduos orgânicos. Não há necessidade
                 de colocar minhocas nessa caixa. Elas subirão naturalmente em
                 busca de novos alimentos.
-              </p>
-            </b-media>
-            <b-media class="mb-4">
-              <template #aside>
-                <b-img
-                  src="~assets/img/guia-de-compostagem/compostando5.png"
-                  width="100"
-                  alt="Compostando"
-                ></b-img>
-              </template>
-              <p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" sm="2">
+                <div class="img-wrapper">
+                  <img
+                    src="~assets/img/guia-de-compostagem/compostando5.png"
+                    alt="Compostando"
+                  />
+                </div>
+              </v-col>
+              <v-col cols="12" sm="10">
                 No momento da troca das caixas, esvazie e lave a caixa coletora.
-              </p>
-            </b-media>
-            <b-media class="mb-4">
-              <template #aside>
-                <b-img
-                  src="~assets/img/guia-de-compostagem/compostando6.png"
-                  width="100"
-                  alt="Compostando"
-                ></b-img>
-              </template>
-              <p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" sm="2">
+                <div class="img-wrapper">
+                  <img
+                    src="~assets/img/guia-de-compostagem/compostando6.png"
+                    alt="Compostando"
+                  />
+                </div>
+              </v-col>
+              <v-col cols="12" sm="10">
                 Sugerimos que cada caixa seja completada em aproximadamente 30
                 dias. Neste período, as minhocas processarão os resíduos
                 orgânicos da caixa do meio transformando-os em adubo.
-              </p>
-            </b-media>
-            <b-media class="mb-4">
-              <template #aside>
-                <b-img
-                  src="~assets/img/guia-de-compostagem/compostando7.png"
-                  width="100"
-                  alt="Compostando"
-                ></b-img>
-              </template>
-              <p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" sm="2">
+                <div class="img-wrapper">
+                  <img
+                    src="~assets/img/guia-de-compostagem/compostando7.png"
+                    alt="Compostando"
+                  />
+                </div>
+              </v-col>
+              <v-col cols="12" sm="10">
                 Quando a caixa de cima encher novamente, será o momento de
                 trocá-la de lugar com a caixa do meio, e o adubo desta deverá
                 ser retirado para abrir espaço para os próximos resíduos
                 orgânicos que serão inseridos na composteira.
-              </p>
-            </b-media>
-            <b-media class="mb-4">
-              <template #aside>
-                <b-img
-                  src="~assets/img/guia-de-compostagem/compostando8.png"
-                  width="100"
-                  alt="Compostando"
-                ></b-img>
-              </template>
-              <p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" sm="2">
+                <div class="img-wrapper">
+                  <img
+                    src="~assets/img/guia-de-compostagem/compostando8.png"
+                    alt="Compostando"
+                  />
+                </div>
+              </v-col>
+              <v-col cols="12" sm="10">
                 Havendo alimento nas caixas, as minhocas sobrevivem por até 3
                 meses sem novas introduções de alimentos. Se precisar viajar,
                 não se preocupe!
-              </p>
-            </b-media>
+              </v-col>
+            </v-row>
           </section>
           <section>
             <h3>RETIRANDO OS COMPOSTOS</h3>
@@ -541,149 +560,143 @@
           </section>
           <section>
             <h3>COMO IDENTIFICAR E SOLUCIONAR PROBLEMAS</h3>
-            <table class="table b-table">
-              <thead>
-                <th>PROBLEMA</th>
-                <th>CAUSA / SOLUÇÃO</th>
-                <th></th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <strong>
-                      As minhocas estão amontoadas na parte de cima da caixa
-                    </strong>
-                  </td>
-                  <td>
-                    <p>Excesso de água (conteúdo da caixa muito úmido).</p>
-                    <p class="text-success">
-                      Insira mais matéria vegetal seca ao colocar os alimentos e
-                      retire o líquido como maior frequência.
-                    </p>
-                    <p>
-                      Também acontece quando chove, devido a sensibilidade das
-                      minhocas às mudanças atmosféricas.
-                    </p>
-                    <p class="text-success">
-                      Não precisa fazer nada, isso é normal. Em seu habitat
-                      natural elas subiriam para não se afogarem.
-                    </p>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>Composto líquido com odor desagradável</strong>
-                  </td>
-                  <td>
-                    <p>Minhoca morta afogada no composto líquido.</p>
-                    <p class="text-success">
-                      Esvazie e lave a caixa coletora. Retire o líquido pela
-                      torneira regularmente. Preferencialmente uma vez por
-                      semana.
-                    </p>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>Odor desagradável na caixa digestora</strong>
-                  </td>
-                  <td>
-                    <p>
-                      Pouco aeração, excesso de líquido ou alimentos cozidos ou
-                      cítricos em excesso.
-                    </p>
-                    <p class="text-success">
-                      Revolva o conteúdo da caixa e insira um pouco de matéria
-                      vegetal seca para oxigenar o sistema.
-                    </p>
-                    <p>
-                      Alimentos difíceis de compostar, como carne, peixe,
-                      lacticínios e gorduras.
-                    </p>
-                    <p class="text-success">
-                      Não ponha esses alimentos na composteira doméstica com
-                      minhocas.
-                    </p>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>As minhocas estão fugindo da composteira</strong>
-                  </td>
-                  <td>
-                    <p>
-                      Intoxicação. Verifique se não foi colocado nenhum elemento
-                      estranho (serragem com produto químico, ervas aromáticas
-                      em excesso, etc).
-                    </p>
-                    <p class="text-success">
-                      Retire esse elemento e deixe a caixa destampada por
-                      algumas horas.
-                    </p>
-                    <p>
-                      Verifique se não há inimigos naturais, como larvas de
-                      mosca (bigato), formigas, centopéias ou lacraias.
-                    </p>
-                    <p class="text-success">
-                      Retire esses inimigos naturais da composteira e monitore
-                      nos próximos dias para controlar possível reinfestação.
-                    </p>
-                    <p>
-                      Verifique se a composteira está exposta ao sol ou perto de
-                      uma fonte de calor.
-                    </p>
-                    <p class="text-success">
-                      Coloque a composteira em lugar que não receba sol e longe
-                      de fontes de calor.
-                    </p>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>Fungos na composteira</strong>
-                  </td>
-                  <td>
-                    <p>Certos alimentos emboloram.</p>
-                    <p class="text-success">
-                      É normal, os fungos também são agentes decompositores.
-                    </p>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong
-                      >Incidência de drosophilas, mosquitos, moscas, larvas ou
-                      baratas</strong
-                    >
-                  </td>
-                  <td>
-                    <p>
-                      Alimentos descobertos, decomposição lenta (pouca aeração)
-                      ou ambiente ácido (excesso cítricos).
-                    </p>
-                    <p class="text-success">
-                      Verifique o motivo, corrija-o e siga as orientações
-                      contidas neste manual.
-                    </p>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>
-                      Além das minhocas há outros insetos na composteira
-                    </strong>
-                  </td>
-                  <td>
-                    <p>Biodiversidade da composteira.</p>
-                    <p class="text-success">
-                      É normal aparecer diversos organismos e insetos na
-                      composteira, eles também são agentes decompositores e não
-                      prejudicam as minhocas.
-                    </p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div>
+              <p>
+                <strong>
+                  As minhocas estão amontoadas na parte de cima da caixa:
+                </strong>
+              </p>
+              <div>
+                <v-alert type="error">
+                  Excesso de água (conteúdo da caixa muito úmido).
+                </v-alert>
+                <v-alert type="success">
+                  Insira mais matéria vegetal seca ao colocar os alimentos e
+                  retire o líquido como maior frequência.
+                </v-alert>
+                <v-alert type="error">
+                  Também acontece quando chove, devido a sensibilidade das
+                  minhocas às mudanças atmosféricas.
+                </v-alert>
+                <v-alert type="success">
+                  Não precisa fazer nada, isso é normal. Em seu habitat natural
+                  elas subiriam para não se afogarem.
+                </v-alert>
+              </div>
+            </div>
+            <div>
+              <p>
+                <strong>Composto líquido com odor desagradável:</strong>
+              </p>
+              <div>
+                <v-alert type="error"
+                  >Minhoca morta afogada no composto líquido.</v-alert
+                >
+                <v-alert type="success">
+                  Esvazie e lave a caixa coletora. Retire o líquido pela
+                  torneira regularmente. Preferencialmente uma vez por semana.
+                </v-alert>
+              </div>
+            </div>
+            <div>
+              <p>
+                <strong>Odor desagradável na caixa digestora:</strong>
+              </p>
+              <div>
+                <v-alert type="error">
+                  Pouco aeração, excesso de líquido ou alimentos cozidos ou
+                  cítricos em excesso.
+                </v-alert>
+                <v-alert type="success">
+                  Revolva o conteúdo da caixa e insira um pouco de matéria
+                  vegetal seca para oxigenar o sistema.
+                </v-alert>
+                <v-alert type="error">
+                  Alimentos difíceis de compostar, como carne, peixe,
+                  lacticínios e gorduras.
+                </v-alert>
+                <v-alert type="success">
+                  Não ponha esses alimentos na composteira doméstica com
+                  minhocas.
+                </v-alert>
+              </div>
+            </div>
+            <div>
+              <p>
+                <strong>As minhocas estão fugindo da composteira:</strong>
+              </p>
+              <div>
+                <v-alert type="error">
+                  Intoxicação. Verifique se não foi colocado nenhum elemento
+                  estranho (serragem com produto químico, ervas aromáticas em
+                  excesso, etc).
+                </v-alert>
+                <v-alert type="success">
+                  Retire esse elemento e deixe a caixa destampada por algumas
+                  horas.
+                </v-alert>
+                <v-alert type="error">
+                  Verifique se não há inimigos naturais, como larvas de mosca
+                  (bigato), formigas, centopéias ou lacraias.
+                </v-alert>
+                <v-alert type="success">
+                  Retire esses inimigos naturais da composteira e monitore nos
+                  próximos dias para controlar possível reinfestação.
+                </v-alert>
+                <v-alert type="error">
+                  Verifique se a composteira está exposta ao sol ou perto de uma
+                  fonte de calor.
+                </v-alert>
+                <v-alert type="success">
+                  Coloque a composteira em lugar que não receba sol e longe de
+                  fontes de calor.
+                </v-alert>
+              </div>
+            </div>
+            <div>
+              <p>
+                <strong>Fungos na composteira:</strong>
+              </p>
+              <div>
+                <v-alert type="error">Certos alimentos emboloram.</v-alert>
+                <v-alert type="success">
+                  É normal, os fungos também são agentes decompositores.
+                </v-alert>
+              </div>
+            </div>
+            <div>
+              <p>
+                <strong
+                  >Incidência de drosophilas, mosquitos, moscas, larvas ou
+                  baratas</strong
+                >
+              </p>
+              <div>
+                <v-alert type="error">
+                  Alimentos descobertos, decomposição lenta (pouca aeração) ou
+                  ambiente ácido (excesso cítricos).
+                </v-alert>
+                <v-alert type="success">
+                  Verifique o motivo, corrija-o e siga as orientações contidas
+                  neste manual.
+                </v-alert>
+              </div>
+            </div>
+            <div>
+              <p>
+                <strong>
+                  Além das minhocas há outros insetos na composteira:
+                </strong>
+              </p>
+              <div>
+                <v-alert type="error">Biodiversidade da composteira.</v-alert>
+                <v-alert type="success">
+                  É normal aparecer diversos organismos e insetos na
+                  composteira, eles também são agentes decompositores e não
+                  prejudicam as minhocas.
+                </v-alert>
+              </div>
+            </div>
           </section>
           <section>
             <h3>NOVA SITUAÇÃO DOS RESÍDUOS NO BRASIL</h3>

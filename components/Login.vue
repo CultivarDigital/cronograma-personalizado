@@ -7,10 +7,10 @@
       </p>
       <div class="mb-3 text-center">
         <v-btn color="primary" block class="mb-2" @click="signInWithGoogle">
-          <v-icon>mdi-google</v-icon> &nbsp; Entrar com o google
+          <v-icon left>mdi-google</v-icon> Entrar com o google
         </v-btn>
         <v-btn block @click="$emit('signInWithEmail')">
-          <b-icon-envelope-fill /> &nbsp; Entrar com e-mail
+          <v-icon left>mdi-email</v-icon> Entrar com e-mail
         </v-btn>
       </div>
       <p class="text-caption text-center pt-3 pb-2">
