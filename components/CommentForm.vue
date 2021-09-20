@@ -1,30 +1,41 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <div>
-    <b-media class="pt-2" no-body>
-      <b-media-aside>
+    <v-list-item>
+      <v-list-item-avatar>
         <User thumb />
-      </b-media-aside>
-      <b-media-body>
-        <b-form-textarea
+      </v-list-item-avatar>
+      <v-list-item-content>
+        <v-textarea
           v-if="$store.state.authUser"
           v-model="form.message"
-          :placeholder="form.comment ? 'Responder' : 'Deixe seu comentário'"
+          outlined
+          rows="1"
+          auto-grow
+          hide-details
+          placeholder="Deixe seu comentário"
         />
-        <b-btn v-else block @click="$store.dispatch('showPortal')">
+        <v-btn
+          v-else
+          block
+          color="primary"
+          large
+          @click="$store.dispatch('showPortal')"
+        >
           Deixe seu comentário
-        </b-btn>
-        <b-btn
+        </v-btn>
+        <v-btn
           v-if="form.message"
-          variant="primary"
+          color="primary"
           block
           class="mt-2"
+          large
           @click="save"
         >
           Salvar comentário
-        </b-btn>
-      </b-media-body>
-    </b-media>
+        </v-btn>
+      </v-list-item-content>
+    </v-list-item>
   </div>
 </template>
 <script>
@@ -58,15 +69,15 @@ export default {
         if (this.authUser.photoURL) {
           this.form.user.photoURL = this.authUser.photoURL
         }
-        console.log(this.form)
         this.$fire.firestore
           .collection('comments')
-          .add(this.form)
+          .add({ created_at: new Date(), ...this.form })
           .then((commentRef) => {
             this.notify('Comentário enviado!')
             this.$emit('change', { id: commentRef.id, ...commentRef })
             this.form.message = null
           })
+          .catch(this.firebaseError)
       }
     },
   },

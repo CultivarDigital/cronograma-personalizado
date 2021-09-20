@@ -314,13 +314,13 @@
         </div>
       </div>
       <CultivationGuideRef />
-      <b-button
+      <v-btn
         block
-        variant="primary"
+        color="primary"
         to="/guias/guia-de-cultivo/cuidados-com-a-horta"
       >
-        Quais os cuidados devo ter com minha horta?
-      </b-button>
+        Cuidados com a horta
+      </v-btn>
     </v-container>
   </div>
 </template>

@@ -30,7 +30,7 @@ export default {
     },
     size: {
       type: String,
-      default: '32',
+      default: null,
     },
     color: {
       type: String,

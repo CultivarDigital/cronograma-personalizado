@@ -83,7 +83,6 @@
           bambus, madeiras para construção e cabos para ferramentas.
         </p>
       </div>
-      <v-divider />
     </v-container>
   </div>
 </template>

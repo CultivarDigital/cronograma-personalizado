@@ -8,12 +8,12 @@
           class="mr-1 mb-1 d-inline-block pointer"
           @click="() => showImg(i)"
         >
-          <CachedImage :src="image" thumb size="64" />
+          <CachedImage :src="image" thumb size="64" rounded />
         </div>
       </div>
       <vue-easy-lightbox
         :visible="visible"
-        :imgs="images.map((image) => image.url)"
+        :imgs="images"
         :index="index"
         @hide="handleHide"
       ></vue-easy-lightbox>

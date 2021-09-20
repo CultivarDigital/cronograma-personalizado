@@ -5,17 +5,13 @@
       description="Ferramentas que vão auxiliar no cuidado com os seus cultivos"
     />
     <v-container fluid>
-      <b-button
-        block
-        variant="primary"
-        to="/ferramentas/o-que-plantar-esse-mes"
-      >
+      <v-btn block color="primary" to="/ferramentas/o-que-plantar-esse-mes">
         O que plantar esse mês?
-      </b-button>
+      </v-btn>
       <br />
-      <b-button block variant="primary" to="/ferramentas/catalogo-de-especies">
+      <v-btn block color="primary" to="/ferramentas/catalogo-de-especies">
         Catálogo de espécies
-      </b-button>
+      </v-btn>
       <br />
     </v-container>
   </div>

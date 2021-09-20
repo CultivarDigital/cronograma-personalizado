@@ -48,9 +48,9 @@
             </td>
             <td v-if="editDescription" />
             <td class="text-right pr-0">
-              <b-btn color="danger" @click="deleteFile(index)">
+              <v-btn color="danger" @click="deleteFile(index)">
                 <b-icon-trash />
-              </b-btn>
+              </v-btn>
             </td>
           </tr>
         </tbody>
@@ -58,10 +58,10 @@
     </div>
     <div v-if="type === 'audios'">
       <RecordAudio @result="uploadFiles" />
-      <b-btn color="success" @click="upload">
+      <v-btn color="success" @click="upload">
         <b-icon-upload />
         {{ buttonLabel }}
-      </b-btn>
+      </v-btn>
     </div>
     <div v-else-if="avatar" class="text-center">
       <v-avatar color="primary" size="64" class="mb-3">
@@ -69,6 +69,7 @@
           v-if="preview[0] && !is_loading"
           :src="preview[0]"
           size="64"
+          ignore-cache
           thumb
         />
         <v-icon v-else dark> mdi-account </v-icon>
@@ -83,11 +84,11 @@
         {{ preview[0] ? 'Mudar foto' : 'Enviar foto' }}
       </v-btn>
     </div>
-    <b-btn v-else color="success" @click="upload">
+    <v-btn v-else color="success" @click="upload">
       <v-icon dark> mdi-upload </v-icon>
       <b-icon-upload />
       {{ buttonLabel }}
-    </b-btn>
+    </v-btn>
     <input
       v-show="false"
       :ref="'uploads-input-' + inputId"

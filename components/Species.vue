@@ -5,7 +5,7 @@
       :key="specie.id"
       :to="parent + '/' + specie.id"
     >
-      <v-list-item-avatar :rounded="false">
+      <v-list-item-avatar>
         <CachedImage :src="specie.images[0]" thumb />
       </v-list-item-avatar>
       <v-list-item-content>
@@ -17,8 +17,8 @@
         </v-list-item-subtitle>
       </v-list-item-content>
       <v-list-item-action>
-        <v-btn icon @click="alert('x')">
-          <v-icon color="grey lighten-1">mdi-information</v-icon>
+        <v-btn icon>
+          <v-icon color="grey lighten-1">mdi-chevron-right</v-icon>
         </v-btn>
       </v-list-item-action>
     </v-list-item>

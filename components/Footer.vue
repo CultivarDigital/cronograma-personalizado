@@ -1,10 +1,6 @@
 <template>
   <div>
-    <v-btn
-      href="https://www.padrim.com.br/cultivar"
-      target="_blank"
-      color="primary"
-    >
+    <v-btn to="/colabore" color="primary" x-large>
       <v-icon left>mdi-hand-heart</v-icon> Apoie este projeto
     </v-btn>
     <br />

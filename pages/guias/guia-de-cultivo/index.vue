@@ -22,45 +22,33 @@
       <p class="text-center">
         A seguir você encontra informações importantes pra saber como começar!
       </p>
-      <b-button
+      <v-btn
         block
-        variant="primary"
+        color="primary"
         to="/guias/guia-de-cultivo/planejamento-da-horta"
       >
         Planejamento da Horta
-      </b-button>
+      </v-btn>
       <br />
-      <b-button
-        block
-        variant="primary"
-        to="/guias/guia-de-cultivo/quando-plantar"
-      >
+      <v-btn block color="primary" to="/guias/guia-de-cultivo/quando-plantar">
         Quando plantar
-      </b-button>
+      </v-btn>
       <br />
-      <b-button
-        block
-        variant="primary"
-        to="/guias/guia-de-cultivo/como-plantar"
-      >
+      <v-btn block color="primary" to="/guias/guia-de-cultivo/como-plantar">
         Como plantar
-      </b-button>
+      </v-btn>
       <br />
-      <b-button
+      <v-btn
         block
-        variant="primary"
+        color="primary"
         to="/guias/guia-de-cultivo/cuidados-com-a-horta"
       >
         Cuidados com a Horta
-      </b-button>
+      </v-btn>
       <br />
-      <b-button
-        block
-        variant="primary"
-        to="/guias/guia-de-cultivo/dicas-basicas"
-      >
+      <v-btn block color="primary" to="/guias/guia-de-cultivo/dicas-basicas">
         Dicas básicas
-      </b-button>
+      </v-btn>
       <br />
       <Comments :target="'/guias/guia-de-cultivo'" />
     </v-container>

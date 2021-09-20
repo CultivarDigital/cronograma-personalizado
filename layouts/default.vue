@@ -49,7 +49,7 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-      <Menu />
+      <SidebarMenu />
     </v-navigation-drawer>
 
     <v-app-bar app color="primary" dark hide-on-scroll>

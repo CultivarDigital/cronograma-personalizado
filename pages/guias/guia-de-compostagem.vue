@@ -98,16 +98,16 @@
             <p>
               No vídeo abaixo a Paloma te ensina como montar sua composteira
             </p>
-            <div class="embed-responsive embed-responsive-16by9">
+            <v-responsive :aspect-ratio="16 / 9">
               <iframe
-                class="embed-responsive-item"
+                class="w-100 h-100"
                 src="https://www.youtube.com/embed/FSAuNkCU7ps"
                 title="YouTube video player"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
               ></iframe>
-            </div>
+            </v-responsive>
             <br />
             <p>Com a composteira pronta você também precisará providenciar:</p>
             <b-media>

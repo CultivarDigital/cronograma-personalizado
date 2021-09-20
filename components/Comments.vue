@@ -1,30 +1,32 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
-  <div class="pt-3 pb-3">
+  <div>
     <v-divider class="mt-0 mb-3" />
-    <b-media v-for="comment in comments" :key="comment.id" class="pt-2">
-      <template #aside>
-        <User :user="comment.user" thumb size="32" />
-      </template>
-      <div>
-        <small
-          ><strong>{{ comment.user.displayName }}</strong></small
-        >
-        <br />
-        {{ comment.message }}
-        <a
+    <v-list subheader dense>
+      <v-list-item v-for="comment in comments" :key="comment.id">
+        <v-list-item-avatar>
+          <User :user="comment.user" thumb size="40" />
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <p class="mb-0 text-caption">
+            <strong>{{ comment.user.displayName }}</strong>
+          </p>
+          <p>{{ comment.created_at.toDate() }}</p>
+        </v-list-item-content>
+        <v-list-item-action
           v-if="
             $store.state.authUser &&
             $store.state.authUser &&
             comment.user.uid === $store.state.authUser.uid
           "
-          @click="remove(comment)"
         >
-          <small class="text-muted ml-1"><i class="fas fa-trash"></i></small>
-        </a>
-      </div>
-    </b-media>
-    <CommentForm :target="target" @change="commentSaved" />
+          <v-btn icon @click="remove(comment)">
+            <v-icon color="grey lighten-1"> mdi-delete </v-icon>
+          </v-btn>
+        </v-list-item-action>
+      </v-list-item>
+      <CommentForm :target="target" @change="commentSaved" />
+    </v-list>
   </div>
 </template>
 <script>
@@ -52,6 +54,7 @@ export default {
     async loadComments() {
       const commentsRef = await this.$fire.firestore
         .collection('comments')
+        .orderBy('created_at')
         .where('target', '==', this.target || this.$route.path)
         .get()
       this.comments = commentsRef.docs.map((doc) => ({

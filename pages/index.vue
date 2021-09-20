@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div class="pt-3">
     <Breadcrumb active="Cultive alimentos saudáveis em casa!" />
     <Moon />
-    <div class="d-lg-none">
+    <v-divider></v-divider>
+    <v-container>
       <Menu />
-    </div>
+    </v-container>
   </div>
 </template>
 <script>

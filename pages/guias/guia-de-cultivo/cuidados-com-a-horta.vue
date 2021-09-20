@@ -167,13 +167,9 @@
         </div>
       </div>
       <CultivationGuideRef />
-      <b-button
-        block
-        variant="primary"
-        to="/guias/guia-de-cultivo/dicas-basicas"
-      >
-        Veja nossas dicas básicas de cultivo
-      </b-button>
+      <v-btn block color="primary" to="/guias/guia-de-cultivo/dicas-basicas">
+        Dicas básicas de cultivo
+      </v-btn>
     </v-container>
   </div>
 </template>

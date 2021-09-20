@@ -1,6 +1,7 @@
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: true,
+  target: 'static',
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Cultivar',
@@ -152,6 +153,7 @@ export default {
   },
   env: {
     baseURL: process.env.BASE_URL || 'http://localhost:3000',
+    npm_package_description: process.env.npm_package_description || '',
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},

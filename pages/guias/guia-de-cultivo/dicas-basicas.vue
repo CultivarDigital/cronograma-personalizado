@@ -88,32 +88,32 @@
               Filosofia prática que busca desenvolver métodos de permanência
               saudável, justa e ecológica de uma comunidade em um ambiente.
             </p>
-            <div class="embed-responsive embed-responsive-16by9">
+            <v-responsive :aspect-ratio="16 / 9">
               <iframe
-                class="embed-responsive-item"
+                class="w-100 h-100"
                 src="https://www.youtube.com/embed/ZFxy_0fmUDU"
                 title="YouTube video player"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
               ></iframe>
-            </div>
+            </v-responsive>
             <br />
             <h4>AGROECOLOGIA</h4>
             <p>
               A ciência que busca uma agricultura sustentável, integrando
               conhecimentos de outras áreas, inclusive a sabedoria popular.
             </p>
-            <div class="embed-responsive embed-responsive-16by9">
+            <v-responsive :aspect-ratio="16 / 9">
               <iframe
-                class="embed-responsive-item"
+                class="w-100 h-100"
                 src="https://www.youtube.com/embed/SBTfltlCv-U"
                 title="YouTube video player"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
               ></iframe>
-            </div>
+            </v-responsive>
             <br />
             <h4>AGROFLORESTA</h4>
             <p>
@@ -123,16 +123,16 @@
               paradigma produtivo que não se baseia somente na monocultura, como
               ocorre hoje.
             </p>
-            <div class="embed-responsive embed-responsive-16by9">
+            <v-responsive :aspect-ratio="16 / 9">
               <iframe
-                class="embed-responsive-item"
+                class="w-100 h-100"
                 src="https://www.youtube.com/embed/0D2iu6YSFuI"
                 title="YouTube video player"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
               ></iframe>
-            </div>
+            </v-responsive>
             <br />
             <p>
               <a
@@ -148,27 +148,23 @@
               maneira diferente e profunda de entender a vida e as relações
               entre os elementos naturais, os astros e o cosmos.
             </p>
-            <div class="embed-responsive embed-responsive-16by9">
+            <v-responsive :aspect-ratio="16 / 9">
               <iframe
-                class="embed-responsive-item"
+                class="w-100 h-100"
                 src="https://www.youtube.com/embed/Wb3K76IFfWM"
                 title="YouTube video player"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
               ></iframe>
-            </div>
+            </v-responsive>
           </div>
         </div>
       </div>
       <CultivationGuideRef />
-      <b-button
-        block
-        variant="primary"
-        to="/ferramentas/o-que-plantar-esse-mes"
-      >
+      <v-btn block color="primary" to="/ferramentas/o-que-plantar-esse-mes">
         Veja o que plantar esse mês
-      </b-button>
+      </v-btn>
     </v-container>
   </div>
 </template>

@@ -228,13 +228,9 @@
             suas possibilidades. Para acessar clique no link abaixo:
           </p>
           <CultivationGuideRef />
-          <b-button
-            block
-            variant="primary"
-            to="/guias/guia-de-cultivo/como-plantar"
-          >
+          <v-btn block color="primary" to="/guias/guia-de-cultivo/como-plantar">
             Como plantar?
-          </b-button>
+          </v-btn>
         </div>
       </div>
     </v-container>

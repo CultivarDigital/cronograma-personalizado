@@ -218,13 +218,9 @@
         </div>
       </div>
       <CultivationGuideRef />
-      <b-button
-        block
-        variant="primary"
-        to="/guias/guia-de-cultivo/quando-plantar"
-      >
+      <v-btn block color="primary" to="/guias/guia-de-cultivo/quando-plantar">
         Quando plantar?
-      </b-button>
+      </v-btn>
     </v-container>
   </div>
 </template>
