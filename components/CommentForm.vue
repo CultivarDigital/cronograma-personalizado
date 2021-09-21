@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <div>
-    <v-list-item>
+    <v-list-item class="mb-1">
       <v-list-item-avatar>
         <User thumb size="40" />
       </v-list-item-avatar>

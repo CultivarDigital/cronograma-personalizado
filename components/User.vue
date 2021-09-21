@@ -34,7 +34,7 @@ export default {
     },
     color: {
       type: String,
-      default: 'blue-grey',
+      default: 'primary',
     },
     iconColor: {
       type: String,

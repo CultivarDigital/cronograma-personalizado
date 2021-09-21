@@ -3,7 +3,7 @@
     <v-menu>
       <template #activator="{ on, attrs }">
         <v-btn
-          :color="value ? 'primary' : 'grey'"
+          :color="value ? 'primary darken-1' : 'primary'"
           dark
           v-bind="attrs"
           v-on="on"

@@ -80,20 +80,20 @@ export default {
       if (this.src) {
         if (this.thumb) {
           const thumbURL = this.src.replace('/images', '/thumbs')
-          this.url = await this.loadUrl(thumbURL)
+          this.url = await this.loadURL(thumbURL)
           if (this.url) {
-            this.loadUrl(this.src)
+            this.loadURL(this.src)
           }
         }
         if (!this.url) {
-          this.url = await this.loadUrl(this.src)
+          this.url = await this.loadURL(this.src)
         }
         if (!this.url) {
           return this.src
         }
       }
     },
-    async loadUrl(url) {
+    async loadURL(url) {
       const hash = CryptoJS.MD5(url).toString()
       const cached = await this.getLocalItem(hash)
       if (cached && !this.ignoreCache) {

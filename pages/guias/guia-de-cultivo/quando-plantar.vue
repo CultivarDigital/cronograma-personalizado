@@ -5,7 +5,7 @@
       active="Quando plantar"
       description="Saiba qual é a melhor hora para plantar seus cultivos"
     />
-    <v-container fluid class="guide">
+    <v-container fluid class="guide pt-0">
       <div class="cap-3">
         <div class="item item-body" padding>
           <h2 class="text-center title">OLHANDO PARA CIMA</h2>
@@ -239,8 +239,9 @@
               <a
                 href="http://dicionariodeplantasmedicinais.blogspot.com.br"
                 target="_blank"
-                >http://dicionariodeplantasmedicinais.blogspot.com.br</a
               >
+                Blog: Dicionário de plantas medicinais
+              </a>
             </p>
           </div>
           <p>

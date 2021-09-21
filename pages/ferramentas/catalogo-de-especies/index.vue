@@ -103,7 +103,11 @@ export default {
       return this.$store.state.filters
     },
     paginatedList() {
-      return this.species.slice(0, this.page * this.per_page)
+      if (this.$route.query.save_offline) {
+        return this.species
+      } else {
+        return this.species.slice(0, this.page * this.per_page)
+      }
     },
     species() {
       let species = this.$store.state.species
