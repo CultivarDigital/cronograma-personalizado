@@ -1,5 +1,49 @@
 <template>
   <v-app>
+    <v-dialog
+      :value="$store.state.offlineMode === null"
+      overlay-opacity="1"
+      overlay-color="primary"
+    >
+      <v-card class="py-6 text-center">
+        <img
+          title="Cultivar Brasil"
+          :src="require('~/assets/img/logo.png')"
+          width="100"
+          class="mb-2"
+        />
+        <v-card-text>
+          Você pretende usar esse aplicativo sem Internet (offline)?
+        </v-card-text>
+        <v-card-actions class="justify-center">
+          <v-btn color="grey" @click="setOfflineMode(false)"> Não </v-btn>
+          <v-btn color="primary" @click="setOfflineMode(true)">
+            Salvar offline!
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog
+      :value="caching !== false"
+      max-width="290"
+      persistent
+      overlay-opacity="1"
+      overlay-color="primary"
+    >
+      <v-card class="py-6 text-center">
+        <img
+          title="Cultivar Brasil"
+          :src="require('~/assets/img/logo.png')"
+          width="100"
+        />
+        <v-card-text class="pt-3 text-center">
+          Salvando paginas para uso offline...
+          <br />
+          <br />
+          <v-progress-linear :value="(caching / pages.length) * 100" />
+        </v-card-text>
+      </v-card>
+    </v-dialog>
     <v-navigation-drawer v-model="show_drawer" app>
       <v-list color="primary" :dark="true" nav>
         <v-list-item class="mb-0">
@@ -108,8 +152,18 @@ export default {
   data() {
     return {
       loading: true,
+      caching: false,
       imported: [],
       show_drawer: null,
+      pages: [
+        '/ferramentas/o-que-plantar-esse-mes',
+        '/ferramentas/catalogo-de-especies',
+        '/guias/guia-de-cultivo',
+        '/guias/guia-de-compostagem',
+        '/colabore',
+        '/sobre',
+        '/',
+      ],
     }
   },
   computed: {
@@ -149,6 +203,27 @@ export default {
     this.loading = false
   },
   methods: {
+    setOfflineMode(value) {
+      this.$store.dispatch('setOfflineMode', value)
+      if (value) {
+        this.cachePages()
+      }
+    },
+    cachePages() {
+      this.caching = 0
+      const cachePagesLoop = setInterval(() => {
+        if (this.pages[this.caching]) {
+          this.$router.replace(
+            this.pages[this.caching] +
+              (this.pages[this.caching] !== '/' ? '?saveOffline=true' : '')
+          )
+          this.caching += 1
+        } else {
+          clearInterval(cachePagesLoop)
+          this.caching = false
+        }
+      }, 3000)
+    },
     async checkEmailLogin() {
       if (this.$route.query.email_login) {
         const href = this.baseURL + this.$route.fullPath

@@ -23,7 +23,10 @@
             de maneira saudável.
           </p>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-sol.png" />
+            <CachedImage
+              raw
+              :src="require('~/assets/img/guia-de-cultivo/guia-sol.png')"
+            />
           </div>
           <h1 class="text-center title">A LUA</h1>
           <p>
@@ -39,7 +42,10 @@
             uma planta para outro vaso.
           </p>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-lua-nova.png" />
+            <CachedImage
+              raw
+              :src="require('~/assets/img/guia-de-cultivo/guia-lua-nova.png')"
+            />
           </div>
           <p>
             Nesta fase, ela começa exercer influência sobre a Terra, a seiva
@@ -57,7 +63,12 @@
             madeira.
           </p>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-lua-crescente.png" />
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-lua-crescente.png')
+              "
+            />
           </div>
           <p>
             Fase em que a lua exerce influência muito boa sobre as plantas,
@@ -78,7 +89,10 @@
             probabilidade de ataque de pragas.
           </p>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-lua-cheia.png" />
+            <CachedImage
+              raw
+              :src="require('~/assets/img/guia-de-cultivo/guia-lua-cheia.png')"
+            />
           </div>
           <p>
             Fase em que a influência sobre a terra chega ao ponto máximo, mas só
@@ -91,7 +105,12 @@
             planta (ramos e folhas).
           </p>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-lua-minguante.png" />
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-lua-minguante.png')
+              "
+            />
           </div>
           <p>
             Nesta fase é pouca a influência da lua sobre a terra. É provável que
@@ -201,8 +220,11 @@
             pergunta:
           </p>
           <div class="img-wrapper">
-            <img
-              src="~assets/img/guia-de-cultivo/guia-olhando-para-dentro.png"
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-olhando-para-dentro.png')
+              "
             />
           </div>
           <div class="tip">

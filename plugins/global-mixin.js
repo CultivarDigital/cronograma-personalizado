@@ -16,7 +16,7 @@ if (!Vue.__my_mixin__) {
       currentRegion() {
         return this.authUser && this.authUser.region
           ? this.authUser.region
-          : this.$store.state.region
+          : null
       },
       baseURL() {
         return process.env.BASE_URL
@@ -39,6 +39,7 @@ if (!Vue.__my_mixin__) {
         })
       },
       firebaseError(error) {
+        console.log(error)
         if (error) {
           const msg = firebaseTranslations[error.code]
           if (msg) {

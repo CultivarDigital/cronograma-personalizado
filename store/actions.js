@@ -28,6 +28,9 @@ export default {
   setPage({ commit }, page) {
     commit('setPage', page)
   },
+  setOfflineMode({ commit }, offlineMode) {
+    commit('setOfflineMode', offlineMode)
+  },
   showPortal({ commit }) {
     commit('togglePortal', true)
   },

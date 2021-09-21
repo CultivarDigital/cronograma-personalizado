@@ -21,25 +21,25 @@
               <CachedDocument v-else :value="item" />
             </td>
             <td v-if="editTitle || editDescription || editLink">
-              <b-form-input
+              <v-text-field
                 v-if="editTitle"
                 v-model="item.title"
                 placeholder="Título"
                 class="mt-1"
               />
-              <b-form-textarea
+              <v-textarea
                 v-if="editDescription"
                 v-model="item.description"
                 placeholder="Descrição"
                 class="mt-1"
               />
-              <b-form-input
+              <v-text-field
                 v-if="editLink"
                 v-model="item.link"
                 placeholder="Link"
                 class="mt-1"
               />
-              <b-form-input
+              <v-text-field
                 v-if="editLink"
                 v-model="item.link_title"
                 placeholder="Título do link"
@@ -49,7 +49,7 @@
             <td v-if="editDescription" />
             <td class="text-right pr-0">
               <v-btn color="danger" @click="deleteFile(index)">
-                <b-icon-trash />
+                <v-icon>mdi-trash-can</v-icon>
               </v-btn>
             </td>
           </tr>
@@ -59,7 +59,7 @@
     <div v-if="type === 'audios'">
       <RecordAudio @result="uploadFiles" />
       <v-btn color="success" @click="upload">
-        <b-icon-upload />
+        <v-icon>mdi-upload</v-icon>
         {{ buttonLabel }}
       </v-btn>
     </div>
@@ -86,7 +86,6 @@
     </div>
     <v-btn v-else color="success" @click="upload">
       <v-icon dark> mdi-upload </v-icon>
-      <b-icon-upload />
       {{ buttonLabel }}
     </v-btn>
     <input
@@ -270,17 +269,6 @@ export default {
         .catch((error) => {
           console.error('Error deleting image', error)
         })
-    },
-    addToPool(hash, filename, url) {
-      this.$store.commit('addToUploadPool', {
-        type: this.type,
-        hash,
-        filename,
-      })
-      const uploaded = {
-        url,
-      }
-      this.callback(uploaded)
     },
     callback(uploaded) {
       if (this.multiple) {

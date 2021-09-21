@@ -7,8 +7,8 @@
           <v-btn
             :to="item.to"
             color="primary"
-            class="mb-3 mr-2 text-caption"
-            block="md"
+            class="mb-3 mr-2 font-weight-regular"
+            block
           >
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-btn>

@@ -25,16 +25,28 @@
             a água gelada provoque um choque térmico nas plantas.
           </p>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-rega-1.png" />
+            <CachedImage
+              raw
+              :src="require('~/assets/img/guia-de-cultivo/guia-rega-1.png')"
+            />
           </div>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-rega-2.png" />
+            <CachedImage
+              raw
+              :src="require('~/assets/img/guia-de-cultivo/guia-rega-2.png')"
+            />
           </div>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-rega-3.png" />
+            <CachedImage
+              raw
+              :src="require('~/assets/img/guia-de-cultivo/guia-rega-3.png')"
+            />
           </div>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-rega-4.png" />
+            <CachedImage
+              raw
+              :src="require('~/assets/img/guia-de-cultivo/guia-rega-4.png')"
+            />
           </div>
           <div class="tip">
             <h3 class="text-center title">DICA</h3>
@@ -109,7 +121,10 @@
             das brotações.
           </p>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-colheita.png" />
+            <CachedImage
+              raw
+              :src="require('~/assets/img/guia-de-cultivo/guia-colheita.png')"
+            />
           </div>
           <h3 class="text-center title">PRAGAS E DOENÇAS (BIOINDICADORES)</h3>
           <p>
@@ -129,8 +144,11 @@
             profundas onde transformarão-se em húmus.
           </p>
           <div class="img-wrapper">
-            <img
-              src="~assets/img/guia-de-cultivo/guia-pragas-e-doencas-1.png"
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-pragas-e-doencas-1.png')
+              "
             />
           </div>
           <p>
@@ -145,8 +163,11 @@
             orgânicos.
           </p>
           <div class="img-wrapper">
-            <img
-              src="~assets/img/guia-de-cultivo/guia-pragas-e-doencas-2.png"
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-pragas-e-doencas-2.png')
+              "
             />
           </div>
           <div class="tip">

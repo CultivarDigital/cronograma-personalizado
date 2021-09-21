@@ -11,7 +11,12 @@
           <h2 class="text-center title">PLANEJANDO O CULTIVO</h2>
           <div class="list">
             <h4>
-              <img src="~assets/img/guia-de-cultivo/guia-ambiente-1.jpg" />
+              <CachedImage
+                raw
+                :src="
+                  require('~/assets/img/guia-de-cultivo/guia-ambiente-1.jpg')
+                "
+              />
               TAMANHO
             </h4>
             <p>
@@ -22,7 +27,12 @@
               ganhar mais confiança e conhecimento.
             </p>
             <h4>
-              <img src="~assets/img/guia-de-cultivo/guia-ambiente-2.jpg" />
+              <CachedImage
+                raw
+                :src="
+                  require('~/assets/img/guia-de-cultivo/guia-ambiente-2.jpg')
+                "
+              />
               ACESSO
             </h4>
             <p>
@@ -32,7 +42,13 @@
               de trazer vida e ressignificar os espaços.
             </p>
             <h4>
-              <img src="~assets/img/guia-de-cultivo/guia-ambiente-3.jpg" /> LUZ
+              <CachedImage
+                raw
+                :src="
+                  require('~/assets/img/guia-de-cultivo/guia-ambiente-3.jpg')
+                "
+              />
+              LUZ
             </h4>
 
             <p>
@@ -42,7 +58,13 @@
             </p>
 
             <h4>
-              <img src="~assets/img/guia-de-cultivo/guia-ambiente-4.jpg" /> ÁGUA
+              <CachedImage
+                raw
+                :src="
+                  require('~/assets/img/guia-de-cultivo/guia-ambiente-4.jpg')
+                "
+              />
+              ÁGUA
             </h4>
             <p>
               Repare na umidade do local escolhido. Prefira locais com uma fonte
@@ -51,7 +73,12 @@
             </p>
 
             <h4>
-              <img src="~assets/img/guia-de-cultivo/guia-ambiente-5.jpg" />
+              <CachedImage
+                raw
+                :src="
+                  require('~/assets/img/guia-de-cultivo/guia-ambiente-5.jpg')
+                "
+              />
               VENTO
             </h4>
             <p>
@@ -137,7 +164,12 @@
             inspirar e colher idéias. Mas, principalmente, use sua imaginação.
           </p>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-recipientes.png" />
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-recipientes.png')
+              "
+            />
           </div>
           <div class="tip">
             <h3 class="text-center title">DICAS</h3>
@@ -160,7 +192,10 @@
             escolheu para plantar.
           </p>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-o-solo-1.png" />
+            <CachedImage
+              raw
+              :src="require('~/assets/img/guia-de-cultivo/guia-o-solo-1.png')"
+            />
           </div>
           <div>
             <h4>01. MATÉRIA ORGÂNICA</h4>
@@ -213,7 +248,10 @@
             </p>
           </div>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-o-solo-2.png" />
+            <CachedImage
+              raw
+              :src="require('~/assets/img/guia-de-cultivo/guia-o-solo-2.png')"
+            />
           </div>
         </div>
       </div>

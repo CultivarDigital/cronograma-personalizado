@@ -11,7 +11,10 @@
     />
     <v-container fluid class="guide">
       <div class="img-wrapper">
-        <img src="~assets/img/guia-de-cultivo/guia-de-cultivo.png" />
+        <CachedImage
+          raw
+          :src="require('~/assets/img/guia-de-cultivo/guia-de-cultivo.png')"
+        />
       </div>
       <br />
       <p class="text-center">

@@ -14,8 +14,11 @@
         <div class="item item-body" padding>
           <section>
             <div class="img-wrapper">
-              <img
-                src="~assets/img/guia-de-compostagem/ciclo-texto.png"
+              <CachedImage
+                raw
+                :src="
+                  require('~/assets/img/guia-de-compostagem/ciclo-texto.png')
+                "
                 alt="Comer, Separar, Compostar, Plantar"
               />
             </div>
@@ -38,8 +41,9 @@
               experiência com seus amigos!
             </p>
             <div class="img-wrapper">
-              <img
-                src="~assets/img/guia-de-compostagem/ciclo.png"
+              <CachedImage
+                raw
+                :src="require('~/assets/img/guia-de-compostagem/ciclo.png')"
                 alt="Ciclo de compostagem"
               />
             </div>
@@ -90,8 +94,11 @@
           <section>
             <h3>O QUE VOCÊ VAI PRECISAR</h3>
             <div class="img-wrapper">
-              <img
-                src="~assets/img/guia-de-compostagem/itens-composteira.png"
+              <CachedImage
+                raw
+                :src="
+                  require('~/assets/img/guia-de-compostagem/itens-composteira.png')
+                "
                 alt="Items composteira"
               />
             </div>
@@ -114,8 +121,11 @@
               <v-row>
                 <v-col cols="12" sm="1">
                   <div class="img-wrapper">
-                    <img
-                      src="~assets/img/guia-de-compostagem/suporte.png"
+                    <CachedImage
+                      raw
+                      :src="
+                        require('~/assets/img/guia-de-compostagem/suporte.png')
+                      "
                       alt="Suporte"
                     />
                   </div>
@@ -133,8 +143,11 @@
               <v-row>
                 <v-col cols="12" sm="1">
                   <div class="img-wrapper">
-                    <img
-                      src="~assets/img/guia-de-compostagem/materia-seca.png"
+                    <CachedImage
+                      raw
+                      :src="
+                        require('~/assets/img/guia-de-compostagem/materia-seca.png')
+                      "
                       alt="Suporte"
                     />
                   </div>
@@ -166,8 +179,11 @@
               <v-row>
                 <v-col cols="12" sm="1">
                   <div class="img-wrapper">
-                    <img
-                      src="~assets/img/guia-de-compostagem/recipiente.png"
+                    <CachedImage
+                      raw
+                      :src="
+                        require('~/assets/img/guia-de-compostagem/recipiente.png')
+                      "
                       alt="Recipiente"
                     />
                   </div>
@@ -184,8 +200,11 @@
               <v-row>
                 <v-col cols="12" sm="1">
                   <div class="img-wrapper">
-                    <img
-                      src="~assets/img/guia-de-compostagem/baldinho.png"
+                    <CachedImage
+                      raw
+                      :src="
+                        require('~/assets/img/guia-de-compostagem/baldinho.png')
+                      "
                       alt="Suporte"
                     />
                   </div>
@@ -204,8 +223,11 @@
           <section>
             <h3>MONTANDO A COMPOSTEIRA</h3>
             <div class="img-wrapper">
-              <img
-                src="~assets/img/guia-de-compostagem/composteira.png"
+              <CachedImage
+                raw
+                :src="
+                  require('~/assets/img/guia-de-compostagem/composteira.png')
+                "
                 alt="Items composteira"
               />
             </div>
@@ -252,61 +274,88 @@
           <section>
             <h3>O QUE COMPOSTAR?</h3>
             <div class="img-wrapper mb-0">
-              <img
-                src="~assets/img/guia-de-compostagem/pode-colocar.png"
+              <CachedImage
+                raw
+                :src="
+                  require('~/assets/img/guia-de-compostagem/pode-colocar.png')
+                "
                 alt="Pode colocar"
               />
             </div>
             <h5 class="text-center pt-0">PODE COLOCAR À VONTADE:</h5>
             <div class="img-wrapper">
-              <img
-                src="~assets/img/guia-de-compostagem/pode-colocar1.png"
+              <CachedImage
+                raw
+                :src="
+                  require('~/assets/img/guia-de-compostagem/pode-colocar1.png')
+                "
                 alt="Pode colocar"
               />
             </div>
             <div class="img-wrapper">
-              <img
-                src="~assets/img/guia-de-compostagem/pode-colocar2.png"
+              <CachedImage
+                raw
+                :src="
+                  require('~/assets/img/guia-de-compostagem/pode-colocar2.png')
+                "
                 alt="Pode colocar"
               />
             </div>
             <v-divider class="mb-6" />
             <div class="img-wrapper mb-0">
-              <img
-                src="~assets/img/guia-de-compostagem/nao-pode-colocar.png"
+              <CachedImage
+                raw
+                :src="
+                  require('~/assets/img/guia-de-compostagem/nao-pode-colocar.png')
+                "
                 alt="Não pode colocar"
               />
             </div>
             <h5 class="text-center pt-0">EVITE COLOCAR:</h5>
             <div class="img-wrapper">
-              <img
-                src="~assets/img/guia-de-compostagem/nao-pode-colocar1.png"
+              <CachedImage
+                raw
+                :src="
+                  require('~/assets/img/guia-de-compostagem/nao-pode-colocar1.png')
+                "
                 alt="Não pode colocar"
               />
             </div>
             <div class="img-wrapper">
-              <img
-                src="~assets/img/guia-de-compostagem/nao-pode-colocar2.png"
+              <CachedImage
+                raw
+                :src="
+                  require('~/assets/img/guia-de-compostagem/nao-pode-colocar2.png')
+                "
                 alt="Não pode colocar"
               />
             </div>
             <v-divider class="mb-6" />
             <div class="img-wrapper mb-0">
-              <img
-                src="~assets/img/guia-de-compostagem/evite-colocar.png"
+              <CachedImage
+                raw
+                :src="
+                  require('~/assets/img/guia-de-compostagem/evite-colocar.png')
+                "
                 alt="Evite colocar"
               />
             </div>
             <h5 class="text-center pt-0">EVITE COLOCAR:</h5>
             <div class="img-wrapper">
-              <img
-                src="~assets/img/guia-de-compostagem/evite-colocar1.png"
+              <CachedImage
+                raw
+                :src="
+                  require('~/assets/img/guia-de-compostagem/evite-colocar1.png')
+                "
                 alt="Evite colocar"
               />
             </div>
             <div class="img-wrapper">
-              <img
-                src="~assets/img/guia-de-compostagem/evite-colocar2.png"
+              <CachedImage
+                raw
+                :src="
+                  require('~/assets/img/guia-de-compostagem/evite-colocar2.png')
+                "
                 alt="Evite colocar"
               />
             </div>
@@ -322,8 +371,11 @@
             <v-row>
               <v-col cols="12" sm="2">
                 <div class="img-wrapper">
-                  <img
-                    src="~assets/img/guia-de-compostagem/compostando1.png"
+                  <CachedImage
+                    raw
+                    :src="
+                      require('~/assets/img/guia-de-compostagem/compostando1.png')
+                    "
                     alt="Compostando"
                   />
                 </div>
@@ -337,8 +389,11 @@
             <v-row>
               <v-col cols="12" sm="2">
                 <div class="img-wrapper">
-                  <img
-                    src="~assets/img/guia-de-compostagem/compostando2.png"
+                  <CachedImage
+                    raw
+                    :src="
+                      require('~/assets/img/guia-de-compostagem/compostando2.png')
+                    "
                     alt="Compostando"
                   />
                 </div>
@@ -353,8 +408,11 @@
             <v-row>
               <v-col cols="12" sm="2">
                 <div class="img-wrapper">
-                  <img
-                    src="~assets/img/guia-de-compostagem/compostando3.png"
+                  <CachedImage
+                    raw
+                    :src="
+                      require('~/assets/img/guia-de-compostagem/compostando3.png')
+                    "
                     alt="Compostando"
                   />
                 </div>
@@ -367,8 +425,11 @@
             <v-row>
               <v-col cols="12" sm="2">
                 <div class="img-wrapper">
-                  <img
-                    src="~assets/img/guia-de-compostagem/compostando4.png"
+                  <CachedImage
+                    raw
+                    :src="
+                      require('~/assets/img/guia-de-compostagem/compostando4.png')
+                    "
                     alt="Compostando"
                   />
                 </div>
@@ -384,8 +445,11 @@
             <v-row>
               <v-col cols="12" sm="2">
                 <div class="img-wrapper">
-                  <img
-                    src="~assets/img/guia-de-compostagem/compostando5.png"
+                  <CachedImage
+                    raw
+                    :src="
+                      require('~/assets/img/guia-de-compostagem/compostando5.png')
+                    "
                     alt="Compostando"
                   />
                 </div>
@@ -397,8 +461,11 @@
             <v-row>
               <v-col cols="12" sm="2">
                 <div class="img-wrapper">
-                  <img
-                    src="~assets/img/guia-de-compostagem/compostando6.png"
+                  <CachedImage
+                    raw
+                    :src="
+                      require('~/assets/img/guia-de-compostagem/compostando6.png')
+                    "
                     alt="Compostando"
                   />
                 </div>
@@ -412,8 +479,11 @@
             <v-row>
               <v-col cols="12" sm="2">
                 <div class="img-wrapper">
-                  <img
-                    src="~assets/img/guia-de-compostagem/compostando7.png"
+                  <CachedImage
+                    raw
+                    :src="
+                      require('~/assets/img/guia-de-compostagem/compostando7.png')
+                    "
                     alt="Compostando"
                   />
                 </div>
@@ -428,8 +498,11 @@
             <v-row>
               <v-col cols="12" sm="2">
                 <div class="img-wrapper">
-                  <img
-                    src="~assets/img/guia-de-compostagem/compostando8.png"
+                  <CachedImage
+                    raw
+                    :src="
+                      require('~/assets/img/guia-de-compostagem/compostando8.png')
+                    "
                     alt="Compostando"
                   />
                 </div>
@@ -444,8 +517,11 @@
           <section>
             <h3>RETIRANDO OS COMPOSTOS</h3>
             <div class="img-wrapper">
-              <img
-                src="~assets/img/guia-de-compostagem/composto-solido.png"
+              <CachedImage
+                raw
+                :src="
+                  require('~/assets/img/guia-de-compostagem/composto-solido.png')
+                "
                 alt="Composto Sólido"
               />
             </div>
@@ -464,8 +540,11 @@
               composto levemente para não machucar as minhocas.
             </p>
             <div class="img-wrapper">
-              <img
-                src="~assets/img/guia-de-compostagem/composteira-ao-sol.png"
+              <CachedImage
+                raw
+                :src="
+                  require('~/assets/img/guia-de-compostagem/composteira-ao-sol.png')
+                "
                 alt="Composteira ao sol"
               />
             </div>
@@ -485,8 +564,11 @@
               </p>
             </div>
             <div class="img-wrapper">
-              <img
-                src="~assets/img/guia-de-compostagem/composto-liquido.png"
+              <CachedImage
+                raw
+                :src="
+                  require('~/assets/img/guia-de-compostagem/composto-liquido.png')
+                "
                 alt="Composteira ao sol"
               />
             </div>
@@ -552,8 +634,11 @@
               borrifador e aplique nas folhas das plantas.
             </p>
             <div class="img-wrapper">
-              <img
-                src="~assets/img/guia-de-compostagem/diluicao-composto-liquido.png"
+              <CachedImage
+                raw
+                :src="
+                  require('~/assets/img/guia-de-compostagem/diluicao-composto-liquido.png')
+                "
                 alt="Composteira ao sol"
               />
             </div>
@@ -732,8 +817,11 @@
             </p>
             <h4 class="text-center">COMPOSIÇÃO DOS RESÍDUOS DOMÉSTICOS</h4>
             <div class="img-wrapper">
-              <img
-                src="~assets/img/guia-de-compostagem/composicao-residuos-domesticos.png"
+              <CachedImage
+                raw
+                :src="
+                  require('~/assets/img/guia-de-compostagem/composicao-residuos-domesticos.png')
+                "
                 alt="Composição dos resíduos domésticos"
               />
             </div>
@@ -750,14 +838,16 @@
               </strong>
             </p>
             <div class="img-wrapper">
-              <img
-                src="~assets/img/guia-de-compostagem/ideia.png"
+              <CachedImage
+                raw
+                :src="require('~/assets/img/guia-de-compostagem/ideia.png')"
                 alt="Compartilhe essa ideia"
               />
             </div>
             <div class="img-wrapper">
-              <img
-                src="~assets/img/guia-de-compostagem/ajude.png"
+              <CachedImage
+                raw
+                :src="require('~/assets/img/guia-de-compostagem/ajude.png')"
                 alt="Ajude a compartilhar"
               />
             </div>

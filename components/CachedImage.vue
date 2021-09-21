@@ -16,7 +16,6 @@
     :src="url"
     :width="size"
     :height="size"
-    :rounded="rounded"
     :alt="title"
     :title="title"
     :contain="contain"

@@ -61,9 +61,18 @@ export default {
       }
     },
   },
-  async created() {
+  created() {
     if (this.id) {
-      this.loadedUser = await this.$axios.$get('/api/users/' + this.id)
+      this.$fire.firestore
+        .collection('users')
+        .doc(this.id)
+        .get()
+        .then((user) => {
+          if (user.exists) {
+            this.loadedUser = user.data()
+          }
+        })
+        .catch(this.firebaseError)
     }
   },
 }

@@ -15,21 +15,41 @@
           <h3 class="text-center">Semente</h3>
           <p class="text-center"><strong>Óvulo fecundado</strong></p>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-plantar-semente.png" />
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-plantar-semente.png')
+              "
+            />
           </div>
           <h3 class="text-center">Parte de uma planta mãe</h3>
           <p class="text-center"><strong>Estaca</strong></p>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-plantar-mae-1.png" />
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-plantar-mae-1.png')
+              "
+            />
           </div>
           <p class="text-center"><strong>Touceira</strong></p>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-plantar-mae-2.png" />
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-plantar-mae-2.png')
+              "
+            />
           </div>
           <h3 class="text-center">Muda</h3>
           <p class="text-center"><strong>Planta já desenvolvida</strong></p>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-plantar-muda.png" />
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-plantar-muda.png')
+              "
+            />
           </div>
           <h2 class="text-center title">SEMENTE</h2>
           <p>
@@ -40,7 +60,10 @@
             local definitivo.
           </p>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-semente-1.png" />
+            <CachedImage
+              raw
+              :src="require('~/assets/img/guia-de-cultivo/guia-semente-1.png')"
+            />
           </div>
           <p>
             As sementeiras podem ser compradas ou feitas com embalagens
@@ -49,7 +72,10 @@
             acumular água.
           </p>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-semente-2.png" />
+            <CachedImage
+              raw
+              :src="require('~/assets/img/guia-de-cultivo/guia-semente-2.png')"
+            />
           </div>
           <p>
             Procure sempre utilizar sementes de origem conhecida e orgânica, as
@@ -58,7 +84,10 @@
             consumir.
           </p>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-semente-3.png" />
+            <CachedImage
+              raw
+              :src="require('~/assets/img/guia-de-cultivo/guia-semente-3.png')"
+            />
           </div>
           <p>
             Preste atenção para não compactar a terra que for usada para cobrir
@@ -89,7 +118,10 @@
             vaso, tornando-se uma mudinha.
           </p>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-estaca.png" />
+            <CachedImage
+              raw
+              :src="require('~/assets/img/guia-de-cultivo/guia-estaca.png')"
+            />
           </div>
           <div class="tip">
             <h3 class="text-center title">DICA</h3>
@@ -108,22 +140,42 @@
           </p>
           <p>Retire a terra ao redor das raízes</p>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-touceiras-1.png" />
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-touceiras-1.png')
+              "
+            />
           </div>
           <p>Faça um corte preciso separando o novo broto da planta mãe</p>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-touceiras-2.png" />
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-touceiras-2.png')
+              "
+            />
           </div>
           <p>
             Limpe as folhas e raízes secas, faça uma poda nas folhas para
             reduzir a área de evaporação
           </p>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-touceiras-3.png" />
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-touceiras-3.png')
+              "
+            />
           </div>
           <p>Enterre o novo broto em terra fofa e rica em matéria orgânica.</p>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-touceiras-4.png" />
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-touceiras-4.png')
+              "
+            />
           </div>
           <h2 class="text-center title">REBROTA</h2>
           <p>
@@ -151,7 +203,12 @@
             </li>
           </ol>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-rebrota-alface.png" />
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-rebrota-alface.png')
+              "
+            />
           </div>
           <h3>Gengibre</h3>
           <ol>
@@ -170,7 +227,12 @@
             </li>
           </ol>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-rebrota-gengibre.png" />
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-rebrota-gengibre.png')
+              "
+            />
           </div>
           <h3>Cebola</h3>
           <ol>
@@ -188,7 +250,12 @@
             </li>
           </ol>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-rebrota-cebola.png" />
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-rebrota-cebola.png')
+              "
+            />
           </div>
           <h3>Alho</h3>
           <ol>
@@ -203,7 +270,12 @@
             </li>
           </ol>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-rebrota-alho.png" />
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-rebrota-alho.png')
+              "
+            />
           </div>
           <h3>Batata doce</h3>
           <ol>
@@ -224,8 +296,11 @@
             </li>
           </ol>
           <div class="img-wrapper">
-            <img
-              src="~assets/img/guia-de-cultivo/guia-rebrota-batata-doce.png"
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-rebrota-batata-doce.png')
+              "
             />
           </div>
           <h3>Abacaxi</h3>
@@ -244,7 +319,12 @@
             </li>
           </ol>
           <div class="img-wrapper">
-            <img src="~assets/img/guia-de-cultivo/guia-rebrota-abacaxi.png" />
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-rebrota-abacaxi.png')
+              "
+            />
           </div>
           <h2 class="text-center title">COMBINANDO PLANTAS</h2>
           <p>
@@ -265,50 +345,77 @@
             com o processo.
           </p>
           <div class="img-wrapper">
-            <img
-              src="~assets/img/guia-de-cultivo/guia-combinando-plantas.png"
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-combinando-plantas.png')
+              "
             />
           </div>
           <h2 class="text-center title">PLANTAS COMPANHEIRAS</h2>
           <p>Confira abaixo algumas plantas que gostam de ficar próximas</p>
           <div class="img-wrapper">
-            <img
-              src="~assets/img/guia-de-cultivo/guia-plantas-companheiras-1.png"
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-plantas-companheiras-1.png')
+              "
             />
           </div>
           <div class="img-wrapper">
-            <img
-              src="~assets/img/guia-de-cultivo/guia-plantas-companheiras-2.png"
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-plantas-companheiras-2.png')
+              "
             />
           </div>
           <div class="img-wrapper">
-            <img
-              src="~assets/img/guia-de-cultivo/guia-plantas-companheiras-3.png"
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-plantas-companheiras-3.png')
+              "
             />
           </div>
           <div class="img-wrapper">
-            <img
-              src="~assets/img/guia-de-cultivo/guia-plantas-companheiras-4.png"
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-plantas-companheiras-4.png')
+              "
             />
           </div>
           <div class="img-wrapper">
-            <img
-              src="~assets/img/guia-de-cultivo/guia-plantas-companheiras-5.png"
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-plantas-companheiras-5.png')
+              "
             />
           </div>
           <div class="img-wrapper">
-            <img
-              src="~assets/img/guia-de-cultivo/guia-plantas-companheiras-6.png"
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-plantas-companheiras-6.png')
+              "
             />
           </div>
           <div class="img-wrapper">
-            <img
-              src="~assets/img/guia-de-cultivo/guia-plantas-companheiras-7.png"
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-plantas-companheiras-7.png')
+              "
             />
           </div>
           <div class="img-wrapper">
-            <img
-              src="~assets/img/guia-de-cultivo/guia-plantas-companheiras-8.png"
+            <CachedImage
+              raw
+              :src="
+                require('~/assets/img/guia-de-cultivo/guia-plantas-companheiras-8.png')
+              "
             />
           </div>
         </div>

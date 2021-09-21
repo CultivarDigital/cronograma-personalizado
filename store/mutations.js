@@ -18,9 +18,6 @@ export default {
   togglePortal(state, show) {
     state.showPortal = show
   },
-  setRegion(state, region) {
-    state.region = region
-  },
   setSpecies(state, species) {
     state.species = species
   },
@@ -30,14 +27,7 @@ export default {
   setPage(state, page) {
     state.page = page
   },
-  addToUploadPool(state, data) {
-    const uploadPool = JSON.parse(JSON.stringify(state.uploadPool))
-    uploadPool.push(data)
-    state.uploadPool = uploadPool
-  },
-  removeFromUploadPool(state, hash) {
-    let uploadPool = JSON.parse(JSON.stringify(state.uploadPool))
-    uploadPool = uploadPool.filter((item) => item.hash !== hash)
-    state.uploadPool = uploadPool
+  setOfflineMode(state, offlineMode) {
+    state.offlineMode = offlineMode
   },
 }

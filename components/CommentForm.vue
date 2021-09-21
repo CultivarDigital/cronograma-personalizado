@@ -3,7 +3,7 @@
   <div>
     <v-list-item>
       <v-list-item-avatar>
-        <User thumb />
+        <User thumb size="40" />
       </v-list-item-avatar>
       <v-list-item-content>
         <v-textarea

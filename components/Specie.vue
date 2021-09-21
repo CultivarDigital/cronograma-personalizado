@@ -103,26 +103,26 @@
     </v-simple-table>
     <v-container fluid>
       <div v-if="specie.planting_time">
-        <h4>Época e regiões para plantio</h4>
+        <h4 class="mb-3 mt-3">Época e regiões para plantio:</h4>
         <v-row class="plantio-table" fluid no-gutters>
           <v-col class="{active: (currentRegion == 'Centro-oeste')}">
-            <p>C. Oeste</p>
+            <p class="mb-0">C. Oeste</p>
             <p>{{ specie.planting_time['Centro-oeste'] }}</p>
           </v-col>
           <v-col class="{active: (currentRegion == 'Nordeste')}">
-            <p>Nordeste</p>
+            <p class="mb-0">Nordeste</p>
             <p>{{ specie.planting_time['Nordeste'] }}</p>
           </v-col>
           <v-col class="{active: (currentRegion == 'Norte')}">
-            <p>Norte</p>
+            <p class="mb-0">Norte</p>
             <p>{{ specie.planting_time['Norte'] }}</p>
           </v-col>
           <v-col class="{active: (currentRegion == 'Sudeste')}">
-            <p>Sudeste</p>
+            <p class="mb-0">Sudeste</p>
             <p>{{ specie.planting_time['Sudeste'] }}</p>
           </v-col>
           <v-col class="{active: (currentRegion == 'Sul')}">
-            <p>Sul</p>
+            <p class="mb-0">Sul</p>
             <p>{{ specie.planting_time['Sul'] }}</p>
           </v-col>
         </v-row>
@@ -135,22 +135,7 @@
         >
           <small>* Cultivo não recomendado.</small>
         </p>
-        <br />
         <p class="text-justify">{{ specie.planting_time_description }}</p>
-      </div>
-      <div v-if="specie.companion_species && specie.companion_species.length">
-        <h4>Plantas companheiras:</h4>
-        <p>
-          <span v-for="companion in specie.companion_species" :key="companion">
-            <n-link
-              v-if="specieByName(companion)"
-              class="badge badge-primary"
-              :to="parent.url + '/' + specieByName(companion).id"
-              >{{ specieByName(companion).name }}</n-link
-            >
-            <span v-else class="badge badge-default">{{ companion }}</span>
-          </span>
-        </p>
       </div>
       <p
         v-if="specie.description"
@@ -158,14 +143,32 @@
         v-html="specie.description"
       ></p>
       <div v-if="specie.use">
-        <h4>Recomendações de aproveitamento</h4>
+        <h4 class="mb-3">Recomendações de aproveitamento</h4>
         <p class="text-justify">{{ specie.use }}</p>
       </div>
       <div v-if="specie.images && specie.images.length">
         <h4 class="mb-3">Fotos:</h4>
         <Gallery :images="specie.images" />
       </div>
-      <br />
+      <div v-if="specie.companion_species && specie.companion_species.length">
+        <h4 class="mb-3 mt-3">Plantas companheiras:</h4>
+        <p>
+          <span v-for="companion in specie.companion_species" :key="companion">
+            <v-btn
+              v-if="specieByName(companion)"
+              :to="parent.url + '/' + specieByName(companion).id"
+              small
+              color="primary"
+              class="mb-1 mr-1"
+            >
+              {{ specieByName(companion).name }}
+            </v-btn>
+            <v-btn v-else color="primary lighten-2 mb-1 mr-1" small>{{
+              companion
+            }}</v-btn>
+          </span>
+        </p>
+      </div>
     </v-container>
     <Comments :target="'specie-' + specie.id" />
   </div>

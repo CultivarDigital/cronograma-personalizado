@@ -1,6 +1,5 @@
-<!-- eslint-disable vue/no-v-html -->
 <template>
-  <div>
+  <div v-if="$nuxt.isOnline">
     <v-divider class="mt-0 mb-3" />
     <v-list subheader dense>
       <v-list-item v-for="comment in comments" :key="comment.id">
@@ -8,10 +7,8 @@
           <User :user="comment.user" thumb size="40" />
         </v-list-item-avatar>
         <v-list-item-content>
-          <p class="mb-0 text-caption">
-            <strong>{{ comment.user.displayName }}</strong>
-          </p>
-          <p>{{ comment.created_at.toDate() }}</p>
+          <v-list-item-title v-text="comment.user.displayName" />
+          <div class="body-2">{{ comment.message }}</div>
         </v-list-item-content>
         <v-list-item-action
           v-if="
@@ -20,9 +17,37 @@
             comment.user.uid === $store.state.authUser.uid
           "
         >
-          <v-btn icon @click="remove(comment)">
+          <v-list-item-action-text>
+            <small
+              class="font-weight-light"
+              :title="
+                $moment(comment.created_at.toDate()).format(
+                  'DD/MM/YYYY h:mm:ss'
+                )
+              "
+            >
+              {{ $moment(comment.created_at.toDate()).fromNow(true) }}
+            </small>
+          </v-list-item-action-text>
+
+          <v-btn icon @click="removeComment = comment.id">
             <v-icon color="grey lighten-1"> mdi-delete </v-icon>
           </v-btn>
+          <v-dialog :value="comment.id === removeComment" max-width="290">
+            <v-card>
+              <v-card-title class="text-h5">
+                Tem certeza que deseja excluír?
+              </v-card-title>
+              <v-card-text> Esta alteração não pode ser desfeita </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="error" text @click="removeComment = null">
+                  Não
+                </v-btn>
+                <v-btn color="green" text @click="remove(comment)"> Sim </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-list-item-action>
       </v-list-item>
       <CommentForm :target="target" @change="commentSaved" />
@@ -40,6 +65,7 @@ export default {
   data() {
     return {
       comments: null,
+      removeComment: null,
     }
   },
   computed: {
@@ -67,15 +93,16 @@ export default {
       this.$emit('change', comment)
     },
     remove(comment) {
-      this.$bvModal
-        .msgBoxConfirm('Tem certeza?', { okTitle: 'Sim', cancelTitle: 'Não' })
-        .then(async (value) => {
-          if (value) {
-            await this.$axios.$delete('/api/comments/' + comment.id)
-            this.loadComments()
-            this.$emit('change', comment)
-          }
+      this.$fire.firestore
+        .collection('comments')
+        .doc(comment.id)
+        .delete()
+        .then(() => {
+          this.loadComments()
+          this.$emit('change', comment)
         })
+        .catch(this.firebaseError)
+      this.removeComment = null
     },
   },
 }

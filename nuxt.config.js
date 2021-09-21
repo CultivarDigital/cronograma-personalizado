@@ -40,6 +40,7 @@ export default {
     '@nuxtjs/google-analytics',
     '@nuxtjs/localforage',
     '@nuxtjs/vuetify',
+    '@nuxtjs/moment',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -150,6 +151,11 @@ export default {
         },
       },
     },
+  },
+  moment: {
+    defaultTimezone: 'utc',
+    defaultLocale: 'pt-br',
+    locales: ['pt-br'],
   },
   env: {
     baseURL: process.env.BASE_URL || 'http://localhost:3000',
