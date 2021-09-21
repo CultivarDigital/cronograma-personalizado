@@ -861,10 +861,3 @@
     </v-container>
   </div>
 </template>
-<script>
-export default {
-  created() {
-    console.log(this.$metaInfo)
-  },
-}
-</script>

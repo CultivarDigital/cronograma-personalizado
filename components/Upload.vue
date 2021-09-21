@@ -266,9 +266,7 @@ export default {
         .then(() => {
           this.blog.imageUrl = ''
         })
-        .catch((error) => {
-          console.error('Error deleting image', error)
-        })
+        .catch(this.firebaseError)
     },
     callback(uploaded) {
       if (this.multiple) {

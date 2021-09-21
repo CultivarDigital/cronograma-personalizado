@@ -194,6 +194,7 @@ export default {
     try {
       await this.$fire.authReady()
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log('fire.authReady ERROR: ', error)
     }
     await this.$fire.firestoreReady()

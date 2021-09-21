@@ -1,6 +1,5 @@
 export default {
   LOGOUT: (state) => {
-    console.log('LOGOUTLOGOUTLOGOUTLOGOUTLOGOUTLOGOUT')
     state.authUser = null
   },
   SET_AUTH_USER: (state, authUser) => {

@@ -39,7 +39,6 @@ if (!Vue.__my_mixin__) {
         })
       },
       firebaseError(error) {
-        console.log(error)
         if (error) {
           const msg = firebaseTranslations[error.code]
           if (msg) {
