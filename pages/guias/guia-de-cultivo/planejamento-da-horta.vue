@@ -10,8 +10,9 @@
         <div class="item item-body" padding>
           <h2 class="text-center title">PLANEJANDO O CULTIVO</h2>
           <div class="list">
-            <h4>
+            <h4 class="d-flex align-center">
               <CachedImage
+                class="mr-2"
                 raw
                 :src="
                   require('~/assets/img/guia-de-cultivo/guia-ambiente-1.jpg')
@@ -26,8 +27,9 @@
               interessante começar pequeno e crescer sua horta conforme você
               ganhar mais confiança e conhecimento.
             </p>
-            <h4>
+            <h4 class="d-flex align-center">
               <CachedImage
+                class="mr-2"
                 raw
                 :src="
                   require('~/assets/img/guia-de-cultivo/guia-ambiente-2.jpg')
@@ -41,8 +43,9 @@
               frequenta pouco em sua casa ou em sua rua - as plantas tem o poder
               de trazer vida e ressignificar os espaços.
             </p>
-            <h4>
+            <h4 class="d-flex align-center">
               <CachedImage
+                class="mr-2"
                 raw
                 :src="
                   require('~/assets/img/guia-de-cultivo/guia-ambiente-3.jpg')
@@ -57,8 +60,9 @@
               direta ou indireta? Como é a luz nas diferentes épocas do ano?
             </p>
 
-            <h4>
+            <h4 class="d-flex align-center">
               <CachedImage
+                class="mr-2"
                 raw
                 :src="
                   require('~/assets/img/guia-de-cultivo/guia-ambiente-4.jpg')
@@ -72,8 +76,9 @@
               recipientes para transportar água.
             </p>
 
-            <h4>
+            <h4 class="d-flex align-center">
               <CachedImage
+                class="mr-2"
                 raw
                 :src="
                   require('~/assets/img/guia-de-cultivo/guia-ambiente-5.jpg')

@@ -8,7 +8,7 @@
     <v-container fluid class="guide pt-0">
       <div class="cap-3">
         <div class="item item-body" padding>
-          <h2 class="text-center title">OLHANDO PARA CIMA</h2>
+          <h2 class="text-center title mb-0">OLHANDO PARA CIMA</h2>
           <h1 class="text-center title">O SOL</h1>
           <p>
             O sol é o elemento fundamental da vida e é de onde a planta tira boa

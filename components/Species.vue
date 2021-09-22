@@ -17,7 +17,7 @@
         </v-list-item-subtitle>
       </v-list-item-content>
       <v-list-item-action>
-        <v-btn icon>
+        <v-btn icon x-small>
           <v-icon color="grey lighten-1">mdi-chevron-right</v-icon>
         </v-btn>
       </v-list-item-action>

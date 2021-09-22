@@ -3,7 +3,7 @@
     <Breadcrumb
       :links="[['Guias', '/guias']]"
       active="Guia básico de cultivo"
-      description="Pra cultivar plantas e alimentos saudáveis é preciso oferecer atenção, cuidado e dedicação, mas os benefícios que essa prática trará pra sua saúde física, mental, emocional e psicológica são muitos."
+      description="Aprenda a plantar, colher e cuidar da sua horta ou jardim com esse guia simples e prático"
       :img="
         'https://www.cultivarbrasil.com' +
         require('~/assets/img/guia-de-cultivo/guia-de-cultivo.png')

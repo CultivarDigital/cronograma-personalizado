@@ -2,18 +2,18 @@
   <div>
     <Breadcrumb
       active="Ferramentas"
-      description="Ferramentas que vão auxiliar no cuidado com os seus cultivos"
+      description="Ferramentas que vão te ajudar a cuidar da sua horta de forma mais organizada"
     />
     <v-container fluid>
-      <v-btn block color="primary" to="/ferramentas/o-que-plantar-esse-mes">
-        O que plantar esse mês?
-      </v-btn>
-      <br />
-      <v-btn block color="primary" to="/ferramentas/catalogo-de-especies">
-        Catálogo de espécies
-      </v-btn>
-      <br />
+      <div class="text-center">
+        <v-icon size="64" color="primary">mdi-toolbox</v-icon>
+        <p class="pt-3 mb-0">
+          Ferramentas que vão te ajudar a cuidar da sua horta de forma mais
+          organizada
+        </p>
+      </div>
     </v-container>
+    <Menu section="Ferramentas" />
   </div>
 </template>
 <script>

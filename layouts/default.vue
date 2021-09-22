@@ -1,132 +1,161 @@
 <template>
   <v-app>
     <v-dialog
-      :value="$store.state.offlineMode === null"
+      v-if="loading"
+      :value="true"
       overlay-opacity="1"
       overlay-color="primary"
-    >
-      <v-card class="py-6 text-center">
-        <v-card-text class="text-center">
-          <v-icon x-large class="mb-3">mdi-signal-off</v-icon>
-          <h3>Ativar modo offline?</h3>
-          Você pretende usar este aplicativo quando estiver em locais sem
-          internet ou com sinal ruim?
-        </v-card-text>
-        <v-card-actions class="justify-center">
-          <v-btn color="grey" @click="setOfflineMode(false)"> Não </v-btn>
-          <v-btn color="primary" @click="setOfflineMode(true)"> Sim </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-    <v-dialog
-      :value="caching !== false"
-      max-width="290"
       persistent
-      overlay-opacity="1"
-      overlay-color="primary"
     >
       <v-card class="py-6 text-center">
-        <img
-          title="Cultivar Brasil"
-          :src="require('~/assets/img/logo.png')"
-          width="100"
-        />
-        <v-card-text class="pt-3 text-center">
-          Salvando dados para você poder acessar quando estiver sem sinal de
-          internet...
-          <br />
-          <br />
-          <v-progress-linear :value="(caching / pages.length) * 100" />
+        <v-card-text class="py-0">
+          <v-progress-circular indeterminate color="primary" class="mb-3" />
+          <div class="mb-0"><strong>Cultivar </strong> Brasil</div>
+          <small>Cultive alimentos saudáveis em casa!</small>
         </v-card-text>
       </v-card>
     </v-dialog>
-    <v-navigation-drawer v-model="show_drawer" app>
-      <v-list color="primary" :dark="true" nav>
-        <v-list-item class="mb-0">
-          <v-list-item-content class="text-center pb-0">
-            <User thumb size="64" color="white" icon-color="primary" />
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item
-          v-if="authUser"
-          link
-          @click="$store.dispatch('showPortal')"
-        >
-          <v-list-item-content>
-            <v-list-item-title v-if="authUser.displayName" class="text-h6">
-              {{ authUser.displayName }}
-            </v-list-item-title>
-            <v-list-item-subtitle>{{ authUser.email }}</v-list-item-subtitle>
-          </v-list-item-content>
-          <v-list-item-action>
-            <v-icon>mdi-chevron-down</v-icon>
-          </v-list-item-action>
-        </v-list-item>
-        <v-list-item v-else>
-          <v-list-item-content>
-            <p class="mb-4 text-center">
-              Para melhorar sua experiência e ativar novas funcionalidades:
-            </p>
-            <v-btn
-              outlined
-              color="white"
-              class="mb-0"
-              @click="$store.dispatch('showPortal')"
-            >
-              <v-icon left dark> mdi-login </v-icon>
-              Entre
-            </v-btn>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-      <v-list nav dense class="pb-0 mt-3">
-        <v-list-item to="/">
-          <v-list-item-icon>
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>Início</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-      <SidebarMenu />
-    </v-navigation-drawer>
-
-    <v-app-bar app color="primary" dark hide-on-scroll>
-      <v-img
-        v-if="$route.path === '/'"
-        title="Cultivar Brasil"
-        :src="require('~/assets/img/cultivar-white.png')"
-        class="mr-2"
-        max-height="24px"
-        max-width="24px"
-      />
-      <v-toolbar-title v-if="$route.path === '/'" to="/">
-        <span class="text-white"> <strong>Cultivar </strong> Brasil </span>
-      </v-toolbar-title>
-      <v-btn
-        v-if="$route.path !== '/'"
-        icon
-        light
-        @click="$router.replace(previousPage)"
+    <div v-if="!loading">
+      <v-dialog
+        v-if="$store.state.offlineMode === null"
+        :value="true"
+        overlay-opacity="1"
+        overlay-color="primary"
       >
-        <v-icon color="white"> mdi-arrow-left </v-icon>
-      </v-btn>
-      <span v-if="$route.path !== '/' && currentPage">{{
-        currentPage.name
-      }}</span>
-      <v-spacer></v-spacer>
-      <v-app-bar-nav-icon @click="show_drawer = !show_drawer" />
-    </v-app-bar>
+        <v-card class="py-6 text-center">
+          <v-card-text class="text-center">
+            <v-icon x-large class="mb-3">mdi-signal-off</v-icon>
+            <h3 class="mb-3">Ativar modo offline?</h3>
+            Você pretende usar este aplicativo quando estiver em locais sem
+            internet ou com sinal ruim?
+          </v-card-text>
+          <v-card-actions class="justify-center">
+            <v-btn color="grey" @click="setOfflineMode(false)"> Não </v-btn>
+            <v-btn color="primary" @click="setOfflineMode(true)"> Sim </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+      <v-dialog
+        v-if="caching !== false"
+        :value="true"
+        max-width="290"
+        persistent
+        overlay-opacity="1"
+        overlay-color="primary"
+      >
+        <v-card class="py-6 text-center">
+          <img
+            title="Cultivar Brasil"
+            :src="require('~/assets/img/logo.png')"
+            width="40"
+          />
+          <v-card-text class="pb-0 text-center">
+            <h3 class="mb-3"><strong>Cultivar </strong> Brasil</h3>
+            <p v-if="caching >= pages.length" class="mb-3">Quase lá!</p>
+            <p v-else-if="$route.path === '/'" class="mb-3">
+              Ativando modo offline...
+            </p>
+            <p v-else class="mb-3">
+              <small>Salvando: </small>
+              <br />
+              <strong v-if="currentPage">
+                {{
+                  currentPage.name === 'Alcachofra'
+                    ? 'Detalhes da espécie'
+                    : currentPage.name
+                }}
+              </strong>
+            </p>
+            <v-progress-linear :value="(caching / pages.length) * 100" />
+            <small>
+              {{ pages.length * 3 - caching * 3 }} segundos restantes
+            </small>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+      <v-navigation-drawer v-model="show_drawer" app>
+        <v-list color="primary" :dark="true" nav>
+          <v-list-item class="mb-0">
+            <v-list-item-content class="text-center pb-0">
+              <User thumb size="64" color="white" icon-color="primary" />
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item
+            v-if="authUser"
+            link
+            @click="$store.dispatch('showPortal')"
+          >
+            <v-list-item-content>
+              <v-list-item-title v-if="authUser.displayName" class="text-h6">
+                {{ authUser.displayName }}
+              </v-list-item-title>
+              <v-list-item-subtitle>{{ authUser.email }}</v-list-item-subtitle>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-icon>mdi-chevron-down</v-icon>
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item v-else>
+            <v-list-item-content>
+              <p class="mb-4 text-center">
+                Para melhorar sua experiência e ativar novas funcionalidades:
+              </p>
+              <v-btn
+                outlined
+                color="white"
+                class="mb-0"
+                @click="$store.dispatch('showPortal')"
+              >
+                <v-icon left dark> mdi-login </v-icon>
+                Entre
+              </v-btn>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+        <v-list nav dense class="pb-0 mt-3">
+          <v-list-item to="/">
+            <v-list-item-icon>
+              <v-icon>mdi-home</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Início</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+        <SidebarMenu />
+      </v-navigation-drawer>
 
-    <!-- Sizes your content based upon application components -->
-    <v-main>
-      <!-- Provides the application the proper gutter -->
-      <div class="pt-2">
-        <div v-if="loading" class="text-center pt-10">
-          <v-progress-circular indeterminate color="primary" />
-        </div>
-        <div v-else>
+      <v-app-bar app color="primary" dark hide-on-scroll>
+        <v-img
+          v-if="$route.path === '/'"
+          title="Cultivar Brasil"
+          :src="require('~/assets/img/cultivar-white.png')"
+          class="mr-2"
+          max-height="24px"
+          max-width="24px"
+        />
+        <v-toolbar-title v-if="$route.path === '/'" to="/">
+          <span class="text-white"> <strong>Cultivar </strong> Brasil </span>
+        </v-toolbar-title>
+        <v-btn
+          v-if="$route.path !== '/'"
+          icon
+          light
+          @click="$router.replace(previousPage)"
+        >
+          <v-icon color="white"> mdi-arrow-left </v-icon>
+        </v-btn>
+        <span v-if="$route.path !== '/' && currentPage">{{
+          currentPage.name
+        }}</span>
+        <v-spacer></v-spacer>
+        <v-app-bar-nav-icon @click="show_drawer = !show_drawer" />
+      </v-app-bar>
+
+      <!-- Sizes your content based upon application components -->
+      <v-main>
+        <!-- Provides the application the proper gutter -->
+        <div class="pt-2">
           <Nuxt />
           <div class="text-center mobile-footer">
             <v-divider />
@@ -134,12 +163,10 @@
             <Footer />
           </div>
         </div>
-      </div>
-    </v-main>
-
-    <v-footer app> Base URL: {{ baseURL }} </v-footer>
-    <Portal />
-    <Snackbar />
+      </v-main>
+      <Portal />
+      <Snackbar />
+    </div>
   </v-app>
 </template>
 

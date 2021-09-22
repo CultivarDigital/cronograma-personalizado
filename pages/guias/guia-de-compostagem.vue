@@ -3,7 +3,7 @@
     <Breadcrumb
       active="Guia de compostagem"
       :links="[['Guias', '/guias']]"
-      description="A partir de agora, os resíduos orgânicos produzidos pela sua família serão reciclados na sua própria casa."
+      description="Aprenda a transformar o lixo orgânico da sua casa em adubo para suas plantinhas"
       :img="
         'https://www.cultivarbrasil.com' +
         require('~/assets/img/guia-de-compostagem/ciclo-texto.png')

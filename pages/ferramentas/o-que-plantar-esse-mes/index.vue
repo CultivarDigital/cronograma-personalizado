@@ -7,7 +7,7 @@
     />
     <v-container>
       <div class="text-center">
-        <h3 class="text-center">{{ currentMonth.name }}</h3>
+        <h3 class="text-center mb-3">{{ currentMonth.name }}</h3>
         <p>{{ currentMonth.description }}</p>
         <p>
           Confira abaixo algumas sugestões para este mês no

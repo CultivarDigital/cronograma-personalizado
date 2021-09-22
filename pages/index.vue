@@ -2,10 +2,8 @@
   <div class="pt-3">
     <Breadcrumb active="Cultive alimentos saudáveis em casa!" />
     <Moon />
-    <v-divider></v-divider>
-    <v-container>
-      <Menu />
-    </v-container>
+    <v-divider class="mb-2" />
+    <Menu />
   </div>
 </template>
 <script>
