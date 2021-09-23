@@ -41,6 +41,7 @@ export default {
     '@nuxtjs/localforage',
     '@nuxtjs/vuetify',
     '@nuxtjs/moment',
+    'nuxt-compress',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
