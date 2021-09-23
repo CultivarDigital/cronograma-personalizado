@@ -1,106 +1,43 @@
 <template>
   <div>
     <v-container>
-      <div v-if="moon_phase === 'nova'" class="item item-body text-center">
-        <h3>Hoje é dia de Lua nova</h3>
+      <div v-if="moon" class="item item-body text-center">
+        <h3>Hoje é dia de {{ moon.title }}</h3>
         <p class="mb-3">
           <small v-if="next_moon > 1">
-            Faltam {{ Math.ceil(next_moon) }} dias para o quarto
-            crescente</small
-          >
-          <small v-else> Amanhã já entra o quarto crescente</small>
+            Faltam {{ Math.ceil(next_moon) }} dias para o {{ moon.next_moon }}
+          </small>
+          <small v-else> Amanhã já entra o {{ moon.next_moon }}</small>
         </p>
         <div class="img-wrapper">
-          <CachedImage :src="require('~/assets/img/home-lua-nova.png')" raw />
+          <CachedImage :src="require('~/assets/img/' + moon.image)" raw />
         </div>
-        <p>
-          Nessa fase a seiva manifesta-se em maior quantidade no caule, em
-          direção aos ramos
-        </p>
-        <p>
-          <small>Fase boa para:</small>
-          <br />
-          Colheita de raízes (cenoura, nabo, beterraba, rabanete, etc) e podas
-          de limpeza e produção de matéria seca.
-        </p>
-      </div>
-      <div v-if="moon_phase === 'crescente'" class="item item-body text-center">
-        <h3>Hoje é dia de Lua crescente</h3>
-        <p class="mb-3">
-          <small v-if="next_moon > 1">
-            Faltam {{ Math.ceil(next_moon) }} dias para a Lua cheia</small
-          >
-          <small v-else> Amanhã já entra a Lua cheia</small>
-        </p>
-        <div class="img-wrapper">
-          <CachedImage
-            :src="require('~/assets/img/home-lua-crescente.png')"
-            raw
-          />
+        <p>{{ moon.description }}. Esta fase é boa para:</p>
+        <div>
+          <div v-for="action in moon.good_to" :key="action.title">
+            <div v-if="action.categories">
+              <strong>{{ action.title }}:</strong>
+              <p>{{ action.categories.join(', ') }}</p>
+              <div class="mb-3">
+                <v-btn
+                  v-for="specie in getSpecies(action.categories)"
+                  :key="specie.id"
+                  x-small
+                  color="primary"
+                  :to="'/ferramentas/catalogo-de-especies/' + specie.id"
+                  class="mr-1 mb-1"
+                  >{{ specie.name }}</v-btn
+                >
+              </div>
+            </div>
+            <div v-else-if="action.description">
+              <p>
+                <strong>{{ action.title }}</strong>
+                {{ action.description }}
+              </p>
+            </div>
+          </div>
         </div>
-        <p>
-          Nessa fase a seiva está presente em maior quantidade no caule, nos
-          ramos e nas folhas.
-        </p>
-        <p>
-          <small>Fase boa para:</small>
-          <br />
-          Plantar tomate, pimentão, jiló, quiabo, berinjela, feijão – vagem,
-          pepino, abóbora, milho, arroz, feijão e outras, sejam frutíferas,
-          legumes ou cereais. Ideal para poda para brotação rápida.
-        </p>
-      </div>
-      <div v-if="moon_phase === 'cheia'" class="item item-body text-center">
-        <h3>Hoje é dia de Lua cheia</h3>
-        <p class="mb-3">
-          <small v-if="next_moon > 1">
-            Faltam {{ Math.ceil(next_moon) }} dias para o quarto
-            minguante</small
-          >
-          <small v-else> Amanhã já entra o quarto minguante</small>
-        </p>
-        <div class="img-wrapper">
-          <CachedImage :src="require('~/assets/img/home-lua-cheia.png')" raw />
-        </div>
-        <p>
-          Nessa fase a seiva manifesta-se em maior quantidade na copa da planta
-          (ramos e folhas).
-        </p>
-        <p>
-          <small>Fase boa para:</small>
-          <br />
-          Colheita de frutos e hortaliças de folha. No início desta fase
-          planta-se: repolho, couve-flor, alface e outras. Além das hortaliças
-          esta fase é ótima para o plantio de flores.
-        </p>
-      </div>
-      <div v-if="moon_phase === 'minguante'" class="item item-body text-center">
-        <h3>Hoje é dia de Lua minguante</h3>
-        <p class="mb-3">
-          <small v-if="next_moon > 1">
-            Faltam {{ Math.ceil(next_moon) }} dias para a lua nova</small
-          >
-          <small v-else> Amanhã já entra a lua nova</small>
-        </p>
-        <div class="img-wrapper">
-          <CachedImage
-            :src="require('~/assets/img/home-lua-minguante.png')"
-            raw
-          />
-        </div>
-        <p>
-          <small
-            >Nessa fase a planta absorve menos quantidade de seiva no caule, nas
-            folhas e nos ramos.</small
-          >
-        </p>
-        <p>
-          <small>Fase boa para:</small>
-          <br />
-          Plantar raízes como rabanetes, beterraba, cenoura, inhame, batata,
-          cebola de cabeça. Ideal para tirar bambus, madeiras para construção e
-          cabos para ferramentas.
-        </p>
       </div>
     </v-container>
   </div>
@@ -108,6 +45,7 @@
 
 <script>
 import lune from 'lune'
+import moon from '@/data/moon'
 export default {
   data() {
     return {
@@ -115,12 +53,30 @@ export default {
       next_moon: null,
     }
   },
+  computed: {
+    moon() {
+      if (moon && this.moon_phase) {
+        return moon.minguante
+      }
+      return null
+    },
+  },
   created() {
     const today = new Date()
     today.setDate(today.getDate())
     this.calcMoonPhase(today)
   },
   methods: {
+    getSpecies(categories) {
+      return this.$store.state.species.filter((specie) => {
+        if (specie.planting_time) {
+          return specie.categories.find((category) =>
+            categories.includes(category)
+          )
+        }
+        return false
+      })
+    },
     calcMoonPhase(date) {
       const currentPhase = lune.phase(date)
       const recentPhases = lune.phase_hunt(date)
