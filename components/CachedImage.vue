@@ -78,15 +78,15 @@ export default {
   methods: {
     async load() {
       if (this.src) {
+        const thumbURL = this.src.replace('/images', '/thumbs')
         if (this.thumb) {
-          const thumbURL = this.src.replace('/images', '/thumbs')
           this.url = await this.loadURL(thumbURL)
-          if (this.url) {
-            this.loadURL(this.src)
-          }
         }
         if (!this.url) {
           this.url = await this.loadURL(this.src)
+          if (!this.thumb && !this.url && this.$nuxt.isOffline) {
+            this.url = await this.loadURL(thumbURL)
+          }
         }
         if (!this.url) {
           return this.src

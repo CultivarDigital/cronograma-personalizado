@@ -1,10 +1,11 @@
 <template>
-  <div class="mb-2 d-inline-block">
+  <div class="mb-2 mr-1 d-inline-block">
     <v-menu>
       <template #activator="{ on, attrs }">
         <v-btn
           :color="value ? 'primary darken-1' : 'primary'"
           dark
+          small
           v-bind="attrs"
           v-on="on"
         >

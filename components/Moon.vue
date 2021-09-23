@@ -18,11 +18,10 @@
           direção aos ramos
         </p>
         <p>
-          <small>
-            <strong>Fase boa para:</strong> colheita de raízes (cenoura, nabo,
-            beterraba, rabanete, etc) e podas de limpeza e produção de matéria
-            seca.
-          </small>
+          <small>Fase boa para:</small>
+          <br />
+          Colheita de raízes (cenoura, nabo, beterraba, rabanete, etc) e podas
+          de limpeza e produção de matéria seca.
         </p>
       </div>
       <div v-if="moon_phase === 'crescente'" class="item item-body text-center">
@@ -44,12 +43,11 @@
           ramos e nas folhas.
         </p>
         <p>
-          <small>
-            <strong>Fase boa para:</strong> plantar tomate, pimentão, jiló,
-            quiabo, berinjela, feijão – vagem, pepino, abóbora, milho, arroz,
-            feijão e outras, sejam frutíferas, legumes ou cereais. Ideal para
-            poda para brotação rápida.
-          </small>
+          <small>Fase boa para:</small>
+          <br />
+          Plantar tomate, pimentão, jiló, quiabo, berinjela, feijão – vagem,
+          pepino, abóbora, milho, arroz, feijão e outras, sejam frutíferas,
+          legumes ou cereais. Ideal para poda para brotação rápida.
         </p>
       </div>
       <div v-if="moon_phase === 'cheia'" class="item item-body text-center">
@@ -69,12 +67,11 @@
           (ramos e folhas).
         </p>
         <p>
-          <small>
-            <strong>Fase boa para:</strong> colheita de frutos e hortaliças de
-            folha. No início desta fase planta-se: repolho, couve-flor, alface e
-            outras. Além das hortaliças esta fase é ótima para o plantio de
-            flores.
-          </small>
+          <small>Fase boa para:</small>
+          <br />
+          Colheita de frutos e hortaliças de folha. No início desta fase
+          planta-se: repolho, couve-flor, alface e outras. Além das hortaliças
+          esta fase é ótima para o plantio de flores.
         </p>
       </div>
       <div v-if="moon_phase === 'minguante'" class="item item-body text-center">
@@ -98,11 +95,11 @@
           >
         </p>
         <p>
-          <small>
-            <strong>Fase boa para:</strong> plantar raízes como rabanetes,
-            beterraba, cenoura, inhame, batata, cebola de cabeça. Ideal para
-            tirar bambus, madeiras para construção e cabos para ferramentas.
-          </small>
+          <small>Fase boa para:</small>
+          <br />
+          Plantar raízes como rabanetes, beterraba, cenoura, inhame, batata,
+          cebola de cabeça. Ideal para tirar bambus, madeiras para construção e
+          cabos para ferramentas.
         </p>
       </div>
     </v-container>
