@@ -12,13 +12,6 @@ const menu = {
       icon: 'mdi-view-list',
       to: '/ferramentas/catalogo-de-especies',
     },
-    {
-      title: 'Lojinha',
-      description:
-        'Aqui você encontra tudo o que preciso para sua horta ou jardim e de quebra ajuda a manter o cultivar cada vez melhor',
-      icon: 'mdi-cart',
-      to: '/lojinha',
-    },
   ],
   Guias: [
     {

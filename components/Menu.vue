@@ -1,16 +1,16 @@
 <template>
   <v-list nav dense class="pb-3 pt-0">
     <template v-for="menuSection in Object.keys(menu)">
-      <template
-        v-if="
-          menuSection != 'Plataforma' && (!section || section === menuSection)
-        "
-      >
-        <v-subheader v-if="!section" :key="menuSection + '-subheader'">{{
-          menuSection
-        }}</v-subheader>
+      <v-subheader v-if="!section" :key="menuSection + '-subheader'">{{
+        menuSection
+      }}</v-subheader>
+      <template v-for="item in menu[menuSection]">
         <v-list-item
-          v-for="item in menu[menuSection]"
+          v-if="
+            item.title != 'Sobre' &&
+            item.title != 'Colabore' &&
+            (!section || section === menuSection)
+          "
           :key="item.title"
           :to="item.to"
         >
