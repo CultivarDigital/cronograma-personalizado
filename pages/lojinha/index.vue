@@ -14,19 +14,15 @@
         <div class="mb-6">
           <v-btn
             v-for="category in categories"
-            :key="category.title"
+            :key="category"
             class="mb-2 mr-1"
             :color="
-              category.title === currentCategory
-                ? 'primary darken-2'
-                : 'primary'
+              category === currentCategory ? 'primary darken-2' : 'primary'
             "
             @click="filter(category)"
           >
-            {{ category.title }}
-            <v-icon v-if="category.title === currentCategory" right
-              >mdi-close</v-icon
-            >
+            {{ category }}
+            <v-icon v-if="category === currentCategory" right>mdi-close</v-icon>
           </v-btn>
         </div>
       </div>
@@ -81,21 +77,8 @@ export default {
   },
   data() {
     return {
-      categories: [
-        {
-          title: 'Ferramentas',
-          icon: 'mdi-tools',
-          link:
-            'https://www.magazinevoce.com.br/magazinecultivarbrasil/l/ferramentas-de-jardinagem/15191394/',
-        },
-        {
-          title: 'Livros',
-          icon: 'mdi-book-open-page-variant',
-          link:
-            'https://www.magazinevoce.com.br/magazinecultivarbrasil/l/livros/15526777/',
-        },
-      ],
       products: [],
+      categories: [],
       currentCategory: null,
       loading: true,
     }
@@ -111,32 +94,64 @@ export default {
       return products.sort(() => Math.random() - 0.5)
     },
   },
-  async created() {
-    for (const category of this.categories) {
-      const resp = await axios.get(category.link)
-      const $ = cheerio.load(resp.data)
-      $('.g-items .g-item').each((i, e) => {
-        const product = {}
-        product.category = category.title
-        product.title = $(e).find('.g-title').text().trim()
-        product.price = $(e).find('.g-price').text().trim()
-        product.price_complement = $(e).find('.g-installment').text().trim()
-        product.image = $(e).find('.g-img-wrapper img').data('original')
-        product.image_lazy = $(e).find('.g-img-wrapper img').attr('src')
-        product.link =
-          'https://www.magazinevoce.com.br' +
-          $(e).find('.g-img-wrapper').attr('href')
-        this.products.push(product)
-      })
-    }
-    this.loading = false
+  created() {
+    this.load()
   },
   methods: {
+    async load() {
+      const productsRef = await this.$fire.firestore
+        .collection('products')
+        .get()
+      const products = productsRef.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }))
+      const categories = {}
+      products.forEach((product) => {
+        categories[product.category] = true
+      })
+      this.categories = Object.keys(categories)
+      this.products = products
+      this.loading = false
+    },
+    async importShop() {
+      const magazineURL = 'https://www.magazinevoce.com.br'
+      await this.clearShop()
+      const response = await axios.get(magazineURL + '/magazinecultivarbrasil/')
+      let $ = cheerio.load(response.data)
+      const categories = []
+      $('.swc-item a').each((i, e) => {
+        categories.push({ title: $(e).text(), link: $(e).attr('href') })
+      })
+      for (const category of categories) {
+        const resp = await axios.get(magazineURL + category.link)
+        $ = cheerio.load(resp.data)
+        $('.g-items .g-item').each((i, e) => {
+          const product = {}
+          product.category = category.title
+          product.title = $(e).find('.g-title').text().trim()
+          product.price = $(e).find('.g-price').text().trim()
+          product.price_complement = $(e).find('.g-installment').text().trim()
+          product.image = $(e).find('.g-img-wrapper img').data('original')
+          product.image_lazy = $(e).find('.g-img-wrapper img').attr('src')
+          product.link = magazineURL + $(e).find('.g-img-wrapper').attr('href')
+          this.$fire.firestore.collection('products').add(product)
+        })
+      }
+    },
+    async clearShop() {
+      const productsRef = await this.$fire.firestore.collection('products')
+      const docs = await productsRef.get()
+
+      docs.forEach((doc) => {
+        productsRef.doc(doc.id).delete()
+      })
+    },
     filter(category) {
-      if (this.currentCategory === category.title) {
+      if (this.currentCategory === category) {
         this.currentCategory = null
       } else {
-        this.currentCategory = category.title
+        this.currentCategory = category
       }
     },
   },

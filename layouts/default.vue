@@ -192,6 +192,7 @@ export default {
         '/guias/guia-de-cultivo/cuidados-com-a-horta',
         '/guias/guia-de-cultivo/dicas-basicas',
         '/guias/guia-de-compostagem',
+        '/lojinha',
         '/colabore',
         '/sobre',
         '/',

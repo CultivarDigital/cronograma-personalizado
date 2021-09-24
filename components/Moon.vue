@@ -5,7 +5,8 @@
         <h3>Hoje é dia de {{ moon.title }}</h3>
         <p class="mb-3">
           <small v-if="next_moon > 1">
-            Faltam {{ Math.ceil(next_moon) }} dias para o {{ moon.next_moon }}
+            Faltam <strong>{{ Math.ceil(next_moon) }} dias</strong> para
+            <strong>{{ moon.next_moon }}</strong>
           </small>
           <small v-else> Amanhã já entra o {{ moon.next_moon }}</small>
         </p>
@@ -19,15 +20,23 @@
               <strong>{{ action.title }}:</strong>
               <p>{{ action.categories.join(', ') }}</p>
               <div class="mb-3">
-                <v-btn
+                <n-link
                   v-for="specie in getSpecies(action.categories)"
                   :key="specie.id"
-                  x-small
-                  color="primary"
                   :to="'/ferramentas/catalogo-de-especies/' + specie.id"
-                  class="mr-1 mb-1"
-                  >{{ specie.name }}</v-btn
                 >
+                  <v-avatar size="42">
+                    <CachedImage
+                      :title="specie.name"
+                      :src="specie.images[0]"
+                      thumb
+                      size="42"
+                      color="primary"
+                      class="mr-1 mb-1"
+                      >{{ specie.name }}</CachedImage
+                    >
+                  </v-avatar>
+                </n-link>
               </div>
             </div>
             <div v-else-if="action.description">
@@ -38,6 +47,14 @@
             </div>
           </div>
         </div>
+        <v-btn
+          small
+          color="primary"
+          class="mb-3"
+          to="/guias/guia-de-cultivo/quando-plantar"
+        >
+          Saiba mais
+        </v-btn>
       </div>
     </v-container>
   </div>
@@ -56,7 +73,7 @@ export default {
   computed: {
     moon() {
       if (moon && this.moon_phase) {
-        return moon.minguante
+        return moon[this.moon_phase]
       }
       return null
     },
