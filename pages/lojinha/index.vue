@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-3">
+  <div class="pt-2">
     <Breadcrumb active="Lojinha" />
     <v-container fluid class="mb-3">
       <div class="text-center">
@@ -11,11 +11,12 @@
           Encontre tudo o que precisa para sua horta ou jardim e de quebra ajude
           a manter o cultivar cada vez melhor
         </p>
-        <div class="mb-6">
+        <div v-if="categories" class="mb-6">
           <v-btn
             v-for="category in categories"
             :key="category"
             class="mb-2 mr-1"
+            small
             :color="
               category === currentCategory ? 'primary darken-2' : 'primary'
             "
@@ -26,23 +27,9 @@
           </v-btn>
         </div>
       </div>
-      <v-row v-if="loading">
-        <v-col v-for="i in 8" :key="i" cols="12" sm="3">
-          <v-skeleton-loader
-            class="mx-auto"
-            max-width="300"
-            type="card"
-          ></v-skeleton-loader>
-        </v-col>
-      </v-row>
-      <v-row v-else>
+      <v-row v-if="products.length">
         <v-col v-for="(product, index) in list" :key="index" cols="12" sm="3">
-          <v-card
-            :loading="loading"
-            :href="product.link"
-            target="_blank"
-            class="pt-4"
-          >
+          <v-card :href="product.link" target="_blank" class="pt-4">
             <div class="d-flex justify-center">
               <v-img
                 :src="product.image"
@@ -64,6 +51,15 @@
           </v-card>
         </v-col>
       </v-row>
+      <v-row v-else>
+        <v-col v-for="i in 8" :key="i" cols="12" sm="3">
+          <v-skeleton-loader
+            class="mx-auto"
+            max-width="300"
+            type="card"
+          ></v-skeleton-loader>
+        </v-col>
+      </v-row>
     </v-container>
   </div>
 </template>
@@ -77,43 +73,38 @@ export default {
   },
   data() {
     return {
-      products: [],
-      categories: [],
       currentCategory: null,
-      loading: true,
     }
   },
   computed: {
-    list() {
-      let products = this.products
-      if (this.currentCategory) {
-        products = products.filter(
-          (product) => product.category === this.currentCategory
-        )
-      }
-      return products.sort(() => Math.random() - 0.5)
+    products() {
+      return this.$store.state.products
     },
-  },
-  created() {
-    this.load()
+    categories() {
+      const products = this.products
+      if (products) {
+        const categories = {}
+        products.forEach((product) => {
+          categories[product.category] = true
+        })
+        return Object.keys(categories)
+      }
+      return null
+    },
+    list() {
+      let products = [...this.products]
+      if (products) {
+        if (this.currentCategory) {
+          products = products.filter(
+            (product) => product.category === this.currentCategory
+          )
+        }
+        products = products.sort(() => Math.random() - 0.5)
+      }
+      return products
+    },
   },
   methods: {
-    async load() {
-      const productsRef = await this.$fire.firestore
-        .collection('products')
-        .get()
-      const products = productsRef.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }))
-      const categories = {}
-      products.forEach((product) => {
-        categories[product.category] = true
-      })
-      this.categories = Object.keys(categories)
-      this.products = products
-      this.loading = false
-    },
     async importShop() {
       const magazineURL = 'https://www.magazinevoce.com.br'
       await this.clearShop()

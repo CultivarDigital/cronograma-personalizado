@@ -1,5 +1,5 @@
 <template>
-  <div v-if="show">
+  <div v-if="show && $nuxt.isOnline">
     <v-card
       v-if="$store.state.offlineMode === null && $route.path === '/'"
       class="py-6 text-center rounded-0"

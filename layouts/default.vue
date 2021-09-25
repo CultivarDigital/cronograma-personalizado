@@ -22,21 +22,19 @@
             <v-icon>mdi-chevron-down</v-icon>
           </v-list-item-action>
         </v-list-item>
-        <v-list-item v-else>
-          <v-list-item-content>
-            <p class="mb-4 text-center">
-              Para melhorar sua experiência e ativar novas funcionalidades:
-            </p>
+        <v-list-item v-else class="mb-3 d-flex justify-center">
+          <div>
             <v-btn
               outlined
               color="white"
-              class="mb-0"
+              class="mt-3"
+              small
               @click="$store.dispatch('showPortal')"
             >
               <v-icon left dark> mdi-login </v-icon>
-              Entre
+              Entrar
             </v-btn>
-          </v-list-item-content>
+          </div>
         </v-list-item>
       </v-list>
       <v-list nav dense class="pb-0 mt-3">
@@ -101,7 +99,6 @@
 export default {
   data() {
     return {
-      loading: true,
       caching: false,
       imported: [],
       show_drawer: null,
@@ -132,19 +129,22 @@ export default {
     },
   },
   async created() {
-    try {
-      await this.$fire.authReady()
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log('fire.authReady ERROR: ', error)
-    }
-    await this.$fire.firestoreReady()
-    await this.$fire.storageReady()
-    await this.checkEmailLogin()
-    await this.loadData()
-    this.loading = false
+    await this.initFirebase()
+    await this.loadSpecies()
+    await this.loadProducts()
   },
   methods: {
+    async initFirebase() {
+      try {
+        await this.$fire.authReady()
+        await this.$fire.firestoreReady()
+        await this.$fire.storageReady()
+        await this.checkEmailLogin()
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('Firebase init error: ', error)
+      }
+    },
     async checkEmailLogin() {
       if (this.$route.query.email_login) {
         const href = this.baseURL + this.$route.fullPath
@@ -166,13 +166,12 @@ export default {
             .then((result) => {
               this.setLocalItem('emailForSignIn', null)
               this.notify('Seja bem vindo')
-              this.loading = false
             })
             .catch(this.firebaseError)
         }
       }
     },
-    async loadData() {
+    async loadSpecies() {
       const speciesRef = await this.$fire.firestore.collection('species').get()
       const species = speciesRef.docs.map((doc) => ({
         id: doc.id,
@@ -194,6 +193,18 @@ export default {
           specie_height: this.getFilters(species, 'height'),
         }
         this.$store.commit('setFilters', filters)
+      }
+    },
+    async loadProducts() {
+      const productsRef = await this.$fire.firestore
+        .collection('products')
+        .get()
+      const products = productsRef.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }))
+      if (products) {
+        this.$store.commit('setProducts', products)
       }
     },
     getFilters(species, type) {

@@ -8,7 +8,13 @@
           class="mr-1 mb-1 d-inline-block pointer"
           @click="() => showImg(i)"
         >
-          <CachedImage :src="image" thumb size="64" css-class="rounded" />
+          <CachedImage
+            :src="image"
+            thumb
+            size="64"
+            css-class="rounded"
+            :title="alt"
+          />
         </div>
       </div>
       <vue-easy-lightbox
@@ -32,6 +38,10 @@ export default {
       type: Array,
       default: () => [],
       required: true,
+    },
+    alt: {
+      type: String,
+      default: null,
     },
   },
   data() {

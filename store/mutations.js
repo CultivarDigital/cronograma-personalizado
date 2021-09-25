@@ -20,6 +20,9 @@ export default {
   setSpecies(state, species) {
     state.species = species
   },
+  setProducts(state, products) {
+    state.products = products
+  },
   setFilters(state, filters) {
     state.filters = filters
   },

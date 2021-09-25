@@ -148,7 +148,7 @@
       </div>
       <div v-if="specie.images && specie.images.length">
         <h4 class="mb-3">Fotos:</h4>
-        <Gallery :images="specie.images" />
+        <Gallery :images="specie.images" :alt="specie.name" />
       </div>
       <div v-if="specie.companion_species && specie.companion_species.length">
         <h4 class="mb-3 mt-3">Plantas companheiras:</h4>

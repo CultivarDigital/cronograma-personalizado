@@ -3,6 +3,7 @@ export const state = () => {
     authUser: null,
     page: null,
     species: [],
+    products: [],
     filters: {},
     showPortal: false,
     offlineMode: null,

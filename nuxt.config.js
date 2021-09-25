@@ -149,6 +149,7 @@ export default {
         light: {
           primary: '#009d6b',
           success: '#009d6b',
+          secondary: '#197abb',
         },
       },
     },
