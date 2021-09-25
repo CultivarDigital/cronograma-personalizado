@@ -54,10 +54,6 @@ export default {
       type: String,
       default: null,
     },
-    rounded: {
-      type: Boolean,
-      default: false,
-    },
     contain: {
       type: Boolean,
       default: false,

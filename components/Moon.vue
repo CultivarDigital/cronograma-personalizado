@@ -25,16 +25,14 @@
                   :key="specie.id"
                   :to="'/ferramentas/catalogo-de-especies/' + specie.id"
                 >
-                  <v-avatar size="42">
+                  <v-avatar size="42" rounded="lg" class="mr-2 mb-2">
                     <CachedImage
                       :title="specie.name"
                       :src="specie.images[0]"
                       thumb
                       size="42"
                       color="primary"
-                      class="mr-1 mb-1"
-                      >{{ specie.name }}</CachedImage
-                    >
+                    />
                   </v-avatar>
                 </n-link>
               </div>

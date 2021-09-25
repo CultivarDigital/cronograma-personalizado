@@ -32,7 +32,7 @@
 export default {
   data() {
     return {
-      email: 'diegomr86@gmail.com',
+      email: '',
       success: false,
       loading: false,
     }

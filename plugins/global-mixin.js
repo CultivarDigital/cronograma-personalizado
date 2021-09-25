@@ -27,10 +27,14 @@ if (!Vue.__my_mixin__) {
         this.$store.dispatch('setUser', { authUser: user })
       },
       async getLocalItem(key) {
-        return await this.$localForage.getItem(key)
+        if (this.$localForage) {
+          return await this.$localForage.getItem(key)
+        }
       },
       async setLocalItem(key, value) {
-        return await this.$localForage.setItem(key, value)
+        if (this.$localForage) {
+          return await this.$localForage.setItem(key, value)
+        }
       },
       notify(msg, type) {
         this.$notifier.notify({

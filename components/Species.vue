@@ -5,7 +5,7 @@
       :key="specie.id"
       :to="parent + '/' + specie.id"
     >
-      <v-list-item-avatar>
+      <v-list-item-avatar rounded="lg">
         <CachedImage :src="specie.images[0]" thumb />
       </v-list-item-avatar>
       <v-list-item-content>
