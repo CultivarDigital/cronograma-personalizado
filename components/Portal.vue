@@ -80,7 +80,6 @@ export default {
     logout() {
       this.$store.dispatch('hidePortal')
       this.$store.dispatch('logout')
-      this.$fire.auth.signOut()
     },
   },
 }

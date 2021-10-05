@@ -18,7 +18,11 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ['~/assets/css/custom.sass'],
+  css: [
+    '~/assets/css/fonts.css',
+    '@mdi/font/css/materialdesignicons.css',
+    '~/assets/css/custom.sass',
+  ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -26,6 +30,7 @@ export default {
     { src: '~/plugins/persisted-state', ssr: false },
     { src: '~/plugins/vue-the-mask', ssr: false },
     '~/plugins/notifier.js',
+    '~/plugins/db.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -37,6 +42,7 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/stylelint
     // '@nuxtjs/stylelint-module',
+    '@nuxtjs/google-fonts',
     '@nuxtjs/google-analytics',
     '@nuxtjs/localforage',
     '@nuxtjs/vuetify',
@@ -46,9 +52,6 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    // https://go.nuxtjs.dev/bootstrap
-    // 'bootstrap-vue/nuxt',
-    '@nuxtjs/toast',
     [
       'nuxt-twa-module',
       {
@@ -83,7 +86,7 @@ export default {
         lang: 'pt_BR',
       },
     ],
-    '@nuxtjs/firebase',
+    // '@nuxtjs/firebase',
   ],
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
@@ -97,6 +100,7 @@ export default {
       ogImage: '/cultivar-cover.png',
     },
     workbox: {
+      // offlineStrategy: 'CacheFirst',
       offlineAnalytics: true,
     },
   },
@@ -135,14 +139,20 @@ export default {
       },
     },
   },
-  toast: {
-    duration: 7000,
-    keepOnHover: true,
-    theme: 'bubble',
+  googleFonts: {
+    download: true,
+    display: 'swap',
+    families: {
+      Roboto: {
+        wght: [100, 300, 400, 500, 700, 900],
+        ital: [100, 300, 400, 500, 700, 900],
+      },
+    },
   },
   vuetify: {
     customVariables: ['~/assets/css/variables.sass'],
     treeShake: true,
+    defaultAssets: false,
     theme: {
       light: true, // you don't actually need this line as it's for default
       themes: {
@@ -160,8 +170,15 @@ export default {
     locales: ['pt-br'],
   },
   env: {
-    baseURL: process.env.BASE_URL || 'http://localhost:3000',
+    BASE_URL: process.env.BASE_URL || 'http://localhost:3000',
     npm_package_description: process.env.npm_package_description || '',
+    FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
+    FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,
+    FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID,
+    FIREBASE_STORAGE_BUCKET: process.env.FIREBASE_STORAGE_BUCKET,
+    FIREBASE_MESSAGING_SENDER_ID: process.env.FIREBASE_MESSAGING_SENDER_ID,
+    FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
+    FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID,
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},

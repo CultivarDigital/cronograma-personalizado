@@ -82,26 +82,21 @@ export default {
     }
   },
   methods: {
-    async register() {
+    register() {
       this.loading = true
       if (
         this.form.password &&
         this.form.password === this.form.password_confirmation
       ) {
-        try {
-          await this.$fire.auth.createUserWithEmailAndPassword(
-            this.form.email,
-            this.form.password
-          )
-          if (this.$store.state.authUser) {
-            this.notify('Seja bem vindo!')
+        this.$db
+          .register(this.form.email, this.form.password)
+          .then(() => {
+            this.$notifier.success('Seja bem vindo!')
             this.$emit('registered')
-          }
-        } catch (error) {
-          this.firebaseError(error)
-        }
+          })
+          .catch(this.$notifier.dbError)
       } else {
-        this.notify('As senhas devem ser iguais', 'error')
+        this.$notifier.error('As senhas devem ser iguais')
       }
       this.loading = false
     },

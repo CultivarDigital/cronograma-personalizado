@@ -42,16 +42,14 @@ export default {
     recovery() {
       this.loading = true
       this.success = false
-      this.$fire.auth.languageCode = 'pt-BR'
-
-      this.$fire.auth
-        .sendPasswordResetEmail(this.email)
+      this.$db
+        .resetPassword(this.email)
         .then(() => {
           this.loading = false
           this.success = true
         })
         .catch((error) => {
-          this.firebaseError(error)
+          this.$notifier.dbError(error)
           this.loading = false
         })
     },

@@ -76,36 +76,33 @@ export default {
     }
   },
   methods: {
-    async signIn(provider) {
-      const userCredential = await this.$fire.auth
-        .signInWithPopup(provider)
-        .catch(this.firebaseError)
-      if (userCredential && userCredential.user) {
-        this.welcome(userCredential.user)
-      }
-    },
-    async signInWithGoogle() {
-      const provider = new this.$fireModule.auth.GoogleAuthProvider()
-      await this.signIn(provider)
-      // You can add or remove more scopes here provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+    signInWithGoogle() {
+      this.$db
+        .loginWithGoogle()
+        .then((userCredential) => {
+          if (userCredential && userCredential.user) {
+            this.welcome(userCredential.user)
+          }
+        })
+        .catch(this.$notifier.dbError)
     },
     login() {
       this.loading = true
-      this.$fire.auth
-        .signInWithEmailAndPassword(this.form.login, this.form.password)
+      this.$db
+        .login(this.form.login, this.form.password)
         .then((userCredential) => {
           this.welcome(userCredential.user)
           this.loading = false
         })
         .catch((error) => {
-          this.firebaseError(error)
+          this.$notifier.dbError(error)
           this.loading = false
         })
     },
     welcome(user) {
       this.setUser(user)
       this.$store.dispatch('hidePortal')
-      this.notify('Seja bem vindo!')
+      this.$notifier.success('Seja bem vindo!')
     },
   },
 }

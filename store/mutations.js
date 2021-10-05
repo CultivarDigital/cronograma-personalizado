@@ -17,14 +17,8 @@ export default {
   togglePortal(state, show) {
     state.showPortal = show
   },
-  setSpecies(state, species) {
-    state.species = species
-  },
-  setProducts(state, products) {
-    state.products = products
-  },
-  setFilters(state, filters) {
-    state.filters = filters
+  set(state, data) {
+    state[data.collectionName] = data.items
   },
   setPage(state, page) {
     state.page = page

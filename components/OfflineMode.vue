@@ -32,7 +32,7 @@
             Ativando modo offline...
           </p>
           <p v-else class="mb-3">
-            <small>Salvando: </small>
+            <small>Preparando modo offline...</small>
             <br />
             <strong v-if="currentPage">
               {{

@@ -70,10 +70,23 @@
             <v-btn class="mb-6" @click="change_password = !change_password">
               ALTERAR SENHA
             </v-btn>
-            <form
+            <v-form
               v-if="change_password"
-              @submit.prevent="validate().then(changePassword)"
+              @submit.prevent="validate().then(setPassword)"
             >
+              <validation-provider
+                v-slot="{ errors }"
+                name="senha atual"
+                rules="required|min:6"
+              >
+                <v-text-field
+                  v-model="passwordForm.current_password"
+                  label="Sua senha atual"
+                  type="password"
+                  :error-messages="errors"
+                  outlined
+                />
+              </validation-provider>
               <validation-provider
                 v-slot="{ errors }"
                 name="senha"
@@ -114,7 +127,7 @@
                 />
                 <span v-else>SALVAR NOVA SENHA</span>
               </v-btn>
-            </form>
+            </v-form>
           </ValidationObserver>
         </v-container>
       </v-tab-item>
@@ -130,10 +143,12 @@ export default {
   },
   data() {
     return {
+      user: null,
       tab: 'profile',
       loading: false,
       change_password: false,
       passwordForm: {
+        current_password: null,
         password: null,
         password_confirmation: null,
       },
@@ -151,6 +166,7 @@ export default {
     },
   },
   created() {
+    this.user = this.$db.getUser()
     Object.keys(this.form).forEach((key) => {
       if (this.authUser[key]) {
         this.form[key] = this.authUser[key]
@@ -160,52 +176,43 @@ export default {
   methods: {
     save() {
       this.loading = true
-      const user = this.$fire.auth.currentUser
-      this.$fire.firestore
-        .collection('users')
-        .doc(user.uid)
-        .set(this.form)
+      this.$db
+        .setProfile(this.user, this.form)
         .then(() => {
-          user
-            .updateProfile({
-              displayName: this.form.displayName,
-              photoURL: this.form.photoURL,
-            })
-            .then(() => {
-              this.setUser(user)
-              this.notify('Seu perfil foi atualizado!')
-              this.$store.dispatch('hidePortal')
-              this.loading = false
-            })
-            .catch((error) => {
-              this.firebaseError(error)
-              this.loading = false
-            })
+          this.$notifier.success('Seu perfil foi atualizado!')
+          this.$store.dispatch('hidePortal')
+          this.loading = false
         })
-        .catch(this.firebaseError)
+        .catch((error) => {
+          this.$notifier.dbError(error)
+          this.loading = false
+        })
     },
-    async changePassword() {
+    setPassword() {
       if (
         this.passwordForm.password === this.passwordForm.password_confirmation
       ) {
         this.loading = true
 
-        const user = this.$fire.auth.currentUser
-        this.$fire.auth.languageCode = 'pt-BR'
-
-        await user
-          .updatePassword(this.passwordForm.password)
+        this.$db
+          .setPassword(
+            this.user,
+            this.authUser.email,
+            this.passwordForm.current_password,
+            this.passwordForm.password
+          )
           .then(() => {
             this.tab = 0
             this.loading = false
-            this.notify('Sua senha foi atualizada!')
+            this.$notifier.success('Sua senha foi atualizada!')
+            this.$store.dispatch('hidePortal')
           })
           .catch((error) => {
-            this.firebaseError(error)
+            this.$notifier.dbError(error)
             this.loading = false
           })
       } else {
-        this.notify('As senhas devem ser iguais', 'error')
+        this.$notifier.error('As senhas devem ser iguais')
       }
     },
   },

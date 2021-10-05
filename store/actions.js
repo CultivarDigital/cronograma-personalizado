@@ -1,32 +1,69 @@
+const getFilters = (species, type) => {
+  const items = {}
+  species.forEach((specie) => {
+    if (specie[type]) {
+      specie[type].forEach((item) => {
+        items[item] = true
+      })
+    }
+  })
+  return Object.keys(items)
+    .sort((a, b) => {
+      return a.localeCompare(b)
+    })
+    .filter((item) => item)
+}
+
 export default {
-  setUser({ commit }, { authUser }) {
-    commit('LOGOUT')
+  setUser(context, { authUser }) {
+    context.commit('LOGOUT')
     if (!authUser) {
       return
     }
-    const profileRef = this.$fire.firestore
-      .collection('users')
-      .doc(authUser.uid)
-
-    profileRef.get().then((profile) => {
-      if (profile.exists) {
-        const data = profile.data()
-        authUser.bio = data.bio
-        authUser.region = data.region
-
-        commit('SET_AUTH_USER', authUser)
-      } else {
-        profileRef.set({
-          displayName: authUser.displayName,
-          photoURL: authUser.photoURL,
-        })
-        commit('SET_AUTH_USER', authUser)
-      }
-      commit('SET_AUTH_USER', authUser)
-    })
+    this.$db
+      .get('users', authUser.uid)
+      .then((profile) => {
+        if (profile) {
+          authUser.bio = profile.bio
+          authUser.region = profile.region
+          context.commit('SET_AUTH_USER', authUser)
+        } else {
+          this.$db
+            .set('users', authUser.uid, {
+              displayName: authUser.displayName,
+              photoURL: authUser.photoURL,
+            })
+            .then((profile) => {
+              context.commit('SET_AUTH_USER', authUser)
+            })
+        }
+      })
+      .catch()
   },
   setPage({ commit }, page) {
     commit('setPage', page)
+  },
+  setProducts({ commit }, products) {
+    commit('set', { collectionName: 'products', products })
+  },
+  setSpecies({ commit }, species) {
+    const items = species.sort((a, b) => {
+      return a.name.localeCompare(b.name)
+    })
+
+    commit('set', { collectionName: 'species', items })
+
+    if (items) {
+      const filters = {
+        specie_categories: getFilters(items, 'categories'),
+        specie_stratum: getFilters(items, 'stratum'),
+        specie_cycle: getFilters(items, 'cycle'),
+        specie_climate: getFilters(items, 'climate'),
+        specie_origin: getFilters(items, 'origin'),
+        specie_height: getFilters(items, 'height'),
+      }
+      commit('set', { collectionName: 'species_filters', items: filters })
+    }
   },
   setOfflineMode({ commit }, offlineMode) {
     commit('setOfflineMode', offlineMode)
@@ -38,6 +75,7 @@ export default {
     commit('togglePortal', false)
   },
   logout({ commit }) {
+    this.$db.logout()
     commit('LOGOUT')
   },
 }

@@ -39,37 +39,21 @@ export default {
   },
   computed: {
     baseURL() {
-      return process.env.baseURL
+      return process.env.BASE_URL
     },
   },
   methods: {
     sendEmail() {
       this.loading = true
       this.success = false
-
-      const actionCodeSettings = {
-        // URL you want to redirect back to. The domain (www.example.com) for this
-        // URL must be in the authorized domains list in the Firebase Console.
-        url: this.baseURL + '?email_login=true',
-        // This must be true.
-        handleCodeInApp: true,
-        android: {
-          packageName: 'com.ionicframework.plantai563575',
-          installApp: true,
-          minimumVersion: '12',
-        },
-        dynamicLinkDomain: 'cultivarbrasil.page.link',
-      }
-      this.$fire.auth.languageCode = 'pt-BR'
-      this.$fire.auth
-        .sendSignInLinkToEmail(this.email, actionCodeSettings)
+      this.$db
+        .generateLoginWithEmail(this.email)
         .then(() => {
-          this.setLocalItem('emailForSignIn', this.email)
           this.loading = false
           this.success = true
         })
         .catch((error) => {
-          this.firebaseError(error)
+          this.$notifier.dbError(error)
           this.loading = false
         })
     },

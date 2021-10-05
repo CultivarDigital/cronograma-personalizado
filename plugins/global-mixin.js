@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import firebaseTranslations from '@/data/firebase-translations'
 
 if (!Vue.__my_mixin__) {
   Vue.__my_mixin__ = true
@@ -41,18 +40,6 @@ if (!Vue.__my_mixin__) {
           content: msg,
           color: type === 'error' ? 'red' : 'green',
         })
-      },
-      firebaseError(error) {
-        if (error) {
-          const msg = firebaseTranslations[error.code]
-          if (msg) {
-            this.notify(msg, 'error')
-          } else if (error.message) {
-            this.notify(error.message, 'error')
-          }
-        } else {
-          this.notify('Ocorreu um erro inesperado. Tente novamente mais tarde')
-        }
       },
     },
   }

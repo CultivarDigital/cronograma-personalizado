@@ -101,6 +101,13 @@
 </template>
 
 <script>
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from 'firebase/storage'
+
 export default {
   props: {
     value: {
@@ -216,7 +223,8 @@ export default {
           contentType: file.type,
         }
 
-        const storage = this.$fireModule.storage()
+        const storage = getStorage()
+
         let fileUrl = this.type
         if (this.prefix) {
           fileUrl += '/' + this.prefix
@@ -228,8 +236,9 @@ export default {
           fileUrl += '/' + file.name
         }
 
-        const imageRef = storage.ref(fileUrl)
-        const uploadTask = imageRef.put(file, metadata)
+        const imageRef = ref(storage, fileUrl)
+        const uploadTask = uploadBytesResumable(imageRef, file, metadata)
+
         this.is_loading = true
         uploadTask.on(
           'state_changed',
@@ -243,9 +252,7 @@ export default {
             this.is_loading = false
           },
           () => {
-            // Handle successful uploads on complete
-            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-            return uploadTask.snapshot.ref.getDownloadURL().then((url) => {
+            return getDownloadURL(uploadTask.snapshot.ref).then((url) => {
               const downloadURL = new URL(url)
               downloadURL.searchParams.delete('token')
               this.callback(downloadURL.toString())

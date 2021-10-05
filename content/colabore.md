@@ -33,11 +33,6 @@ Você também pode doar por com cartão de crédito, débito ou boleto:
 
 ![Paypal QRCode](/cultivar-qrcode-paypal.png)
 
-## Seja um padrinho
-
-<v-btn color="primary" href="https://www.padrim.com.br/cultivar" target="_blank">Apoie este projeto!</v-btn>
-<br></br>
-
 ### Colabore com o código
 
 Que tal treinar seus conhecimentos em programação ajudando a construír um projeto incrível e colaborando com a comunidade? Basta clonar o [repositório do projeto](https://github.com/diegomr86/cultivar) no Github e mandar ver.

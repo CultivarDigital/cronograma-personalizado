@@ -87,30 +87,24 @@ export default {
   },
   methods: {
     async loadComments() {
-      const commentsRef = await this.$fire.firestore
-        .collection('comments')
-        .orderBy('created_at')
-        .where('target', '==', this.target || this.$route.path)
-        .get()
-      this.comments = commentsRef.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }))
+      this.comments = await this.$db.runQuery(
+        'comments',
+        [['target', '==', this.target || this.$route.path]],
+        'created_at'
+      )
     },
     commentSaved(comment) {
       this.loadComments()
       this.$emit('change', comment)
     },
     remove(comment) {
-      this.$fire.firestore
-        .collection('comments')
-        .doc(comment.id)
-        .delete()
+      this.$db
+        .remove('comments', comment.id)
         .then(() => {
           this.loadComments()
           this.$emit('change', comment)
         })
-        .catch(this.firebaseError)
+        .catch(this.$notifier.dbError)
       this.removeComment = null
     },
   },

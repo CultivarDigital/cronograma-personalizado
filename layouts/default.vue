@@ -106,7 +106,7 @@ export default {
   },
   computed: {
     baseURL() {
-      return process.env.baseURL
+      return process.env.BASE_URL
     },
     authUser() {
       return this.$store.state.authUser
@@ -128,103 +128,37 @@ export default {
       return '/'
     },
   },
-  async created() {
-    await this.initFirebase()
-    await this.loadSpecies()
-    await this.loadProducts()
+  created() {
+    this.$db.getUser()
+    this.loadSpecies()
+    this.checkEmailLogin()
   },
   methods: {
-    async initFirebase() {
-      try {
-        await this.$fire.authReady()
-        await this.$fire.firestoreReady()
-        await this.$fire.storageReady()
-        await this.checkEmailLogin()
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error('Firebase init error: ', error)
-      }
-    },
-    async checkEmailLogin() {
-      if (this.$route.query.email_login) {
-        const href = this.baseURL + this.$route.fullPath
-        if (this.$fire.auth.isSignInWithEmailLink(href)) {
-          // Additional state parameters can also be passed via URL.
-          // This can be used to continue the user's intended action before triggering
-          // the sign-in operation.
-          // Get the email if available. This should be available if the user completes
-          // the flow on the same device where they started it.
-          let email = await this.getLocalItem('emailForSignIn')
-          if (!email) {
-            // User opened the link on a different device. To prevent session fixation
-            // attacks, ask the user to provide the associated email again. For example:
-            email = window.prompt('Please provide your email for confirmation')
-          }
-          // The client SDK will parse the code from the link for you.
-          this.$fire.auth
-            .signInWithEmailLink(email, href)
-            .then((result) => {
-              this.setLocalItem('emailForSignIn', null)
-              this.notify('Seja bem vindo')
-            })
-            .catch(this.firebaseError)
-        }
-      }
-    },
-    async loadSpecies() {
-      const speciesRef = await this.$fire.firestore.collection('species').get()
-      const species = speciesRef.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }))
-      if (species) {
-        this.$store.commit(
-          'setSpecies',
-          species.sort((a, b) => {
-            return a.name.localeCompare(b.name)
+    loadSpecies() {
+      if (!this.species || !this.species.length) {
+        this.$db
+          .getList('species')
+          .then((species) => {
+            this.$store.dispatch('setSpecies', species)
           })
-        )
-        const filters = {
-          specie_categories: this.getFilters(species, 'categories'),
-          specie_stratum: this.getFilters(species, 'stratum'),
-          specie_cycle: this.getFilters(species, 'cycle'),
-          specie_climate: this.getFilters(species, 'climate'),
-          specie_origin: this.getFilters(species, 'origin'),
-          specie_height: this.getFilters(species, 'height'),
-        }
-        this.$store.commit('setFilters', filters)
+          .catch(this.$notifier.dbError)
       }
-    },
-    async loadProducts() {
-      const productsRef = await this.$fire.firestore
-        .collection('products')
-        .get()
-      const products = productsRef.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }))
-      if (products) {
-        this.$store.commit('setProducts', products)
-      }
-    },
-    getFilters(species, type) {
-      const items = {}
-      species.forEach((specie) => {
-        if (specie[type]) {
-          specie[type].forEach((item) => {
-            items[item] = true
-          })
-        }
-      })
-      return Object.keys(items)
-        .sort((a, b) => {
-          return a.localeCompare(b)
-        })
-        .filter((item) => item)
     },
     editProfile() {
       this.$store.dispatch('showPortal')
     },
+    checkEmailLogin() {
+      if (this.$route.query.email_login) {
+        const href = this.baseURL + this.$route.fullPath
+        this.$db
+          .validateLoginWithEmail(href)
+          .then(() => {
+            this.$notifier.success('Seja bem vindo')
+          })
+          .catch(this.$notifier.dbError)
+      }
+    },
+
     // async importSpecies() {
     //   this.imported = []
     //   for (const specie of this.species) {

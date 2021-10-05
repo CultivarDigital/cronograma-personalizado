@@ -3,8 +3,8 @@ export const state = () => {
     authUser: null,
     page: null,
     species: [],
+    species_filters: {},
     products: [],
-    filters: {},
     showPortal: false,
     offlineMode: null,
   }

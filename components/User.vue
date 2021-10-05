@@ -63,16 +63,12 @@ export default {
   },
   created() {
     if (this.id) {
-      this.$fire.firestore
-        .collection('users')
-        .doc(this.id)
-        .get()
+      this.$db
+        .get('users', this.id)
         .then((user) => {
-          if (user.exists) {
-            this.loadedUser = user.data()
-          }
+          this.loadedUser = user
         })
-        .catch(this.firebaseError)
+        .catch(this.$notifier.dbError)
     }
   },
 }

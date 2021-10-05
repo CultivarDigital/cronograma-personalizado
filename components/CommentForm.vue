@@ -69,15 +69,14 @@ export default {
         if (this.authUser.photoURL) {
           this.form.user.photoURL = this.authUser.photoURL
         }
-        this.$fire.firestore
-          .collection('comments')
-          .add({ created_at: new Date(), ...this.form })
-          .then((commentRef) => {
-            this.notify('Comentário enviado!')
-            this.$emit('change', { id: commentRef.id, ...commentRef })
+        this.$db
+          .add('comments', { created_at: new Date(), ...this.form })
+          .then((comment) => {
+            this.$notifier.success('Comentário enviado!')
+            this.$emit('change', comment)
             this.form.message = null
           })
-          .catch(this.firebaseError)
+          .catch(this.$notifier.dbError)
       }
     },
   },

@@ -177,9 +177,9 @@
 // import meses from '@/data/meses.json'
 export default {
   props: {
-    id: {
-      type: String,
-      default: null,
+    specie: {
+      type: Object,
+      default: () => null,
       required: true,
     },
     parent: {
@@ -191,9 +191,6 @@ export default {
   computed: {
     species() {
       return this.$store.state.species
-    },
-    specie() {
-      return this.species.find((specie) => specie.id === this.id)
     },
   },
   methods: {

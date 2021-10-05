@@ -11,7 +11,9 @@
           Encontre tudo o que precisa para sua horta ou jardim e de quebra ajude
           a manter o cultivar cada vez melhor
         </p>
-        <div v-if="categories" class="mb-6">
+      </div>
+      <div v-if="$nuxt.isOnline">
+        <div v-if="categories" class="mb-6 text-center">
           <v-btn
             v-for="category in categories"
             :key="category"
@@ -26,41 +28,48 @@
             <v-icon v-if="category === currentCategory" right>mdi-close</v-icon>
           </v-btn>
         </div>
+        <v-row v-if="products.length">
+          <v-col v-for="(product, index) in list" :key="index" cols="12" sm="3">
+            <v-card :href="product.link" target="_blank" class="pt-4">
+              <div class="d-flex justify-center">
+                <v-img
+                  :src="product.image"
+                  :lazy-src="product.image_lazy"
+                  max-width="160"
+                  max-height="160"
+                  contain
+                ></v-img>
+              </div>
+              <v-card-title class="text-body-2">{{
+                product.title
+              }}</v-card-title>
+              <v-card-text>
+                <div style="color: #197abb; font-size: 20px">
+                  <strong>{{ product.price }}</strong>
+                </div>
+                <div>
+                  {{ product.price_complement }}
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+        <v-row v-else>
+          <v-col v-for="i in 8" :key="i" cols="12" sm="3">
+            <v-skeleton-loader
+              class="mx-auto"
+              max-width="300"
+              type="card"
+            ></v-skeleton-loader>
+          </v-col>
+        </v-row>
       </div>
-      <v-row v-if="products.length">
-        <v-col v-for="(product, index) in list" :key="index" cols="12" sm="3">
-          <v-card :href="product.link" target="_blank" class="pt-4">
-            <div class="d-flex justify-center">
-              <v-img
-                :src="product.image"
-                :lazy-src="product.image_lazy"
-                max-width="160"
-                max-height="160"
-                contain
-              ></v-img>
-            </div>
-            <v-card-title class="text-body-2">{{ product.title }}</v-card-title>
-            <v-card-text>
-              <div style="color: #197abb; font-size: 20px">
-                <strong>{{ product.price }}</strong>
-              </div>
-              <div>
-                {{ product.price_complement }}
-              </div>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-      <v-row v-else>
-        <v-col v-for="i in 8" :key="i" cols="12" sm="3">
-          <v-skeleton-loader
-            class="mx-auto"
-            max-width="300"
-            type="card"
-          ></v-skeleton-loader>
-        </v-col>
-      </v-row>
+      <div v-else class="text-center">
+        <v-icon>mdi-wifi-strength-off-outline</v-icon>
+        <p>Você precisa estar conectado para acessar este recurso</p>
+      </div>
     </v-container>
+    <v-btn block @click="importShop">Atalizar loja</v-btn>
   </div>
 </template>
 <script>
@@ -73,13 +82,11 @@ export default {
   },
   data() {
     return {
+      products: [],
       currentCategory: null,
     }
   },
   computed: {
-    products() {
-      return this.$store.state.products
-    },
     categories() {
       const products = this.products
       if (products) {
@@ -104,6 +111,14 @@ export default {
       return products
     },
   },
+  async created() {
+    await this.$db
+      .getList('products')
+      .then((species) => {
+        this.products = species
+      })
+      .catch(this.$notifier.dbError)
+  },
   methods: {
     async importShop() {
       const magazineURL = 'https://www.magazinevoce.com.br'
@@ -126,17 +141,16 @@ export default {
           product.image = $(e).find('.g-img-wrapper img').data('original')
           product.image_lazy = $(e).find('.g-img-wrapper img').attr('src')
           product.link = magazineURL + $(e).find('.g-img-wrapper').attr('href')
-          this.$fire.firestore.collection('products').add(product)
+          this.$db.add('products', product)
         })
       }
     },
     async clearShop() {
-      const productsRef = await this.$fire.firestore.collection('products')
-      const docs = await productsRef.get()
-
-      docs.forEach((doc) => {
-        productsRef.doc(doc.id).delete()
-      })
+      this.products = null
+      const products = await this.$db.getList('products')
+      for (const product of products) {
+        await this.$db.remove('products', product.id)
+      }
     },
     filter(category) {
       if (this.currentCategory === category) {

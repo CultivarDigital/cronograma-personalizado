@@ -5,7 +5,7 @@
       active="Catálogo de espécies"
       description="Veja as espécies mais cultivadas na sua região"
     />
-    <v-container fluid>
+    <v-container v-if="filtersOptions" fluid>
       <div class="filters">
         <DropdownSelect
           v-model="filters.category"
@@ -100,7 +100,7 @@ export default {
   },
   computed: {
     filtersOptions() {
-      return this.$store.state.filters
+      return this.$store.state.species_filters
     },
     paginatedList() {
       if (this.$route.query.save_offline) {

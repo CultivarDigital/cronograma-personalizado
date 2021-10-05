@@ -7,8 +7,8 @@ export default ({ store }) => {
       'authUser',
       'region',
       'species',
+      'species_filters',
       'products',
-      'filters',
       'offlineMode',
     ],
   })(store)
