@@ -96,7 +96,6 @@ export default {
   },
   computed: {
     previousPage() {
-      console.log(this.links)
       if (this.links && this.links.length) {
         return this.links[this.links.length - 1][1]
       }

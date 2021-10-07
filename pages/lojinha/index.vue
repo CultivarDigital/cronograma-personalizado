@@ -5,16 +5,16 @@
       description="Tudo o que você precisa para sua horta ou jardim"
     />
     <v-container fluid class="mb-3">
-      <div class="text-center">
-        <h3 class="mb-3">
-          <span style="color: #197abb">Magazine</span>
-          <span style="color: #009d6b">Cultivar</span>
-        </h3>
-        <p class="text-center">
-          Tudo o que você precisa para sua horta ou jardim
-        </p>
-      </div>
       <div v-if="$nuxt.isOnline">
+        <div class="text-center">
+          <h3 class="mb-3">
+            <span style="color: #197abb">Magazine</span>
+            <span style="color: #009d6b">Cultivar</span>
+          </h3>
+          <p class="text-center">
+            Tudo o que você precisa para sua horta ou jardim
+          </p>
+        </div>
         <div v-if="categories" class="mb-6 text-center">
           <v-btn
             v-for="category in categories"
@@ -72,10 +72,7 @@
           </v-col>
         </v-row>
       </div>
-      <div v-else class="text-center">
-        <v-icon>mdi-wifi-strength-off-outline</v-icon>
-        <p>Você precisa estar conectado para acessar este recurso</p>
-      </div>
+      <Offline v-else />
     </v-container>
     <v-btn
       v-if="authUser && authUser.email === 'diegomr86@gmail.com'"

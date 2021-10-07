@@ -137,7 +137,6 @@ export default {
       }
     },
     toggleDrawer(status) {
-      console.log(this.showStatus, status)
       this.$store.dispatch('toggleDrawer', status)
     },
     // async importSpecies() {

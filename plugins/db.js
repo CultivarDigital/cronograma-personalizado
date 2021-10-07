@@ -45,6 +45,7 @@ export default ({ app, store }, inject) => {
     appId: process.env.FIREBASE_APP_ID,
     measurementId: process.env.FIREBASE_MEASUREMENT_ID,
   }
+  // eslint-disable-next-line no-console
   console.log('INITIALIZE FIREBASE', firebaseConfig.authDomain)
   const firebase = initializeApp(firebaseConfig)
   const db = getFirestore()
