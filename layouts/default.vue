@@ -12,14 +12,16 @@
               icon-color="primary"
             />
             <div v-else>
-              <v-img
-                title="Cultivar Brasil"
-                :src="require('~/assets/img/cultivar-white.png')"
-                class="ma-auto mb-3"
-                max-height="64px"
-                max-width="64px"
-                left
-              />
+              <n-link to="/">
+                <v-img
+                  title="Cultivar Brasil"
+                  :src="require('~/assets/img/cultivar-white.png')"
+                  class="ma-auto mb-3"
+                  max-height="64px"
+                  max-width="64px"
+                  left
+                />
+              </n-link>
               <p class="text-white mb-1"><strong>Cultivar </strong> Brasil</p>
             </div>
           </v-list-item-content>
@@ -30,14 +32,19 @@
           @click="$store.dispatch('showPortal')"
         >
           <v-list-item-content>
-            <v-list-item-title v-if="authUser.displayName" class="text-h6">
+            <v-list-item-title
+              v-if="authUser.displayName"
+              class="text-center mb-3"
+            >
               {{ authUser.displayName }}
             </v-list-item-title>
-            <v-list-item-subtitle>{{ authUser.email }}</v-list-item-subtitle>
+            <v-list-item-text v-if="authUser.region" class="text-center">
+              <v-chip small>{{ authUser.region }}</v-chip>
+            </v-list-item-text>
+            <v-list-item-text v-else class="text-center">
+              {{ authUser.email }}
+            </v-list-item-text>
           </v-list-item-content>
-          <v-list-item-action>
-            <v-icon>mdi-chevron-down</v-icon>
-          </v-list-item-action>
         </v-list-item>
         <v-list-item v-else class="mb-3 d-flex justify-center">
           <div>

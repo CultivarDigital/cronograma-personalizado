@@ -18,11 +18,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-    '~/assets/css/fonts.css',
-    '@mdi/font/css/materialdesignicons.css',
-    '~/assets/css/custom.sass',
-  ],
+  css: ['~/assets/css/custom.sass'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -42,7 +38,7 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/stylelint
     // '@nuxtjs/stylelint-module',
-    '@nuxtjs/google-fonts',
+    // '@nuxtjs/google-fonts',
     '@nuxtjs/google-analytics',
     '@nuxtjs/localforage',
     '@nuxtjs/vuetify',
@@ -102,6 +98,10 @@ export default {
     workbox: {
       // offlineStrategy: 'CacheFirst',
       offlineAnalytics: true,
+      runtimeCaching: [
+        { urlPattern: 'https://fonts.googleapis.com/.*' },
+        { urlPattern: 'https://cdn.jsdelivr.net/.*' },
+      ],
     },
   },
 
@@ -139,20 +139,9 @@ export default {
       },
     },
   },
-  googleFonts: {
-    download: true,
-    display: 'swap',
-    families: {
-      Roboto: {
-        wght: [100, 300, 400, 500, 700, 900],
-        ital: [100, 300, 400, 500, 700, 900],
-      },
-    },
-  },
   vuetify: {
     customVariables: ['~/assets/css/variables.sass'],
     treeShake: true,
-    defaultAssets: false,
     theme: {
       light: true, // you don't actually need this line as it's for default
       themes: {
