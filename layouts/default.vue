@@ -1,10 +1,27 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="show_drawer" app>
+    <v-navigation-drawer :value="showDrawer" app @input="toggleDrawer">
       <v-list color="primary" :dark="true" nav>
         <v-list-item class="mb-0">
           <v-list-item-content class="text-center pb-0">
-            <User thumb size="64" color="white" icon-color="primary" />
+            <User
+              v-if="authUser"
+              thumb
+              size="64"
+              color="white"
+              icon-color="primary"
+            />
+            <div v-else>
+              <v-img
+                title="Cultivar Brasil"
+                :src="require('~/assets/img/cultivar-white.png')"
+                class="ma-auto mb-3"
+                max-height="64px"
+                max-width="64px"
+                left
+              />
+              <p class="text-white mb-1"><strong>Cultivar </strong> Brasil</p>
+            </div>
           </v-list-item-content>
         </v-list-item>
         <v-list-item
@@ -28,11 +45,10 @@
               outlined
               color="white"
               class="mt-3"
-              small
               @click="$store.dispatch('showPortal')"
             >
               <v-icon left dark> mdi-login </v-icon>
-              Entrar
+              Acesse sua conta
             </v-btn>
           </div>
         </v-list-item>
@@ -50,38 +66,11 @@
       <SidebarMenu />
     </v-navigation-drawer>
 
-    <v-app-bar app color="primary" dark hide-on-scroll>
-      <v-img
-        v-if="$route.path === '/'"
-        title="Cultivar Brasil"
-        :src="require('~/assets/img/cultivar-white.png')"
-        class="mr-2"
-        max-height="24px"
-        max-width="24px"
-      />
-      <v-toolbar-title v-if="$route.path === '/'" to="/">
-        <span class="text-white"> <strong>Cultivar </strong> Brasil </span>
-      </v-toolbar-title>
-      <v-btn
-        v-if="$route.path !== '/'"
-        icon
-        light
-        @click="$router.replace(previousPage)"
-      >
-        <v-icon color="white"> mdi-arrow-left </v-icon>
-      </v-btn>
-      <span v-if="$route.path !== '/' && currentPage">{{
-        currentPage.name
-      }}</span>
-      <v-spacer></v-spacer>
-      <v-app-bar-nav-icon @click="show_drawer = !show_drawer" />
-    </v-app-bar>
-
     <!-- Sizes your content based upon application components -->
     <v-main>
-      <OfflineMode />
       <!-- Provides the application the proper gutter -->
-      <div class="pt-2">
+      <div>
+        <OfflineMode />
         <Nuxt />
         <div class="text-center mobile-footer">
           <v-divider />
@@ -101,10 +90,12 @@ export default {
     return {
       caching: false,
       imported: [],
-      show_drawer: null,
     }
   },
   computed: {
+    showDrawer() {
+      return this.$store.state.showDrawer
+    },
     baseURL() {
       return process.env.BASE_URL
     },
@@ -113,19 +104,6 @@ export default {
     },
     species() {
       return this.$store.state.species
-    },
-    currentPage() {
-      return this.$store.state.page
-    },
-    previousPage() {
-      if (
-        this.currentPage &&
-        this.currentPage.links &&
-        this.currentPage.links.length
-      ) {
-        return this.currentPage.links[this.currentPage.links.length - 1][1]
-      }
-      return '/'
     },
   },
   created() {
@@ -158,7 +136,10 @@ export default {
           .catch(this.$notifier.dbError)
       }
     },
-
+    toggleDrawer(status) {
+      console.log(this.showStatus, status)
+      this.$store.dispatch('toggleDrawer', status)
+    },
     // async importSpecies() {
     //   this.imported = []
     //   for (const specie of this.species) {

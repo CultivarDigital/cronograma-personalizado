@@ -1,28 +1,30 @@
 <template>
-  <v-list v-if="species && species.length" subheader>
-    <v-list-item
-      v-for="specie in species"
-      :key="specie.id"
-      :to="parent + '/' + specie.id"
-    >
-      <v-list-item-avatar rounded="lg">
-        <CachedImage :src="specie.images[0]" thumb />
-      </v-list-item-avatar>
-      <v-list-item-content>
-        <v-list-item-title>
-          {{ specie.name }}
-        </v-list-item-title>
-        <v-list-item-subtitle v-if="specie.scientific_name">
-          {{ specie.scientific_name }}
-        </v-list-item-subtitle>
-      </v-list-item-content>
-      <v-list-item-action>
-        <v-btn icon x-small>
-          <v-icon color="grey lighten-1">mdi-chevron-right</v-icon>
-        </v-btn>
-      </v-list-item-action>
-    </v-list-item>
-  </v-list>
+  <div>
+    <v-list v-if="species && species.length" subheader>
+      <v-list-item
+        v-for="specie in species"
+        :key="specie.id"
+        :to="parent + '/' + specie.id"
+      >
+        <v-list-item-avatar rounded="lg">
+          <CachedImage :src="specie.images[0]" thumb />
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title>
+            {{ specie.name }}
+          </v-list-item-title>
+          <v-list-item-subtitle v-if="specie.scientific_name">
+            {{ specie.scientific_name }}
+          </v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-btn icon x-small>
+            <v-icon color="grey lighten-1">mdi-chevron-right</v-icon>
+          </v-btn>
+        </v-list-item-action>
+      </v-list-item>
+    </v-list>
+  </div>
 </template>
 
 <script>

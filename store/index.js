@@ -6,6 +6,7 @@ export const state = () => {
     species_filters: {},
     products: [],
     showPortal: false,
+    showDrawer: null,
     offlineMode: null,
   }
 }

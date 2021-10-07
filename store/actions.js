@@ -74,6 +74,9 @@ export default {
   hidePortal({ commit }) {
     commit('togglePortal', false)
   },
+  toggleDrawer({ commit }, status) {
+    commit('toggleDrawer', status)
+  },
   logout({ commit }) {
     this.$db.logout()
     commit('LOGOUT')

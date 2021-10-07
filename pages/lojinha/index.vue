@@ -1,6 +1,9 @@
 <template>
-  <div class="pt-2">
-    <Breadcrumb active="Lojinha" />
+  <div>
+    <Breadcrumb
+      active="Lojinha"
+      description="Tudo o que você precisa para sua horta ou jardim"
+    />
     <v-container fluid class="mb-3">
       <div class="text-center">
         <h3 class="mb-3">
@@ -8,8 +11,7 @@
           <span style="color: #009d6b">Cultivar</span>
         </h3>
         <p class="text-center">
-          Encontre tudo o que precisa para sua horta ou jardim e de quebra ajude
-          a manter o cultivar cada vez melhor
+          Tudo o que você precisa para sua horta ou jardim
         </p>
       </div>
       <div v-if="$nuxt.isOnline">
@@ -29,7 +31,13 @@
           </v-btn>
         </div>
         <v-row v-if="products.length">
-          <v-col v-for="(product, index) in list" :key="index" cols="12" sm="3">
+          <v-col
+            v-for="(product, index) in list"
+            :key="index"
+            cols="12"
+            md="3"
+            sm="6"
+          >
             <v-card :href="product.link" target="_blank" class="pt-4">
               <div class="d-flex justify-center">
                 <v-img
@@ -69,7 +77,13 @@
         <p>Você precisa estar conectado para acessar este recurso</p>
       </div>
     </v-container>
-    <v-btn block @click="importShop">Atalizar loja</v-btn>
+    <v-btn
+      v-if="authUser && authUser.email === 'diegomr86@gmail.com'"
+      block
+      @click="importShop"
+    >
+      Atalizar loja
+    </v-btn>
   </div>
 </template>
 <script>

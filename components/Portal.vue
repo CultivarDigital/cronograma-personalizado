@@ -70,9 +70,9 @@ export default {
       } else if (this.tab === 'forgot_password') {
         return 'Esqueci minha senha'
       } else if (this.tab === 'register') {
-        return 'Informe seus dados para cadastrar'
+        return 'Cadastre-se'
       } else {
-        return 'Faça o login para continuar'
+        return 'Entre com sua conta'
       }
     },
   },

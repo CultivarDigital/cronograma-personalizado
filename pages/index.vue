@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-3">
+  <div>
     <Breadcrumb active="Cultive alimentos saudáveis em casa!" />
     <Moon />
     <v-divider class="mb-2" />

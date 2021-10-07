@@ -4,8 +4,8 @@
       <Specie
         :specie="specie"
         :parent="{
-          title: 'Catálogo de espécies',
-          url: '/ferramentas/catalogo-de-especies',
+          title: 'O que plantar esse mês',
+          url: '/ferramentas/o-que-plantar-esse-mes',
         }"
       />
     </div>

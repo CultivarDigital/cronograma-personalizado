@@ -33,7 +33,7 @@ const menu = {
     {
       title: 'Lojinha',
       description:
-        'Aqui você encontra tudo o que preciso para sua horta ou jardim e de quebra ajuda a manter o cultivar cada vez melhor',
+        'Aqui você encontra tudo o que precisa para sua horta ou jardim e nos ajuda a melhorar ainda mais',
       icon: 'mdi-cart',
       to: '/lojinha',
     },

@@ -2,20 +2,17 @@
   <div v-if="show && $nuxt.isOnline">
     <v-card
       v-if="$store.state.offlineMode === null && $route.path === '/'"
-      class="py-6 text-center rounded-0"
+      class="pa-6 pt-10 text-center rounded-0 mt-n3"
+      color="primary"
+      dark
     >
-      <v-card-text class="text-center">
-        <v-icon x-large class="mb-3">mdi-signal-off</v-icon>
-        <h3 class="mb-3">Ativar modo offline?</h3>
-        Você pretende usar este aplicativo quando estiver em locais sem internet
-        ou com sinal ruim?
-      </v-card-text>
-      <v-card-actions class="justify-center">
-        <v-btn color="grey" @click="setOfflineMode(false)"> Não </v-btn>
-        <v-btn color="primary" @click="setOfflineMode(true)">
-          Sim, eu quero!
-        </v-btn>
-      </v-card-actions>
+      <v-icon x-large class="mb-3">mdi-signal-off</v-icon>
+      <h3 class="mb-3">Ativar modo offline?</h3>
+      <p>Você pretende usar este aplicativo quando sem internet?</p>
+      <v-btn text @click="setOfflineMode(false)"> Agora não</v-btn>
+      <v-btn color="tertiary" @click="setOfflineMode(true)">
+        Sim, eu quero!
+      </v-btn>
     </v-card>
     <v-dialog
       v-if="caching !== false"
@@ -27,7 +24,7 @@
     >
       <v-card class="py-6 text-center">
         <v-card-text class="pb-0 text-center">
-          <p v-if="caching >= pages.length" class="mb-3">Quase lá!</p>
+          <p v-if="caching >= pages.length" class="mb-3">Pronto!</p>
           <p v-else-if="$route.path === '/'" class="mb-3">
             Ativando modo offline...
           </p>
@@ -37,7 +34,7 @@
             <strong v-if="currentPage">
               {{
                 currentPage.name === 'Alcachofra'
-                  ? 'Detalhes da espécie'
+                  ? 'Catálogo de espécies'
                   : currentPage.name
               }}
             </strong>
