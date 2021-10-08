@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Breadcrumb
+    <TopNavigation
       active="Lojinha"
       description="Tudo o que você precisa para sua horta ou jardim"
     />
@@ -17,7 +17,7 @@
         </div>
         <div v-if="categories" class="mb-6 text-center">
           <v-btn
-            v-for="category in categories"
+            v-for="category in categories.sort()"
             :key="category"
             class="mb-2 mr-1"
             small
@@ -42,7 +42,6 @@
               <div class="d-flex justify-center">
                 <v-img
                   :src="product.image"
-                  :lazy-src="product.image_lazy"
                   max-width="160"
                   max-height="160"
                   contain
@@ -84,12 +83,12 @@
   </div>
 </template>
 <script>
-import Breadcrumb from '@/components/Breadcrumb.vue'
+import TopNavigation from '@/components/TopNavigation.vue'
 import axios from 'axios'
 import cheerio from 'cheerio'
 export default {
   components: {
-    Breadcrumb,
+    TopNavigation,
   },
   data() {
     return {

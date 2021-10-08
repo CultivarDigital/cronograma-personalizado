@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Breadcrumb
+    <TopNavigation
       :links="[['Guia de cultivo', '/guias/guia-de-cultivo']]"
       active="Quando plantar"
       description="Saiba qual é a melhor hora para plantar seus cultivos"

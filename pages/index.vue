@@ -1,16 +1,16 @@
 <template>
   <div>
-    <Breadcrumb active="Cultive alimentos saudáveis em casa!" />
+    <TopNavigation active="Cultive alimentos saudáveis em casa!" />
     <Moon />
     <v-divider class="mb-2" />
     <Menu />
   </div>
 </template>
 <script>
-import Breadcrumb from '@/components/Breadcrumb.vue'
+import TopNavigation from '@/components/TopNavigation.vue'
 export default {
   components: {
-    Breadcrumb,
+    TopNavigation,
   },
   data() {
     return {}

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Breadcrumb
+    <TopNavigation
       active="Guias"
       description="Guias básicos de como plantar, como cuidar do jardim e da horta. Como cuidar do lixo da sua casa e ajudar o meio ambiente."
     />
@@ -8,10 +8,10 @@
   </div>
 </template>
 <script>
-import Breadcrumb from '@/components/Breadcrumb.vue'
+import TopNavigation from '@/components/TopNavigation.vue'
 export default {
   components: {
-    Breadcrumb,
+    TopNavigation,
   },
   data() {
     return {}

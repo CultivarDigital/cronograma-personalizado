@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Breadcrumb
+    <TopNavigation
       :links="[['Guias', '/guias']]"
       active="Guia básico de cultivo"
       description="Aprenda a plantar, colher e cuidar da sua horta ou jardim com esse guia simples e prático"
@@ -58,10 +58,10 @@
   </div>
 </template>
 <script>
-import Breadcrumb from '@/components/Breadcrumb.vue'
+import TopNavigation from '@/components/TopNavigation.vue'
 export default {
   components: {
-    Breadcrumb,
+    TopNavigation,
   },
   data() {
     return {}

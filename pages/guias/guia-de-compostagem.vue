@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Breadcrumb
+    <TopNavigation
       active="Guia de compostagem"
       :links="[['Guias', '/guias']]"
       description="Aprenda a transformar o lixo orgânico da sua casa em adubo para suas plantinhas"

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Breadcrumb
+    <TopNavigation
       :links="[['Ferramentas', '/ferramentas']]"
       active="Catálogo de espécies"
       description="Veja as espécies mais cultivadas na sua região"

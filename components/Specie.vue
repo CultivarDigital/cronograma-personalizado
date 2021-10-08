@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <div v-if="specie">
-    <Breadcrumb
+    <TopNavigation
       :links="[[parent.title, parent.url]]"
       :active="specie.name"
       :description="specie.description"

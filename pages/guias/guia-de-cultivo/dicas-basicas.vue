@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Breadcrumb
+    <TopNavigation
       :links="[['Guia de cultivo', '/guias/guia-de-cultivo']]"
       active="Dicas Básicas"
       description="Dicas básicas de como cuidar melhor da sua horta"

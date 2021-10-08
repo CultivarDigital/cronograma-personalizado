@@ -1,6 +1,6 @@
 <template>
   <div v-if="content">
-    <Breadcrumb :active="content.title" :description="content.description" />
+    <TopNavigation :active="content.title" :description="content.description" />
     <v-container fluid>
       <nuxt-content :document="content" />
     </v-container>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Breadcrumb
+    <TopNavigation
       :links="[['Ferramentas', '/ferramentas']]"
       :active="'O que plantar em ' + currentMonth.name.toLowerCase()"
       :description="currentMonth.description"

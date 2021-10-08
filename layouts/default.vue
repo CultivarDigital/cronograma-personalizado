@@ -1,108 +1,26 @@
 <template>
-  <v-app>
-    <v-navigation-drawer :value="showDrawer" app @input="toggleDrawer">
-      <v-list color="primary" :dark="true" nav>
-        <v-list-item class="mb-0">
-          <v-list-item-content class="text-center pb-0">
-            <User
-              v-if="authUser"
-              thumb
-              size="64"
-              color="white"
-              icon-color="primary"
-            />
-            <div v-else>
-              <n-link to="/">
-                <v-img
-                  title="Cultivar Brasil"
-                  :src="require('~/assets/img/cultivar-white.png')"
-                  class="ma-auto mb-3"
-                  max-height="64px"
-                  max-width="64px"
-                  left
-                />
-              </n-link>
-              <p class="text-white mb-1"><strong>Cultivar </strong> Brasil</p>
-            </div>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item
-          v-if="authUser"
-          link
-          @click="$store.dispatch('showPortal')"
-        >
-          <v-list-item-content>
-            <v-list-item-title
-              v-if="authUser.displayName"
-              class="text-center mb-3"
-            >
-              {{ authUser.displayName }}
-            </v-list-item-title>
-            <v-list-item-text v-if="authUser.region" class="text-center">
-              <v-chip small>{{ authUser.region }}</v-chip>
-            </v-list-item-text>
-            <v-list-item-text v-else class="text-center">
-              {{ authUser.email }}
-            </v-list-item-text>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item v-else class="mb-3 d-flex justify-center">
-          <div>
-            <v-btn
-              outlined
-              color="white"
-              class="mt-3"
-              @click="$store.dispatch('showPortal')"
-            >
-              <v-icon left dark> mdi-login </v-icon>
-              Acesse sua conta
-            </v-btn>
-          </div>
-        </v-list-item>
-      </v-list>
-      <v-list nav dense class="pb-0 mt-3">
-        <v-list-item to="/">
-          <v-list-item-icon>
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>Início</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-      <SidebarMenu />
-    </v-navigation-drawer>
-
-    <!-- Sizes your content based upon application components -->
-    <v-main>
-      <!-- Provides the application the proper gutter -->
-      <div>
+  <div>
+    <v-app>
+      <BottomNavigation />
+      <DrawerNavigation />
+      <v-main>
         <OfflineMode />
         <Nuxt />
-        <div class="text-center mobile-footer">
+        <div class="text-center">
           <v-divider />
           <br />
           <Footer />
         </div>
-      </div>
-    </v-main>
-    <Portal />
-    <Snackbar />
-  </v-app>
+      </v-main>
+      <Portal />
+      <Snackbar />
+    </v-app>
+  </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      caching: false,
-      imported: [],
-    }
-  },
   computed: {
-    showDrawer() {
-      return this.$store.state.showDrawer
-    },
     baseURL() {
       return process.env.BASE_URL
     },
@@ -129,9 +47,6 @@ export default {
           .catch(this.$notifier.dbError)
       }
     },
-    editProfile() {
-      this.$store.dispatch('showPortal')
-    },
     checkEmailLogin() {
       if (this.$route.query.email_login) {
         const href = this.baseURL + this.$route.fullPath
@@ -143,45 +58,6 @@ export default {
           .catch(this.$notifier.dbError)
       }
     },
-    toggleDrawer(status) {
-      this.$store.dispatch('toggleDrawer', status)
-    },
-    // async importSpecies() {
-    //   this.imported = []
-    //   for (const specie of this.species) {
-    //     const newSpecie = { ...specie }
-    //     const id = newSpecie.slug
-    //     console.log('Importando ' + this.imported.length + ' - ' + id)
-    //     delete newSpecie._id
-    //     delete newSpecie.slug
-    //     delete newSpecie.createdAt
-    //     delete newSpecie.updatedAt
-
-    //     const images = []
-    //     for (const image of newSpecie.images.filter(
-    //       (img) => img.url !== '/api/uploads/images/species/www.jardineiro.net'
-    //     )) {
-    //       await this.uploadImage(image.thumb)
-    //       images.push(await this.uploadImage(image.url))
-    //     }
-    //     newSpecie.images = images
-    //     this.$fire.firestore.collection('species').doc(id).set(newSpecie)
-    //     this.imported.push(id)
-    //   }
-    // },
-    // async uploadImage(url) {
-    //   const fileToSave = await axios.get(url, {
-    //     responseType: 'blob',
-    //   })
-    //   const file = fileToSave.data
-    //   const imageRef = this.$fireModule
-    //     .storage()
-    //     .ref(url.replace('/api/uploads/', ''))
-    //   await imageRef.put(file)
-    //   const downloadURL = new URL(await imageRef.getDownloadURL())
-    //   downloadURL.searchParams.delete('token')
-    //   return downloadURL.toString()
-    // },
   },
 }
 </script>
