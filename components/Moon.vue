@@ -5,7 +5,7 @@
         <h3>Hoje é dia de {{ moon.title }}</h3>
         <p class="mb-3">
           <small v-if="next_moon > 1">
-            Faltam <strong>{{ Math.ceil(next_moon) }} dias</strong> para
+            <strong>{{ Math.ceil(next_moon) }} dias</strong> para
             <strong>{{ moon.next_moon }}</strong>
           </small>
           <small v-else> Amanhã já entra o {{ moon.next_moon }}</small>
