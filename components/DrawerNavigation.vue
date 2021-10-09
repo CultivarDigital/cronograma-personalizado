@@ -33,12 +33,12 @@
           >
             {{ authUser.displayName }}
           </v-list-item-title>
-          <v-list-item-text v-if="authUser.region" class="text-center">
+          <div v-if="authUser.region" class="text-center">
             <v-chip small>{{ authUser.region }}</v-chip>
-          </v-list-item-text>
-          <v-list-item-text v-else class="text-center">
+          </div>
+          <div v-else class="text-center">
             {{ authUser.email }}
-          </v-list-item-text>
+          </div>
         </v-list-item-content>
       </v-list-item>
       <v-list-item v-else class="mb-3 d-flex justify-center">

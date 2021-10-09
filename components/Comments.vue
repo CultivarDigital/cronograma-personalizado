@@ -26,7 +26,6 @@
           <div
             v-if="
               $store.state.authUser &&
-              $store.state.authUser &&
               comment.user.uid === $store.state.authUser.uid
             "
           >
@@ -87,7 +86,7 @@ export default {
   },
   methods: {
     async loadComments() {
-      this.comments = await this.$db.runQuery(
+      this.comments = await this.$firebase.runQuery(
         'comments',
         [['target', '==', this.target || this.$route.path]],
         'created_at'
@@ -98,7 +97,7 @@ export default {
       this.$emit('change', comment)
     },
     remove(comment) {
-      this.$db
+      this.$firebase
         .remove('comments', comment.id)
         .then(() => {
           this.loadComments()

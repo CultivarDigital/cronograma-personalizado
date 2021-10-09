@@ -32,14 +32,14 @@ export default {
     },
   },
   created() {
-    this.$db.getUser()
+    this.$firebase.getUser()
     this.loadSpecies()
     this.checkEmailLogin()
   },
   methods: {
     loadSpecies() {
       if (!this.species || !this.species.length) {
-        this.$db
+        this.$firebase
           .getList('species')
           .then((species) => {
             this.$store.dispatch('setSpecies', species)
@@ -50,7 +50,7 @@ export default {
     checkEmailLogin() {
       if (this.$route.query.email_login) {
         const href = this.baseURL + this.$route.fullPath
-        this.$db
+        this.$firebase
           .validateLoginWithEmail(href)
           .then(() => {
             this.$notifier.success('Seja bem vindo')

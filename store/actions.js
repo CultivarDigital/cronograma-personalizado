@@ -20,7 +20,7 @@ export default {
     if (!authUser) {
       return
     }
-    this.$db
+    this.$firebase
       .get('users', authUser.uid)
       .then((profile) => {
         if (profile) {
@@ -28,7 +28,7 @@ export default {
           authUser.region = profile.region
           context.commit('SET_AUTH_USER', authUser)
         } else {
-          this.$db
+          this.$firebase
             .set('users', authUser.uid, {
               displayName: authUser.displayName,
               photoURL: authUser.photoURL,
@@ -78,7 +78,7 @@ export default {
     commit('toggleDrawer', status)
   },
   logout({ commit }) {
-    this.$db.logout()
+    this.$firebase.logout()
     commit('LOGOUT')
   },
 }

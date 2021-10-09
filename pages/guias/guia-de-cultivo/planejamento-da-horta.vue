@@ -166,7 +166,7 @@
             reutilizados que funcionam bem para o plantio doméstico, como
             garrafas pet, pneus, baldes, tubos de pvc, caixas de feira ou até
             panelas velhas e sapatos. Faça uma busca pela internet para se
-            inspirar e colher idéias. Mas, principalmente, use sua imaginação.
+            inspirar e colher ideias. Mas, principalmente, use sua imaginação.
           </p>
           <div class="img-wrapper">
             <CachedImage
@@ -244,12 +244,8 @@
           <div>
             <h4>05. LENÇOL FREÁTICO</h4>
             <p>
-              A camada de pedra tem a função de dar sustentação ao solo e
-              facilitar na continuação da drenagem da água. Utilize uma manta
-              Bidim ou pedaço de tecido (pode ser uma camiseta velha) sobre essa
-              camada, para evitar que as pequenas partículas da camada de cima
-              escorram aos poucos para fora do vaso ou entupam os furos de
-              drenagem.
+              Lençol freático, é a camada por onde a água escorre evitando
+              acúmulo. Faça furo no seu recipiente para imitar esta função.
             </p>
           </div>
           <div class="img-wrapper">

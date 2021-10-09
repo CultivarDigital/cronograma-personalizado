@@ -6,11 +6,11 @@ const menu = {
     next_moon: 'quarto crescente',
     image: 'home-lua-nova.png',
     good_to: [
-      { title: 'Colher', categories: ['Bulbosas', 'Raízes e Rizomas'] },
       {
         title: 'Podar',
         description: 'para limpeza e produção de matéria seca',
       },
+      { title: 'Colher', categories: ['Bulbosas', 'Raízes e Rizomas'] },
     ],
   },
   crescente: {
@@ -20,6 +20,7 @@ const menu = {
     next_moon: 'lua cheia',
     image: 'home-lua-crescente.png',
     good_to: [
+      { title: 'Podar', description: 'para brotação rápida' },
       {
         title: 'Plantar',
         categories: [
@@ -28,7 +29,6 @@ const menu = {
           'Árvores Frutíferas',
         ],
       },
-      { title: 'Podar', description: 'para brotação rápida' },
     ],
   },
   cheia: {
@@ -51,12 +51,12 @@ const menu = {
     next_moon: 'lua nova',
     image: 'home-lua-minguante.png',
     good_to: [
-      { title: 'Plantar', categories: ['Bulbosas', 'Raízes e Rizomas'] },
       {
         title: 'Colher',
         description:
           'bambus, madeiras para construção e cabos para ferramentas',
       },
+      { title: 'Plantar', categories: ['Bulbosas', 'Raízes e Rizomas'] },
     ],
   },
 }

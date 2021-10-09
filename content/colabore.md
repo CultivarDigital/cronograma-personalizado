@@ -11,7 +11,7 @@ Para que isso aconteça, precisamos de sua ajuda. Veja abaixo como você pode co
 
 ### Dê um feedback
 
-Tem uma idéia, sugestão, critica, encontrou algum problema ou só quer trocar uma idéia? Me manda um email diegomr86@gmail.com
+Tem uma ideia, sugestão, critica, encontrou algum problema ou só quer trocar uma ideia? Me manda um email diegomr86@gmail.com
 
 ### Compartilhe com seus amigos
 

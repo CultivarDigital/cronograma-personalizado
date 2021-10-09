@@ -27,6 +27,7 @@ export default {
     { src: '~/plugins/vue-the-mask', ssr: false },
     '~/plugins/notifier.js',
     '~/plugins/db.js',
+    '~/plugins/moment.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

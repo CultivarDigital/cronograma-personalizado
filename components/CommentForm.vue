@@ -69,7 +69,7 @@ export default {
         if (this.authUser.photoURL) {
           this.form.user.photoURL = this.authUser.photoURL
         }
-        this.$db
+        this.$firebase
           .add('comments', { created_at: new Date(), ...this.form })
           .then((comment) => {
             this.$notifier.success('Comentário enviado!')

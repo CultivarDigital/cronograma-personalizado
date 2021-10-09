@@ -63,7 +63,7 @@ export default {
   },
   created() {
     if (this.id) {
-      this.$db
+      this.$firebase
         .get('users', this.id)
         .then((user) => {
           this.loadedUser = user

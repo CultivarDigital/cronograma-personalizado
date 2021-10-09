@@ -18,8 +18,8 @@ import {
   EmailAuthProvider,
 } from 'firebase/auth'
 import {
+  enableIndexedDbPersistence,
   getFirestore,
-  // enableIndexedDbPersistence,
   collection,
   getDocs,
   doc,
@@ -33,8 +33,6 @@ import {
   limit,
 } from 'firebase/firestore'
 
-import { getStorage } from 'firebase/storage'
-
 export default ({ app, store }, inject) => {
   const firebaseConfig = {
     apiKey: process.env.FIREBASE_API_KEY,
@@ -47,7 +45,8 @@ export default ({ app, store }, inject) => {
   }
   // eslint-disable-next-line no-console
   console.log('INITIALIZE FIREBASE', firebaseConfig.authDomain)
-  const firebase = initializeApp(firebaseConfig)
+  initializeApp(firebaseConfig)
+
   const db = getFirestore()
 
   let firebaseAuth = null
@@ -67,7 +66,14 @@ export default ({ app, store }, inject) => {
     return auth().currentUser
   }
 
-  // enableIndexedDbPersistence(db).catch(firebaseError)
+  enableIndexedDbPersistence(db)
+
+  const prepare = (doc) => {
+    return {
+      id: doc.id,
+      ...doc.data(),
+    }
+  }
 
   const runQuery = async (
     collectionName,
@@ -87,20 +93,14 @@ export default ({ app, store }, inject) => {
     const q = query(collection(db, collectionName), ...constraints)
 
     const querySnapshot = await getDocs(query(q))
-    const items = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }))
+    const items = querySnapshot.docs.map((doc) => prepare(doc))
     return items
   }
 
   const getList = async (collectionName) => {
     const itemsCol = collection(db, collectionName)
     const itemsSnapshot = await getDocs(itemsCol)
-    const items = itemsSnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }))
+    const items = itemsSnapshot.docs.map((doc) => prepare(doc))
     return items
   }
 
@@ -109,10 +109,7 @@ export default ({ app, store }, inject) => {
     const docSnap = await getDoc(docRef)
 
     if (docSnap.exists()) {
-      return {
-        id: docSnap.id,
-        ...docSnap.data(),
-      }
+      return prepare(docSnap)
     } else {
       return null
     }
@@ -120,6 +117,19 @@ export default ({ app, store }, inject) => {
 
   const add = async (collectionName, data) => {
     const docRef = await addDoc(collection(db, collectionName), data)
+    return get(collectionName, docRef.id)
+  }
+
+  const addToSubcollection = async (
+    collectionName,
+    docId,
+    subcollectionName,
+    data
+  ) => {
+    const docRef = await addDoc(
+      collection(db, collectionName, docId, subcollectionName),
+      data
+    )
     return get(collectionName, docRef.id)
   }
 
@@ -210,12 +220,13 @@ export default ({ app, store }, inject) => {
     })
   }
 
-  inject('db', {
-    firebase,
+  inject('firebase', {
+    db,
     getList,
     runQuery,
     get,
     add,
+    addToSubcollection,
     set,
     remove,
     register,
@@ -228,6 +239,5 @@ export default ({ app, store }, inject) => {
     setProfile,
     logout,
     getUser,
-    getStorage,
   })
 }

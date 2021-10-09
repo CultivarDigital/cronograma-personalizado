@@ -88,7 +88,7 @@ export default {
         this.form.password &&
         this.form.password === this.form.password_confirmation
       ) {
-        this.$db
+        this.$firebase
           .register(this.form.email, this.form.password)
           .then(() => {
             this.$notifier.success('Seja bem vindo!')

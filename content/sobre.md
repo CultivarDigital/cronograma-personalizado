@@ -5,7 +5,7 @@ description: Cultivar é um aplicativo para celular em português focado no Bras
 
 **Cultivar** é um aplicativo para celular em português **focado no Brasil** que foi desenvolvido com o objetivo de **facilitar o aprendizado** das pessoas no que diz respeito a **independência alimentar** que é um dos grandes problemas da nossa civilização.
 
-A idéia é manter um guia de cultivo simples e direto para alinhamento dos conhecimentos básicos de cultivo e evoluir com o tempo ferramentas que facilitam a vida na hora do cultivo até gerar uma rede de **conhecimento colaborativo**.
+A ideia é manter um guia de cultivo simples e direto para alinhamento dos conhecimentos básicos de cultivo e evoluir com o tempo ferramentas que facilitam a vida na hora do cultivo até gerar uma rede de **conhecimento colaborativo**.
 
 Com o **Cultivar** o usuário vai aprender:
 

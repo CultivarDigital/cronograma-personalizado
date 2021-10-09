@@ -46,7 +46,7 @@ export default {
     sendEmail() {
       this.loading = true
       this.success = false
-      this.$db
+      this.$firebase
         .generateLoginWithEmail(this.email)
         .then(() => {
           this.loading = false

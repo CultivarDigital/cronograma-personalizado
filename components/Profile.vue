@@ -166,7 +166,7 @@ export default {
     },
   },
   created() {
-    this.user = this.$db.getUser()
+    this.user = this.$firebase.getUser()
     Object.keys(this.form).forEach((key) => {
       if (this.authUser[key]) {
         this.form[key] = this.authUser[key]
@@ -176,7 +176,7 @@ export default {
   methods: {
     save() {
       this.loading = true
-      this.$db
+      this.$firebase
         .setProfile(this.user, this.form)
         .then(() => {
           this.$notifier.success('Seu perfil foi atualizado!')
@@ -194,7 +194,7 @@ export default {
       ) {
         this.loading = true
 
-        this.$db
+        this.$firebase
           .setPassword(
             this.user,
             this.authUser.email,

@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     signInWithGoogle() {
-      this.$db
+      this.$firebase
         .loginWithGoogle()
         .then((userCredential) => {
           if (userCredential && userCredential.user) {
@@ -88,7 +88,7 @@ export default {
     },
     login() {
       this.loading = true
-      this.$db
+      this.$firebase
         .login(this.form.login, this.form.password)
         .then((userCredential) => {
           this.welcome(userCredential.user)

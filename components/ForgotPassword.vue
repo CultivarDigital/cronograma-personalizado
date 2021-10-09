@@ -42,7 +42,7 @@ export default {
     recovery() {
       this.loading = true
       this.success = false
-      this.$db
+      this.$firebase
         .resetPassword(this.email)
         .then(() => {
           this.loading = false

@@ -122,7 +122,7 @@ export default {
     },
   },
   async created() {
-    await this.$db
+    await this.$firebase
       .getList('products')
       .then((species) => {
         this.products = species
@@ -151,15 +151,15 @@ export default {
           product.image = $(e).find('.g-img-wrapper img').data('original')
           product.image_lazy = $(e).find('.g-img-wrapper img').attr('src')
           product.link = magazineURL + $(e).find('.g-img-wrapper').attr('href')
-          this.$db.add('products', product)
+          this.$firebase.add('products', product)
         })
       }
     },
     async clearShop() {
       this.products = null
-      const products = await this.$db.getList('products')
+      const products = await this.$firebase.getList('products')
       for (const product of products) {
-        await this.$db.remove('products', product.id)
+        await this.$firebase.remove('products', product.id)
       }
     },
     filter(category) {
