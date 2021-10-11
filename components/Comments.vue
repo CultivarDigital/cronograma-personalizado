@@ -1,5 +1,5 @@
 <template>
-  <div v-if="$nuxt.isOnline">
+  <div v-if="$nuxt.isOnline && false">
     <v-divider class="mt-0 mb-3" />
     <v-list subheader dense>
       <v-list-item v-for="comment in comments" :key="comment.id">
@@ -82,7 +82,7 @@ export default {
     },
   },
   created() {
-    this.loadComments()
+    // this.loadComments()
   },
   methods: {
     async loadComments() {

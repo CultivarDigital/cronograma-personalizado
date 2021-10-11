@@ -12,13 +12,13 @@ const menu = {
       icon: 'mdi-view-list',
       to: '/ferramentas/catalogo-de-especies',
     },
-    {
-      title: 'Comunidade',
-      description:
-        'Espaço para tirar dúvidas, estabelecer conexões e trocar ideias sobre nosso dia a dia no cultivo',
-      icon: 'mdi-forum',
-      to: '/ferramentas/comunidade',
-    },
+    // {
+    //   title: 'Comunidade',
+    //   description:
+    //     'Espaço para tirar dúvidas, estabelecer conexões e trocar ideias sobre nosso dia a dia no cultivo',
+    //   icon: 'mdi-forum',
+    //   to: '/ferramentas/comunidade',
+    // },
   ],
   Guias: [
     {

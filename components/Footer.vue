@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pt-3 mb-10">
     <v-btn to="/colabore" color="primary" x-large>
       <v-icon left>mdi-hand-heart</v-icon> Apoie este projeto
     </v-btn>

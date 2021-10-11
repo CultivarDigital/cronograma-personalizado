@@ -26,6 +26,7 @@
         A seguir você encontra informações importantes pra saber como começar!
       </p>
       <v-btn
+        large
         block
         color="primary"
         to="/guias/guia-de-cultivo/planejamento-da-horta"
@@ -33,15 +34,26 @@
         Planejamento da Horta
       </v-btn>
       <br />
-      <v-btn block color="primary" to="/guias/guia-de-cultivo/quando-plantar">
+      <v-btn
+        large
+        block
+        color="primary"
+        to="/guias/guia-de-cultivo/quando-plantar"
+      >
         Quando plantar
       </v-btn>
       <br />
-      <v-btn block color="primary" to="/guias/guia-de-cultivo/como-plantar">
+      <v-btn
+        large
+        block
+        color="primary"
+        to="/guias/guia-de-cultivo/como-plantar"
+      >
         Como plantar
       </v-btn>
       <br />
       <v-btn
+        large
         block
         color="primary"
         to="/guias/guia-de-cultivo/cuidados-com-a-horta"
@@ -49,7 +61,12 @@
         Cuidados com a Horta
       </v-btn>
       <br />
-      <v-btn block color="primary" to="/guias/guia-de-cultivo/dicas-basicas">
+      <v-btn
+        large
+        block
+        color="primary"
+        to="/guias/guia-de-cultivo/dicas-basicas"
+      >
         Dicas básicas
       </v-btn>
       <br />

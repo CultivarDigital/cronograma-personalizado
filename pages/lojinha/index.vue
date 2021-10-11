@@ -15,7 +15,7 @@
             Tudo o que você precisa para sua horta ou jardim
           </p>
         </div>
-        <div v-if="categories" class="mb-6 text-center">
+        <div v-if="categories" class="mb-8 text-center">
           <v-btn
             v-for="category in categories.sort()"
             :key="category"
@@ -30,7 +30,11 @@
             <v-icon v-if="category === currentCategory" right>mdi-close</v-icon>
           </v-btn>
         </div>
-        <v-row v-if="products.length">
+        <v-row
+          v-if="products.length"
+          style="background-color: #009d6b"
+          class="pt-3"
+        >
           <v-col
             v-for="(product, index) in list"
             :key="index"
@@ -38,7 +42,12 @@
             md="3"
             sm="6"
           >
-            <v-card :href="product.link" target="_blank" class="pt-4">
+            <v-card
+              :href="product.link"
+              target="_blank"
+              class="pa-2 pt-6"
+              color="white"
+            >
               <div class="d-flex justify-center">
                 <v-img
                   :src="product.image"
@@ -47,9 +56,9 @@
                   contain
                 ></v-img>
               </div>
-              <v-card-title class="text-body-2">{{
-                product.title
-              }}</v-card-title>
+              <v-card-title class="text-body-2">
+                {{ product.title }}
+              </v-card-title>
               <v-card-text>
                 <div style="color: #197abb; font-size: 20px">
                   <strong>{{ product.price }}</strong>

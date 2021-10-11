@@ -43,7 +43,7 @@
       </v-list-item>
       <v-list-item v-else class="mb-3 d-flex justify-center">
         <div>
-          <v-btn outlined color="white" class="mt-3" @click="showPortal">
+          <v-btn outlined small color="white" class="mt-3" @click="showPortal">
             <v-icon left dark> mdi-login </v-icon>
             Acesse sua conta
           </v-btn>

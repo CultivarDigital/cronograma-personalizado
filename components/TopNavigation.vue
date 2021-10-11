@@ -1,34 +1,38 @@
 <template>
   <div class="mb-3">
-    <v-app-bar app color="primary" dark hide-on-scroll>
-      <v-img
-        v-if="$route.path === '/'"
-        title="Cultivar Brasil"
-        :src="require('~/assets/img/cultivar-white.png')"
-        class="mr-4"
-        max-height="24px"
-        max-width="24px"
-        left
-      />
+    <v-app-bar app color="primary" dark hide-on-scroll elevation="0">
       <v-btn
         v-if="$route.path !== '/'"
         icon
-        light
         @click="$router.replace(previousPage)"
       >
-        <v-icon color="white"> mdi-arrow-left </v-icon>
+        <v-icon> mdi-arrow-left </v-icon>
       </v-btn>
-      <v-toolbar-title>
-        <span v-if="$route.path === '/'" class="text-white">
-          <strong>Cultivar </strong> Brasil
-        </span>
-        <span
-          v-if="$route.path !== '/' && active"
-          class="text-white d-flex align-center"
-        >
-          <small>{{ active }}</small>
-        </span>
-      </v-toolbar-title>
+      <User
+        v-else-if="authUser"
+        size="30"
+        class="mr-3"
+        @click="$store.dispatch('showPortal')"
+      />
+      <v-avatar
+        v-else
+        color="white"
+        size="30"
+        class="mr-3"
+        @click="$store.dispatch('showPortal')"
+      >
+        <v-icon color="primary" dark> mdi-account </v-icon>
+      </v-avatar>
+
+      <v-app-bar-title
+        v-if="$route.path === '/'"
+        @click="$store.dispatch('showPortal')"
+      >
+        <small><strong>Cultivar</strong> Brasil</small>
+      </v-app-bar-title>
+      <v-app-bar-title v-else>
+        <small>{{ active }}</small>
+      </v-app-bar-title>
       <v-spacer></v-spacer>
       <v-app-bar-nav-icon @click="toggleDrawer" />
     </v-app-bar>

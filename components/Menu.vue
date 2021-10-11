@@ -1,5 +1,5 @@
 <template>
-  <v-list nav dense class="pb-3 pt-0">
+  <v-list nav class="mb-8">
     <template v-for="menuSection in Object.keys(menu)">
       <v-subheader v-if="!section" :key="menuSection + '-subheader'">{{
         menuSection
@@ -12,20 +12,25 @@
             (!section || section === menuSection)
           "
           :key="item.title"
+          dark
+          color="primary"
+          class="primary"
           :to="item.to"
         >
           <v-list-item-avatar color="primary">
             <v-icon dark>{{ item.icon }}</v-icon>
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-            <div class="text--secondary">
+            <v-list-item-title class="subtitle-1">
+              <strong>{{ item.title }}</strong>
+            </v-list-item-title>
+            <div v-if="showDescription">
               <small>{{ item.description }}</small>
             </div>
           </v-list-item-content>
           <v-list-item-action>
-            <v-btn icon x-small>
-              <v-icon color="grey lighten-1">mdi-chevron-right</v-icon>
+            <v-btn icon>
+              <v-icon>mdi-chevron-right</v-icon>
             </v-btn>
           </v-list-item-action>
         </v-list-item>
@@ -40,6 +45,10 @@ export default {
     section: {
       type: String,
       default: null,
+    },
+    showDescription: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {

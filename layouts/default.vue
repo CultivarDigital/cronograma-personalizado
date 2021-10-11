@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import specieList from '@/data/species.json'
 export default {
   computed: {
     baseURL() {
@@ -39,12 +40,7 @@ export default {
   methods: {
     loadSpecies() {
       if (!this.species || !this.species.length) {
-        this.$firebase
-          .getList('species')
-          .then((species) => {
-            this.$store.dispatch('setSpecies', species)
-          })
-          .catch(this.$notifier.dbError)
+        this.$store.dispatch('setSpecies', specieList)
       }
     },
     checkEmailLogin() {

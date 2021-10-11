@@ -1,7 +1,12 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <span>
-    <v-avatar v-if="profile && profile.photoURL" :size="size">
+    <v-avatar
+      v-if="profile && profile.photoURL"
+      :size="size"
+      :color="color"
+      @click="showPortal"
+    >
       <CachedImage
         avatar
         :title="profile.displayName"
@@ -12,7 +17,7 @@
         :thumb="thumb"
       />
     </v-avatar>
-    <v-avatar v-else :color="color" :size="size">
+    <v-avatar v-else :color="color" :size="size" @click="showPortal">
       <v-icon :color="iconColor" :size="size / 2" dark> mdi-account </v-icon>
     </v-avatar>
   </span>
@@ -70,6 +75,11 @@ export default {
         })
         .catch(this.$notifier.dbError)
     }
+  },
+  methods: {
+    showPortal() {
+      this.$store.dispatch('showPortal')
+    },
   },
 }
 </script>

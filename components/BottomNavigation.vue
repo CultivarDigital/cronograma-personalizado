@@ -2,28 +2,27 @@
   <v-bottom-navigation
     v-model="value"
     fixed
-    background-color="primary"
-    dark
     grow
     app
     hide-on-scroll
+    background-color="primary"
+    dark
     class="d-lg-none"
   >
-    <v-btn to="/" dark>
-      <span>Início</span>
-      <v-icon>mdi-home</v-icon>
-    </v-btn>
-    <v-btn to="/ferramentas">
-      <span>Ferramentas</span>
-      <v-icon>mdi-rake</v-icon>
-    </v-btn>
     <v-btn to="/guias">
-      <span>Guias</span>
       <v-icon>mdi-library</v-icon>
     </v-btn>
-    <v-btn to="lojinha">
-      <span>Lojinha</span>
+    <v-btn to="/ferramentas">
+      <v-icon>mdi-rake</v-icon>
+    </v-btn>
+    <v-btn to="/">
+      <v-icon dark>mdi-home-outline</v-icon>
+    </v-btn>
+    <v-btn to="/lojinha">
       <v-icon>mdi-cart</v-icon>
+    </v-btn>
+    <v-btn to="/sobre">
+      <v-icon>mdi-information-outline</v-icon>
     </v-btn>
   </v-bottom-navigation>
 </template>
