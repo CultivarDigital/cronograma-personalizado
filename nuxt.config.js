@@ -83,7 +83,6 @@ export default {
         lang: 'pt_BR',
       },
     ],
-    // '@nuxtjs/firebase',
   ],
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
@@ -115,30 +114,6 @@ export default {
   },
   localforage: {
     name: process.env.npm_package_name || 'NuxtJS',
-  },
-  firebase: {
-    lazy: true,
-    config: {
-      apiKey: 'AIzaSyCxmQyvGXINVY0Gud9o481pC39eTaG6ne4',
-      authDomain: 'cultivar-brasil.firebaseapp.com',
-      projectId: 'cultivar-brasil',
-      storageBucket: 'cultivar-brasil.appspot.com',
-      messagingSenderId: '241587356737',
-      appId: '1:241587356737:web:3e35ab3304b0a51f71b2c0',
-      measurementId: 'G-F5H0KHPGQN',
-    },
-    services: {
-      auth: {
-        initialize: {
-          onAuthStateChangedAction: 'setUser',
-          onAuthStateChangedMutation: 'SET_AUTH_USER',
-        },
-      },
-      storage: true,
-      firestore: {
-        enablePersistence: true,
-      },
-    },
   },
   vuetify: {
     customVariables: ['~/assets/css/variables.sass'],

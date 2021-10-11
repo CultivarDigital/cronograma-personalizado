@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app'
+import { getAnalytics } from 'firebase/analytics'
 
 import {
   getAuth,
@@ -45,7 +46,8 @@ export default ({ app, store }, inject) => {
   }
   // eslint-disable-next-line no-console
   console.log('INITIALIZE FIREBASE', firebaseConfig.authDomain)
-  initializeApp(firebaseConfig)
+  const firebase = initializeApp(firebaseConfig)
+  getAnalytics(firebase)
 
   const db = getFirestore()
 
