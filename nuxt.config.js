@@ -77,6 +77,7 @@ export default {
     '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
+    '@nuxtjs/auth-next',
     [
       'nuxt-validate',
       {
@@ -119,7 +120,6 @@ export default {
     customVariables: ['~/assets/css/variables.sass'],
     treeShake: true,
     theme: {
-      light: true, // you don't actually need this line as it's for default
       themes: {
         light: {
           primary: '#009d6b',
@@ -133,6 +133,31 @@ export default {
     defaultTimezone: 'utc',
     defaultLocale: 'pt-br',
     locales: ['pt-br'],
+  },
+  axios: {
+    baseURL: process.env.API_URL || 'http://localhost:3000',
+  },
+  auth: {
+    redirect: false,
+    strategies: {
+      local: {
+        token: {
+          property: 'token.accessToken',
+          // required: true,
+          type: 'Bearer',
+        },
+        user: {
+          property: false,
+          // autoFetch: true
+        },
+        endpoints: {
+          login: { url: '/v1/auth/firebase', method: 'post' },
+          logout: { url: '/v1/auth/logout', method: 'post' },
+          user: { url: '/v1/users/profile', method: 'get' },
+        },
+      },
+    },
+    scopeKey: 'role',
   },
   env: {
     BASE_URL: process.env.BASE_URL || 'http://localhost:3000',

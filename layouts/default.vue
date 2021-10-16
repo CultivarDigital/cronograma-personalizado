@@ -25,9 +25,6 @@ export default {
     baseURL() {
       return process.env.BASE_URL
     },
-    authUser() {
-      return this.$store.state.authUser
-    },
     species() {
       return this.$store.state.species
     },
@@ -51,7 +48,7 @@ export default {
           .then(() => {
             this.$notifier.success('Seja bem vindo')
           })
-          .catch(this.$notifier.dbError)
+          .catch(this.$notifier.firebaseError)
       }
     },
   },

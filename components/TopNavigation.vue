@@ -9,7 +9,7 @@
         <v-icon> mdi-arrow-left </v-icon>
       </v-btn>
       <User
-        v-else-if="authUser"
+        v-else-if="$auth.user"
         size="30"
         class="mr-3"
         @click="$store.dispatch('showPortal')"

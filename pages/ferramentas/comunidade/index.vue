@@ -75,11 +75,6 @@ export default {
       removeConversation: null,
     }
   },
-  computed: {
-    authUser() {
-      return this.$store.state.authUser
-    },
-  },
   created() {
     this.load()
   },
@@ -94,7 +89,7 @@ export default {
         .then((conversations) => {
           this.conversations = conversations.docs
         })
-        .catch(this.$notifier.dbError)
+        .catch(this.$notifier.firebaseError)
     },
     remove(conversation) {
       this.$firebase
@@ -103,7 +98,7 @@ export default {
           this.load()
           this.$emit('change', conversation)
         })
-        .catch(this.$notifier.dbError)
+        .catch(this.$notifier.firebaseError)
       this.removeConversation = null
     },
   },

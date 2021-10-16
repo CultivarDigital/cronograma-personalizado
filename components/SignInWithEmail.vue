@@ -53,7 +53,7 @@ export default {
           this.success = true
         })
         .catch((error) => {
-          this.$notifier.dbError(error)
+          this.$notifier.firebaseError(error)
           this.loading = false
         })
     },

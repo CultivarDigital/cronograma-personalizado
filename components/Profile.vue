@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-tabs v-if="authUser" v-model="tab">
+    <v-tabs v-if="$auth.user" v-model="tab">
       <v-tab key="profile" dark> Dados do perfil </v-tab>
       <v-tab key="credentials"> Email e senha </v-tab>
     </v-tabs>
@@ -15,7 +15,7 @@
                 avatar
                 label="Sua foto"
                 prefix="profile"
-                :filename="authUser.uid"
+                :filename="$auth.user.uid"
               />
               <validation-provider
                 v-slot="{ errors }"
@@ -62,7 +62,7 @@
         <v-container fluid>
           <ValidationObserver v-slot="{ validate, invalid }">
             <v-text-field
-              :value="authUser.email"
+              :value="$auth.user.email"
               disabled
               label="Seu email"
               outlined
@@ -160,31 +160,26 @@ export default {
       },
     }
   },
-  computed: {
-    authUser() {
-      return this.$store.state.authUser
-    },
-  },
   created() {
     this.user = this.$firebase.getUser()
     Object.keys(this.form).forEach((key) => {
-      if (this.authUser[key]) {
-        this.form[key] = this.authUser[key]
+      if (this.$auth.user[key]) {
+        this.form[key] = this.$auth.user[key]
       }
     })
   },
   methods: {
     save() {
       this.loading = true
-      this.$firebase
-        .setProfile(this.user, this.form)
+      this.$axios
+        .$put('/v1/users/update', this.form)
         .then(() => {
           this.$notifier.success('Seu perfil foi atualizado!')
           this.$store.dispatch('hidePortal')
           this.loading = false
         })
         .catch((error) => {
-          this.$notifier.dbError(error)
+          this.$notifier.firebaseError(error)
           this.loading = false
         })
     },
@@ -197,7 +192,7 @@ export default {
         this.$firebase
           .setPassword(
             this.user,
-            this.authUser.email,
+            this.$auth.user.email,
             this.passwordForm.current_password,
             this.passwordForm.password
           )
@@ -208,7 +203,7 @@ export default {
             this.$store.dispatch('hidePortal')
           })
           .catch((error) => {
-            this.$notifier.dbError(error)
+            this.$notifier.firebaseError(error)
             this.loading = false
           })
       } else {

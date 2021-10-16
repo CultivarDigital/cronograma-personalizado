@@ -62,7 +62,7 @@ export default {
       } else if (this.loadedUser) {
         return this.loadedUser
       } else {
-        return this.authUser
+        return this.$auth.user
       }
     },
   },
@@ -73,7 +73,7 @@ export default {
         .then((user) => {
           this.loadedUser = user
         })
-        .catch(this.$notifier.dbError)
+        .catch(this.$notifier.firebaseError)
     }
   },
   methods: {

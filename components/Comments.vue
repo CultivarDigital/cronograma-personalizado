@@ -23,12 +23,7 @@
               {{ $moment(comment.created_at.toDate()).fromNow(true) }}
             </small>
           </v-list-item-action-text>
-          <div
-            v-if="
-              $store.state.authUser &&
-              comment.user.uid === $store.state.authUser.uid
-            "
-          >
+          <div v-if="$auth.user && comment.user._id === $auth.user._id">
             <v-btn icon x-small @click="removeComment = comment.id">
               <v-icon color="grey lighten-1"> mdi-delete </v-icon>
             </v-btn>
@@ -76,11 +71,6 @@ export default {
       removeComment: null,
     }
   },
-  computed: {
-    authUser() {
-      return this.$store.state.authUser
-    },
-  },
   created() {
     // this.loadComments()
   },
@@ -103,7 +93,7 @@ export default {
           this.loadComments()
           this.$emit('change', comment)
         })
-        .catch(this.$notifier.dbError)
+        .catch(this.$notifier.firebaseError)
       this.removeComment = null
     },
   },

@@ -15,11 +15,11 @@
           </v-btn>
           <span>{{ title }}</span>
           <v-spacer></v-spacer>
-          <v-btn v-if="authUser" icon dark @click="logout">
+          <v-btn v-if="$auth.user" icon dark @click="logout">
             <v-icon>mdi-logout</v-icon>
           </v-btn>
         </v-toolbar>
-        <div v-if="authUser">
+        <div v-if="$auth.user">
           <Profile />
         </div>
         <div v-else>
@@ -57,12 +57,9 @@ export default {
     }
   },
   computed: {
-    authUser() {
-      return this.$store.state.authUser
-    },
     title() {
-      if (this.authUser) {
-        if (this.authUser.email) {
+      if (this.$auth.user) {
+        if (this.$auth.user.email) {
           return 'Editar perfil'
         } else {
           return 'Complete seu cadastro'

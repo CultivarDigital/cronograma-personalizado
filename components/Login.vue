@@ -61,6 +61,7 @@
 </template>
 <script>
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import { getAuth, getIdToken } from 'firebase/auth'
 export default {
   components: {
     ValidationObserver,
@@ -81,26 +82,39 @@ export default {
         .loginWithGoogle()
         .then((userCredential) => {
           if (userCredential && userCredential.user) {
-            this.welcome(userCredential.user)
+            this.authenticateApi(userCredential)
           }
         })
-        .catch(this.$notifier.dbError)
+        .catch(this.$notifier.firebaseError)
+    },
+    authenticateApi(userCredential) {
+      getIdToken(getAuth().currentUser).then((token) => {
+        this.$auth
+          .loginWith('local', {
+            data: {
+              token,
+            },
+          })
+          .then((resp) => {
+            this.welcome(userCredential.user)
+            this.loading = false
+          })
+          .catch(this.$notifier.apiError)
+      })
     },
     login() {
       this.loading = true
       this.$firebase
         .login(this.form.login, this.form.password)
         .then((userCredential) => {
-          this.welcome(userCredential.user)
-          this.loading = false
+          this.authenticateApi(userCredential)
         })
         .catch((error) => {
-          this.$notifier.dbError(error)
+          this.$notifier.firebaseError(error)
           this.loading = false
         })
     },
     welcome(user) {
-      this.setUser(user)
       this.$store.dispatch('hidePortal')
       this.$notifier.success('Seja bem vindo!')
     },

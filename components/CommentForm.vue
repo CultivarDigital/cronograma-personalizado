@@ -7,7 +7,7 @@
       </v-list-item-avatar>
       <v-list-item-content>
         <v-textarea
-          v-if="$store.state.authUser"
+          v-if="$auth.user"
           v-model="form.message"
           outlined
           rows="1"
@@ -62,12 +62,12 @@ export default {
   methods: {
     save() {
       if (this.form.message) {
-        this.form.user = { uid: this.authUser.uid }
-        if (this.authUser.displayName) {
-          this.form.user.displayName = this.authUser.displayName
+        this.form.user = { uid: this.$auth.user.uid }
+        if (this.$auth.user.displayName) {
+          this.form.user.displayName = this.$auth.user.displayName
         }
-        if (this.authUser.photoURL) {
-          this.form.user.photoURL = this.authUser.photoURL
+        if (this.$auth.user.photoURL) {
+          this.form.user.photoURL = this.$auth.user.photoURL
         }
         this.$firebase
           .add('comments', { created_at: new Date(), ...this.form })
@@ -76,7 +76,7 @@ export default {
             this.$emit('change', comment)
             this.form.message = null
           })
-          .catch(this.$notifier.dbError)
+          .catch(this.$notifier.firebaseError)
       }
     },
   },

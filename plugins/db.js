@@ -3,7 +3,6 @@ import { getAnalytics } from 'firebase/analytics'
 
 import {
   getAuth,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
@@ -13,7 +12,6 @@ import {
   isSignInWithEmailLink,
   signInWithEmailLink,
   sendPasswordResetEmail,
-  updateProfile,
   updatePassword,
   reauthenticateWithCredential,
   EmailAuthProvider,
@@ -57,9 +55,6 @@ export default ({ app, store }, inject) => {
     if (!firebaseAuth) {
       firebaseAuth = getAuth()
       firebaseAuth.languageCode = 'pt-BR'
-      onAuthStateChanged(firebaseAuth, (user) => {
-        store.dispatch('setUser', { authUser: user })
-      })
     }
     return firebaseAuth
   }
@@ -197,17 +192,6 @@ export default ({ app, store }, inject) => {
     return sendPasswordResetEmail(auth(), email)
   }
 
-  const setProfile = (user, data) => {
-    return updateProfile(user, {
-      displayName: data.displayName,
-      photoURL: data.photoURL,
-    }).then(() => {
-      return set('users', user.uid, data).then(() => {
-        store.dispatch('setUser', { authUser: user })
-      })
-    })
-  }
-
   const setPassword = (user, email, currentPassword, newPassword) => {
     const credentials = EmailAuthProvider.credential(email, currentPassword)
 
@@ -238,7 +222,6 @@ export default ({ app, store }, inject) => {
     validateLoginWithEmail,
     resetPassword,
     setPassword,
-    setProfile,
     logout,
     getUser,
   })

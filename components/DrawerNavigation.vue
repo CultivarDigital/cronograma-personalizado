@@ -4,7 +4,7 @@
       <v-list-item class="mb-0">
         <v-list-item-content class="text-center pb-0">
           <User
-            v-if="authUser"
+            v-if="$auth.user"
             thumb
             size="64"
             color="white"
@@ -25,19 +25,19 @@
           </div>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item v-if="authUser" link @click="showPortal">
+      <v-list-item v-if="$auth.user" link @click="showPortal">
         <v-list-item-content>
           <v-list-item-title
-            v-if="authUser.displayName"
+            v-if="$auth.user.displayName"
             class="text-center mb-3"
           >
-            {{ authUser.displayName }}
+            {{ $auth.user.displayName }}
           </v-list-item-title>
-          <div v-if="authUser.region" class="text-center">
-            <v-chip small>{{ authUser.region }}</v-chip>
+          <div v-if="$auth.user.region" class="text-center">
+            <v-chip small>{{ $auth.user.region }}</v-chip>
           </div>
           <div v-else class="text-center">
-            {{ authUser.email }}
+            {{ $auth.user.email }}
           </div>
         </v-list-item-content>
       </v-list-item>

@@ -15,31 +15,6 @@ const getFilters = (species, type) => {
 }
 
 export default {
-  setUser(context, { authUser }) {
-    context.commit('LOGOUT')
-    if (!authUser) {
-      return
-    }
-    this.$firebase
-      .get('users', authUser.uid)
-      .then((profile) => {
-        if (profile) {
-          authUser.bio = profile.bio
-          authUser.region = profile.region
-          context.commit('SET_AUTH_USER', authUser)
-        } else {
-          this.$firebase
-            .set('users', authUser.uid, {
-              displayName: authUser.displayName,
-              photoURL: authUser.photoURL,
-            })
-            .then((profile) => {
-              context.commit('SET_AUTH_USER', authUser)
-            })
-        }
-      })
-      .catch()
-  },
   setPage({ commit }, page) {
     commit('setPage', page)
   },

@@ -94,7 +94,7 @@ export default {
             this.$notifier.success('Seja bem vindo!')
             this.$emit('registered')
           })
-          .catch(this.$notifier.dbError)
+          .catch(this.$notifier.firebaseError)
       } else {
         this.$notifier.error('As senhas devem ser iguais')
       }

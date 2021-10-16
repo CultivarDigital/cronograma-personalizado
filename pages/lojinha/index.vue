@@ -83,7 +83,7 @@
       <Offline v-else />
     </v-container>
     <v-btn
-      v-if="authUser && authUser.email === 'diegomr86@gmail.com'"
+      v-if="$auth.user && $auth.user.email === 'diegomr86@gmail.com'"
       block
       @click="importShop"
     >
@@ -136,7 +136,7 @@ export default {
       .then((species) => {
         this.products = species
       })
-      .catch(this.$notifier.dbError)
+      .catch(this.$notifier.firebaseError)
   },
   methods: {
     async importShop() {
