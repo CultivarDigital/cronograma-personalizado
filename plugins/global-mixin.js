@@ -6,15 +6,11 @@ if (!Vue.__my_mixin__) {
   const globalMixin = {
     computed: {
       isLoggedIn() {
-        return this.authUser && this.authUser.uid
-      },
-      authUser() {
-        const user = this.$store.state.authUser
-        return user && user.uid ? user : null
+        return this.$auth.user && this.$auth.user.uid
       },
       currentRegion() {
-        return this.authUser && this.authUser.region
-          ? this.authUser.region
+        return this.$auth.user && this.$auth.user.region
+          ? this.$auth.user.region
           : null
       },
       baseURL() {
@@ -22,9 +18,6 @@ if (!Vue.__my_mixin__) {
       },
     },
     methods: {
-      setUser(user) {
-        this.$store.dispatch('setUser', { authUser: user })
-      },
       async getLocalItem(key) {
         if (this.$localForage) {
           return await this.$localForage.getItem(key)
