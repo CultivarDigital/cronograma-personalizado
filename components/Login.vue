@@ -40,21 +40,7 @@
             Esqueci minha senha
           </v-btn>
         </div>
-        <v-btn
-          type="submit"
-          color="success"
-          block
-          large
-          :disabled="invalid || loading"
-        >
-          <v-progress-circular
-            v-if="loading"
-            color="black"
-            indeterminate
-            size="20"
-          />
-          <span v-else>ENTRAR</span>
-        </v-btn>
+        <Save :invalid="invalid" :loading="loading" label="Entrar" />
       </v-form>
     </ValidationObserver>
   </v-container>

@@ -27,7 +27,7 @@
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title>
-            {{ message.data().user.displayName }}
+            {{ message.data().user.name }}
             <TimeAgo :date="message.data().timestamp" />
           </v-list-item-title>
           <div class="body-2">{{ message.data().message }}</div>

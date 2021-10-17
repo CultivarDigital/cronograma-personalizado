@@ -10,7 +10,7 @@
           <ValidationObserver v-slot="{ validate, invalid }">
             <form @submit.prevent="validate().then(save)">
               <Upload
-                v-model="form.photoURL"
+                v-model="form.picture"
                 type="images"
                 avatar
                 label="Sua foto"
@@ -23,7 +23,7 @@
                 rules="required"
               >
                 <v-text-field
-                  v-model="form.displayName"
+                  v-model="form.name"
                   outlined
                   label="Seu nome"
                   :error-messages="errors"
@@ -34,26 +34,14 @@
                 outlined
                 label="Qual sua região?"
                 :items="['Centro-oeste', 'Nordeste', 'Norte', 'Sudeste', 'Sul']"
+                clearable
               />
               <v-textarea
                 v-model="form.bio"
                 outlined
                 label="Conte um pouco sobre você"
               />
-              <v-btn
-                type="submit"
-                color="success"
-                block
-                :disabled="invalid || loading"
-              >
-                <v-progress-circular
-                  v-if="loading"
-                  color="black"
-                  indeterminate
-                  size="20"
-                />
-                <span v-else>SALVAR</span>
-              </v-btn>
+              <Save :invalid="invalid" :loading="loading" />
             </form>
           </ValidationObserver>
         </v-container>
@@ -113,20 +101,11 @@
                   outlined
                 />
               </validation-provider>
-              <v-btn
-                color="success"
-                type="submit"
-                block
-                :disabled="invalid || loading"
-              >
-                <v-progress-circular
-                  v-if="loading"
-                  color="black"
-                  indeterminate
-                  size="20"
-                />
-                <span v-else>SALVAR NOVA SENHA</span>
-              </v-btn>
+              <Save
+                :invalid="invalid"
+                :loading="loading"
+                label="Salvar nova senha"
+              />
             </v-form>
           </ValidationObserver>
         </v-container>
@@ -153,15 +132,14 @@ export default {
         password_confirmation: null,
       },
       form: {
-        photoURL: null,
-        displayName: '',
+        picture: null,
+        name: '',
         region: null,
         bio: '',
       },
     }
   },
   created() {
-    this.user = this.$firebase.getUser()
     Object.keys(this.form).forEach((key) => {
       if (this.$auth.user[key]) {
         this.form[key] = this.$auth.user[key]
@@ -172,14 +150,15 @@ export default {
     save() {
       this.loading = true
       this.$axios
-        .$put('/v1/users/update', this.form)
-        .then(() => {
+        .$patch('/v1/users/' + this.$auth.user.id, this.form)
+        .then((user) => {
+          this.$auth.setUser(user)
           this.$notifier.success('Seu perfil foi atualizado!')
           this.$store.dispatch('hidePortal')
           this.loading = false
         })
         .catch((error) => {
-          this.$notifier.firebaseError(error)
+          this.$notifier.apiError(error)
           this.loading = false
         })
     },
@@ -192,7 +171,6 @@ export default {
         this.$firebase
           .setPassword(
             this.user,
-            this.$auth.user.email,
             this.passwordForm.current_password,
             this.passwordForm.password
           )

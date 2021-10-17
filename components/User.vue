@@ -2,16 +2,16 @@
 <template>
   <span>
     <v-avatar
-      v-if="profile && profile.photoURL"
+      v-if="profile && profile.picture"
       :size="size"
       :color="color"
       @click="showPortal"
     >
       <CachedImage
         avatar
-        :title="profile.displayName"
-        :alt="profile.displayName"
-        :src="profile.photoURL"
+        :title="profile.name"
+        :alt="profile.name"
+        :src="profile.picture"
         :size="size"
         :color="color"
         :thumb="thumb"

@@ -44,22 +44,7 @@
             :error-messages="errors"
           />
         </validation-provider>
-
-        <v-btn
-          type="submit"
-          color="success"
-          block
-          large
-          :disabled="invalid || loading"
-        >
-          <v-progress-circular
-            v-if="loading"
-            color="black"
-            indeterminate
-            size="20"
-          />
-          <span v-else>CADASTRAR</span>
-        </v-btn>
+        <Save :invalid="invalid" :loading="loading" label="Cadastrar" />
       </v-form>
     </ValidationObserver>
   </v-container>

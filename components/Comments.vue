@@ -1,5 +1,5 @@
 <template>
-  <div v-if="$nuxt.isOnline && false">
+  <div v-if="$nuxt.isOnline">
     <v-divider class="mt-0 mb-3" />
     <v-list subheader dense>
       <v-list-item v-for="comment in comments" :key="comment.id">
@@ -7,20 +7,16 @@
           <User :user="comment.user" thumb size="40" />
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title v-text="comment.user.displayName" />
+          <v-list-item-title v-text="comment.user.name" />
           <div class="body-2">{{ comment.message }}</div>
         </v-list-item-content>
         <v-list-item-action>
           <v-list-item-action-text>
             <small
               class="font-weight-light"
-              :title="
-                $moment(comment.created_at.toDate()).format(
-                  'DD/MM/YYYY h:mm:ss'
-                )
-              "
+              :title="$moment(comment.createdAt).format('DD/MM/YYYY h:mm:ss')"
             >
-              {{ $moment(comment.created_at.toDate()).fromNow(true) }}
+              {{ $moment(comment.createdAt).fromNow(true) }}
             </small>
           </v-list-item-action-text>
           <div v-if="$auth.user && comment.user._id === $auth.user._id">
@@ -72,28 +68,27 @@ export default {
     }
   },
   created() {
-    // this.loadComments()
+    this.loadComments()
   },
   methods: {
     async loadComments() {
-      this.comments = await this.$firebase.runQuery(
-        'comments',
-        [['target', '==', this.target || this.$route.path]],
-        'created_at'
-      )
+      this.comments = await this.$axios.$get('/v1/comments', {
+        params: { target: this.target || this.$route.path },
+      })
     },
     commentSaved(comment) {
       this.loadComments()
       this.$emit('change', comment)
     },
     remove(comment) {
-      this.$firebase
-        .remove('comments', comment.id)
+      this.$axios
+        .$get('comments', {
+          params: { target: this.target || this.$route.path },
+        })
         .then(() => {
           this.loadComments()
           this.$emit('change', comment)
         })
-        .catch(this.$notifier.firebaseError)
       this.removeComment = null
     },
   },

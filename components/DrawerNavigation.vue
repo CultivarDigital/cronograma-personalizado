@@ -27,17 +27,14 @@
       </v-list-item>
       <v-list-item v-if="$auth.user" link @click="showPortal">
         <v-list-item-content>
-          <v-list-item-title
-            v-if="$auth.user.displayName"
-            class="text-center mb-3"
-          >
-            {{ $auth.user.displayName }}
+          <v-list-item-title v-if="$auth.user.name" class="text-center mb-3">
+            {{ $auth.user.name }}
           </v-list-item-title>
           <div v-if="$auth.user.region" class="text-center">
             <v-chip small>{{ $auth.user.region }}</v-chip>
           </div>
           <div v-else class="text-center">
-            {{ $auth.user.email }}
+            <small>Qual é a sua região?</small>
           </div>
         </v-list-item-content>
       </v-list-item>

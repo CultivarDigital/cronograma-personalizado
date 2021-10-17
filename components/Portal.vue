@@ -75,8 +75,8 @@ export default {
   },
   methods: {
     logout() {
+      this.$auth.logout()
       this.$store.dispatch('hidePortal')
-      this.$store.dispatch('logout')
     },
   },
 }

@@ -53,7 +53,6 @@ export default {
   data() {
     return {
       form: {
-        user: null,
         target: this.target,
         message: null,
       },
@@ -62,21 +61,11 @@ export default {
   methods: {
     save() {
       if (this.form.message) {
-        this.form.user = { uid: this.$auth.user.uid }
-        if (this.$auth.user.displayName) {
-          this.form.user.displayName = this.$auth.user.displayName
-        }
-        if (this.$auth.user.photoURL) {
-          this.form.user.photoURL = this.$auth.user.photoURL
-        }
-        this.$firebase
-          .add('comments', { created_at: new Date(), ...this.form })
-          .then((comment) => {
-            this.$notifier.success('Comentário enviado!')
-            this.$emit('change', comment)
-            this.form.message = null
-          })
-          .catch(this.$notifier.firebaseError)
+        this.$axios.post('/v1/comments', this.form).then((comment) => {
+          this.$notifier.success('Comentário enviado!')
+          this.$emit('change', comment)
+          this.form.message = null
+        })
       }
     },
   },

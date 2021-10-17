@@ -8,22 +8,7 @@
       >
         <v-icon> mdi-arrow-left </v-icon>
       </v-btn>
-      <User
-        v-else-if="$auth.user"
-        size="30"
-        class="mr-3"
-        @click="$store.dispatch('showPortal')"
-      />
-      <v-avatar
-        v-else
-        color="white"
-        size="30"
-        class="mr-3"
-        @click="$store.dispatch('showPortal')"
-      >
-        <v-icon color="primary" dark> mdi-account </v-icon>
-      </v-avatar>
-
+      <v-app-bar-nav-icon v-else @click="toggleDrawer" />
       <v-app-bar-title
         v-if="$route.path === '/'"
         @click="$store.dispatch('showPortal')"
@@ -34,7 +19,12 @@
         <small>{{ active }}</small>
       </v-app-bar-title>
       <v-spacer></v-spacer>
-      <v-app-bar-nav-icon @click="toggleDrawer" />
+      <a @click="$store.dispatch('showPortal')">
+        <User v-if="$auth.user" size="25" />
+        <v-avatar v-else color="white" size="25">
+          <v-icon color="primary" dark> mdi-account </v-icon>
+        </v-avatar>
+      </a>
     </v-app-bar>
   </div>
 </template>

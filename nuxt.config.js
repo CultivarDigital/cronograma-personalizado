@@ -28,6 +28,7 @@ export default {
     '~/plugins/notifier.js',
     '~/plugins/db.js',
     '~/plugins/moment.js',
+    '~/plugins/axios.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -123,7 +124,6 @@ export default {
       themes: {
         light: {
           primary: '#009d6b',
-          success: '#009d6b',
           secondary: '#197abb',
         },
       },

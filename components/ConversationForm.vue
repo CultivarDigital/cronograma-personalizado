@@ -103,11 +103,11 @@ export default {
     save() {
       if (this.form.message) {
         this.form.user = { uid: this.$auth.user.uid }
-        if (this.$auth.user.displayName) {
-          this.form.user.displayName = this.$auth.user.displayName
+        if (this.$auth.user.name) {
+          this.form.user.name = this.$auth.user.name
         }
-        if (this.$auth.user.photoURL) {
-          this.form.user.photoURL = this.$auth.user.photoURL
+        if (this.$auth.user.picture) {
+          this.form.user.picture = this.$auth.user.picture
         }
         addDoc(collection(getFirestore(), 'conversations'), {
           timestamp: serverTimestamp(),

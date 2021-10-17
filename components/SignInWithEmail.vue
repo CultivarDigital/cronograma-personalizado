@@ -7,22 +7,7 @@
       </v-alert>
       <div v-else>
         <v-text-field v-model="email" label="Digite seu e-mail" outlined />
-        <v-btn
-          type="submit"
-          color="success"
-          block
-          large
-          :disabled="loading"
-          class="mb-2"
-        >
-          <v-progress-circular
-            v-if="loading"
-            color="black"
-            indeterminate
-            size="20"
-          />
-          <span v-else>Receber link para entrar</span>
-        </v-btn>
+        <Save :loading="loading" label="Receber link para entrar" />
       </div>
       <v-btn block @click="$emit('login')"> Voltar </v-btn>
     </v-form>
