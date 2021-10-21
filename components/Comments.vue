@@ -1,5 +1,5 @@
 <template>
-  <div v-if="$nuxt.isOnline">
+  <div>
     <v-divider class="mt-0 mb-3" />
     <v-list subheader dense>
       <v-list-item v-for="comment in comments" :key="comment.id">
@@ -19,37 +19,16 @@
               {{ $moment(comment.createdAt).fromNow(true) }}
             </small>
           </v-list-item-action-text>
-          <div v-if="$auth.user && comment.user._id === $auth.user._id">
-            <v-btn icon x-small @click="removeComment = comment.id">
-              <v-icon color="grey lighten-1"> mdi-delete </v-icon>
-            </v-btn>
-            <v-dialog
-              :value="comment.id === removeComment"
-              max-width="290"
-              @click:outside="removeComment = null"
-            >
-              <v-card>
-                <v-card-title class="text-h5">
-                  Tem certeza que deseja excluír?
-                </v-card-title>
-                <v-card-text>
-                  Esta alteração não pode ser desfeita
-                </v-card-text>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn color="error" text @click="removeComment = null">
-                    Não
-                  </v-btn>
-                  <v-btn color="green" text @click="remove(comment)">
-                    Sim
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
+          <div v-if="$auth.user && comment.user._id === $auth.user.id">
+            <Remove @confirm="remove(comment)" />
           </div>
         </v-list-item-action>
       </v-list-item>
-      <CommentForm :target="target" @change="commentSaved" />
+      <CommentForm
+        :target="target"
+        :conversation="conversation"
+        @change="commentSaved"
+      />
     </v-list>
   </div>
 </template>
@@ -60,11 +39,14 @@ export default {
       type: String,
       default: null,
     },
+    conversation: {
+      type: String,
+      default: null,
+    },
   },
   data() {
     return {
       comments: null,
-      removeComment: null,
     }
   },
   created() {
@@ -82,14 +64,13 @@ export default {
     },
     remove(comment) {
       this.$axios
-        .$get('comments', {
+        .$delete('/v1/comments/' + comment._id, {
           params: { target: this.target || this.$route.path },
         })
         .then(() => {
           this.loadComments()
           this.$emit('change', comment)
         })
-      this.removeComment = null
     },
   },
 }

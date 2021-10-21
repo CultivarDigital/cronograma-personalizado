@@ -9,7 +9,7 @@
       type="submit"
       color="success"
       :disabled="invalid || loading"
-      block
+      :block="block"
     >
       <v-progress-circular
         v-if="loading"
@@ -32,6 +32,10 @@ export default {
     loading: {
       type: Boolean,
       default: false,
+    },
+    block: {
+      type: Boolean,
+      default: true,
     },
     label: {
       type: String,

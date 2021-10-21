@@ -19,29 +19,36 @@
       <template v-for="(conversation, index) in conversations">
         <v-divider :key="index" />
         <v-list-item
-          :key="conversation.id"
-          :to="'/ferramentas/comunidade/' + conversation.id"
+          :key="conversation._id"
+          :to="'/ferramentas/comunidade/' + conversation._id"
         >
           <v-list-item-content>
             <v-list-item-title class="mb-2 text-wrap">
-              {{ conversation.data().title }}
+              {{ conversation.subject }}
             </v-list-item-title>
             <div class="body-2">
               <User
-                :user="conversation.data().user"
+                v-for="user in conversation.members"
+                :key="user._id"
+                :user="user"
                 thumb
                 size="22"
                 class="mr-1"
               />
               <v-chip
-                v-for="category in conversation.data().categories"
-                :key="category"
+                v-for="tag in conversation.tags"
+                :key="tag"
                 class="mr-1"
                 x-small
                 color="primary"
-                >{{ category }}</v-chip
+                >{{ tag }}</v-chip
               >
-              <TimeAgo :date="conversation.data().timestamp" />
+              <small v-if="conversation.comments_counter"
+                >{{ conversation.comments_counter }} resposta{{
+                  conversation.comments_counter > 1 ? 's' : ''
+                }}</small
+              >
+              <TimeAgo :date="conversation.createdAt" />
             </div>
           </v-list-item-content>
           <v-list-item-action>
@@ -55,13 +62,6 @@
   </div>
 </template>
 <script>
-import {
-  getFirestore,
-  collection,
-  query,
-  orderBy,
-  getDocs,
-} from 'firebase/firestore'
 export default {
   props: {
     target: {
@@ -72,7 +72,6 @@ export default {
   data() {
     return {
       conversations: null,
-      removeConversation: null,
     }
   },
   created() {
@@ -80,25 +79,15 @@ export default {
   },
   methods: {
     load() {
-      getDocs(
-        query(
-          collection(getFirestore(), 'conversations'),
-          orderBy('timestamp', 'desc')
-        )
-      )
-        .then((conversations) => {
-          this.conversations = conversations.docs
-        })
-        .catch(this.$notifier.firebaseError)
+      this.$axios.$get('/v1/conversations').then((conversations) => {
+        this.conversations = conversations
+      })
     },
     remove(conversation) {
-      this.$firebase
-        .remove('conversations', conversation.id)
-        .then(() => {
-          this.load()
-          this.$emit('change', conversation)
-        })
-        .catch(this.$notifier.firebaseError)
+      this.$axios.$delete('/v1/conversations/' + conversation._id).then(() => {
+        this.load()
+        this.$emit('change', conversation)
+      })
       this.removeConversation = null
     },
   },

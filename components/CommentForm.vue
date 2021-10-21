@@ -13,7 +13,7 @@
           rows="1"
           auto-grow
           hide-details
-          placeholder="Deixe seu comentário"
+          :placeholder="conversation ? 'Responder' : 'Deixe seu comentário'"
         />
         <v-btn
           v-else
@@ -22,7 +22,7 @@
           large
           @click="$store.dispatch('showPortal')"
         >
-          Deixe seu comentário
+          {{ conversation ? 'Responder' : 'Deixe seu comentário' }}
         </v-btn>
         <v-btn
           v-if="form.message"
@@ -32,7 +32,7 @@
           large
           @click="save"
         >
-          Salvar comentário
+          {{ conversation ? 'Enviar resposta' : 'Enviar comentário' }}
         </v-btn>
       </v-list-item-content>
     </v-list-item>
@@ -49,11 +49,16 @@ export default {
       type: String,
       default: null,
     },
+    conversation: {
+      type: String,
+      default: null,
+    },
   },
   data() {
     return {
       form: {
         target: this.target,
+        conversation: this.conversation,
         message: null,
       },
     }

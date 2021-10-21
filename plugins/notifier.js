@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import firebaseTranslations from '@/data/firebase-translations'
 
-export default ({ store }, inject) => {
+export default ({ store, auth, router }, inject) => {
   inject('notifier', {
     notify({ content = '', color = 'success' }) {
       store.commit('snackbar/showMessage', { content, color })
@@ -34,15 +34,7 @@ export default ({ store }, inject) => {
       let msg = null
       if (error.response) {
         if (error.response.data) {
-          console.log(error.response)
-          if (
-            error.response.status === 401 &&
-            error.response.data.message.includes('expired')
-          ) {
-            msg = 'Sessão expirada'
-            this.$auth.logout()
-            this.$router.replace('/')
-          } else if (error.response.data.message) {
+          if (error.response.data.message) {
             msg = error.response.data.message
           } else {
             msg = error.response.data

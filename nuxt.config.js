@@ -130,7 +130,7 @@ export default {
     },
   },
   moment: {
-    defaultTimezone: 'utc',
+    defaultTimezone: 'America/Sao_Paulo',
     defaultLocale: 'pt-br',
     locales: ['pt-br'],
   },

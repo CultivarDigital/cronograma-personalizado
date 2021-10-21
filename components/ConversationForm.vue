@@ -20,7 +20,12 @@
       </div>
     </template>
     <v-card>
-      <v-toolbar color="primary" dark> Comece um novo assunto </v-toolbar>
+      <v-toolbar color="primary" dark>
+        <v-btn icon dark @click="dialog = false">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+        <span>Comece um novo assunto</span>
+      </v-toolbar>
       <v-card-text class="pt-6">
         <ValidationObserver v-slot="{ validate, invalid }">
           <v-form @submit.prevent="validate().then(save)">
@@ -31,7 +36,7 @@
                 rules="required|max:140"
               >
                 <v-text-field
-                  v-model="form.title"
+                  v-model="form.subject"
                   name="name"
                   label="Qual o assunto dessa conversa?"
                   outlined
@@ -50,8 +55,8 @@
                 />
               </validation-provider>
               <v-combobox
-                v-model="form.categories"
-                :items="categories"
+                v-model="form.tags"
+                :items="['Teste']"
                 label="Qual o tipo dessa conversa?"
                 outlined
                 multiple
@@ -61,11 +66,11 @@
               ></v-combobox>
             </div>
             <div class="text-right">
-              <v-btn text @click="dialog = false"> Fechar </v-btn>
-              <v-btn type="submit" color="success" :disabled="invalid" large>
-                <v-icon left>mdi-send</v-icon>
-                Salvar
-              </v-btn>
+              <Save
+                :invalid="invalid"
+                :block="false"
+                label="Iniciar conversa"
+              />
             </div>
           </v-form>
         </ValidationObserver>
@@ -76,12 +81,6 @@
 <script>
 import categories from '@/data/conversation-categories.json'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
-import {
-  addDoc,
-  collection,
-  getFirestore,
-  serverTimestamp,
-} from '@firebase/firestore'
 export default {
   components: {
     ValidationObserver,
@@ -92,50 +91,20 @@ export default {
       categories,
       dialog: false,
       form: {
-        title: null,
-        categories: null,
-        user: null,
-        message: null,
+        subject: '',
+        tags: [],
+        message: '',
       },
     }
   },
   methods: {
     save() {
-      if (this.form.message) {
-        this.form.user = { uid: this.$auth.user.uid }
-        if (this.$auth.user.name) {
-          this.form.user.name = this.$auth.user.name
-        }
-        if (this.$auth.user.picture) {
-          this.form.user.picture = this.$auth.user.picture
-        }
-        addDoc(collection(getFirestore(), 'conversations'), {
-          timestamp: serverTimestamp(),
-          title: this.form.title,
-          categories: this.form.categories,
-          user: this.form.user,
-        }).then((conversation) => {
-          addDoc(
-            collection(
-              getFirestore(),
-              'conversations',
-              conversation.id,
-              'messages'
-            ),
-            {
-              timestamp: serverTimestamp(),
-              message: this.form.message,
-              user: this.form.user,
-            }
-          ).then((message) => {
-            this.$notifier.success(
-              'Conversa iniciada com sucesso. Obrigado por interagir!'
-            )
-            // this.$router.push('/comunidade/' + conversation.id)
-            this.$emit('change', conversation)
-          })
-        })
-      }
+      this.$axios.post('/v1/conversations', this.form).then((conversation) => {
+        this.$notifier.success('Conversa iniciada!')
+        this.$route.replace('/ferramentas/comunidade/' + conversation._id)
+        this.$emit('change', conversation)
+        this.form.message = null
+      })
     },
   },
 }

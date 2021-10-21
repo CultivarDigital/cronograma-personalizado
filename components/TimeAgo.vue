@@ -2,16 +2,16 @@
   <small
     v-if="date"
     class="font-weight-light"
-    :title="$moment(date.toDate()).format('DD/MM/YYYY h:mm:ss')"
+    :title="$moment(date).format('DD/MM/YYYY h:mm:ss')"
   >
-    {{ $moment(date.toDate()).fromNow(true) }}
+    {{ $moment(date).fromNow(true) }}
   </small>
 </template>
 <script>
 export default {
   props: {
     date: {
-      type: Object,
+      type: [Object, String],
       default: null,
     },
   },
