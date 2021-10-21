@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-3">
+  <div class="mb-4">
     <v-app-bar app color="primary" dark hide-on-scroll elevation="0">
       <v-btn
         v-if="$route.path !== '/'"

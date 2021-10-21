@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog">
+  <v-dialog v-model="dialog" fullscreen>
     <template #activator="{ on, attrs }">
       <div class="text-center">
         <v-btn dark v-bind="attrs" color="primary" large v-on="on">
@@ -56,7 +56,7 @@
               </validation-provider>
               <v-combobox
                 v-model="form.tags"
-                :items="['Teste']"
+                :items="tags"
                 label="Qual o tipo dessa conversa?"
                 outlined
                 multiple
@@ -90,6 +90,7 @@ export default {
     return {
       categories,
       dialog: false,
+      tags: [],
       form: {
         subject: '',
         tags: [],
@@ -97,11 +98,17 @@ export default {
       },
     }
   },
+  created() {
+    this.loadTags()
+  },
   methods: {
+    async loadTags() {
+      this.tags = await this.$axios.$get('/v1/conversations/tags')
+    },
     save() {
-      this.$axios.post('/v1/conversations', this.form).then((conversation) => {
+      this.$axios.$post('/v1/conversations', this.form).then((conversation) => {
         this.$notifier.success('Conversa iniciada!')
-        this.$route.replace('/ferramentas/comunidade/' + conversation._id)
+        this.$router.replace('/ferramentas/comunidade/' + conversation._id)
         this.$emit('change', conversation)
         this.form.message = null
       })

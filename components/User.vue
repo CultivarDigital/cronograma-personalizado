@@ -5,7 +5,7 @@
       v-if="profile && profile.picture"
       :size="size"
       :color="color"
-      @click="showPortal"
+      @click="userClicked"
     >
       <CachedImage
         avatar
@@ -17,7 +17,7 @@
         :thumb="thumb"
       />
     </v-avatar>
-    <v-avatar v-else :color="color" :size="size" @click="showPortal">
+    <v-avatar v-else :color="color" :size="size" @click="userClicked">
       <v-icon :color="iconColor" :size="size / 2" dark> mdi-account </v-icon>
     </v-avatar>
   </span>
@@ -77,8 +77,17 @@ export default {
     }
   },
   methods: {
-    showPortal() {
-      this.$store.dispatch('showPortal')
+    userClicked() {
+      if (
+        this.$auth.user &&
+        this.profile &&
+        this.profile._id &&
+        this.$auth.user.id !== this.profile._id
+      ) {
+        console.log(this.profile)
+      } else {
+        this.$store.dispatch('showPortal')
+      }
     },
   },
 }

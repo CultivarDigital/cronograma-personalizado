@@ -7,23 +7,39 @@
       ]"
       active="Conversa"
     />
-    <v-container v-if="conversation">
-      <h3 class="mb-3">{{ conversation.subject }}</h3>
-      <div v-if="conversation.tags">
-        <v-chip
-          v-for="tag in conversation.tags"
-          :key="tag"
-          class="mr-1"
-          small
-          color="primary"
-          >{{ tag }}</v-chip
-        >
-      </div>
+    <div v-if="conversation">
+      <v-list subheader dense>
+        <v-list-item>
+          <v-list-item-avatar>
+            <User :user="conversation.user" thumb size="40" />
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title class="text-wrap mb-3">
+              <h2>{{ conversation.subject }}</h2>
+            </v-list-item-title>
+            <p v-if="conversation.message" class="mb-3">
+              {{ conversation.message }}
+            </p>
+            <div v-if="conversation.tags">
+              <v-chip
+                v-for="tag in conversation.tags"
+                :key="tag"
+                class="mr-1"
+                small
+                color="primary"
+                :to="'/ferramentas/comunidade?tag=' + tag"
+                >{{ tag }}</v-chip
+              >
+            </div>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+
       <Comments
         :target="'conversation-' + conversation._id"
         :conversation="conversation._id"
       />
-    </v-container>
+    </div>
   </div>
 </template>
 <script>
