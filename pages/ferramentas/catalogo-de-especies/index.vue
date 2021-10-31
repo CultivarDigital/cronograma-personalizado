@@ -144,6 +144,7 @@ export default {
       this.page = 1
     },
     paginate() {
+      console.log('paginate load', this.page)
       this.page += 1
     },
   },

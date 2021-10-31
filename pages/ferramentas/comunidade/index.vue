@@ -7,14 +7,65 @@
         desta comunidade!"
     />
     <v-container class="text-center">
-      <v-icon color="primary" size="100" class="mb-3">mdi-forum</v-icon>
+      <v-icon color="primary" size="100" class="mb-3 darken-2"
+        >mdi-forum</v-icon
+      >
       <p>
         Compartilhe suas dúvidas, idéias, sugestões, sentimentos e faça parte
         desta comunidade!
       </p>
     </v-container>
     <ConversationForm @change="load" />
-    <v-subheader class="mt-3">Últimas conversas</v-subheader>
+    <v-container>
+      <v-form @submit.prevent="search">
+        <v-text-field
+          v-model="filters.search"
+          class="mt-6"
+          placeholder="Buscar"
+          prepend-inner-icon="mdi-magnify"
+          outlined
+          :hide-details="true"
+          dense
+          clearable
+          @input="search"
+        />
+        <div v-if="filters.tag || filters.specie || show_filters">
+          <v-select
+            v-model="filters.tag"
+            class="mt-6"
+            label="Palavras chave (#hashtags)"
+            outlined
+            :hide-details="true"
+            dense
+            :items="tags"
+            clearable
+            @input="filter"
+          />
+          <v-select
+            v-model="filters.specie"
+            class="mt-6"
+            label="Espécie relacionada"
+            outlined
+            :hide-details="true"
+            dense
+            :items="species"
+            item-text="name"
+            item-value="id"
+            clearable
+            @input="filter"
+          />
+        </div>
+        <div v-else class="pt-3 text-center">
+          <v-btn @click="show_filters = true">
+            <v-icon left>mdi-tune</v-icon>
+            Filtros
+          </v-btn>
+        </div>
+      </v-form>
+    </v-container>
+    <v-subheader v-if="!filters.search && filters.tag">
+      Últimas conversas
+    </v-subheader>
     <v-list v-if="conversations" subheader dense>
       <template v-for="(conversation, index) in conversations">
         <v-divider :key="index" />
@@ -37,7 +88,7 @@
                 v-for="tag in conversation.tags"
                 :key="tag"
                 class="mr-1"
-                x-small
+                small
                 color="primary"
                 >{{ tag }}</v-chip
               >
@@ -70,6 +121,17 @@
         </v-list-item>
       </template>
     </v-list>
+    <v-skeleton-loader
+      v-if="!paginationFinished && !filters.search"
+      v-intersect="{
+        handler: paginate,
+        options: {
+          threshold: [1.0],
+          rootMargin: '100px',
+        },
+      }"
+      type="list-item-avatar-two-line@3"
+    />
   </div>
 </template>
 <script>
@@ -82,24 +144,79 @@ export default {
   },
   data() {
     return {
-      conversations: null,
+      conversations: [],
+      tags: [],
+      show_filters: false,
+      paginationFinished: false,
+      loading: true,
+      filters: {
+        perPage: 6,
+        page: 1,
+        tag: this.$route.query.tag,
+        specie: this.$route.query.specie,
+        search: null,
+      },
     }
   },
+  computed: {
+    species() {
+      return this.$store.state.species
+    },
+  },
   created() {
+    this.loadTags()
     this.load()
   },
   methods: {
-    load() {
-      this.$axios.$get('/v1/conversations').then((conversations) => {
-        this.conversations = conversations
-      })
+    async loadTags() {
+      this.tags = await this.$axios.$get('/v1/conversations/tags')
+    },
+    search() {
+      if (this.filters.search && this.filters.search.length > 2) {
+        this.$axios
+          .$get('/v1/conversations/search', { params: this.filters })
+          .then((conversations) => {
+            this.conversations = conversations
+          })
+      } else if (!this.filters.search) {
+        this.load()
+      }
+    },
+    load(paginate = false) {
+      if (!paginate) {
+        this.filters.page = 1
+      }
+      this.loading = true
+      this.paginationFinished = false
+      this.$axios
+        .$get('/v1/conversations', { params: this.filters })
+        .then((conversations) => {
+          if (this.filters.page === 1) {
+            this.conversations = conversations
+          } else {
+            this.conversations = this.conversations.concat(conversations)
+            if (conversations.length < this.filters.perPage) {
+              this.paginationFinished = true
+            }
+          }
+          this.loading = false
+        })
     },
     remove(conversation) {
       this.$axios.$delete('/v1/conversations/' + conversation._id).then(() => {
         this.load()
         this.$emit('change', conversation)
       })
-      this.removeConversation = null
+    },
+    filter() {
+      this.filters.page = 1
+      this.load()
+    },
+    paginate() {
+      if (!this.filters.search && !this.loading) {
+        this.filters.page += 1
+        this.load(true)
+      }
     },
   },
 }
