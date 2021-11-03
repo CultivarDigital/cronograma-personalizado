@@ -3,7 +3,6 @@
     <v-card
       color="primary px-1 py-2 pb-3"
       dark
-      outlined
       :class="hightlight ? 'darken-1' : ''"
     >
       <p class="mb-0" :class="hightlight ? 'text-h6' : ''">

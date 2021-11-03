@@ -206,8 +206,6 @@ export default {
   },
   methods: {
     specieByName(name) {
-      console.log('name')
-      console.log(name)
       return this.species.find((specie) => {
         return specie.name.toLowerCase() === name.toLowerCase()
       })

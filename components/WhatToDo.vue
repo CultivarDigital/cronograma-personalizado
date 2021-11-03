@@ -1,6 +1,14 @@
 <template>
   <div>
-    <div class="d-flex align-center justify-center mb-6 pt-3">
+    <p v-if="season" class="text-center pt-2 mb-5">
+      <v-chip outlined :class="season.code">
+        <v-avatar left>
+          <img :src="require('~/assets/img/' + season.code + '.png')" raw />
+        </v-avatar>
+        <strong>{{ season.label }}</strong>
+      </v-chip>
+    </p>
+    <div class="d-flex align-center justify-center mb-2">
       <v-btn icon left color="primary" @click="changeDay(-1)">
         <v-icon>mdi-chevron-left</v-icon>
       </v-btn>
@@ -14,7 +22,7 @@
           <DayInfo :day="day" main hightlight />
         </v-col>
         <v-col cols="4">
-          <a @click="changeDay(-1)">
+          <a @click="changeDay(1)">
             <DayInfo :day="nextDay" />
           </a>
         </v-col>
@@ -25,11 +33,11 @@
     </div>
     <v-container v-if="moon">
       <div class="item item-body text-center">
-        <div class="img-wrapper mb-6">
-          <CachedImage
+        <div class="img-wrapper mb-4">
+          <img
             :src="require('~/assets/img/' + moon.info.image)"
             raw
-            style="max-width: 240px"
+            style="max-width: 200px"
           />
         </div>
         <!-- <p>
@@ -38,7 +46,7 @@
         <div>
           <div v-for="action in moon.info.good_to" :key="action.title">
             <div v-if="action.categories">
-              <p class="mb-6">
+              <p class="mb-5">
                 <strong>
                   <small>{{ action.title }}:</small>
                 </strong>
@@ -47,7 +55,7 @@
                   :key="category"
                   color="primary"
                   small
-                  class="mr-1 mb-1"
+                  class="mr-1 mb-1 darken-1"
                 >
                   {{ category }}
                 </v-chip>
@@ -97,12 +105,14 @@
 
 <script>
 import moon from '@/data/moon'
+import seasons from '@/data/seasons'
 const today = new Date()
 today.setDate(today.getDate())
 today.setHours(18, 0, 0)
 export default {
   data() {
     return {
+      seasons,
       day: today,
     }
   },
@@ -116,9 +126,24 @@ export default {
     moon() {
       return moon.getInfo(this.day)
     },
+    season() {
+      const seasonsLabels = {
+        spring: 'Primavera',
+        summer: 'Verão',
+        fall: 'Outono',
+        winter: 'Inverno',
+      }
+      const season = seasons.currentSeason(this.day, 'south')
+      return { code: season, label: seasonsLabels[season] }
+    },
     diff() {
       return Math.round(moon.diffDates(today, this.day))
     },
+  },
+  created() {
+    // setInterval(() => {
+    //   this.changeDay(1)
+    // }, 50)
   },
   methods: {
     changeDay(days) {

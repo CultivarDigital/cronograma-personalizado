@@ -1,7 +1,6 @@
 import https from 'https'
 
 export default function (cxt) {
-  console.log(cxt)
   cxt.$axios.defaults.httpsAgent = new https.Agent({
     rejectUnauthorized: false,
   })

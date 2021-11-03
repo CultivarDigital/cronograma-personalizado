@@ -82,13 +82,6 @@
       </div>
       <Offline v-else />
     </v-container>
-    <v-btn
-      v-if="$auth.user && $auth.user.email === 'diegomr86@gmail.com'"
-      block
-      @click="importShop"
-    >
-      Atalizar loja
-    </v-btn>
   </div>
 </template>
 <script>
