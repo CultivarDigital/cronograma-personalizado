@@ -50,31 +50,14 @@ export default {
       default: false,
     },
   },
-  data() {
-    return {
-      loadedUser: null,
-    }
-  },
   computed: {
     profile() {
       if (this.user) {
         return this.user
-      } else if (this.loadedUser) {
-        return this.loadedUser
       } else {
         return this.$auth.user
       }
     },
-  },
-  created() {
-    if (this.id) {
-      this.$firebase
-        .get('users', this.id)
-        .then((user) => {
-          this.loadedUser = user
-        })
-        .catch(this.$notifier.firebaseError)
-    }
   },
   methods: {
     userClicked() {
@@ -84,6 +67,7 @@ export default {
         this.profile._id &&
         this.$auth.user.id !== this.profile._id
       ) {
+        // eslint-disable-next-line no-console
         console.log(this.profile)
       } else {
         this.$store.dispatch('showPortal')

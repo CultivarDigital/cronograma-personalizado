@@ -7,8 +7,8 @@
       dark
     >
       <v-icon x-large class="mb-3">mdi-signal-off</v-icon>
-      <h3 class="mb-3">Ativar modo offline?</h3>
-      <p>Você pretende usar este aplicativo quando sem internet?</p>
+      <h3 class="mb-3">Salvar dados offline?</h3>
+      <p>Você pretende usar este aplicativo quando estiver sem internet?</p>
       <v-btn text @click="setOfflineMode(false)"> Agora não</v-btn>
       <v-btn color="tertiary" @click="setOfflineMode(true)">
         Sim, eu quero!

@@ -6,7 +6,7 @@
     />
     <v-container class="text-center mb-6 mt-2">
       <v-avatar size="100" color="primary" class="mb-8 mt-3"
-        ><v-icon color="white" size="50">mdi-rake</v-icon></v-avatar
+        ><v-icon color="white" size="50">mdi-tools</v-icon></v-avatar
       >
       <h3 class="mb-0">Ferramentas de cultivo</h3>
     </v-container>

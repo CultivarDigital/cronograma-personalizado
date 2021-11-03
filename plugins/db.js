@@ -16,21 +16,6 @@ import {
   reauthenticateWithCredential,
   EmailAuthProvider,
 } from 'firebase/auth'
-import {
-  enableIndexedDbPersistence,
-  getFirestore,
-  collection,
-  getDocs,
-  doc,
-  getDoc,
-  addDoc,
-  setDoc,
-  deleteDoc,
-  query,
-  where,
-  orderBy,
-  limit,
-} from 'firebase/firestore'
 
 export default ({ app, store }, inject) => {
   const firebaseConfig = {
@@ -47,8 +32,6 @@ export default ({ app, store }, inject) => {
   const firebase = initializeApp(firebaseConfig)
   getAnalytics(firebase)
 
-  const db = getFirestore()
-
   let firebaseAuth = null
 
   const auth = () => {
@@ -61,82 +44,6 @@ export default ({ app, store }, inject) => {
 
   const getUser = () => {
     return auth().currentUser
-  }
-
-  enableIndexedDbPersistence(db)
-
-  const prepare = (doc) => {
-    return {
-      id: doc.id,
-      ...doc.data(),
-    }
-  }
-
-  const runQuery = async (
-    collectionName,
-    queryConstraints,
-    queryOrder,
-    queryLimit
-  ) => {
-    const constraints = []
-
-    if (queryConstraints) {
-      queryConstraints.forEach((constraint) => {
-        constraints.push(where(...constraint))
-      })
-    }
-    if (queryOrder) constraints.push(orderBy(queryOrder))
-    if (queryLimit) constraints.push(limit(queryLimit))
-    const q = query(collection(db, collectionName), ...constraints)
-
-    const querySnapshot = await getDocs(query(q))
-    const items = querySnapshot.docs.map((doc) => prepare(doc))
-    return items
-  }
-
-  const getList = async (collectionName) => {
-    const itemsCol = collection(db, collectionName)
-    const itemsSnapshot = await getDocs(itemsCol)
-    const items = itemsSnapshot.docs.map((doc) => prepare(doc))
-    return items
-  }
-
-  const get = async (collectionName, docId) => {
-    const docRef = doc(db, collectionName, docId)
-    const docSnap = await getDoc(docRef)
-
-    if (docSnap.exists()) {
-      return prepare(docSnap)
-    } else {
-      return null
-    }
-  }
-
-  const add = async (collectionName, data) => {
-    const docRef = await addDoc(collection(db, collectionName), data)
-    return get(collectionName, docRef.id)
-  }
-
-  const addToSubcollection = async (
-    collectionName,
-    docId,
-    subcollectionName,
-    data
-  ) => {
-    const docRef = await addDoc(
-      collection(db, collectionName, docId, subcollectionName),
-      data
-    )
-    return get(collectionName, docRef.id)
-  }
-
-  const set = async (collectionName, docId, data) => {
-    await setDoc(doc(db, collectionName, docId), data)
-    return get(collectionName, docId)
-  }
-
-  const remove = (collectionName, docId) => {
-    return deleteDoc(doc(db, collectionName, docId))
   }
 
   const register = (email, password) => {
@@ -207,14 +114,6 @@ export default ({ app, store }, inject) => {
   }
 
   inject('firebase', {
-    db,
-    getList,
-    runQuery,
-    get,
-    add,
-    addToSubcollection,
-    set,
-    remove,
     register,
     login,
     loginWithGoogle,

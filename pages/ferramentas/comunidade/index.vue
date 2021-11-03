@@ -43,7 +43,7 @@
           />
           <v-select
             v-model="filters.specie"
-            class="mt-6"
+            class="mt-6 mb-3"
             label="Espécie relacionada"
             outlined
             :hide-details="true"
@@ -55,10 +55,10 @@
             @input="filter"
           />
         </div>
-        <div v-else class="pt-3 text-center">
-          <v-btn @click="show_filters = true">
+        <div v-else class="pt-6 pb-3 text-center">
+          <v-btn small @click="show_filters = true">
             <v-icon left>mdi-tune</v-icon>
-            Filtros
+            Mais filtros
           </v-btn>
         </div>
       </v-form>
@@ -82,12 +82,12 @@
             </v-list-item-title>
             <div
               v-if="conversation.tags && conversation.tags.length"
-              class="mb-2"
+              class="mb-1"
             >
               <v-chip
                 v-for="tag in conversation.tags"
                 :key="tag"
-                class="mr-1"
+                class="mr-1 mb-1"
                 small
                 color="primary"
                 >{{ tag }}</v-chip

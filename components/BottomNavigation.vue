@@ -13,7 +13,7 @@
       <v-icon>mdi-library</v-icon>
     </v-btn>
     <v-btn to="/ferramentas">
-      <v-icon>mdi-rake</v-icon>
+      <v-icon>mdi-tools</v-icon>
     </v-btn>
     <v-btn to="/">
       <v-icon dark>mdi-home-outline</v-icon>

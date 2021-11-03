@@ -93,8 +93,6 @@
 </template>
 <script>
 import TopNavigation from '@/components/TopNavigation.vue'
-import axios from 'axios'
-import cheerio from 'cheerio'
 export default {
   components: {
     TopNavigation,
@@ -131,46 +129,11 @@ export default {
     },
   },
   async created() {
-    await this.$firebase
-      .getList('products')
-      .then((species) => {
-        this.products = species
-      })
-      .catch(this.$notifier.firebaseError)
+    await this.$axios.$get('/v1/products').then((products) => {
+      this.products = products
+    })
   },
   methods: {
-    async importShop() {
-      const magazineURL = 'https://www.magazinevoce.com.br'
-      await this.clearShop()
-      const response = await axios.get(magazineURL + '/magazinecultivarbrasil/')
-      let $ = cheerio.load(response.data)
-      const categories = []
-      $('.swc-item a').each((i, e) => {
-        categories.push({ title: $(e).text(), link: $(e).attr('href') })
-      })
-      for (const category of categories) {
-        const resp = await axios.get(magazineURL + category.link)
-        $ = cheerio.load(resp.data)
-        $('.g-items .g-item').each((i, e) => {
-          const product = {}
-          product.category = category.title
-          product.title = $(e).find('.g-title').text().trim()
-          product.price = $(e).find('.g-price').text().trim()
-          product.price_complement = $(e).find('.g-installment').text().trim()
-          product.image = $(e).find('.g-img-wrapper img').data('original')
-          product.image_lazy = $(e).find('.g-img-wrapper img').attr('src')
-          product.link = magazineURL + $(e).find('.g-img-wrapper').attr('href')
-          this.$firebase.add('products', product)
-        })
-      }
-    },
-    async clearShop() {
-      this.products = null
-      const products = await this.$firebase.getList('products')
-      for (const product of products) {
-        await this.$firebase.remove('products', product.id)
-      }
-    },
     filter(category) {
       if (this.currentCategory === category) {
         this.currentCategory = null

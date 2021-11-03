@@ -1,11 +1,11 @@
 <template>
   <v-dialog v-model="dialog" fullscreen>
     <template #activator="{ on, attrs }">
-      <v-btn v-if="conversation" v-bind="attrs" v-on="on">
+      <v-btn v-if="conversation" v-bind="attrs" small v-on="on">
         <v-icon left dark>mdi-pencil</v-icon> Editar
       </v-btn>
       <div v-else class="text-center">
-        <v-btn dark v-bind="attrs" color="success" large v-on="on">
+        <v-btn dark v-bind="attrs" color="primary" large v-on="on">
           <v-icon left>mdi-chat-plus</v-icon> Comece uma conversa
         </v-btn>
         <v-btn

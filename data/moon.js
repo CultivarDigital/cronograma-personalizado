@@ -1,4 +1,6 @@
-const menu = {
+import lune from 'lune'
+
+const info = {
   nova: {
     title: 'Lua nova',
     description:
@@ -6,11 +8,11 @@ const menu = {
     next_moon: 'quarto crescente',
     image: 'home-lua-nova.png',
     good_to: [
+      { title: 'Colher', categories: ['Bulbosas', 'Raízes e Rizomas'] },
       {
         title: 'Podar',
         description: 'para limpeza e produção de matéria seca',
       },
-      { title: 'Colher', categories: ['Bulbosas', 'Raízes e Rizomas'] },
     ],
   },
   crescente: {
@@ -20,7 +22,6 @@ const menu = {
     next_moon: 'lua cheia',
     image: 'home-lua-crescente.png',
     good_to: [
-      { title: 'Podar', description: 'para brotação rápida' },
       {
         title: 'Plantar',
         categories: [
@@ -29,6 +30,7 @@ const menu = {
           'Árvores Frutíferas',
         ],
       },
+      { title: 'Podar', description: 'para brotação rápida' },
     ],
   },
   cheia: {
@@ -51,14 +53,65 @@ const menu = {
     next_moon: 'lua nova',
     image: 'home-lua-minguante.png',
     good_to: [
+      { title: 'Plantar', categories: ['Bulbosas', 'Raízes e Rizomas'] },
       {
         title: 'Colher',
         description:
           'bambus, madeiras para construção e cabos para ferramentas',
       },
-      { title: 'Plantar', categories: ['Bulbosas', 'Raízes e Rizomas'] },
     ],
   },
 }
 
-export default menu
+const diffDates = (date1, date2) => {
+  return (date2 - date1) / (1000 * 60 * 60 * 24)
+}
+
+const getInfo = (date) => {
+  const moon = {}
+  moon.calc = lune.phase(date)
+  const recentPhases = lune.phase_hunt(date)
+  const phase = moon.calc.phase * 100
+  if (phase < 25) {
+    moon.name = 'nova'
+    moon.next_moon = diffDates(date, new Date(recentPhases.q1_date))
+    if (phase < 12.5) {
+      moon.icon = 'mdi-moon-new'
+    } else {
+      moon.icon = 'mdi-moon-waning-crescent'
+    }
+  } else if (phase < 50) {
+    moon.name = 'crescente'
+    moon.next_moon = diffDates(date, new Date(recentPhases.full_date))
+    if (phase < 37.5) {
+      moon.icon = 'mdi-moon-last-quarter'
+    } else {
+      moon.icon = 'mdi-moon-waning-gibbous'
+    }
+  } else if (phase < 75) {
+    moon.name = 'cheia'
+    moon.next_moon = diffDates(date, new Date(recentPhases.q3_date))
+    if (phase < 62.5) {
+      moon.icon = 'mdi-moon-full'
+    } else {
+      moon.icon = 'mdi-moon-waxing-gibbous'
+    }
+  } else {
+    moon.name = 'minguante'
+    moon.next_moon = diffDates(date, new Date(recentPhases.nextnew_date))
+    if (phase < 82.5) {
+      moon.icon = 'mdi-moon-first-quarter'
+    } else {
+      moon.icon = 'mdi-moon-waxing-crescent'
+    }
+  }
+
+  moon.info = info[moon.name]
+  return moon
+}
+
+export default {
+  getInfo,
+  info,
+  diffDates,
+}

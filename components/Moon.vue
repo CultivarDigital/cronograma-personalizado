@@ -1,24 +1,57 @@
 <template>
   <div>
-    <v-container>
-      <div v-if="moon" class="item item-body text-center">
-        <h3>Hoje é dia de {{ moon.title }}</h3>
-        <p class="mb-3">
-          <small v-if="next_moon > 1">
-            <strong>{{ Math.ceil(next_moon) }} dias</strong> para
-            <strong>{{ moon.next_moon }}</strong>
-          </small>
-          <small v-else> Amanhã já entra o {{ moon.next_moon }}</small>
-        </p>
-        <div class="img-wrapper">
-          <CachedImage :src="require('~/assets/img/' + moon.image)" raw />
+    <div class="d-flex align-center justify-center mb-6 pt-3">
+      <v-btn icon left color="primary" @click="changeDay(-1)">
+        <v-icon>mdi-chevron-left</v-icon>
+      </v-btn>
+      <v-row class="text-center align-center">
+        <v-col cols="4">
+          <a @click="changeDay(-1)">
+            <DayInfo :day="previousDay" />
+          </a>
+        </v-col>
+        <v-col cols="4">
+          <DayInfo :day="day" main hightlight />
+        </v-col>
+        <v-col cols="4">
+          <a @click="changeDay(-1)">
+            <DayInfo :day="nextDay" />
+          </a>
+        </v-col>
+      </v-row>
+      <v-btn icon left color="primary" @click="changeDay(1)">
+        <v-icon>mdi-chevron-right</v-icon>
+      </v-btn>
+    </div>
+    <v-container v-if="moon">
+      <div class="item item-body text-center">
+        <div class="img-wrapper mb-6">
+          <CachedImage
+            :src="require('~/assets/img/' + moon.info.image)"
+            raw
+            style="max-width: 240px"
+          />
         </div>
-        <p>{{ moon.description }}. Esta fase é boa para:</p>
+        <!-- <p>
+          <small>{{ moon.info.description }}</small>
+        </p> -->
         <div>
-          <div v-for="action in moon.good_to" :key="action.title">
+          <div v-for="action in moon.info.good_to" :key="action.title">
             <div v-if="action.categories">
-              <strong>{{ action.title }}:</strong>
-              <p>{{ action.categories.join(', ') }}</p>
+              <p class="mb-6">
+                <strong>
+                  <small>{{ action.title }}:</small>
+                </strong>
+                <v-chip
+                  v-for="category in action.categories"
+                  :key="category"
+                  color="primary"
+                  small
+                  class="mr-1 mb-1"
+                >
+                  {{ category }}
+                </v-chip>
+              </p>
               <div class="mb-3">
                 <n-link
                   v-for="specie in getSpecies(action.categories)"
@@ -38,10 +71,14 @@
               </div>
             </div>
             <div v-else-if="action.description">
-              <p>
-                <strong>{{ action.title }}</strong>
-                {{ action.description }}
-              </p>
+              <div>
+                <p>
+                  <small>
+                    <strong> {{ action.title }}: </strong>
+                    {{ action.description }}
+                  </small>
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -59,29 +96,38 @@
 </template>
 
 <script>
-import lune from 'lune'
 import moon from '@/data/moon'
+const today = new Date()
+today.setDate(today.getDate())
+today.setHours(18, 0, 0)
 export default {
   data() {
     return {
-      moon_phase: null,
-      next_moon: null,
+      day: today,
     }
   },
   computed: {
+    nextDay() {
+      return this.sumDate(this.day, 1)
+    },
+    previousDay() {
+      return this.sumDate(this.day, -1)
+    },
     moon() {
-      if (moon && this.moon_phase) {
-        return moon[this.moon_phase]
-      }
-      return null
+      return moon.getInfo(this.day)
+    },
+    diff() {
+      return Math.round(moon.diffDates(today, this.day))
     },
   },
-  created() {
-    const today = new Date()
-    today.setDate(today.getDate())
-    this.calcMoonPhase(today)
-  },
   methods: {
+    changeDay(days) {
+      this.day = this.sumDate(this.day, days)
+    },
+    sumDate(date, days) {
+      const newDate = new Date(date)
+      return new Date(newDate.setDate(newDate.getDate() + days))
+    },
     getSpecies(categories) {
       return this.$store.state.species.filter((specie) => {
         if (specie.planting_time) {
@@ -91,32 +137,6 @@ export default {
         }
         return false
       })
-    },
-    calcMoonPhase(date) {
-      const currentPhase = lune.phase(date)
-      const recentPhases = lune.phase_hunt(date)
-      const phase = currentPhase.phase * 100
-      if (phase < 25) {
-        this.moon_phase = 'nova'
-        this.next_moon = this.diffDates(date, new Date(recentPhases.q1_date))
-      } else if (phase < 50) {
-        this.moon_phase = 'crescente'
-        this.next_moon = this.diffDates(date, new Date(recentPhases.full_date))
-      } else if (phase < 75) {
-        this.moon_phase = 'cheia'
-        this.next_moon = this.diffDates(date, new Date(recentPhases.q3_date))
-      } else {
-        this.moon_phase = 'minguante'
-        this.next_moon = this.diffDates(
-          date,
-          new Date(recentPhases.nextnew_date)
-        )
-      }
-
-      return currentPhase
-    },
-    diffDates(date1, date2) {
-      return (date2 - date1) / (1000 * 60 * 60 * 24)
     },
   },
 }

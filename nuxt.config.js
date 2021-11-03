@@ -95,7 +95,7 @@ export default {
     },
     meta: {
       ogHost: process.env.BASE_URL,
-      ogImage: '/cultivar-cover.png',
+      ogImage: '/cultivar-cover.jpeg',
     },
     workbox: {
       offlineStrategy: 'CacheFirst',
@@ -152,7 +152,7 @@ export default {
         },
         endpoints: {
           login: { url: '/v1/auth/firebase', method: 'post' },
-          logout: { url: '/v1/auth/logout', method: 'post' },
+          logout: false,
           user: { url: '/v1/users/profile', method: 'get' },
         },
       },
@@ -161,6 +161,7 @@ export default {
   },
   env: {
     BASE_URL: process.env.BASE_URL || 'http://localhost:3000',
+    UPLOADS_URL: process.env.UPLOADS_URL || 'http://localhost:5000/uploads',
     npm_package_description: process.env.npm_package_description || '',
     FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
     FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,

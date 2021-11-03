@@ -9,7 +9,7 @@
         'https://www.cultivarbrasil.com' +
         (specie.images && specie.images.length
           ? specie.images[0].url
-          : '/cultivar-cover.png')
+          : '/cultivar-cover.jpeg')
       "
     />
     <v-container fluid>
@@ -153,7 +153,12 @@
       <div v-if="specie.companion_species && specie.companion_species.length">
         <h4 class="mb-3 mt-3">Plantas companheiras:</h4>
         <p>
-          <span v-for="companion in specie.companion_species" :key="companion">
+          <SpecieChip
+            v-for="(companionSpecie, index) in specie.companion_species"
+            :key="index"
+            :value="companionSpecie"
+          />
+          <!-- <span v-for="companion in specie.companion_species" :key="companion">
             <v-btn
               v-if="specieByName(companion)"
               :to="parent.url + '/' + specieByName(companion).id"
@@ -166,7 +171,7 @@
             <v-btn v-else color="primary lighten-2 mb-1 mr-1" small>{{
               companion
             }}</v-btn>
-          </span>
+          </span> -->
         </p>
       </div>
     </v-container>
@@ -192,9 +197,17 @@ export default {
     species() {
       return this.$store.state.species
     },
+    companionSpecies() {
+      if (this.specie.companion_species) {
+        return this.specie.companion_species
+      }
+      return []
+    },
   },
   methods: {
     specieByName(name) {
+      console.log('name')
+      console.log(name)
       return this.species.find((specie) => {
         return specie.name.toLowerCase() === name.toLowerCase()
       })

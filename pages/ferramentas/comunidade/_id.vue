@@ -14,17 +14,15 @@
             <User :user="conversation.user" thumb size="40" />
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title class="text-wrap mb-3">
-              <h2>{{ conversation.subject }}</h2>
-            </v-list-item-title>
+            <h2 class="mb-3">{{ conversation.subject }}</h2>
             <p v-if="conversation.message" class="mb-3">
               {{ conversation.message }}
             </p>
-            <div v-if="conversation.tags" class="mb-3">
+            <div v-if="conversation.tags" class="mb-2">
               <v-chip
                 v-for="tag in conversation.tags"
                 :key="tag"
-                class="mr-1"
+                class="mr-1 mb-1"
                 small
                 color="primary"
                 :to="'/ferramentas/comunidade?tag=' + tag"
