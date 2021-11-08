@@ -98,7 +98,7 @@ export default {
       ogImage: '/cultivar-cover.jpeg',
     },
     workbox: {
-      offlineStrategy: 'CacheFirst',
+      offlineStrategy: 'StaleWhileRevalidate',
       offlineAnalytics: true,
       runtimeCaching: [
         { urlPattern: 'https://fonts.googleapis.com/.*' },
