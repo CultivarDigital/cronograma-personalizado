@@ -99,6 +99,7 @@
           Saiba mais
         </v-btn>
       </div>
+      <v-calendar-daily locale="pt-br"></v-calendar-daily>
     </v-container>
   </div>
 </template>
