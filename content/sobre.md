@@ -29,4 +29,7 @@ Todo o conteúdo desse projeto foi extraído de:
 
 A logo ([spiral](https://thenounproject.com/term/spiral/1247435/)) do projeto foi feita carinhosamente por [Gorreá](https://thenounproject.com/Lauchu) do [Noun Project](http://thenounproject.com/)
 
-[Apoie este projeto!](/colabore)
+
+[Política de privacidade](politica-de-privacidade)
+
+[Termos de uso](termos-de-uso)
