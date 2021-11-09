@@ -10,16 +10,17 @@
         >
           <CachedImage
             :src="image"
-            thumb
-            size="64"
+            :thumb="thumb"
+            size="42"
             css-class="rounded"
             :title="alt"
+            raw
           />
         </div>
       </div>
       <vue-easy-lightbox
         :visible="visible"
-        :imgs="images"
+        :imgs="images.map((img) => apiURL + img)"
         :index="index"
         @hide="handleHide"
       ></vue-easy-lightbox>
@@ -43,11 +44,16 @@ export default {
       type: String,
       default: null,
     },
+    thumb: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
       visible: false,
       index: 0,
+      apiURL: process.env.API_URL,
     }
   },
   methods: {

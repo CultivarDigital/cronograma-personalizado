@@ -1,8 +1,19 @@
 <template>
   <v-dialog v-model="dialog" fullscreen>
     <template #activator="{ on, attrs }">
-      <v-btn v-if="conversation" v-bind="attrs" small v-on="on">
-        <v-icon left dark>mdi-pencil</v-icon> Editar
+      <v-btn
+        v-if="conversation"
+        v-bind="attrs"
+        small
+        fab
+        bottom
+        right
+        fixed
+        dark
+        color="primary"
+        v-on="on"
+      >
+        <v-icon dark>mdi-pencil</v-icon>
       </v-btn>
       <div v-else class="text-center">
         <v-btn dark v-bind="attrs" color="primary" large v-on="on">

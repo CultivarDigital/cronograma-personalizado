@@ -41,7 +41,18 @@
                 outlined
                 label="Conte um pouco sobre você"
               />
-              <Save :invalid="invalid" :loading="loading" />
+              <p class="text-center">
+                <v-checkbox v-model="accept_terms">
+                  <template #label>
+                    <div><AcceptTerms /></div>
+                  </template>
+                </v-checkbox>
+              </p>
+              <Save v-if="accept_terms" :invalid="invalid" :loading="loading" />
+              <v-alert v-else type="error" class="d-flex justify-center">
+                Estar de acordo com os termos de uso e política de privacidade é
+                necessário para usar esta plataforma
+              </v-alert>
             </form>
           </ValidationObserver>
         </v-container>
@@ -126,6 +137,7 @@ export default {
       tab: 'profile',
       loading: false,
       change_password: false,
+      accept_terms: true,
       passwordForm: {
         current_password: null,
         password: null,

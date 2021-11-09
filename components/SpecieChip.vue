@@ -4,6 +4,7 @@
     v-if="specie"
     :to="to || link"
     class="mr-1 mb-1"
+    color="primary"
     @click="$emit('click', specie)"
   >
     <v-avatar v-if="specie && specie.images" class="accent white--text" left>

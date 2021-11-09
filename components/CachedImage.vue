@@ -105,7 +105,7 @@ export default {
     async cacheUrl(url) {
       let downloadURL = url
       if (!url.startsWith('http') && !url.startsWith('/_nuxt/')) {
-        downloadURL = process.env.UPLOADS_URL + url
+        downloadURL = process.env.API_URL + url
       }
       const fileToCache = await axios.get(downloadURL, {
         responseType: 'arraybuffer',

@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
-  <span>
+  <div class="d-inline-block">
     <v-avatar
       v-if="profile && profile.picture"
       :size="size"
@@ -20,7 +20,7 @@
     <v-avatar v-else :color="color" :size="size" @click="userClicked">
       <v-icon :color="iconColor" :size="size / 2" dark> mdi-account </v-icon>
     </v-avatar>
-  </span>
+  </div>
 </template>
 <script>
 export default {

@@ -29,6 +29,7 @@ export default {
     '~/plugins/db.js',
     '~/plugins/moment.js',
     '~/plugins/axios.js',
+    '~/plugins/linkify.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -161,7 +162,7 @@ export default {
   },
   env: {
     BASE_URL: process.env.BASE_URL || 'http://localhost:3000',
-    UPLOADS_URL: process.env.UPLOADS_URL || 'http://localhost:5000/uploads',
+    API_URL: process.env.API_URL || 'http://localhost:5000',
     npm_package_description: process.env.npm_package_description || '',
     FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
     FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,
