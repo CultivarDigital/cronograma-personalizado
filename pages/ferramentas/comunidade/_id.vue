@@ -18,7 +18,10 @@
             <p v-if="conversation.message" class="mb-3">
               {{ conversation.message }}
             </p>
-            <div v-if="conversation.tags" class="mb-2">
+            <div
+              v-if="conversation.tags && conversation.tags.length"
+              class="mb-2"
+            >
               <v-chip
                 v-for="tag in conversation.tags"
                 :key="tag"
@@ -29,7 +32,10 @@
                 >{{ tag }}</v-chip
               >
             </div>
-            <div v-if="conversation.species" class="mb-3">
+            <div
+              v-if="conversation.species && conversation.species.length"
+              class="mb-3"
+            >
               <SpecieChip
                 v-for="specie in conversation.species"
                 :key="specie"

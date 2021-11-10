@@ -27,27 +27,29 @@
         >
           {{ conversation ? 'Responder' : 'Deixe seu comentário' }}
         </v-btn>
-        <v-row v-if="$auth.user">
-          <v-col cols="12" md="6">
+        <div v-if="$auth.user" class="w-100">
+          <div>
+            <div v-if="form.embeds.length" class="pt-2">
+              <EmbedGallery :embeds="form.embeds" />
+            </div>
             <div v-if="form.images.length" class="pt-2">
               <Gallery :images="form.images" />
             </div>
-            <div
-              v-if="selectedMembers.length || selectedSpecies.length"
-              class="pa-2"
-            >
+            <div v-if="form.members.length" class="pt-2">
               <User
-                v-for="member in selectedMembers"
-                :key="member.id"
-                :user="member"
+                v-for="member in form.members"
+                :key="member"
+                :user="members.find((m) => m.id === member)"
                 thumb
-                size="30"
+                size="32"
                 class="mr-1 mb-1"
                 icon-color="white"
               />
+            </div>
+            <div v-if="form.species.length" class="pt-2">
               <SpecieChip
-                v-for="specie in selectedSpecies"
-                :key="specie.id"
+                v-for="specie in form.species"
+                :key="specie"
                 :value="specie"
               />
             </div>
@@ -61,11 +63,13 @@
             />
             <SelectSpecies v-model="form.species" :items="species" />
             <UploadImage prefix="comments" @input="addImage" />
-            <v-btn color="primary" icon>
+            <EmbedUrl icon="mdi-youtube" @input="addUrl" />
+            <EmbedUrl @input="addUrl" />
+            <!-- <v-btn color="primary" icon>
               <v-icon>mdi-poll</v-icon>
-            </v-btn>
-          </v-col>
-          <v-col cols="12" md="6" class="pt-0 pt-md-2">
+            </v-btn> -->
+          </div>
+          <div>
             <v-btn
               color="primary"
               block
@@ -76,8 +80,8 @@
             >
               {{ conversation ? 'Enviar resposta' : 'Enviar comentário' }}
             </v-btn>
-          </v-col>
-        </v-row>
+          </div>
+        </div>
       </v-list-item-content>
     </v-list-item>
   </div>
@@ -108,6 +112,7 @@ export default {
         members: [],
         species: [],
         images: [],
+        embeds: [],
       },
     }
   },
@@ -143,6 +148,11 @@ export default {
         this.form.images.push(image)
       }
     },
+    addUrl(embed) {
+      if (embed) {
+        this.form.embeds.push(embed)
+      }
+    },
     save() {
       if (this.form.message) {
         this.$axios.$post('/v1/comments', this.form).then((comment) => {
@@ -152,6 +162,7 @@ export default {
           this.form.members = []
           this.form.species = []
           this.form.images = []
+          this.form.embeds = []
         })
       }
     },

@@ -10,6 +10,9 @@
           <v-list-item-content>
             <v-list-item-title v-text="comment.user.name" />
             <div v-linkify class="body-2 pt-2">{{ comment.message }}</div>
+            <div v-if="comment.embeds.length" class="pt-2 w-100">
+              <EmbedGallery :embeds="comment.embeds" />
+            </div>
             <div v-if="comment.images.length" class="pt-2">
               <Gallery :images="comment.images" />
             </div>
