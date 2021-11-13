@@ -14,7 +14,7 @@
             <n-link to="/">
               <v-img
                 title="Cultivar Brasil"
-                :src="require('~/assets/img/cultivar-white.png')"
+                :src="require('~/assets/img/cultivar-logo-branca.png')"
                 class="ma-auto mb-3"
                 max-height="64px"
                 max-width="64px"
