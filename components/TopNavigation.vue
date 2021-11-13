@@ -73,7 +73,7 @@ export default {
       {
         hid: 'og:url',
         name: 'og:url',
-        content: 'https://www.cultivarbrasil.com' + this.$route.path,
+        content: 'https://cultivarbrasil.com' + this.$route.path,
       },
     ]
     if (this.img) {

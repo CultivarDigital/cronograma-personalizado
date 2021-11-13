@@ -55,8 +55,8 @@ export default {
       'nuxt-twa-module',
       {
         /* module options */
-        defaultUrl: 'https://www.cultivarbrasil.com',
-        hostName: 'www.cultivarbrasil.com',
+        defaultUrl: 'https://cultivarbrasil.com',
+        hostName: 'cultivarbrasil.com',
         applicationId: 'com.ionicframework.plantai563575',
         launcherName: 'Cultivar',
         versionCode: 6,

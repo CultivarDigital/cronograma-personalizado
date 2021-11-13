@@ -5,7 +5,7 @@
       active="Guia básico de cultivo"
       description="Aprenda a plantar, colher e cuidar da sua horta ou jardim com esse guia simples e prático"
       :img="
-        'https://www.cultivarbrasil.com' +
+        'https://cultivarbrasil.com' +
         require('~/assets/img/guia-de-cultivo/guia-de-cultivo.png')
       "
     />

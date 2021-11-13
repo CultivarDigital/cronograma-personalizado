@@ -201,7 +201,7 @@ export default {
   },
   computed: {
     currentUrl() {
-      return encodeURI('https://www.cultivarbrasil.com' + this.$route.path)
+      return encodeURI('https://cultivarbrasil.com' + this.$route.path)
     },
     currentDescription() {
       let description = process.env.npm_package_description
