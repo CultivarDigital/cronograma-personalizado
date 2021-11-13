@@ -17,5 +17,5 @@ module.exports = {
   plugins: ['prettier'],
   // add your custom rules here
   rules: {},
-  eslintIgnore: ["dist/"]
+  ignorePatterns: ["dist/"]
 }
