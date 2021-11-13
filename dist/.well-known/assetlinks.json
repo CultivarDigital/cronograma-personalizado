@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.ionicframework.plantai563575",
+    "sha256_cert_fingerprints":
+    ["28:A6:98:55:CF:65:6F:1D:52:AE:E2:81:1E:98:E6:9F:60:46:F5:43:D0:9A:FF:6A:6C:BA:75:D3:65:2D:14:0A"]
+  }
+}]
