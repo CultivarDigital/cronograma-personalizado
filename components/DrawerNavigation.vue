@@ -12,13 +12,11 @@
           />
           <div v-else>
             <n-link to="/">
-              <v-img
+              <img
                 title="Cultivar Brasil"
                 :src="require('~/assets/img/cultivar-logo-branca.png')"
                 class="ma-auto mb-3"
-                max-height="64px"
-                max-width="64px"
-                left
+                width="100px"
               />
             </n-link>
             <p class="text-white mb-1"><strong>Cultivar </strong> Brasil</p>
