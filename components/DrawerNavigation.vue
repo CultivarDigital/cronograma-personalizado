@@ -11,14 +11,14 @@
             icon-color="primary"
           />
           <div v-else>
-            <n-link to="/">
-              <img
-                title="Cultivar Brasil"
-                :src="require('~/assets/img/cultivar-logo-branca.png')"
-                class="ma-auto mb-3"
-                width="100px"
-              />
-            </n-link>
+            <img
+              title="Cultivar Brasil"
+              :src="
+                require('~/assets/img/cultivar-logo-verde-fundo-redondo-branco.png')
+              "
+              class="ma-auto mb-3"
+              width="100"
+            />
             <p class="text-white mb-1"><strong>Cultivar </strong> Brasil</p>
           </div>
         </v-list-item-content>
