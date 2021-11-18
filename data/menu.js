@@ -13,6 +13,14 @@ const menu = {
       to: '/ferramentas/catalogo-de-especies',
     },
     {
+      title: 'Blog',
+      description:
+        'Artigos que inspiram o bom cultivo em várias áreas de nossas vidas',
+      icon: 'mdi-post',
+      to: '/blog',
+      role: 'admin',
+    },
+    {
       title: 'Comunidade',
       description:
         'Espaço para tirar dúvidas, estabelecer conexões e trocar ideias sobre nosso dia a dia no cultivo',

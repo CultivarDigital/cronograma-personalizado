@@ -1,5 +1,25 @@
+# Cultivar 
 
-# Cultivar Brasil
+Como cultivar plantas em casa, criar e cuidar de hortas e jardins.
+
+O aplicativo oferece recursos que vão te apoiar nos cuidados com suas plantas e te acompanhar no dia-a-dia com sua horta ou jardim. Focado no território brasileiro, traz um guia de cultivo completo para você aprender como plantar e cuidar melhor das suas plantinhas. 
+
+Aqui você vai encontrar: 
+
+- Dicas do que fazer a cada dia;
+- Um belo catálogo com mais de 850 espécies cultivadas no Brasil;
+- Como planejar com facilidade sua horta e/ou jardim;
+- As melhores opções de plantio em cada época na sua região;
+- Uma comunidade com pessoas dispostas a ajudar e colaborar;
+- Quando, como e onde plantar cada espécie;
+- Dicas sobre como lidar com as  "pragas" e doenças na sua horta;
+-  Qual a melhor ação (ex: plantar,colher, podar) de acordo com as fases da lua;
+- Um guia de compostagem com dicas de  como reaproveitar os restos de alimentos e transformá-los em adubo;
+- Uma lojinha cheia de produtos, livros e equipamentos para você cuidar da sua horta ou jardim!
+
+O aplicativo é totalmente gratuito e está disponível pelo navegador e no Android.
+
+Não compre, Plante!
 
 Aplicativo brasileiro para **cultivo de Hortaliças**
 
@@ -21,20 +41,6 @@ O aplicativo é **gratuito** e já esta disponível para para web e mobile.
 Cultivar uma horta é o melhor que você pode fazer para sua **segurança alimentar**!
 
 **Cultive!**
-
-## DESCRIÇÕES TÉCNICAS:
-  - Project name: **cultivar**
-  - Programming language: **JavaScript**
-  - Package manager: **Yarn**
-  - UI framework: **Bootstrap Vue**
-  - Nuxt.js modules: **Axios - Promise based HTTP client, Progressive Web App (PWA), Content - Git-based headless CMS**
-  - Linting tools: **ESLint, Prettier, Lint staged files, StyleLint, Commitlint**
-  - Testing framework: **Jest**
-  - Rendering mode: **Single Page App**
-  - Deployment target: **Server (Node.js hosting)**
-  - Development tools: **jsconfig.json (Recommended for VS Code if you're not using typescript), Semantic Pull Requests, Dependabot (For auto-updating dependencies, GitHub only)**
-  - Continuous integration: **GitHub Actions**
-  - Version control system: **Git**
 
 ## Build Setup
 

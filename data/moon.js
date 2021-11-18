@@ -11,7 +11,7 @@ const info = {
       { title: 'Colher', categories: ['Bulbosas', 'Raízes e Rizomas'] },
       {
         title: 'Podar',
-        description: 'para limpeza e produção de matéria seca',
+        description: 'Limpeza, Produção de matéria seca',
       },
     ],
   },
@@ -30,7 +30,7 @@ const info = {
           'Árvores Frutíferas',
         ],
       },
-      { title: 'Podar', description: 'para brotação rápida' },
+      { title: 'Podar', description: 'Brotação rápida' },
     ],
   },
   cheia: {
@@ -56,8 +56,7 @@ const info = {
       { title: 'Plantar', categories: ['Bulbosas', 'Raízes e Rizomas'] },
       {
         title: 'Colher',
-        description:
-          'bambus, madeiras para construção e cabos para ferramentas',
+        description: 'Bambus, Madeiras para construção, Cabos para ferramentas',
       },
     ],
   },

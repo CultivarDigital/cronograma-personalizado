@@ -1,0 +1,26 @@
+[
+	{
+		"id": "alimentos",
+		"title": "Alimentos",
+		"description": "Informações mais conectadas ao app. Buscar parceiros que possam trazer dicas úteis de cultivo de alimentos.",
+		"color": "#EB5A46"
+	},
+	{
+		"id": "infancia",
+		"title": "Infância",
+		"description": "Estimular práticas que coloquem as crianças em contato com a natureza e reflitam sobre as necessidades específicas da infância.",
+		"color": "#C377E0"
+	},
+	{
+		"id": "boas-praticas",
+		"title": "Boas Práticas",
+		"description": "Dicas práticas de atitudes mais saudáveis que podem ser incluidas no dia-a-dia das pessoas.",
+		"color": "#FF9F1A"
+	},
+	{
+		"id": "parceiros",
+		"title": "Parceiros",
+		"description": "Posts criados para parceiros e apoiadores do Cultivar",
+		"color": "#0079BF"
+	}
+]

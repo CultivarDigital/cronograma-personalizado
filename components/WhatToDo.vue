@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p v-if="season" class="text-center pt-2 mb-5">
+    <p v-if="season" class="text-center pt-2 mb-3">
       <v-chip outlined :class="season.code">
         <v-avatar left>
           <img :src="require('~/assets/img/' + season.code + '.png')" raw />
@@ -8,48 +8,48 @@
         <strong>{{ season.label }}</strong>
       </v-chip>
     </p>
-    <div class="d-flex align-center justify-center mb-2">
-      <v-btn icon left color="primary" @click="changeDay(-1)">
-        <v-icon>mdi-chevron-left</v-icon>
-      </v-btn>
-      <v-row class="text-center align-center">
-        <v-col cols="4">
-          <a @click="changeDay(-1)">
-            <DayInfo :day="previousDay" />
-          </a>
-        </v-col>
-        <v-col cols="4">
-          <DayInfo :day="day" main hightlight />
-        </v-col>
-        <v-col cols="4">
-          <a @click="changeDay(1)">
-            <DayInfo :day="nextDay" />
-          </a>
-        </v-col>
-      </v-row>
-      <v-btn icon left color="primary" @click="changeDay(1)">
-        <v-icon>mdi-chevron-right</v-icon>
-      </v-btn>
-    </div>
+    <v-container>
+      <div class="d-flex align-center justify-center mb-2">
+        <v-btn icon left color="primary" @click="changeDay(-1)">
+          <v-icon>mdi-chevron-left</v-icon>
+        </v-btn>
+        <v-row class="text-center align-center">
+          <v-col cols="4">
+            <a @click="changeDay(-1)">
+              <DayInfo :day="previousDay" />
+            </a>
+          </v-col>
+          <v-col cols="4">
+            <DayInfo :day="day" main hightlight />
+          </v-col>
+          <v-col cols="4">
+            <a @click="changeDay(1)">
+              <DayInfo :day="nextDay" />
+            </a>
+          </v-col>
+        </v-row>
+        <v-btn icon left color="primary" @click="changeDay(1)">
+          <v-icon>mdi-chevron-right</v-icon>
+        </v-btn>
+      </div>
+    </v-container>
     <v-container v-if="moon">
-      <div class="item item-body text-center">
-        <div class="img-wrapper mb-4">
-          <img
-            :src="require('~/assets/img/' + moon.info.image)"
-            raw
-            style="max-width: 200px"
-          />
-        </div>
-        <!-- <p>
+      <div class="img-wrapper mb-4">
+        <img
+          :src="require('~/assets/img/' + moon.info.image)"
+          raw
+          style="max-width: 180px"
+        />
+      </div>
+      <!-- <p>
           <small>{{ moon.info.description }}</small>
         </p> -->
+      <div class="text-center">
         <div>
           <div v-for="action in moon.info.good_to" :key="action.title">
             <div v-if="action.categories">
-              <p class="mb-5">
-                <strong>
-                  <small>{{ action.title }}:</small>
-                </strong>
+              <div class="mb-3">
+                <span class="caption">{{ action.title }}: </span>
                 <v-chip
                   v-for="category in action.categories"
                   :key="category"
@@ -59,7 +59,7 @@
                 >
                   {{ category }}
                 </v-chip>
-              </p>
+              </div>
               <div class="mb-3">
                 <n-link
                   v-for="specie in getSpecies(action.categories)"
@@ -80,24 +80,20 @@
             </div>
             <div v-else-if="action.description">
               <div>
-                <p>
-                  <small>
-                    <strong> {{ action.title }}: </strong>
-                    {{ action.description }}
-                  </small>
-                </p>
+                <span class="caption">{{ action.title }}: </span>
+                <v-chip
+                  v-for="item in action.description.split(', ')"
+                  :key="item"
+                  color="primary"
+                  small
+                  class="mr-1 mb-1 darken-1"
+                >
+                  {{ item }}
+                </v-chip>
               </div>
             </div>
           </div>
         </div>
-        <v-btn
-          small
-          color="primary"
-          class="mb-3"
-          to="/guias/guia-de-cultivo/quando-plantar"
-        >
-          Saiba mais
-        </v-btn>
       </div>
       <!-- <v-calendar-daily locale="pt-br"></v-calendar-daily> -->
     </v-container>

@@ -30,11 +30,7 @@
             <v-icon v-if="category === currentCategory" right>mdi-close</v-icon>
           </v-btn>
         </div>
-        <v-row
-          v-if="products.length"
-          style="background-color: #009d6b"
-          class="pt-3"
-        >
+        <v-row v-if="products.length" class="primary pt-6">
           <v-col
             v-for="(product, index) in list"
             :key="index"

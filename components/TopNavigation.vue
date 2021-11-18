@@ -13,7 +13,7 @@
         v-if="$route.path === '/'"
         @click="$store.dispatch('showPortal')"
       >
-        <small><strong>Cultivar</strong> Brasil</small>
+        <small>Cultivar</small>
       </v-app-bar-title>
       <v-app-bar-title v-else>
         <small>{{ active }}</small>

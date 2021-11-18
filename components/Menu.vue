@@ -9,6 +9,7 @@
           v-if="
             item.title != 'Sobre' &&
             item.title != 'Colabore' &&
+            (!item.role || ($auth.user && $auth.user.role === item.role)) &&
             (!section || section === menuSection)
           "
           :key="item.title"
