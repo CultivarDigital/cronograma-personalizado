@@ -106,7 +106,6 @@
         <v-divider :key="index" />
       </template>
     </v-list>
-    {{ filters }}
     <v-skeleton-loader
       v-if="!paginationFinished && !filters.search"
       v-intersect="{
