@@ -1,6 +1,6 @@
 <template>
   <div class="mb-4">
-    <v-app-bar app color="primary" dark hide-on-scroll elevation="0">
+    <v-app-bar app color="primary" dark hide-on-scroll>
       <v-btn
         v-if="$route.path !== '/'"
         icon
@@ -9,14 +9,18 @@
         <v-icon> mdi-arrow-left </v-icon>
       </v-btn>
       <v-app-bar-nav-icon v-else @click="toggleDrawer" />
-      <v-app-bar-title
+
+      <v-spacer v-if="$route.path === '/'"></v-spacer>
+      <img
         v-if="$route.path === '/'"
-        @click="$store.dispatch('showPortal')"
-      >
-        <small>Cultivar</small>
-      </v-app-bar-title>
+        title="Cultivar Brasil"
+        :src="require('~/assets/img/cultivar-logo-branca.png')"
+        width="28"
+      />
       <v-app-bar-title v-else>
-        <small>{{ active }}</small>
+        <strong
+          ><small>{{ active }}</small></strong
+        >
       </v-app-bar-title>
       <v-spacer></v-spacer>
       <a @click="$store.dispatch('showPortal')">

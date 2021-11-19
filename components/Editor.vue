@@ -119,6 +119,7 @@
 <script>
 import { Editor, EditorContent } from '@tiptap/vue-2'
 import StarterKit from '@tiptap/starter-kit'
+import Placeholder from '@tiptap/extension-placeholder'
 
 export default {
   components: {
@@ -141,7 +142,21 @@ export default {
   mounted() {
     this.content = this.value
     this.editor = new Editor({
-      extensions: [StarterKit],
+      extensions: [
+        StarterKit,
+        Placeholder.configure({
+          // Use a placeholder:
+          placeholder: 'Conteúdo do post...',
+          // Use different placeholders depending on the node type:
+          // placeholder: ({ node }) => {
+          //   if (node.type.name === 'heading') {
+          //     return 'What’s the title?'
+          //   }
+
+          //   return 'Can you add some further context?'
+          // },
+        }),
+      ],
       content: this.content,
       onUpdate: () => {
         // HTML
@@ -170,7 +185,14 @@ export default {
       border: 1px solid rgba(0, 0, 0, 0.38)
       border-radius: 10px
       padding: 15px
+      min-height: 130px
       &.ProseMirror-focused
         outline: none
         border-color: #009d6b
+      p.is-editor-empty:first-child::before
+        content: attr(data-placeholder)
+        float: left
+        color: rgba(0, 0, 0, 0.38)
+        pointer-events: none
+        height: 0
 </style>

@@ -68,47 +68,30 @@
         </div>
       </v-form>
     </v-container> -->
-    <v-subheader v-if="!filters.search && filters.tag">
-      Últimas conversas
-    </v-subheader>
-    <v-list v-if="posts" subheader dense>
+    <v-list v-if="posts">
       <template v-for="(post, index) in posts">
-        <v-divider :key="index" />
-        <v-list-item :key="post._id" class="py-1" :to="'/blog/' + post._id">
+        <v-list-item :key="post._id" class="py-3" :to="'/blog/' + post._id">
           <v-list-item-content>
-            <v-list-item-title class="mb-2 text-wrap">
-              <h3>
-                {{ post.title }}
-              </h3>
-            </v-list-item-title>
-            <div v-if="post.description" class="mb-1">
+            <h3 class="font-font-weight-medium mb-2">
+              {{ post.title }}
+            </h3>
+            <div
+              v-if="post.description"
+              class="mb-2 grey--text text--darken-3 font-weight-light"
+            >
               {{ post.description }}
             </div>
-            <div v-if="post.tags && post.tags.length" class="mb-1">
-              <v-chip
-                v-for="tag in post.tags"
-                :key="tag"
-                class="mr-1 mb-1"
-                small
-                color="primary"
-                >{{ tag }}</v-chip
-              >
-            </div>
-            <div class="body-2">
-              <User
-                v-for="user in post.members"
-                :key="user._id"
-                :user="user"
-                thumb
-                size="22"
-                class="mr-1"
-              />
-
-              <small v-if="post.comments_counter"
-                >{{ post.comments_counter }} resposta{{
-                  post.comments_counter > 1 ? 's' : ''
-                }}</small
-              >
+            <div v-if="post.stats" class="caption grey--text text--darken-4">
+              <span>
+                {{ $moment(post.createdAt).format('DD/MM/YYYY') }}
+                -
+                <strong>
+                  {{ Math.ceil(post.stats.minutes) }} minuto{{
+                    Math.ceil(post.stats.minutes) > 1 ? 's' : ''
+                  }}
+                </strong>
+                de leitura
+              </span>
             </div>
           </v-list-item-content>
           <v-list-item-action>
@@ -120,8 +103,10 @@
             </v-btn>
           </v-list-item-action>
         </v-list-item>
+        <v-divider :key="index" />
       </template>
     </v-list>
+    {{ filters }}
     <v-skeleton-loader
       v-if="!paginationFinished && !filters.search"
       v-intersect="{
@@ -166,6 +151,7 @@ export default {
       return this.$store.state.species
     },
   },
+  watchQuery: ['category', 'tag'],
   created() {
     this.loadTags()
     this.load()
@@ -222,3 +208,7 @@ export default {
   },
 }
 </script>
+<style scoped lang="sass">
+.nuxt-link-exact-active
+  border-bottom: 2px solid
+</style>
