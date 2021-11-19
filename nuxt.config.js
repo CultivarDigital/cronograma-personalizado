@@ -1,7 +1,17 @@
+// import species from './data/species.json'
+// const dynamicRoutes = () => {
+//   return species.map((specie) => ({
+//     route: '/ferramentas/catalogo-de-especies/' + specie.id,
+//     payload: specie,
+//   }))
+// }
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
   target: 'static',
+  // generate: {
+  //   routes: dynamicRoutes,
+  // },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Cultivar',
@@ -12,6 +22,11 @@ export default {
         hid: 'description',
         name: 'description',
         content: process.env.npm_package_description,
+      },
+    ],
+    script: [
+      {
+        src: 'js/gh-pages-redirect.js',
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
