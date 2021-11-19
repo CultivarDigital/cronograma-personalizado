@@ -1,7 +1,9 @@
+<!-- eslint-disable import/no-named-as-default -->
 <template>
   <div class="tiptap-editor mb-6">
     <div v-if="editor" class="bar mb-3">
       <v-btn
+        color="primary"
         class="mr-1 mb-1 rounded"
         icon
         :class="{ 'is-active': editor.isActive('bold') }"
@@ -10,6 +12,7 @@
         <v-icon>mdi-format-bold</v-icon>
       </v-btn>
       <v-btn
+        color="primary"
         class="mr-1 mb-1 rounded"
         icon
         :class="{ 'is-active': editor.isActive('italic') }"
@@ -18,6 +21,7 @@
         <v-icon>mdi-format-italic</v-icon>
       </v-btn>
       <v-btn
+        color="primary"
         class="mr-1 mb-1 rounded"
         icon
         :class="{ 'is-active': editor.isActive('strike') }"
@@ -26,6 +30,7 @@
         <v-icon>mdi-format-strikethrough</v-icon>
       </v-btn>
       <v-btn
+        color="primary"
         class="mr-1 mb-1 rounded"
         icon
         @click="editor.chain().focus().unsetAllMarks().run()"
@@ -33,6 +38,7 @@
         <v-icon>mdi-format-clear</v-icon>
       </v-btn>
       <v-btn
+        color="primary"
         class="mr-1 mb-1 rounded"
         icon
         :class="{ 'is-active': editor.isActive('paragraph') }"
@@ -41,6 +47,7 @@
         <v-icon>mdi-format-paragraph</v-icon>
       </v-btn>
       <v-btn
+        color="primary"
         class="mr-1 mb-1 rounded"
         icon
         :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }"
@@ -49,6 +56,7 @@
         <v-icon>mdi-format-header-1</v-icon>
       </v-btn>
       <v-btn
+        color="primary"
         class="mr-1 mb-1 rounded"
         icon
         :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }"
@@ -57,6 +65,7 @@
         <v-icon>mdi-format-header-2</v-icon>
       </v-btn>
       <v-btn
+        color="primary"
         class="mr-1 mb-1 rounded"
         icon
         :class="{ 'is-active': editor.isActive('heading', { level: 3 }) }"
@@ -65,6 +74,7 @@
         <v-icon>mdi-format-header-3</v-icon>
       </v-btn>
       <v-btn
+        color="primary"
         class="mr-1 mb-1 rounded"
         icon
         :class="{ 'is-active': editor.isActive('heading', { level: 4 }) }"
@@ -73,6 +83,7 @@
         <v-icon>mdi-format-header-4</v-icon>
       </v-btn>
       <v-btn
+        color="primary"
         class="mr-1 mb-1 rounded"
         icon
         :class="{ 'is-active': editor.isActive('heading', { level: 5 }) }"
@@ -81,6 +92,7 @@
         <v-icon>mdi-format-header-5</v-icon>
       </v-btn>
       <v-btn
+        color="primary"
         class="mr-1 mb-1 rounded"
         icon
         :class="{ 'is-active': editor.isActive('heading', { level: 6 }) }"
@@ -89,6 +101,7 @@
         <v-icon>mdi-format-header-6</v-icon>
       </v-btn>
       <v-btn
+        color="primary"
         class="mr-1 mb-1 rounded"
         icon
         :class="{ 'is-active': editor.isActive('bulletList') }"
@@ -97,6 +110,7 @@
         <v-icon>mdi-format-list-bulleted</v-icon>
       </v-btn>
       <v-btn
+        color="primary"
         class="mr-1 mb-1 rounded"
         icon
         :class="{ 'is-active': editor.isActive('orderedList') }"
@@ -105,14 +119,52 @@
         <v-icon>mdi-format-list-numbered</v-icon>
       </v-btn>
       <v-btn
+        color="primary"
         class="mr-1 mb-1 rounded"
         icon
+        :class="{ 'is-active': editor.isActive({ textAlign: 'left' }) }"
+        @click="editor.chain().focus().setTextAlign('left').run()"
+      >
+        <v-icon>mdi-format-align-left</v-icon>
+      </v-btn>
+      <v-btn
+        color="primary"
+        class="mr-1 mb-1 rounded"
+        icon
+        :class="{ 'is-active': editor.isActive({ textAlign: 'center' }) }"
+        @click="editor.chain().focus().setTextAlign('center').run()"
+      >
+        <v-icon>mdi-format-align-center</v-icon>
+      </v-btn>
+      <v-btn
+        color="primary"
+        class="mr-1 mb-1 rounded"
+        icon
+        :class="{ 'is-active': editor.isActive({ textAlign: 'right' }) }"
+        @click="editor.chain().focus().setTextAlign('right').run()"
+      >
+        <v-icon>mdi-format-align-right</v-icon>
+      </v-btn>
+      <v-btn
+        color="primary"
+        class="mr-1 mb-1 rounded"
+        icon
+        :class="{ 'is-active': editor.isActive({ textAlign: 'justify' }) }"
+        @click="editor.chain().focus().setTextAlign('justify').run()"
+      >
+        <v-icon>mdi-format-align-justify</v-icon>
+      </v-btn>
+      <UploadImage prefix="comments" @input="addImage" />
+      <v-btn
+        color="primary"
+        class="mr-1 mb-1 rounded"
+        text
         @click="editor.chain().focus().setHorizontalRule().run()"
       >
         linha
       </v-btn>
     </div>
-    <editor-content :editor="editor" class="content" />
+    <editor-content :editor="editor" class="tiptap-content" />
   </div>
 </template>
 
@@ -120,41 +172,41 @@
 import { Editor, EditorContent } from '@tiptap/vue-2'
 import StarterKit from '@tiptap/starter-kit'
 import Placeholder from '@tiptap/extension-placeholder'
+import Image from '@tiptap/extension-image'
+import TextAlign from '@tiptap/extension-text-align'
 
 export default {
   components: {
     EditorContent,
   },
-
   props: {
     value: {
       type: String,
       default: '',
     },
   },
-
   data() {
     return {
       editor: null,
       content: null,
     }
   },
+  computed: {
+    apiURL() {
+      return process.env.API_URL
+    },
+  },
   mounted() {
     this.content = this.value
     this.editor = new Editor({
       extensions: [
         StarterKit,
+        Image,
         Placeholder.configure({
-          // Use a placeholder:
           placeholder: 'Conteúdo do post...',
-          // Use different placeholders depending on the node type:
-          // placeholder: ({ node }) => {
-          //   if (node.type.name === 'heading') {
-          //     return 'What’s the title?'
-          //   }
-
-          //   return 'Can you add some further context?'
-          // },
+        }),
+        TextAlign.configure({
+          types: ['heading', 'paragraph', 'image', 'img'],
         }),
       ],
       content: this.content,
@@ -171,6 +223,15 @@ export default {
   beforeUnmount() {
     this.editor.destroy()
   },
+  methods: {
+    addImage(url) {
+      this.editor
+        .chain()
+        .focus()
+        .setImage({ src: this.apiURL + url })
+        .run()
+    },
+  },
 }
 </script>
 
@@ -180,19 +241,18 @@ export default {
     margin-bottom: 10px
     .is-active
       border: 1px solid
-  .content
-    .ProseMirror
-      border: 1px solid rgba(0, 0, 0, 0.38)
-      border-radius: 10px
-      padding: 15px
-      min-height: 130px
-      &.ProseMirror-focused
-        outline: none
-        border-color: #009d6b
-      p.is-editor-empty:first-child::before
-        content: attr(data-placeholder)
-        float: left
-        color: rgba(0, 0, 0, 0.38)
-        pointer-events: none
-        height: 0
+  .ProseMirror
+    border: 1px solid rgba(0, 0, 0, 0.38)
+    border-radius: 10px
+    padding: 15px
+    min-height: 130px
+    &.ProseMirror-focused
+      outline: none
+      border-color: #009d6b
+    p.is-editor-empty:first-child::before
+      content: attr(data-placeholder)
+      float: left
+      color: rgba(0, 0, 0, 0.38)
+      pointer-events: none
+      height: 0
 </style>
