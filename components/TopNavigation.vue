@@ -77,7 +77,7 @@ export default {
       {
         hid: 'og:url',
         name: 'og:url',
-        content: 'https://cultivarbrasil.com' + this.$route.path,
+        content: this.apiURL + this.$route.path,
       },
     ]
     if (this.img) {
@@ -98,6 +98,9 @@ export default {
         return this.links[this.links.length - 1][1]
       }
       return '/'
+    },
+    apiURL() {
+      return process.env.API_URL
     },
   },
   created() {
