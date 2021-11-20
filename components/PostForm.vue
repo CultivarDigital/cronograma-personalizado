@@ -200,7 +200,7 @@ export default {
         this.$axios.$post('/v1/posts', form).then((post) => {
           this.$notifier.success('Conversa iniciada!')
           this.dialog = false
-          this.$router.replace('/blog/' + post._id)
+          this.$router.replace('/blog/' + post.slug)
           this.$emit('change', post)
         })
       }

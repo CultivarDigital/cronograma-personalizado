@@ -30,7 +30,9 @@ export default ({ app, store }, inject) => {
   // eslint-disable-next-line no-console
   console.log('INITIALIZE FIREBASE', firebaseConfig.authDomain)
   const firebase = initializeApp(firebaseConfig)
-  getAnalytics(firebase)
+  if (process.client) {
+    getAnalytics(firebase)
+  }
 
   let firebaseAuth = null
 

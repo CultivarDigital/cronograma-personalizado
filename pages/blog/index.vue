@@ -70,7 +70,7 @@
     </v-container> -->
     <v-list v-if="posts">
       <template v-for="(post, index) in posts">
-        <v-list-item :key="post._id" class="py-3" :to="'/blog/' + post._id">
+        <v-list-item :key="post._id" class="py-3" :to="'/blog/' + post.slug">
           <v-list-item-content>
             <h3 class="font-font-weight-medium mb-2">
               {{ post.title }}

@@ -18,12 +18,14 @@
           />
         </div>
       </div>
-      <vue-easy-lightbox
-        :visible="visible"
-        :imgs="images.map((img) => apiURL + img)"
-        :index="index"
-        @hide="handleHide"
-      ></vue-easy-lightbox>
+      <client-only>
+        <vue-easy-lightbox
+          :visible="visible"
+          :imgs="images.map((img) => apiURL + img)"
+          :index="index"
+          @hide="handleHide"
+        ></vue-easy-lightbox>
+      </client-only>
     </div>
   </div>
 </template>

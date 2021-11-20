@@ -104,7 +104,7 @@ export default {
       return 'primary'
     },
     load() {
-      this.$axios.$get('/v1/posts/' + this.$route.params.id).then((post) => {
+      this.$axios.$get('/v1/posts/' + this.$route.params.slug).then((post) => {
         this.post = post
       })
     },
