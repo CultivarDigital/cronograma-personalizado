@@ -15,7 +15,7 @@ const menu = {
     {
       title: 'Blog',
       description:
-        'Artigos que inspiram o bom cultivo em várias áreas de nossas vidas',
+        'Conteúdos que inspiram o bom cultivo em várias áreas de nossas vidas',
       icon: 'mdi-post',
       to: '/blog',
       role: 'admin',
@@ -48,7 +48,7 @@ const menu = {
     {
       title: 'Lojinha',
       description:
-        'Aqui você encontra tudo o que precisa para sua horta ou jardim e nos ajuda a melhorar ainda mais',
+        'Aqui você encontra tudo o que precisa para sua horta ou jardim',
       icon: 'mdi-cart',
       to: '/lojinha',
     },
