@@ -17,7 +17,9 @@
         >
           <div
             aria-hidden="true"
-            class="resp-sharing-button__icon resp-sharing-button__icon--solidcircle"
+            class="
+              resp-sharing-button__icon resp-sharing-button__icon--solidcircle
+            "
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path
@@ -45,7 +47,9 @@
         >
           <div
             aria-hidden="true"
-            class="resp-sharing-button__icon resp-sharing-button__icon--solidcircle"
+            class="
+              resp-sharing-button__icon resp-sharing-button__icon--solidcircle
+            "
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path
@@ -73,7 +77,9 @@
         >
           <div
             aria-hidden="true"
-            class="resp-sharing-button__icon resp-sharing-button__icon--solidcircle"
+            class="
+              resp-sharing-button__icon resp-sharing-button__icon--solidcircle
+            "
           >
             <svg
               version="1.1"
@@ -110,7 +116,9 @@
         >
           <div
             aria-hidden="true"
-            class="resp-sharing-button__icon resp-sharing-button__icon--solidcircle"
+            class="
+              resp-sharing-button__icon resp-sharing-button__icon--solidcircle
+            "
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -143,7 +151,9 @@
         >
           <div
             aria-hidden="true"
-            class="resp-sharing-button__icon resp-sharing-button__icon--solidcircle"
+            class="
+              resp-sharing-button__icon resp-sharing-button__icon--solidcircle
+            "
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path
@@ -172,7 +182,9 @@
         >
           <div
             aria-hidden="true"
-            class="resp-sharing-button__icon resp-sharing-button__icon--solidcircle"
+            class="
+              resp-sharing-button__icon resp-sharing-button__icon--solidcircle
+            "
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path

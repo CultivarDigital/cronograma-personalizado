@@ -33,10 +33,12 @@ export default {
             return false
           } else {
             const planting = specie.planting_time[this.currentRegion].split('-')
-            const planting1 = meses.find((mes) => mes.code === planting[0])
-              .number
-            const planting2 = meses.find((mes) => mes.code === planting[1])
-              .number
+            const planting1 = meses.find(
+              (mes) => mes.code === planting[0]
+            ).number
+            const planting2 = meses.find(
+              (mes) => mes.code === planting[1]
+            ).number
 
             if (planting1 <= planting2) {
               if (

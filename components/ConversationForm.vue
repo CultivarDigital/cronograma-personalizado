@@ -125,8 +125,8 @@
   </v-dialog>
 </template>
 <script>
-import categories from '@/data/conversation-categories.json'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import categories from '@/data/conversation-categories.json'
 export default {
   components: {
     ValidationObserver,

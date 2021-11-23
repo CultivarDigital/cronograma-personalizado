@@ -6,7 +6,7 @@
     "url": "https://cultivardigital.com.br"
   },
   "description": "Cultive plantas em casa, tenha mais saúde, economize e melhore sua renda com este App incrível!",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "private": true,
   "scripts": {
     "dev": "nuxt",

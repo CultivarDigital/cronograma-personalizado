@@ -6,7 +6,7 @@
       :active="specie.name"
       :description="specie.description"
       :img="
-        'https://cultivarbrasil.com' +
+        'https://app.cultivarbrasil.com' +
         (specie.images && specie.images.length
           ? specie.images[0].url
           : '/cultivar-cover.jpeg')
