@@ -15,7 +15,7 @@
             rows="1"
             auto-grow
             hide-details
-            :placeholder="conversation ? 'Responder' : 'Deixe seu comentário'"
+            :placeholder="conversation ? 'Responda' : 'Comente o que achou'"
           />
         </div>
         <v-btn
@@ -23,9 +23,10 @@
           block
           color="primary"
           large
+          class="darken-1"
           @click="$store.dispatch('showPortal')"
         >
-          {{ conversation ? 'Responder' : 'Deixe seu comentário' }}
+          {{ conversation ? 'Responda' : 'Comente o que achou' }}
         </v-btn>
         <div v-if="$auth.user" class="w-100">
           <div>

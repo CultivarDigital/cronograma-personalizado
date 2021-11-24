@@ -1,6 +1,11 @@
 <template>
   <div class="pt-3 mb-10">
-    <v-btn to="/colabore" color="primary" x-large>
+    <p>
+      <small>Gostou? <strong>Compartilhe quem você ama!</strong></small>
+    </p>
+    <share size="small"></share>
+    <br />
+    <v-btn to="/colabore" color="primary" class="darken-2" x-large>
       <v-icon left>mdi-hand-heart</v-icon> Apoie este projeto
     </v-btn>
     <br />
@@ -14,7 +19,7 @@
     </small>
     <br />
     <br />
-    <small>Compartilhe:</small>
-    <share size="small"></share>
+    <br />
+    <br />
   </div>
 </template>
