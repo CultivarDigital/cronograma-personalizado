@@ -9,14 +9,16 @@
         <v-container fluid>
           <ValidationObserver v-slot="{ validate, invalid }">
             <form @submit.prevent="validate().then(save)">
-              <Upload
-                v-model="form.picture"
-                type="images"
-                avatar
-                label="Sua foto"
-                prefix="profile"
-                :filename="$auth.user.uid"
-              />
+              <div class="text-center mb-6">
+                <v-avatar size="64" class="avatar-upload mb-3">
+                  <v-img v-if="picture" :src="picture" />
+                  <v-icon v-else dark color="primary" size="32"
+                    >mdi-account</v-icon
+                  >
+                </v-avatar>
+                <br />
+                <UploadImage prefix="profile" button @input="addImage" />
+              </div>
               <validation-provider
                 v-slot="{ errors }"
                 name="nome"
@@ -151,6 +153,18 @@ export default {
       },
     }
   },
+  computed: {
+    picture() {
+      if (this.form.picture) {
+        if (this.form.picture.startsWith('http')) {
+          return this.form.picture
+        } else {
+          return process.env.API_URL + this.form.picture
+        }
+      }
+      return null
+    },
+  },
   created() {
     Object.keys(this.form).forEach((key) => {
       if (this.$auth.user[key]) {
@@ -159,15 +173,21 @@ export default {
     })
   },
   methods: {
-    save() {
+    addImage(image) {
+      this.form.picture = image
+      this.save(false)
+    },
+    save(closeOnSave = true) {
       this.loading = true
       this.$axios
         .$patch('/v1/users/' + this.$auth.user.id, this.form)
         .then((user) => {
           this.$auth.setUser(user)
-          this.$notifier.success('Seu perfil foi atualizado!')
-          this.$store.dispatch('hidePortal')
           this.loading = false
+          if (closeOnSave) {
+            this.$notifier.success('Seu perfil foi atualizado!')
+            this.$store.dispatch('hidePortal')
+          }
         })
         .catch((error) => {
           this.$notifier.apiError(error)

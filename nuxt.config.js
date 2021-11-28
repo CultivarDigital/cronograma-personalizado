@@ -26,7 +26,7 @@ export default {
     ],
     script: [
       {
-        src: 'js/gh-pages-redirect.js',
+        src: '/js/gh-pages-redirect.js',
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],

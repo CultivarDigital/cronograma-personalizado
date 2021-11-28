@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
-  <div class="d-inline-block">
+  <div class="d-inline-block pointer">
     <v-avatar
       v-if="profile && profile.picture"
       :size="size"
@@ -20,6 +20,37 @@
     <v-avatar v-else :color="color" :size="size" @click="userClicked">
       <v-icon :color="iconColor" :size="size / 2" dark> mdi-account </v-icon>
     </v-avatar>
+    <v-dialog v-if="!sameUser" v-model="dialog" width="500">
+      <v-card>
+        <div class="text-center pt-6">
+          <v-avatar v-if="profile && profile.picture" size="64" class="mr-3">
+            <CachedImage
+              avatar
+              :title="profile.name"
+              :alt="profile.name"
+              :src="profile.picture"
+              size="64"
+              thumb
+            />
+          </v-avatar>
+          <v-avatar v-else color="primary" size="64">
+            <v-icon size="32" dark> mdi-account </v-icon>
+          </v-avatar>
+          <h5 class="text-h5">{{ profile.name }}</h5>
+          <p v-if="profile.region" class="text-subtitle">
+            <small>({{ profile.region }})</small>
+          </p>
+          <p v-if="profile.bio">{{ profile.bio }}</p>
+        </div>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" text @click="dialog = false"> Fechar </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 <script>
@@ -50,27 +81,46 @@ export default {
       default: false,
     },
   },
-  computed: {
-    profile() {
-      if (this.user) {
-        return this.user
-      } else {
-        return this.$auth.user
-      }
-    },
+  data() {
+    return {
+      dialog: false,
+      profile: null,
+    }
   },
-  methods: {
-    userClicked() {
-      if (
+  computed: {
+    sameUser() {
+      return (
         this.$auth.user &&
         this.profile &&
         this.profile._id &&
-        this.$auth.user.id !== this.profile._id
-      ) {
+        this.$auth.user.id === this.profile._id
+      )
+    },
+  },
+  watch: {
+    '$auth.user'() {
+      this.setProfile()
+    },
+  },
+  created() {
+    this.setProfile()
+  },
+  methods: {
+    setProfile() {
+      if (this.user) {
+        this.profile = this.user
+      } else {
+        this.profile = this.$auth.user
+      }
+      console.log('setProfile', this.profile)
+    },
+    userClicked() {
+      if (this.sameUser) {
+        this.$store.dispatch('showPortal')
+      } else {
         // eslint-disable-next-line no-console
         console.log(this.profile)
-      } else {
-        this.$store.dispatch('showPortal')
+        this.dialog = true
       }
     },
   },

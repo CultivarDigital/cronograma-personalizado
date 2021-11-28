@@ -1,6 +1,15 @@
 <template>
   <span class="mb-6">
-    <v-btn color="primary" icon @click="upload">
+    <v-btn v-if="button" color="primary" @click="upload">
+      <v-progress-circular
+        v-if="loading"
+        color="#fff"
+        indeterminate
+        size="20"
+      ></v-progress-circular>
+      <template v-else>Enviar foto</template>
+    </v-btn>
+    <v-btn v-else color="primary" icon @click="upload">
       <v-progress-circular
         v-if="loading"
         color="primary"
@@ -30,6 +39,10 @@ export default {
       type: String,
       default: () => null,
       required: true,
+    },
+    button: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
