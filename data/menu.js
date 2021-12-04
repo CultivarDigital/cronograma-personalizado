@@ -21,6 +21,13 @@ const menu = {
       role: 'admin',
     },
     {
+      title: 'Previsão do tempo',
+      description: 'Confira a previsão do tempo para sua região',
+      icon: 'mdi-weather-cloudy-clock',
+      to: '/previsao-do-tempo',
+      role: 'admin',
+    },
+    {
       title: 'Comunidade',
       description:
         'Espaço para tirar dúvidas, estabelecer conexões e trocar ideias sobre nosso dia a dia no cultivo',
