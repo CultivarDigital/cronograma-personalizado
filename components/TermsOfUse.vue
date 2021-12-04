@@ -266,7 +266,7 @@ export default {
       full_name: 'Cultivar Brasil',
       cnpj: '41.780.144/0001-95',
       last_update: '09/11/2021',
-      email: 'diegomr86@gmail.com',
+      email: 'atendimentocultivar@gmail.com',
       url: 'https://cultivarbrasil.com',
     }
   },
