@@ -8,9 +8,9 @@
     >
       <v-icon x-large class="mb-3">mdi-signal-off</v-icon>
       <h3 class="mb-3">Salvar dados offline?</h3>
-      <p>Você pretende usar este aplicativo quando estiver sem internet?</p>
+      <p>Você deseja usar o aplicativo quando estiver sem internet?</p>
       <v-btn text @click="setOfflineMode(false)"> Agora não</v-btn>
-      <v-btn color="tertiary" @click="setOfflineMode(true)">
+      <v-btn color="brown" class="darken-2" @click="setOfflineMode(true)">
         Sim, eu quero!
       </v-btn>
     </v-card>
