@@ -1,7 +1,7 @@
 <template>
   <div class="pt-3 mb-10">
     <p>
-      <small>Gostou? <strong>Compartilhe quem você ama!</strong></small>
+      <small>Gostou? <strong>Compartilhe com quem você ama!</strong></small>
     </p>
     <share size="small"></share>
     <br />
