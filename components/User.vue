@@ -20,9 +20,9 @@
     <v-avatar v-else :color="color" :size="size" @click="userClicked">
       <v-icon :color="iconColor" :size="size / 2" dark> mdi-account </v-icon>
     </v-avatar>
-    <v-dialog v-if="!sameUser" v-model="dialog" width="500">
+    <v-dialog v-model="dialog" width="500">
       <v-card>
-        <div class="text-center pt-6">
+        <div class="text-center pt-6 px-3">
           <v-avatar v-if="profile && profile.picture" size="64" class="mr-3">
             <CachedImage
               avatar
@@ -38,9 +38,20 @@
           </v-avatar>
           <h5 class="text-h5">{{ profile.name }}</h5>
           <p v-if="profile.region" class="text-subtitle">
-            <small>({{ profile.region }})</small>
+            <small v-if="profile.city && profile.uf">
+              ({{ [profile.city, profile.uf].join(' - ') }})
+            </small>
+            <small v-else-if="profile.region">({{ profile.region }})</small>
           </p>
           <p v-if="profile.bio">{{ profile.bio }}</p>
+          <p>
+            <v-btn v-if="sameUser" @click="$store.dispatch('showPortal')">
+              <v-icon left>mdi-account-edit</v-icon> Editar perfil
+            </v-btn>
+            <!-- <v-btn v-else :to="'/mensagens/' + profile._id">
+              <v-icon left>mdi-send</v-icon> Enviar mensagem
+            </v-btn> -->
+          </p>
         </div>
 
         <v-divider></v-divider>
@@ -112,16 +123,11 @@ export default {
       } else {
         this.profile = this.$auth.user
       }
-      console.log('setProfile', this.profile)
     },
     userClicked() {
-      if (this.sameUser) {
-        this.$store.dispatch('showPortal')
-      } else {
-        // eslint-disable-next-line no-console
-        console.log(this.profile)
-        this.dialog = true
-      }
+      // eslint-disable-next-line no-console
+      console.log(this.profile)
+      this.dialog = true
     },
   },
 }
