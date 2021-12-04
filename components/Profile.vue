@@ -31,11 +31,32 @@
                   :error-messages="errors"
                 />
               </validation-provider>
-              <v-select
+              <!-- <v-select
                 v-model="form.region"
                 outlined
                 label="Qual sua região?"
                 :items="['Centro-oeste', 'Nordeste', 'Norte', 'Sudeste', 'Sul']"
+                clearable
+              /> -->
+              <v-select
+                v-if="estados"
+                v-model="form.uf"
+                outlined
+                label="Qual seu estado?"
+                :items="estados"
+                item-text="uf"
+                item-value="uf"
+                clearable
+                @input="setRegion"
+              />
+              <v-select
+                v-if="municipios"
+                v-model="form.city"
+                outlined
+                label="Qual sua cidade?"
+                :items="municipios"
+                item-text="nome"
+                item-value="nome"
                 clearable
               />
               <v-textarea
@@ -128,6 +149,8 @@
 </template>
 <script>
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import municipios from '@/data/municipios.json'
+import estados from '@/data/estados.json'
 export default {
   components: {
     ValidationObserver,
@@ -135,6 +158,9 @@ export default {
   },
   data() {
     return {
+      estados: estados.sort((a, b) => {
+        return a.uf.localeCompare(b.uf)
+      }),
       user: null,
       tab: 'profile',
       loading: false,
@@ -150,10 +176,25 @@ export default {
         name: '',
         region: null,
         bio: '',
+        uf: null,
+        city: null,
       },
     }
   },
   computed: {
+    municipios() {
+      if (this.form.uf) {
+        const uf = estados.find((estado) => estado.uf === this.form.uf)
+        if (uf) {
+          return municipios
+            .filter((municipio) => municipio.codigo_uf === uf.codigo_uf)
+            .sort((a, b) => {
+              return a.nome.localeCompare(b.nome)
+            })
+        }
+      }
+      return null
+    },
     picture() {
       if (this.form.picture) {
         if (this.form.picture.startsWith('http')) {
@@ -176,6 +217,12 @@ export default {
     addImage(image) {
       this.form.picture = image
       this.save(false)
+    },
+    setRegion() {
+      if (this.form.uf) {
+        const uf = estados.find((estado) => estado.uf === this.form.uf)
+        this.form.region = uf.regiao
+      }
     },
     save(closeOnSave = true) {
       this.loading = true
