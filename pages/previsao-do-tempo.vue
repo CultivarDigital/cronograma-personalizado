@@ -4,9 +4,10 @@
     <div v-if="weather">
       <div class="text-center">
         <h3>Previsão do tempo</h3>
+        <p class="mb-0">
+          <small>{{ $moment(weather.date).format('DD/MM/YYYY') }}</small>
+        </p>
         <h4>
-          {{ $moment(weather.date).format('DD/MM/YYYY') }}
-          -
           {{ weather.data.location.name }} - {{ weather.data.location.region }}
         </h4>
         <p>
@@ -22,18 +23,11 @@
               weather.data.forecast.forecastday[0].day.daily_chance_of_rain > 0
             "
           >
-            <v-alert color="blue" dark>
-              Hoje tem
-              {{
-                weather.data.forecast.forecastday[0].day.daily_chance_of_rain
-              }}
-              % de chance de chover
-            </v-alert>
             <v-sparkline
               :smooth="16"
               label-size="4"
               fill
-              :gradient="['#f72047', '#ffd200', '#1feaea']"
+              :gradient="['#2196F3', '#1feaea']"
               :line-width="3"
               :labels="
                 weather.data.forecast.forecastday[0].hour.map(
@@ -48,8 +42,15 @@
               auto-draw
               stroke-linecap="round"
             ></v-sparkline>
+            <v-alert color="blue" dark>
+              Hoje tem
+              {{
+                weather.data.forecast.forecastday[0].day.daily_chance_of_rain
+              }}
+              % de chance de chover
+            </v-alert>
           </div>
-
+          <v-divider class="my-6"></v-divider>
           <div>
             <h5>Temperatura</h5>
             <p>
@@ -76,7 +77,8 @@
               stroke-linecap="round"
             ></v-sparkline>
           </div>
-          <div>
+          <v-divider class="my-6"></v-divider>
+          <div class="mb-6">
             <h5>Vento</h5>
             <p>
               Max:
