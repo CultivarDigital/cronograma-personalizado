@@ -10,6 +10,7 @@
             item.title != 'Sobre' &&
             item.title != 'Colabore' &&
             (!item.role || ($auth.user && $auth.user.role === item.role)) &&
+            (!item.required || ($auth.user && $auth.user[item.required])) &&
             (!section || section === menuSection)
           "
           :key="item.title"

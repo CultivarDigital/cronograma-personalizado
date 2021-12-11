@@ -7,9 +7,7 @@
         <p class="mb-0">
           <small>{{ $moment(weather.date).format('DD/MM/YYYY') }}</small>
         </p>
-        <h4>
-          {{ weather.data.location.name }} - {{ weather.data.location.region }}
-        </h4>
+        <h4>{{ $auth.user.city }} - {{ $auth.user.uf }}</h4>
         <p>
           <img :src="weather.data.forecast.forecastday[0].day.condition.icon" />
           <br />
@@ -25,13 +23,13 @@
           >
             <v-sparkline
               :smooth="16"
-              label-size="4"
+              label-size="5"
               fill
-              :gradient="['#2196F3', '#1feaea']"
+              :gradient="['blue', '#1feaea']"
               :line-width="3"
               :labels="
-                weather.data.forecast.forecastday[0].hour.map(
-                  (hour) => hour.time.split(' ')[1]
+                weather.data.forecast.forecastday[0].hour.map((hour) =>
+                  hour.time.split(' ')[1].replace(':00', 'h')
                 )
               "
               :value="
@@ -52,20 +50,29 @@
           </div>
           <v-divider class="my-6"></v-divider>
           <div>
-            <h5>Temperatura</h5>
+            <h4>Temperatura</h4>
             <p>
-              Min: {{ weather.data.forecast.forecastday[0].day.mintemp_c }} Max:
-              {{ weather.data.forecast.forecastday[0].day.maxtemp_c }}
+              <small>
+                Mínima:
+                <strong>
+                  {{ weather.data.forecast.forecastday[0].day.mintemp_c }}°
+                </strong>
+                - Máxima:
+                <strong>
+                  {{ weather.data.forecast.forecastday[0].day.maxtemp_c }}
+                </strong>
+                °
+              </small>
             </p>
             <v-sparkline
               :smooth="16"
-              label-size="4"
+              label-size="5"
               fill
               :gradient="['#f72047', '#ffd200', '#1feaea']"
               :line-width="3"
               :labels="
-                weather.data.forecast.forecastday[0].hour.map(
-                  (hour) => hour.time.split(' ')[1]
+                weather.data.forecast.forecastday[0].hour.map((hour) =>
+                  hour.time.split(' ')[1].replace(':00', 'h')
                 )
               "
               :value="
@@ -79,20 +86,25 @@
           </div>
           <v-divider class="my-6"></v-divider>
           <div class="mb-6">
-            <h5>Vento</h5>
+            <h4>Vento</h4>
             <p>
-              Max:
-              {{ weather.data.forecast.forecastday[0].day.maxwind_kph }} km/h
+              <small
+                >Velocidade máxima:
+                <strong>
+                  {{ weather.data.forecast.forecastday[0].day.maxwind_kph }}
+                  km/h
+                </strong></small
+              >
             </p>
             <v-sparkline
               :smooth="16"
-              label-size="4"
+              label-size="5"
               fill
-              :gradient="['#f72047', '#ffd200', '#1feaea']"
+              :gradient="['purple', '#1feaea']"
               :line-width="3"
               :labels="
-                weather.data.forecast.forecastday[0].hour.map(
-                  (hour) => hour.time.split(' ')[1]
+                weather.data.forecast.forecastday[0].hour.map((hour) =>
+                  hour.time.split(' ')[1].replace(':00', 'h')
                 )
               "
               :value="

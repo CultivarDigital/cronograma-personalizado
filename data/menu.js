@@ -25,7 +25,7 @@ const menu = {
       description: 'Confira a previsão do tempo para sua região',
       icon: 'mdi-weather-cloudy-clock',
       to: '/previsao-do-tempo',
-      role: 'admin',
+      required: 'city',
     },
     {
       title: 'Comunidade',
