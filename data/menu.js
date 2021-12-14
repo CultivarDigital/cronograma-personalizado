@@ -70,6 +70,20 @@ const menu = {
       icon: 'mdi-information',
       to: '/sobre',
     },
+    {
+      title: 'Membros',
+      description: 'Lista de membros da rede Cultivar',
+      icon: 'mdi-account-group-outline',
+      to: '/membros',
+      role: 'admin',
+    },
+    {
+      title: 'Comentários',
+      description: 'Lista de comentários dos membros',
+      icon: 'mdi-comment-search-outline',
+      to: '/comentarios',
+      role: 'admin',
+    },
   ],
 }
 
