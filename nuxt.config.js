@@ -14,7 +14,7 @@ export default {
   // },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Cultivar',
+    title: 'Cronograma Personalizado',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -70,13 +70,13 @@ export default {
       'nuxt-twa-module',
       {
         /* module options */
-        defaultUrl: 'https://app.cultivarbrasil.com',
-        hostName: 'app.cultivarbrasil.com',
+        defaultUrl: 'https://cronograma-personalizado.web.app',
+        hostName: 'cronograma-personalizado.web.app',
         applicationId: 'com.ionicframework.plantai563575',
-        launcherName: 'Cultivar',
+        launcherName: 'Cronograma Personalizado',
         versionCode: 10,
         versionName: process.env.npm_package_version,
-        statusBarColor: '#009d6b',
+        statusBarColor: '#EF7C8E',
         // The sha256Fingerprints by is an array with one SHA-256 key string.
         // But if you have multiple you can add them to the array. More information about the website asociation:
         // https://developer.android.com/training/app-links/verify-site-associations#web-assoc
@@ -106,12 +106,12 @@ export default {
   pwa: {
     manifest: {
       lang: 'pt-BR',
-      name: 'Cultivar Brasil',
-      short_name: 'Cultivar',
+      name: 'Cronograma Personalizado',
+      short_name: 'Cronograma Personalizado',
     },
     meta: {
       ogHost: process.env.BASE_URL,
-      ogImage: '/cultivar-cover.jpeg',
+      ogImage: '/cover.jpeg',
     },
     workbox: {
       offlineStrategy: 'StaleWhileRevalidate',
@@ -139,8 +139,8 @@ export default {
     theme: {
       themes: {
         light: {
-          primary: '#009d6b',
-          secondary: '#197abb',
+          primary: '#EF7C8E',
+          secondary: '#D8A7B1',
         },
       },
     },

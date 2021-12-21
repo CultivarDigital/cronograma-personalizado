@@ -249,7 +249,7 @@ export default {
     min-height: 130px
     &.ProseMirror-focused
       outline: none
-      border-color: #009d6b
+      border-color: #EF7C8E
     p.is-editor-empty:first-child::before
       content: attr(data-placeholder)
       float: left

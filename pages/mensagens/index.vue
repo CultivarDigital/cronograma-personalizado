@@ -72,7 +72,7 @@
         <v-list-item
           :key="conversation._id"
           class="py-1"
-          :to="'/ferramentas/comunidade/' + conversation._id"
+          :to="'/chat/' + conversation._id"
         >
           <v-list-item-content>
             <v-list-item-title class="mb-2 text-wrap">

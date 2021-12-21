@@ -6,10 +6,10 @@
       :active="specie.name"
       :description="specie.description"
       :img="
-        'https://app.cultivarbrasil.com' +
+        'https://cronograma-personalizado.web.app' +
         (specie.images && specie.images.length
           ? specie.images[0].url
-          : '/cultivar-cover.jpeg')
+          : '/cover.jpeg')
       "
     />
     <v-container fluid>

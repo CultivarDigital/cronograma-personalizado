@@ -72,7 +72,7 @@
     <p>
       É a partir do seu consentimento que tratamos os seus dados pessoais. O
       consentimento é a manifestação livre, informada e inequívoca pela qual
-      você autoriza a <em>Cultivar</em> a tratar seus dados.
+      você autoriza a <em>Cronograma Personalizado</em> a tratar seus dados.
     </p>
     <p>
       Assim, em consonância com a Lei Geral de Proteção de Dados, seus dados só
@@ -443,11 +443,11 @@
 export default {
   data() {
     return {
-      name: 'Aplicativo Cultivar',
-      full_name: 'Cultivar Brasil',
+      name: 'Cronograma Personalizado',
+      full_name: 'Cronograma Personalizado',
       cnpj: '41.780.144/0001-95',
       last_update: '09/11/2021',
-      email: 'atendimentocultivar@gmail.com',
+      email: 'prijorge@gmail.com',
     }
   },
 }

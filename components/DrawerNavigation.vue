@@ -1,15 +1,12 @@
 <template>
-  <v-navigation-drawer :value="showDrawer" app @input="toggleDrawer">
+  <v-navigation-drawer
+    :value="showDrawer"
+    app
+    width="280"
+    @input="toggleDrawer"
+  >
     <v-toolbar color="primary" dark>
-      <img
-        title="Cultivar"
-        :src="
-          require('~/assets/img/cultivar-logo-verde-fundo-redondo-branco.png')
-        "
-        class="mr-4"
-        width="32"
-      />
-      <strong>Cultivar </strong>
+      <strong>Cronograma Personalizado</strong>
     </v-toolbar>
     <SidebarMenu />
   </v-navigation-drawer>

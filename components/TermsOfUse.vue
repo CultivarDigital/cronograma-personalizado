@@ -262,12 +262,12 @@ export default {
   data() {
     return {
       dialog: false,
-      name: 'Aplicativo Cultivar',
-      full_name: 'Cultivar Brasil',
+      name: 'Cronograma Personalizado',
+      full_name: 'Cronograma Personalizado',
       cnpj: '41.780.144/0001-95',
       last_update: '09/11/2021',
-      email: 'atendimentocultivar@gmail.com',
-      url: 'https://cultivarbrasil.com',
+      email: 'prijorge@gmail.com',
+      url: 'https://prijorge.com',
     }
   },
 }

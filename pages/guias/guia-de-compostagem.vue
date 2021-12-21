@@ -5,7 +5,7 @@
       :links="[['Guias', '/guias']]"
       description="Aprenda a transformar o lixo orgânico da sua casa em adubo para suas plantinhas"
       :img="
-        'https://app.cultivarbrasil.com' +
+        'https://cronograma-personalizado.web.app' +
         require('~/assets/img/guia-de-compostagem/ciclo-texto.png')
       "
     />

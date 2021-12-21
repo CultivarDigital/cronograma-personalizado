@@ -19,7 +19,7 @@
                 class="mr-1 mb-1"
                 small
                 color="primary"
-                :to="'/ferramentas/comunidade?tag=' + tag"
+                :to="'/chat?tag=' + tag"
                 >{{ tag }}</v-chip
               >
             </div>
@@ -31,7 +31,7 @@
                 v-for="specie in messages.species"
                 :key="specie"
                 :value="specie"
-                :to="'/ferramentas/comunidade?specie=' + specie"
+                :to="'/chat?specie=' + specie"
               />
             </div>
           </v-list-item-content>

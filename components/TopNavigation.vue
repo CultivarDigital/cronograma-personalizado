@@ -13,8 +13,8 @@
       <v-spacer v-if="$route.path === '/'"></v-spacer>
       <img
         v-if="$route.path === '/'"
-        title="Cultivar Brasil"
-        :src="require('~/assets/img/cultivar-logo-branca.png')"
+        title="Cronograma Personalizado"
+        :src="require('~/assets/img/logo.png')"
         width="28"
       />
       <v-app-bar-title v-else>
@@ -115,7 +115,7 @@ export default {
     pageTitle() {
       const links = this.links || []
       const title = [
-        'Cultivar Brasil',
+        'Cronograma Personalizado',
         ...links.map((link) => link[0]),
         this.active,
       ]

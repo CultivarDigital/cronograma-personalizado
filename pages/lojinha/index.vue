@@ -8,8 +8,8 @@
       <div v-if="$nuxt.isOnline">
         <div class="text-center">
           <h3 class="mb-3">
-            <span style="color: #197abb">Magazine</span>
-            <span style="color: #009d6b">Cultivar</span>
+            <span style="color: #d8a7b1">Magazine</span>
+            <span style="color: #ef7c8e">Cultivar</span>
           </h3>
           <p class="text-center">
             Tudo o que você precisa para sua horta ou jardim
@@ -56,7 +56,7 @@
                 {{ product.title }}
               </v-card-title>
               <v-card-text>
-                <div style="color: #197abb; font-size: 20px">
+                <div style="color: #d8a7b1; font-size: 20px">
                   <strong>{{ product.price }}</strong>
                 </div>
                 <div>

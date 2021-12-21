@@ -48,9 +48,9 @@
             <v-btn v-if="sameUser" @click="$store.dispatch('showPortal')">
               <v-icon left>mdi-account-edit</v-icon> Editar perfil
             </v-btn>
-            <!-- <v-btn v-else :to="'/mensagens/' + profile._id">
+            <v-btn v-else :to="'/mensagens/' + profile._id">
               <v-icon left>mdi-send</v-icon> Enviar mensagem
-            </v-btn> -->
+            </v-btn>
           </p>
         </div>
 

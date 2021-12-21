@@ -1,11 +1,11 @@
 {
-  "name": "cultivar",
+  "name": "cronograma-personalizado",
   "author": {
     "name": "Cultivar Digital",
     "email": "atendimentocultivar@gmail.com",
     "url": "https://cultivardigital.com.br"
   },
-  "description": "Cultive plantas em casa, tenha mais saúde, economize e melhore sua renda com este App incrível!",
+  "description": "Sistema de gerenciamento de cronograma personalizado de personal hair stylist.",
   "version": "2.2.0",
   "private": true,
   "scripts": {

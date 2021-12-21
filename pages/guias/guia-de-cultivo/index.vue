@@ -5,7 +5,7 @@
       active="Guia básico de cultivo"
       description="Aprenda a plantar, colher e cuidar da sua horta ou jardim com esse guia simples e prático"
       :img="
-        'https://app.cultivarbrasil.com' +
+        'https://cronograma-personalizado.web.app' +
         require('~/assets/img/guia-de-cultivo/guia-de-cultivo.png')
       "
     />

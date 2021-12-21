@@ -57,7 +57,7 @@ export default {
   },
   computed: {
     currentUrl() {
-      return encodeURI('https://cultivarbrasil.com' + this.$route.fullPath)
+      return encodeURI(process.env.BASE_URL + this.$route.fullPath)
     },
     currentDescription() {
       let description = process.env.npm_package_description
@@ -68,7 +68,7 @@ export default {
       return encodeURI(description)
     },
     currentTitle() {
-      let title = 'Cultivar Brasil'
+      let title = 'Cronograma Personalizado'
       const page = this.$store.state.page
       if (page && page.title) {
         title = page.title.replace(' | ', ' - ')

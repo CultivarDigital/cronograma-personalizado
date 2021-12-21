@@ -77,7 +77,7 @@ export default ({ app, store }, inject) => {
         installApp: true,
         minimumVersion: '12',
       },
-      dynamicLinkDomain: 'cultivarbrasil.page.link',
+      dynamicLinkDomain: 'prijorge.page.link',
     }
 
     return sendSignInLinkToEmail(auth(), email, actionCodeSettings).then(() => {

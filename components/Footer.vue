@@ -1,21 +1,27 @@
 <template>
   <div class="pt-3 mb-10">
-    <p>
-      <small>Gostou? <strong>Compartilhe com quem você ama!</strong></small>
+    <!-- <p>
+      <small>Compartilhe</small>
     </p>
-    <share size="small"></share>
-    <br />
-    <v-btn to="/colabore" color="primary" class="darken-2" x-large>
-      <v-icon left>mdi-hand-heart</v-icon> Apoie este projeto
-    </v-btn>
-    <br />
-    <br />
+    <share size="small"></share> -->
     <small>
-      Feito com <v-icon color="primary">mdi-heart</v-icon> por
+      Desenvolvido por
       <br />
-      <a href="https://diegomr86.github.io" target="_blank" class="text-white"
-        ><strong>Diego M. Rodrigues</strong></a
+      <a
+        href="https://cultivardigital.com.br"
+        target="_blank"
+        class="text-decoration-none"
+        style="color: #202020"
       >
+        <img
+          title="Cultivar digital - Desenvolvimento"
+          :src="require('~/assets/img/cultivar-digital.png')"
+          width="60"
+          class="mb-n2"
+        />
+        <br />
+        <strong>Cultivar Digital</strong>
+      </a>
     </small>
     <br />
     <br />

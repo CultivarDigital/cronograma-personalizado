@@ -59,7 +59,7 @@
               :items="members"
               item-value="id"
               item-text="name"
-              title="Adicionar membros"
+              title="Adicionar clientes"
               @change="loadMembers()"
             />
             <SelectSpecies v-model="form.species" :items="species" />

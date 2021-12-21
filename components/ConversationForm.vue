@@ -192,7 +192,7 @@ export default {
       } else {
         this.$axios.$post('/v1/conversations', form).then((conversation) => {
           this.$notifier.success('Conversa iniciada!')
-          this.$router.replace('/ferramentas/comunidade/' + conversation._id)
+          this.$router.replace('/chat/' + conversation._id)
           this.$emit('change', conversation)
         })
       }
