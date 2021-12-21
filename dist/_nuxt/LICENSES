@@ -25,13 +25,6 @@
 
 
 /*!
- * reading-time
- * Copyright (c) Nicolas Gryman <ngryman@gmail.com>
- * MIT Licensed
- */
-
-
-/*!
 	    localForage -- Offline Storage, Improved
 	    Version 1.7.3
 	    https://localforage.github.io/localForage
@@ -167,6 +160,13 @@
 //! moment.js locale configuration
 
 //! version : 0.5.34
+
+
+/*!
+ * reading-time
+ * Copyright (c) Nicolas Gryman <ngryman@gmail.com>
+ * MIT Licensed
+ */
 
 
 /** @preserve
