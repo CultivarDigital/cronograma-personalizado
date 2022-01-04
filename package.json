@@ -47,7 +47,7 @@
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
     "firebase": "^9.1.0",
-    "linkifyjs": "^3.0.3",
+    "linkifyjs": "^3.0.5",
     "lune": "^0.4.0",
     "nuxt": "^2.14.12",
     "nuxt-twa-module": "git+https://github.com/CultivarDigital/nuxt-twa-module.git",
