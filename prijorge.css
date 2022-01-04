@@ -1,0 +1,4 @@
+/* Muda a cor da conversa nao lida */
+.sb-board>.sb-admin-list .sb-scroll-area li[data-conversation-status="2"] {
+  background-color: #a0a0a0 !important;
+}
