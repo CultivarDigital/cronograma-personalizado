@@ -4,7 +4,7 @@
       <small>Compartilhe</small>
     </p>
     <share size="small"></share> -->
-    <small>
+    <!-- <small>
       Desenvolvido por
       <br />
       <a
@@ -22,6 +22,6 @@
         <br />
         <strong>Cultivar Digital</strong>
       </a>
-    </small>
+    </small> -->
   </div>
 </template>

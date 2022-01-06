@@ -73,7 +73,7 @@ export default {
       }
     },
     async markAllAsRead() {
-      await this.$axios.$patch('/v1/messages/' + this.$route.params.id)
+      await this.$axios.$patch('/v1/messages/' + this.$auth.user.id)
       this.messages = await this.$axios.$get('/v1/messages')
     },
     remove(message) {

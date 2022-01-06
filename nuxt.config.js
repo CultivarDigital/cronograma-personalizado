@@ -79,7 +79,7 @@ export default {
         launcherName: 'Cronograma Personalizado',
         versionCode: 10,
         versionName: process.env.npm_package_version,
-        statusBarColor: '#EF7C8E',
+        statusBarColor: '#7BA3A2',
         // The sha256Fingerprints by is an array with one SHA-256 key string.
         // But if you have multiple you can add them to the array. More information about the website asociation:
         // https://developer.android.com/training/app-links/verify-site-associations#web-assoc
@@ -142,8 +142,8 @@ export default {
     theme: {
       themes: {
         light: {
-          primary: '#EF7C8E',
-          secondary: '#D8A7B1',
+          primary: '#7BA3A2',
+          secondary: '#EE605E',
         },
       },
     },

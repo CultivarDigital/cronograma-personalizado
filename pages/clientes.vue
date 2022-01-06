@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TopNavigation active="Clientes da rede" />
+    <TopNavigation active="Clientes" />
     <div v-if="members">
       <v-container class="text-center">
         <strong>{{ members.length }}</strong> clientes encontrados

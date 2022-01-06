@@ -36,7 +36,15 @@
         <v-divider :key="'divider-' + item.latest._id" />
       </template>
     </v-list>
-    <pre>{{ summary }}</pre>
+    <div v-if="summary && summary.length === 0" class="text-center">
+      <p>Nenhuma conversa encontrada!</p>
+    </div>
+    <div class="text-center mb-6">
+      <v-btn to="/clientes" large color="secondary">
+        <v-icon left>mdi-account-multiple</v-icon>
+        Ver lista de clientes
+      </v-btn>
+    </div>
   </div>
 </template>
 <script>
