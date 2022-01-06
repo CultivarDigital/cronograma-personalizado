@@ -1,13 +1,20 @@
 <template>
-  <span class="mb-6">
-    <v-btn v-if="button" color="primary" @click="upload">
+  <span class="mb-6 text-right">
+    <v-btn
+      v-if="button"
+      small
+      color="primary"
+      class="mb-1"
+      outlined
+      @click="upload"
+    >
       <v-progress-circular
         v-if="loading"
         color="#fff"
         indeterminate
         size="20"
       ></v-progress-circular>
-      <template v-else>Enviar foto</template>
+      <template v-else><v-icon left>mdi-image</v-icon> Anexar foto</template>
     </v-btn>
     <v-btn v-else color="primary" icon @click="upload">
       <v-progress-circular

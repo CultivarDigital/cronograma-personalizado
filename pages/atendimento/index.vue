@@ -1,15 +1,12 @@
 <template>
   <div>
-    <TopNavigation
-      :active="'Atendimento' + (user ? ' - ' + user.name : '')"
-      :links="[['Chat', '/chat']]"
-    />
+    <TopNavigation active="Atendimento" />
     <v-list v-if="messages" subheader dense>
       <template v-for="message in messages">
         <v-list-item
           :key="message._id"
           class="py-2"
-          :class="!message.admin & !message.read ? 'grey lighten-3' : ''"
+          :class="message.admin && !message.read ? 'grey lighten-3' : ''"
         >
           <v-list-item-avatar>
             <User
@@ -36,7 +33,7 @@
                 {{ $moment(message.createdAt).fromNow(true) }}
               </small>
             </v-list-item-action-text>
-            <div v-if="message.admin">
+            <div v-if="!message.admin">
               <Remove @confirm="remove(message)" />
             </div>
           </v-list-item-action>
@@ -44,61 +41,44 @@
         <v-divider :key="'divider-' + message._id" />
       </template>
     </v-list>
-    <v-container>
-      <v-alert
-        v-if="messages && messages.length === 0"
-        class="text-center"
-        color="grey"
-        dark
-      >
-        Nenhuma mensagem encontrada
-      </v-alert>
-      <div class="text-right">
-        <v-btn v-if="hasUnread" large @click="markAllAsRead">
-          <v-icon left>mdi-check-all</v-icon>
-          Marcar como lidas
-        </v-btn>
-      </div>
-    </v-container>
-    <MessageForm @change="loadMessages" />
+    <div>
+      <MessageForm id="message-form" @change="load" />
+    </div>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      user: null,
       messages: null,
     }
   },
-  computed: {
-    hasUnread() {
-      if (this.messages) {
-        return this.messages.find((message) => !message.admin && !message.read)
-      }
-      return false
-    },
-  },
   created() {
-    this.loadUser()
-    this.loadMessages()
+    this.load()
+    setTimeout(() => {
+      this.$vuetify.goTo('#message-form', {})
+    }, 300)
   },
   methods: {
-    async loadMessages() {
-      this.messages = await this.$axios.$get(
-        '/v1/messages/' + this.$route.params.id
-      )
-    },
-    async loadUser() {
-      this.user = await this.$axios.$get('/v1/users/' + this.$route.params.id)
+    async load() {
+      this.messages = await this.$axios.$get('/v1/messages')
+
+      if (
+        this.messages &&
+        this.messages.find((message) => message.admin && !message.read)
+      ) {
+        setTimeout(() => {
+          this.markAllAsRead()
+        }, 3000)
+      }
     },
     async markAllAsRead() {
       await this.$axios.$patch('/v1/messages/' + this.$route.params.id)
-      this.loadMessages()
+      this.messages = await this.$axios.$get('/v1/messages')
     },
     remove(message) {
       this.$axios.$delete('/v1/messages/' + message._id).then(() => {
-        this.loadMessages()
+        this.load()
       })
     },
   },

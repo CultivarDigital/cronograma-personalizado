@@ -4,7 +4,6 @@
       <BottomNavigation />
       <DrawerNavigation />
       <v-main>
-        <OfflineMode />
         <Nuxt />
         <div class="text-center">
           <v-divider />
@@ -19,7 +18,6 @@
 </template>
 
 <script>
-import specieList from '@/data/species.json'
 export default {
   computed: {
     baseURL() {
@@ -31,22 +29,16 @@ export default {
   },
   created() {
     this.$firebase.getUser()
-    this.loadSpecies()
     this.checkEmailLogin()
   },
   methods: {
-    loadSpecies() {
-      if (!this.species || !this.species.length) {
-        this.$store.dispatch('setSpecies', specieList)
-      }
-    },
     checkEmailLogin() {
       if (this.$route.query.email_login) {
         const href = this.baseURL + this.$route.fullPath
         this.$firebase
           .validateLoginWithEmail(href)
           .then(() => {
-            this.$notifier.success('Seja bem vindo')
+            this.$notifier.success('Olá!')
           })
           .catch(this.$notifier.firebaseError)
       }

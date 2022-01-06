@@ -16,16 +16,12 @@
         <img
           title="Cultivar digital - Desenvolvimento"
           :src="require('~/assets/img/cultivar-digital.png')"
-          width="60"
+          width="30"
           class="mb-n2"
         />
         <br />
         <strong>Cultivar Digital</strong>
       </a>
     </small>
-    <br />
-    <br />
-    <br />
-    <br />
   </div>
 </template>

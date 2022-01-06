@@ -1,22 +1,27 @@
 <template>
   <div>
-    <TopNavigation
-      :links="[['Ferramentas', '/ferramentas']]"
-      active="Comunidade"
-      description="Compartilhe suas dúvidas, idéias, sugestões, sentimentos e faça parte
-        desta comunidade!"
-    />
-    <v-container class="text-center">
-      <v-icon color="primary" size="100" class="mb-3 darken-2"
-        >mdi-forum</v-icon
+    <TopNavigation active="Blog" description="Conteúdos que inspiram" />
+    <div class="d-flex justify-space-around mb-4">
+      <div
+        v-for="category in categories"
+        :key="category.title"
+        class="text-center"
       >
-      <p>
-        Compartilhe suas dúvidas, idéias, sugestões, sentimentos e faça parte
-        desta comunidade!
-      </p>
-    </v-container>
-    <ConversationForm @change="load" />
-    <v-container>
+        <n-link
+          class="text-body-2 text-sm-body-1 text-decoration-none"
+          rounded
+          :style="'color: ' + category.color"
+          dark
+          :to="'/blog?category=' + category.title"
+        >
+          <strong>{{ category.title }}</strong>
+        </n-link>
+        <v-spacer></v-spacer>
+      </div>
+    </div>
+    <v-divider></v-divider>
+    <PostForm v-if="$auth.user && $auth.user.role === 'admin'" @change="load" />
+    <!-- <v-container>
       <v-form @submit.prevent="search">
         <v-text-field
           v-model="filters.search"
@@ -62,63 +67,43 @@
           </v-btn>
         </div>
       </v-form>
-    </v-container>
-    <v-subheader v-if="!filters.search && filters.tag">
-      Últimas conversas
-    </v-subheader>
-    <v-list v-if="conversations" subheader dense>
-      <template v-for="(conversation, index) in conversations">
-        <v-divider :key="index" />
-        <v-list-item
-          :key="conversation._id"
-          class="py-1"
-          :to="'/chat/' + conversation._id"
-        >
+    </v-container> -->
+    <v-list v-if="posts">
+      <template v-for="(post, index) in posts">
+        <v-list-item :key="post._id" class="py-3" :to="'/blog/' + post.slug">
           <v-list-item-content>
-            <v-list-item-title class="mb-2 text-wrap">
-              <h3>
-                {{ conversation.subject }}
-              </h3>
-            </v-list-item-title>
+            <h3 class="font-font-weight-medium mb-2">
+              {{ post.title }}
+            </h3>
             <div
-              v-if="conversation.tags && conversation.tags.length"
-              class="mb-1"
+              v-if="post.description"
+              class="mb-2 grey--text text--darken-3 font-weight-light"
             >
-              <v-chip
-                v-for="tag in conversation.tags"
-                :key="tag"
-                class="mr-1 mb-1"
-                small
-                color="primary"
-                >{{ tag }}</v-chip
-              >
+              {{ post.description }}
             </div>
-            <div class="body-2">
-              <User
-                v-for="user in conversation.members"
-                :key="user._id"
-                :user="user"
-                thumb
-                size="22"
-                class="mr-1"
-              />
-
-              <small v-if="conversation.comments_counter"
-                >{{ conversation.comments_counter }} resposta{{
-                  conversation.comments_counter > 1 ? 's' : ''
-                }}</small
-              >
+            <div v-if="post.stats" class="caption grey--text text--darken-4">
+              <span>
+                {{ $moment(post.createdAt).format('DD/MM/YYYY') }}
+                -
+                <strong>
+                  {{ Math.ceil(post.stats.minutes) }} minuto{{
+                    Math.ceil(post.stats.minutes) > 1 ? 's' : ''
+                  }}
+                </strong>
+                de leitura
+              </span>
             </div>
           </v-list-item-content>
           <v-list-item-action>
             <v-list-item-action-text>
-              <TimeAgo :date="conversation.createdAt" />
+              <TimeAgo :date="post.createdAt" />
             </v-list-item-action-text>
             <v-btn icon small>
               <v-icon color="grey lighten-1">mdi-chevron-right</v-icon>
             </v-btn>
           </v-list-item-action>
         </v-list-item>
+        <v-divider :key="index" />
       </template>
     </v-list>
     <v-skeleton-loader
@@ -135,6 +120,7 @@
   </div>
 </template>
 <script>
+import categories from '@/data/post-categories.json'
 export default {
   props: {
     target: {
@@ -144,7 +130,8 @@ export default {
   },
   data() {
     return {
-      conversations: [],
+      categories,
+      posts: [],
       tags: [],
       show_filters: false,
       paginationFinished: false,
@@ -163,20 +150,21 @@ export default {
       return this.$store.state.species
     },
   },
+  watchQuery: ['category', 'tag'],
   created() {
     this.loadTags()
     this.load()
   },
   methods: {
     async loadTags() {
-      this.tags = await this.$axios.$get('/v1/conversations/tags')
+      this.tags = await this.$axios.$get('/v1/posts/tags')
     },
     search() {
       if (this.filters.search && this.filters.search.length > 2) {
         this.$axios
-          .$get('/v1/conversations/search', { params: this.filters })
-          .then((conversations) => {
-            this.conversations = conversations
+          .$get('/v1/posts/search', { params: this.filters })
+          .then((posts) => {
+            this.posts = posts
           })
       } else if (!this.filters.search) {
         this.load()
@@ -188,24 +176,22 @@ export default {
       }
       this.loading = true
       this.paginationFinished = false
-      this.$axios
-        .$get('/v1/conversations', { params: this.filters })
-        .then((conversations) => {
-          if (this.filters.page === 1) {
-            this.conversations = conversations
-          } else {
-            this.conversations = this.conversations.concat(conversations)
-            if (conversations.length < this.filters.perPage) {
-              this.paginationFinished = true
-            }
+      this.$axios.$get('/v1/posts', { params: this.filters }).then((posts) => {
+        if (this.filters.page === 1) {
+          this.posts = posts
+        } else {
+          this.posts = this.posts.concat(posts)
+          if (posts.length < this.filters.perPage) {
+            this.paginationFinished = true
           }
-          this.loading = false
-        })
+        }
+        this.loading = false
+      })
     },
-    remove(conversation) {
-      this.$axios.$delete('/v1/conversations/' + conversation._id).then(() => {
+    remove(post) {
+      this.$axios.$delete('/v1/posts/' + post._id).then(() => {
         this.load()
-        this.$emit('change', conversation)
+        this.$emit('change', post)
       })
     },
     filter() {
@@ -221,3 +207,7 @@ export default {
   },
 }
 </script>
+<style scoped lang="sass">
+.nuxt-link-exact-active
+  border-bottom: 2px solid
+</style>

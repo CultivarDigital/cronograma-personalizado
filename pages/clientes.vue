@@ -2,18 +2,13 @@
   <div>
     <TopNavigation active="Clientes da rede" />
     <div v-if="members">
-      <v-container>
-        <div>
-          <strong>{{ members.length }}</strong> clientes
-        </div>
-        <div>
-          <strong>{{ membersWithCity }}</strong> clientes com localização
-        </div>
+      <v-container class="text-center">
+        <strong>{{ members.length }}</strong> clientes encontrados
       </v-container>
       <v-list>
         <template v-for="member in members">
           <v-divider :key="`divider-${member.id}`"></v-divider>
-          <v-list-item :key="member.id">
+          <v-list-item :key="member.id" click="">
             <v-list-item-avatar color="primary">
               <User :user="member" />
             </v-list-item-avatar>
@@ -31,9 +26,15 @@
               </div>
             </v-list-item-content>
             <v-list-item-action-text>
+              <v-btn :to="'/chat/' + member.id" icon>
+                <v-icon left>mdi-send</v-icon>
+              </v-btn>
               <small
                 class="font-weight-light"
-                :title="$moment(member.createdAt).format('DD/MM/YYYY h:mm:ss')"
+                :title="
+                  'Cadastrado em ' +
+                  $moment(member.createdAt).format('DD/MM/YYYY h:mm:ss')
+                "
               >
                 {{ $moment(member.createdAt).fromNow(true) }}
               </small>
