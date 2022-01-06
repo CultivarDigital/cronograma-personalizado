@@ -1,4 +1,11 @@
 /*!
+ * reading-time
+ * Copyright (c) Nicolas Gryman <ngryman@gmail.com>
+ * MIT Licensed
+ */
+
+
+/*!
   * vue-router v3.5.3
   * (c) 2021 Evan You
   * @license MIT
@@ -24,13 +31,6 @@
  */
 
 
-/*!
- * reading-time
- * Copyright (c) Nicolas Gryman <ngryman@gmail.com>
- * MIT Licensed
- */
-
-
 /** @preserve
 	 * Counter block mode compatible with  Dr Brian Gladman fileenc.c
 	 * derived from CryptoJS.mode.CTR
@@ -47,6 +47,13 @@
 
 	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	*/
+
+
+/*!
+ * reading-time
+ * Copyright (c) Nicolas Gryman <ngryman@gmail.com>
+ * MIT Licensed
+ */
 
 
 /*!
@@ -185,6 +192,13 @@
 //! moment.js locale configuration
 
 //! version : 0.5.34
+
+
+/*!
+ * reading-time
+ * Copyright (c) Nicolas Gryman <ngryman@gmail.com>
+ * MIT Licensed
+ */
 
 
 /**!
