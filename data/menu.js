@@ -18,14 +18,6 @@ const menu = {
       icon: 'mdi-frequently-asked-questions',
       to: '/faq',
     },
-  ],
-  App: [
-    {
-      title: 'Sobre',
-      description: 'Sobre',
-      icon: 'mdi-information',
-      to: '/sobre',
-    },
     {
       title: 'Clientes',
       description: 'Lista de clientes',

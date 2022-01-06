@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TopNavigation active="Cultive alimentos saudáveis em casa!" />
+    <TopNavigation active="Cronograma personalizado" />
     <Menu />
   </div>
 </template>

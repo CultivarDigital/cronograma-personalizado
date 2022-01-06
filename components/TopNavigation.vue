@@ -9,15 +9,7 @@
         <v-icon> mdi-arrow-left </v-icon>
       </v-btn>
       <v-app-bar-nav-icon v-else @click="toggleDrawer" />
-
-      <v-spacer v-if="$route.path === '/'"></v-spacer>
-      <img
-        v-if="$route.path === '/'"
-        title="Cronograma Personalizado"
-        :src="require('~/assets/img/logo.png')"
-        width="28"
-      />
-      <v-app-bar-title v-else>
+      <v-app-bar-title v-if="$route.path !== '/'">
         <strong
           ><small>{{ active }}</small></strong
         >
