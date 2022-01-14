@@ -4,25 +4,52 @@
     fixed
     grow
     app
-    hide-on-scroll
-    background-color="primary"
-    dark
+    background-color="#F0EDED"
     class="d-lg-none"
+    style="box-shadow: none"
   >
-    <v-btn to="/guias">
-      <v-icon>mdi-library</v-icon>
-    </v-btn>
-    <v-btn to="/ferramentas">
-      <v-icon>mdi-tools</v-icon>
-    </v-btn>
     <v-btn to="/">
-      <v-icon dark>mdi-home-outline</v-icon>
+      <img
+        :src="
+          require('~/assets/img/bottom-navigation/home' +
+            ($route.path === '/' ? '-active' : '') +
+            '.png')
+        "
+      />
     </v-btn>
-    <v-btn to="/lojinha">
-      <v-icon>mdi-cart</v-icon>
+    <v-btn to="/cronograma">
+      <img
+        :src="
+          require('~/assets/img/bottom-navigation/cronograma' +
+            ($route.path.startsWith('/cronograma') ? '-active' : '') +
+            '.png')
+        "
+      />
     </v-btn>
-    <v-btn to="/sobre">
-      <v-icon>mdi-information-outline</v-icon>
+    <v-btn
+      :to="$auth.user && $auth.user.role === 'admin' ? '/chat' : '/atendimento'"
+    >
+      <img
+        :src="
+          require('~/assets/img/bottom-navigation/chat' +
+            ($route.path.startsWith('/chat') ||
+            $route.path.startsWith('/atendimento')
+              ? '-active'
+              : '') +
+            '.png')
+        "
+      />
+    </v-btn>
+    <v-btn to="/perfil">
+      <User v-if="$auth.user" size="25" />
+      <img
+        v-else
+        :src="
+          require('~/assets/img/bottom-navigation/perfil' +
+            ($route.path.startsWith('/perfil') ? '-active' : '') +
+            '.png')
+        "
+      />
     </v-btn>
   </v-bottom-navigation>
 </template>

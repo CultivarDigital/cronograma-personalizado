@@ -1,26 +1,9 @@
 <template>
   <div class="mb-4">
-    <v-app-bar app color="primary" dark hide-on-scroll>
-      <v-btn
-        v-if="$route.path !== '/'"
-        icon
-        @click="$router.replace(previousPage)"
-      >
-        <v-icon> mdi-arrow-left </v-icon>
-      </v-btn>
-      <v-app-bar-nav-icon v-else @click="toggleDrawer" />
-      <v-app-bar-title v-if="$route.path !== '/'">
-        <strong
-          ><small>{{ active }}</small></strong
-        >
-      </v-app-bar-title>
+    <v-app-bar app color="#fff" hide-on-scroll style="box-shadow: none">
+      <v-app-bar-title class="primary--text">{{ active }}</v-app-bar-title>
       <v-spacer></v-spacer>
-      <a @click="$store.dispatch('showPortal')">
-        <User v-if="$auth.user" size="25" />
-        <v-avatar v-else color="white" size="25">
-          <v-icon color="primary" dark> mdi-account </v-icon>
-        </v-avatar>
-      </a>
+      <img :src="require('~/assets/img/menu.png')" @click="toggleDrawer" />
     </v-app-bar>
   </div>
 </template>

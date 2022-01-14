@@ -138,6 +138,11 @@ export default {
   },
   vuetify: {
     customVariables: ['~/assets/css/variables.sass'],
+    defaultAssets: {
+      font: {
+        family: 'Roboto',
+      },
+    },
     treeShake: true,
     theme: {
       themes: {

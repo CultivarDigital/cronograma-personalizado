@@ -5,9 +5,6 @@
     width="280"
     @input="toggleDrawer"
   >
-    <v-toolbar color="primary" dark>
-      <strong>Cronograma Personalizado</strong>
-    </v-toolbar>
     <SidebarMenu />
   </v-navigation-drawer>
 </template>
