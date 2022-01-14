@@ -5,11 +5,6 @@
       <DrawerNavigation />
       <v-main>
         <Nuxt />
-        <div class="text-center">
-          <v-divider />
-          <br />
-          <Footer />
-        </div>
       </v-main>
       <Portal />
       <Snackbar />
