@@ -1,40 +1,34 @@
 <template>
   <v-list nav class="mb-8">
-    <template v-for="menuSection in Object.keys(menu)">
-      <v-subheader v-if="!section" :key="menuSection + '-subheader'">{{
-        menuSection
-      }}</v-subheader>
-      <template v-for="item in menu[menuSection]">
-        <v-list-item
-          v-if="
-            (!item.role || ($auth.user && $auth.user.role === item.role)) &&
-            (!item.required || ($auth.user && $auth.user[item.required])) &&
-            (!section || section === menuSection)
-          "
-          :key="item.title"
-          dark
-          color="primary"
-          class="primary"
-          :to="item.to"
-        >
-          <v-list-item-avatar color="primary">
-            <v-icon dark>{{ item.icon }}</v-icon>
-          </v-list-item-avatar>
-          <v-list-item-content>
-            <v-list-item-title class="subtitle-1">
-              <strong>{{ item.title }}</strong>
-            </v-list-item-title>
-            <div v-if="showDescription">
-              <small>{{ item.description }}</small>
-            </div>
-          </v-list-item-content>
-          <v-list-item-action>
-            <v-btn icon>
-              <v-icon>mdi-chevron-right</v-icon>
-            </v-btn>
-          </v-list-item-action>
-        </v-list-item>
-      </template>
+    <template v-for="item in menu">
+      <v-list-item
+        v-if="
+          (!item.role || ($auth.user && $auth.user.role === item.role)) &&
+          (!item.required || ($auth.user && $auth.user[item.required]))
+        "
+        :key="item.title"
+        dark
+        color="primary"
+        class="primary"
+        :to="item.to"
+      >
+        <v-list-item-avatar color="primary">
+          <v-icon dark>{{ item.icon }}</v-icon>
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title class="subtitle-1">
+            <strong>{{ item.title }}</strong>
+          </v-list-item-title>
+          <div v-if="showDescription">
+            <small>{{ item.description }}</small>
+          </div>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-btn icon>
+            <v-icon>mdi-chevron-right</v-icon>
+          </v-btn>
+        </v-list-item-action>
+      </v-list-item>
     </template>
   </v-list>
 </template>
@@ -42,10 +36,6 @@
 import menu from '@/data/menu.js'
 export default {
   props: {
-    section: {
-      type: String,
-      default: null,
-    },
     showDescription: {
       type: Boolean,
       default: false,
