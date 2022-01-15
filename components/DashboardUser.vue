@@ -5,24 +5,11 @@
         class="d-flex justify-center align-center mr-3"
         :style="
           'width: 67px; height: 67px; background-position: center; background: url(' +
-          require('~/assets/img/user-background.png') +
+          require('~/assets/img/bg-user.png') +
           ')'
         "
       >
-        <v-avatar size="53">
-          <img
-            v-if="$auth.user.picture"
-            :title="$auth.user.name"
-            :alt="$auth.user.name"
-            :src="$auth.user.picture"
-          />
-          <img
-            v-else
-            :title="$auth.user.name"
-            :alt="$auth.user.name"
-            :src="require('~/assets/img/user.png')"
-          />
-        </v-avatar>
+        <User size="53px" />
       </div>
 
       <div class="primary--text" style="font-size: 24px">

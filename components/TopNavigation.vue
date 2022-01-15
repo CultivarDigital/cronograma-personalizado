@@ -3,7 +3,9 @@
     <v-app-bar app color="#fff" hide-on-scroll style="box-shadow: none">
       <v-app-bar-title class="primary--text">{{ active }}</v-app-bar-title>
       <v-spacer></v-spacer>
-      <img :src="require('~/assets/img/menu.png')" @click="toggleDrawer" />
+      <a @click="toggleDrawer">
+        <img :src="require('~/assets/img/menu.png')" />
+      </a>
     </v-app-bar>
   </div>
 </template>
@@ -72,7 +74,7 @@ export default {
       if (this.links && this.links.length) {
         return this.links[this.links.length - 1][1]
       }
-      return '/'
+      return '/dashboard'
     },
     apiURL() {
       return process.env.API_URL

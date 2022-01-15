@@ -8,11 +8,11 @@
     class="d-lg-none"
     style="box-shadow: none"
   >
-    <v-btn to="/">
+    <v-btn to="/dashboard">
       <img
         :src="
           require('~/assets/img/bottom-navigation/home' +
-            ($route.path === '/' ? '-active' : '') +
+            ($route.path === '/dashboard' ? '-active' : '') +
             '.png')
         "
       />
@@ -41,9 +41,7 @@
       />
     </v-btn>
     <v-btn to="/perfil">
-      <User v-if="$auth.user" size="25" />
       <img
-        v-else
         :src="
           require('~/assets/img/bottom-navigation/perfil' +
             ($route.path.startsWith('/perfil') ? '-active' : '') +

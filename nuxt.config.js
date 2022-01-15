@@ -27,11 +27,11 @@ export default {
         content: process.env.npm_package_description,
       },
     ],
-    script: [
-      {
-        src: '/js/gh-pages-redirect.js',
-      },
-    ],
+    // script: [
+    //   {
+    //     src: '/js/gh-pages-redirect.js',
+    //   },
+    // ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
@@ -140,7 +140,7 @@ export default {
     customVariables: ['~/assets/css/variables.sass'],
     defaultAssets: {
       font: {
-        family: 'Roboto',
+        family: 'Montserrat',
       },
     },
     treeShake: true,
@@ -162,7 +162,6 @@ export default {
     baseURL: process.env.API_URL || 'http://localhost:3000',
   },
   auth: {
-    redirect: false,
     strategies: {
       local: {
         token: {
