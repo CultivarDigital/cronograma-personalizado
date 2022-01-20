@@ -5,7 +5,7 @@
       'background-image: url(' + require('~/assets/img/bg-home.png') + ')'
     "
   >
-    <v-container>
+    <v-container style="max-width: 340px">
       <h1 style="font-size: 100px; line-height: 80px" class="mb-0">Olá</h1>
       <p style="font-size: 20px" class="font-weight-light">
         Seja muito bem vinda ao nosso
