@@ -234,7 +234,7 @@ export default {
           this.loading = false
           if (closeOnSave) {
             this.$notifier.success('Seu perfil foi atualizado!')
-            this.$store.dispatch('hidePortal')
+            this.$router.push('/dashboard')
           }
         })
         .catch((error) => {
@@ -258,7 +258,7 @@ export default {
             this.tab = 0
             this.loading = false
             this.$notifier.success('Sua senha foi atualizada!')
-            this.$store.dispatch('hidePortal')
+            this.$router.push('/dashboard')
           })
           .catch((error) => {
             this.$notifier.firebaseError(error)
