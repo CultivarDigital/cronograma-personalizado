@@ -26,11 +26,6 @@
     "*.{js,vue}": "eslint",
     "*.{css,vue}": "stylelint"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "dependencies": {
     "@nuxt/content": "^1.11.1",
     "@nuxtjs/auth-next": "5.0.0-1624817847.21691f1",
