@@ -1,42 +1,66 @@
 <template>
-  <v-container class="mt-3">
+  <v-container class="pt-10 primary--text text-center" style="max-width: 340px">
     <ValidationObserver v-slot="{ validate, invalid }">
-      <p class="text-center mb-6">
-        <span class="d-inline-block mb-3">Ainda não possúi uma conta?</span>
-        <v-btn color="primary" to="/cadastro"> CADASTRE-SE </v-btn>
-      </p>
-      <div class="mb-3 text-center">
-        <v-btn color="primary" block class="mb-2" @click="signInWithGoogle">
-          <v-icon left>mdi-google</v-icon> Entrar com o google
-        </v-btn>
-        <v-btn block to="/entrar-com-email">
-          <v-icon left>mdi-email</v-icon> Entrar com e-mail
-        </v-btn>
-      </div>
-      <p class="text-caption text-center pt-3 pb-2">
-        Ou informe seus dados abaixo:
-      </p>
       <v-form @submit.prevent="validate().then(login)">
-        <validation-provider v-slot="{ errors }" name="e-mail" rules="required">
-          <v-text-field
-            v-model="form.login"
-            outlined
-            label="Digite seu e-mail"
-            :error-messages="errors"
-          />
-        </validation-provider>
-        <validation-provider v-slot="{ errors }" name="senha" rules="required">
-          <v-text-field
-            v-model="form.password"
-            outlined
-            type="password"
-            :error-messages="errors"
-            label="Digite sua senha"
-            hide-details="auto"
-          />
-        </validation-provider>
-        <div class="text-right mb-6 mt-2">
-          <v-btn small to="/esqueci-minha-senha"> Esqueci minha senha </v-btn>
+        <img
+          src="~/assets/img/logo-login.png"
+          alt="Cronograma personalizado"
+          class="mb-6"
+        />
+        <div>
+          <h2 class="text-h4 font-weight-bold">Seja bem-vinda!</h2>
+          <p class="text-subtitle-1 mb-6">
+            Para acessar, basta adicionar seus dados.
+          </p>
+          <validation-provider
+            v-slot="{ errors }"
+            name="e-mail"
+            rules="required"
+          >
+            <h4
+              class="text-subtitle-1 font-weight-black mb-3"
+              style="opacity: 0.6"
+            >
+              Login
+            </h4>
+            <v-text-field
+              v-model="form.login"
+              outlined
+              label="Digite seu e-mail"
+              :error-messages="errors"
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="senha"
+            rules="required"
+          >
+            <h4
+              class="text-subtitle-1 font-weight-black mb-3"
+              style="opacity: 0.6"
+            >
+              Senha
+            </h4>
+            <v-text-field
+              v-model="form.password"
+              outlined
+              type="password"
+              :error-messages="errors"
+              label="Digite sua senha"
+              hide-details="auto"
+            />
+          </validation-provider>
+          <div class="text-right mb-6 mt-2">
+            <v-btn
+              color="primary"
+              outlined
+              small
+              to="/esqueci-minha-senha"
+              rounded
+            >
+              Esqueci minha senha
+            </v-btn>
+          </div>
         </div>
         <Save :invalid="invalid" :loading="loading" label="Entrar" />
       </v-form>
@@ -101,7 +125,7 @@ export default {
     },
     welcome(user) {
       this.$router.replace('/dashboard')
-      this.$notifier.success('Seja bem vindo!')
+      this.$notifier.success('Seja bem vinda!')
     },
   },
 }
