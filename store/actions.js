@@ -49,6 +49,9 @@ export default {
   hidePortal({ commit }) {
     commit('togglePortal', false)
   },
+  setGreeted({ commit }, status) {
+    commit('setGreeted', status)
+  },
   toggleDrawer({ commit }, status) {
     commit('toggleDrawer', status)
   },

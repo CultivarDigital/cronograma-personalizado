@@ -7,5 +7,6 @@ export const state = () => {
     showPortal: false,
     showDrawer: null,
     offlineMode: null,
+    hasBeenGreeted: false,
   }
 }

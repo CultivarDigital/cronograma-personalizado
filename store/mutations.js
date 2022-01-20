@@ -14,4 +14,7 @@ export default {
   setOfflineMode(state, offlineMode) {
     state.offlineMode = offlineMode
   },
+  setGreeted(state, hasBeenGreeted) {
+    state.hasBeenGreeted = hasBeenGreeted
+  },
 }
