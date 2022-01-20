@@ -56,7 +56,6 @@
             icon
             @click="setGreeted"
           ></v-btn>
-          {{ tab }}
         </div>
       </v-container>
     </v-card>

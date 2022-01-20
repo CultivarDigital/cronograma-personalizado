@@ -27,7 +27,7 @@ export default {
     },
     size: {
       type: String,
-      default: '48',
+      default: '53',
     },
     color: {
       type: String,
