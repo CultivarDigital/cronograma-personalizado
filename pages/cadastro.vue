@@ -1,11 +1,12 @@
 <template>
-  <v-container class="mt-3">
+  <v-container class="mt-3 text-center">
     <ValidationObserver v-slot="{ validate, invalid }">
-      <p class="text-center mb-6">
-        Já possúi uma conta?
-        <v-btn color="primary" to="/login"> ENTRE </v-btn>
+      <p class="mb-6">
+        <User />
       </p>
       <v-form @submit.prevent="validate().then(register)">
+        <h3 class="text-h5 font-weight-bold">Seja bem vinda</h3>
+        <p style="color: #ababab" class="mb-8">Vamos começar o seu cadastro?</p>
         <validation-provider
           v-slot="{ errors }"
           name="e-mail"
@@ -45,6 +46,9 @@
           />
         </validation-provider>
         <Save :invalid="invalid" :loading="loading" label="Cadastrar" />
+        <div class="text-center">
+          <v-btn color="primary" plain to="/login">Entre</v-btn>
+        </div>
       </v-form>
     </ValidationObserver>
   </v-container>
@@ -77,7 +81,7 @@ export default {
         this.$firebase
           .register(this.form.email, this.form.password)
           .then(() => {
-            this.$notifier.success('Seja bem vindo!')
+            this.$notifier.success('Seja bem vinda!')
             this.$emit('registered')
           })
           .catch(this.$notifier.firebaseError)
