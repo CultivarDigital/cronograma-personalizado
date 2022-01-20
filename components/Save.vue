@@ -5,15 +5,16 @@
     </v-alert>
     <v-btn
       x-large
-      class="mb-4 mt-4"
+      class="mb-4 mt-4 font-weight-bold text-none"
       type="submit"
-      color="success"
+      color="primary"
       :disabled="invalid || loading"
       :block="block"
+      rounded
     >
       <v-progress-circular
         v-if="loading"
-        color="primary"
+        color="secondary"
         indeterminate
         size="20"
       />
