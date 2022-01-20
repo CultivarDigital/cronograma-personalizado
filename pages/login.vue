@@ -63,6 +63,15 @@
           </div>
         </div>
         <Save :invalid="invalid" :loading="loading" label="Entrar" />
+        <v-btn
+          color="primary"
+          block
+          class="mb-2"
+          rounded
+          @click="signInWithGoogle"
+        >
+          <v-icon left>mdi-google</v-icon> Entrar com o google
+        </v-btn>
         <v-btn color="primary" plain to="/cadastro">Cadastre-se</v-btn>
       </v-form>
     </ValidationObserver>
@@ -87,7 +96,7 @@ export default {
     }
   },
   methods: {
-    signInWithGoogle() {
+    signInWithGoogle(rounded) {
       this.$firebase
         .loginWithGoogle()
         .then((userCredential) => {
