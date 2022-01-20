@@ -12,7 +12,7 @@
         <User size="53px" />
       </div>
 
-      <div class="primary--text" style="font-size: 24px">
+      <div v-if="$auth.user.name" class="primary--text" style="font-size: 24px">
         <p
           v-for="n in $auth.user.name
             .split(' ')
