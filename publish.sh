@@ -1,0 +1,1 @@
+rsync -a dist/ root@cronograma-personalizado.cultivardigital.com.br:/var/www/cronograma-personalizado/ --delete
