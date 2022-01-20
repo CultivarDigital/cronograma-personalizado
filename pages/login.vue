@@ -63,6 +63,7 @@
           </div>
         </div>
         <Save :invalid="invalid" :loading="loading" label="Entrar" />
+        <v-btn color="primary" plain to="/cadastro">Cadastre-se</v-btn>
       </v-form>
     </ValidationObserver>
   </v-container>
