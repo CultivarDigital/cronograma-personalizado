@@ -1,19 +1,16 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <div class="d-inline-block pointer">
-    <v-avatar v-if="profile && profile.picture" :size="size" :color="color">
-      <CachedImage
+    <v-avatar :size="size" :color="color">
+      <img
         avatar
         :title="profile.name"
         :alt="profile.name"
-        :src="profile.picture"
+        :src="require('~/assets/img/user.png')"
         :size="size"
         :color="color"
         :thumb="thumb"
       />
-    </v-avatar>
-    <v-avatar v-else :color="color" :size="size">
-      <v-icon :color="iconColor" :size="size / 2" dark> mdi-account </v-icon>
     </v-avatar>
   </div>
 </template>
