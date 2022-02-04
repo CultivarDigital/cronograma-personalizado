@@ -2,39 +2,35 @@
 <!-- eslint-disable vue/no-lone-template -->
 <template>
   <div id="message-form" class="message-form">
-    <v-list-item class="mb-1 pt-1">
-      <v-list-item-avatar>
-        <User thumb size="40" />
-      </v-list-item-avatar>
-      <v-list-item-content>
-        <div v-if="$auth.user">
+    <v-list-item class="py-0">
+      <v-list-item-content class="py-0">
+        <div>
           <v-textarea
             v-model="form.message"
             color="primary"
-            outlined
-            rows="1"
             auto-grow
+            rows="1"
             hide-details
-            placeholder="Digite uma mensagem"
-          />
-        </div>
-        <div v-if="$auth.user" class="w-100">
-          <div>
-            <div v-if="form.images.length" class="pt-2">
-              <Gallery :images="form.images" />
-            </div>
-            <div class="text-right">
-              <UploadImage prefix="messages" button @input="addImage" />
+            placeholder="Qual a sua dúvida?"
+          >
+            <template #append>
+              <UploadImage prefix="messages" @input="addImage" />
+            </template>
+            <template #append-outer>
               <v-btn
-                v-if="form.message"
+                :disabled="!form.message"
                 color="primary"
                 class="mt-md-2"
                 large
+                icon
                 @click="save"
               >
                 <v-icon>mdi-send</v-icon>
               </v-btn>
-            </div>
+            </template>
+          </v-textarea>
+          <div v-if="form.images.length" class="pt-2">
+            <Gallery :images="form.images" />
           </div>
         </div>
       </v-list-item-content>

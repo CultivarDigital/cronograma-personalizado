@@ -1,5 +1,5 @@
 <template>
-  <span class="mb-6 text-right">
+  <span>
     <v-btn
       v-if="button"
       small

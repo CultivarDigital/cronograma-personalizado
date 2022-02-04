@@ -8,14 +8,16 @@
           class="mr-1 mb-1 d-inline-block pointer"
           @click="() => showImg(i)"
         >
-          <CachedImage
-            :src="image"
-            :thumb="thumb"
-            size="42"
-            css-class="rounded"
-            :title="alt"
-            raw
-          />
+          <div style="border: 1px solid #acacac" class="rounded">
+            <CachedImage
+              :src="image"
+              :thumb="thumb"
+              size="64"
+              css-class="rounded"
+              :title="alt"
+              raw
+            />
+          </div>
         </div>
       </div>
       <client-only>

@@ -53,7 +53,10 @@
               @change="loadMembers()"
             />
             <SelectSpecies v-model="form.species" :items="species" />
-            <UploadImage prefix="comments" @input="addImage" />
+            <div class="mb-6 text-right">
+              <UploadImage prefix="comments" @input="addImage" />
+            </div>
+
             <EmbedUrl icon="mdi-youtube" @input="addUrl" />
             <EmbedUrl @input="addUrl" />
             <!-- <v-btn color="primary" icon>
