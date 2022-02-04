@@ -105,7 +105,7 @@
       <v-card
         class="pa-6 d-flex align-center justify-center primary--text mb-3"
         rounded="lg"
-        to="/pri-responde"
+        to="/atendimento"
       >
         <img class="mr-3" src="~/assets/img/icon-info.png" alt="Ajuda" />
         <span class="text-h6" style="rgba(123, 163, 162, 0.6)"

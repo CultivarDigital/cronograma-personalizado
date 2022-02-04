@@ -25,10 +25,12 @@
       v-if="!currentFaq && $auth.user && $auth.user.role === 'admin'"
       @change="load"
     />
-    <v-card class="rounded-lg py-6 px-2 mb-6 bg-primary-gradient">
+    <div v-if="loading" class="text-center py-6">
+      <v-progress-circular color="secondary" indeterminate />
+    </div>
+    <v-card v-else class="rounded-lg py-6 px-2 mb-6 bg-primary-gradient">
       <v-container>
         <v-expansion-panels
-          v-if="faqs"
           v-model="active"
           :round="0"
           class="elevation-0 rounded-0"
@@ -92,8 +94,9 @@ export default {
       faqs: [],
       active: null,
       currentFaq: null,
+      loading: false,
       filters: {
-        search: null,
+        search: this.$route.query.search,
       },
     }
   },
@@ -106,15 +109,17 @@ export default {
     },
   },
   created() {
-    this.load()
+    this.search()
   },
   methods: {
     search() {
+      this.loading = true
       if (this.filters.search && this.filters.search.length > 2) {
         this.$axios
           .$get('/v1/faqs/search', { params: this.filters })
           .then((faqs) => {
             this.faqs = faqs
+            this.loading = false
           })
       } else if (!this.filters.search) {
         this.load()
@@ -123,11 +128,14 @@ export default {
     load() {
       this.$axios.$get('/v1/faqs', { params: this.filters }).then((faqs) => {
         this.faqs = faqs
+        this.loading = false
       })
     },
     remove(faq) {
+      this.loading = true
       this.$axios.$delete('/v1/faqs/' + faq._id).then(() => {
         this.load()
+        this.loading = false
       })
     },
   },

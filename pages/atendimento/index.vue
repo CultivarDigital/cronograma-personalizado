@@ -1,85 +1,91 @@
 <template>
   <div>
-    <TopNavigation active="Atendimento" />
-    <v-list v-if="messages" subheader dense>
-      <template v-for="message in messages">
-        <v-list-item
-          :key="message._id"
-          class="py-2"
-          :class="message.admin && !message.read ? 'grey lighten-3' : ''"
-        >
-          <v-list-item-avatar>
-            <User
-              :user="message.admin ? message.admin : message.user"
-              thumb
-              size="40"
-            />
-          </v-list-item-avatar>
-          <v-list-item-content>
-            <v-list-item-title
-              v-text="message.admin ? message.admin.name : message.user.name"
-            />
-            <div v-linkify class="body-2 pt-2">{{ message.message }}</div>
-            <div v-if="message.images.length" class="pt-2">
-              <Gallery :images="message.images" />
+    <TopNavigation active="Suporte" />
+    <v-container class="pt-0 px-6">
+      <div class="mb-8">
+        <Subtitle label="Atendimento" />
+      </div>
+    </v-container>
+    <v-card class="rounded-lg py-3 px-3 pb-0 mb-0 bg-primary-gradient">
+      <v-container class="white--text pb-16">
+        <img src="~/assets/img/chat.png" alt="Atendimento" />
+        <div class="px-6">
+          <h4 class="text-h4">
+            Olá,
+            {{ $auth.user.name ? $auth.user.name.split(' ')[0] : 'Cliente' }} 👋
+          </h4>
+          <p>Se você precisa de ajuda, estamos aqui para isso!</p>
+        </div>
+      </v-container>
+    </v-card>
+    <v-container class="mt-n16 px-6">
+      <v-card color="#F7F7F7" class="pt-8" rounded="0" to="/chat">
+        <div class="px-6 mb-10">
+          <h6 class="text-h6 primary--text mb-3">Fale com o suporte</h6>
+          <div class="d-flex justify-center">
+            <div>
+              <div class="mb-3">
+                <img
+                  src="~/assets/img/atendimento-tempo-de-resposta.png"
+                  alt="Atendimento - Tempo de resposta"
+                />
+              </div>
+              <v-btn color="primary" rounded class="px-6">
+                <v-icon left>mdi-send</v-icon> Abrir chat
+              </v-btn>
             </div>
-          </v-list-item-content>
-          <v-list-item-action>
-            <v-list-item-action-text>
-              <small
-                class="font-weight-light"
-                :title="$moment(message.createdAt).format('DD/MM/YYYY h:mm:ss')"
-              >
-                {{ $moment(message.createdAt).fromNow(true) }}
-              </small>
-            </v-list-item-action-text>
-            <div v-if="!message.admin">
-              <Remove @confirm="remove(message)" />
-            </div>
-          </v-list-item-action>
-        </v-list-item>
-        <v-divider :key="'divider-' + message._id" />
-      </template>
-    </v-list>
-    <div>
-      <MessageForm id="message-form" @change="load" />
-    </div>
+          </div>
+        </div>
+        <v-divider></v-divider>
+        <div class="px-6 py-6 primary--text">Veja o histórico de conversas</div>
+      </v-card>
+    </v-container>
+    <v-container class="px-6">
+      <div class="px-6">
+        <p class="font-weight-bold" style="color: rgba(0, 0, 0, 0.53)">
+          Procurar uma resposta rápida
+        </p>
+        <v-form @submit.prevent="search">
+          <div class="d-flex justify-center">
+            <v-text-field
+              v-model="filters.search"
+              class="mb-6 rounded-0"
+              placeholder="Pesquise no Pri Responde"
+              outlined
+              :hide-details="true"
+              dense
+            >
+            </v-text-field>
+            <v-btn
+              type="submit"
+              color="primary"
+              class="rounded-0 elevation-0"
+              style="height: 40px; margin-left: -1px"
+            >
+              <v-icon>mdi-chevron-right</v-icon>
+            </v-btn>
+          </div>
+        </v-form>
+      </div>
+    </v-container>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      messages: null,
+      filters: {
+        search: null,
+      },
     }
   },
-  created() {
-    this.load()
-    setTimeout(() => {
-      this.$vuetify.goTo('#message-form', {})
-    }, 300)
-  },
   methods: {
-    async load() {
-      this.messages = await this.$axios.$get('/v1/messages')
-
-      if (
-        this.messages &&
-        this.messages.find((message) => message.admin && !message.read)
-      ) {
-        setTimeout(() => {
-          this.markAllAsRead()
-        }, 3000)
+    search() {
+      if (this.filters.search) {
+        this.$router.push('/pri-responde?search=' + this.filters.search)
+      } else {
+        this.$router.push('/pri-responde')
       }
-    },
-    async markAllAsRead() {
-      await this.$axios.$patch('/v1/messages/' + this.$auth.user.id)
-      this.messages = await this.$axios.$get('/v1/messages')
-    },
-    remove(message) {
-      this.$axios.$delete('/v1/messages/' + message._id).then(() => {
-        this.load()
-      })
     },
   },
 }
