@@ -7,6 +7,14 @@
       <v-form @submit.prevent="validate().then(register)">
         <h3 class="text-h5 font-weight-bold">Seja bem vinda</h3>
         <p style="color: #ababab" class="mb-8">Vamos começar o seu cadastro?</p>
+        <validation-provider v-slot="{ errors }" name="name" rules="required">
+          <v-text-field
+            v-model="form.name"
+            outlined
+            label="Qual seu nome?"
+            :error-messages="errors"
+          />
+        </validation-provider>
         <validation-provider
           v-slot="{ errors }"
           name="e-mail"
@@ -19,11 +27,7 @@
             :error-messages="errors"
           />
         </validation-provider>
-        <validation-provider
-          v-slot="{ errors }"
-          name="senha"
-          rules="required|min:4"
-        >
+        <validation-provider v-slot="{ errors }" name="senha" rules="required">
           <v-text-field
             v-model="form.password"
             outlined
@@ -35,7 +39,7 @@
         <validation-provider
           v-slot="{ errors }"
           name="confirmação da senha"
-          rules="required"
+          rules="required|min:4"
         >
           <v-text-field
             v-model="form.password_confirmation"
@@ -55,6 +59,7 @@
 </template>
 <script>
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import { getAuth, getIdToken } from 'firebase/auth'
 export default {
   components: {
     ValidationObserver,
@@ -65,6 +70,7 @@ export default {
     return {
       loading: false,
       form: {
+        name: '',
         email: '',
         password: '',
         password_confirmation: '',
@@ -73,22 +79,50 @@ export default {
   },
   methods: {
     register() {
-      this.loading = true
       if (
         this.form.password &&
         this.form.password === this.form.password_confirmation
       ) {
+        this.loading = true
         this.$firebase
           .register(this.form.email, this.form.password)
-          .then(() => {
-            this.$notifier.success('Seja bem vinda!')
-            this.$emit('registered')
+          .then((userCredential) => {
+            this.authenticateApi(userCredential)
           })
-          .catch(this.$notifier.firebaseError)
+          .catch(this.error)
       } else {
         this.$notifier.error('As senhas devem ser iguais')
       }
+    },
+    authenticateApi(userCredential) {
+      getIdToken(getAuth().currentUser).then((token) => {
+        this.$auth
+          .loginWith('local', {
+            data: {
+              token,
+            },
+          })
+          .then((resp) => {
+            const { name } = this.form
+            this.$axios
+              .$patch('/v1/users/' + this.$auth.user.id, { name })
+              .then((user) => {
+                this.$auth.setUser(user)
+                this.welcome(userCredential.user)
+              })
+              .catch(this.error)
+          })
+          .catch(this.error)
+      })
+    },
+    error(error) {
+      this.$notifier.firebaseError(error)
       this.loading = false
+    },
+    welcome(user) {
+      this.loading = false
+      this.$router.replace('/dashboard')
+      this.$notifier.success('Seja bem vinda!')
     },
   },
 }
