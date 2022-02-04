@@ -10,6 +10,7 @@ export default ({ store }) => {
       'species_filters',
       'products',
       'offlineMode',
+      'hasBeenGreeted',
     ],
   })(store)
 }
