@@ -10,7 +10,7 @@
     >
       <v-progress-circular
         v-if="loading"
-        color="#fff"
+        color="primary"
         indeterminate
         size="20"
       ></v-progress-circular>
