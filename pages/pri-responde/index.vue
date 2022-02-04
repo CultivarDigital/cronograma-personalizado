@@ -9,7 +9,7 @@
       <v-form @submit.prevent="search">
         <v-text-field
           v-model="filters.search"
-          class="mb-3"
+          class="mb-6"
           placeholder="Buscar"
           prepend-inner-icon="mdi-magnify"
           outlined
@@ -30,7 +30,8 @@
         <v-expansion-panels
           v-if="faqs"
           v-model="active"
-          class="mb-6 rounded-0 elevation-0"
+          :round="0"
+          class="elevation-0 rounded-0"
         >
           <v-expansion-panel
             v-for="(faq, index) in faqs"
