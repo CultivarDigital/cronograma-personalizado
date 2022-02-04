@@ -43,12 +43,6 @@ export default {
   setOfflineMode({ commit }, offlineMode) {
     commit('setOfflineMode', offlineMode)
   },
-  showPortal({ commit }) {
-    commit('togglePortal', true)
-  },
-  hidePortal({ commit }) {
-    commit('togglePortal', false)
-  },
   setGreeted({ commit }, status) {
     commit('setGreeted', status)
   },

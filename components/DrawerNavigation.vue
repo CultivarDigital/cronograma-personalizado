@@ -17,9 +17,6 @@ export default {
     },
   },
   methods: {
-    showPortal() {
-      this.$store.dispatch('showPortal')
-    },
     toggleDrawer(status) {
       this.$store.dispatch('toggleDrawer', status)
     },

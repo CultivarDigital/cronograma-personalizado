@@ -1,7 +1,4 @@
 export default {
-  togglePortal(state, show) {
-    state.showPortal = show
-  },
   toggleDrawer(state, status) {
     state.showDrawer = status
   },

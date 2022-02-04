@@ -18,16 +18,6 @@
             :placeholder="conversation ? 'Responda' : 'Comente o que achou'"
           />
         </div>
-        <v-btn
-          v-else
-          block
-          color="primary"
-          large
-          class="darken-1"
-          @click="$store.dispatch('showPortal')"
-        >
-          {{ conversation ? 'Responda' : 'Comente o que achou' }}
-        </v-btn>
         <div v-if="$auth.user" class="w-100">
           <div>
             <div v-if="form.embeds.length" class="pt-2">

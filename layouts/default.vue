@@ -8,7 +8,6 @@
         <Welcome v-if="!$store.state.hasBeenGreeted" />
         <Nuxt />
       </v-main>
-      <Portal />
       <Snackbar />
     </v-app>
   </div>

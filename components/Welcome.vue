@@ -75,9 +75,6 @@ export default {
     },
   },
   methods: {
-    showPortal() {
-      this.$store.dispatch('showPortal')
-    },
     setGreeted() {
       this.$store.dispatch('setGreeted', true)
     },
