@@ -1,5 +1,5 @@
 <template>
-  <v-list nav>
+  <v-list nav class="primary--text">
     <template v-for="item in menu">
       <v-list-item
         v-if="!item.role || ($auth.user && $auth.user.role === item.role)"

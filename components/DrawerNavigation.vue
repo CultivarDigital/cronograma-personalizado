@@ -5,6 +5,9 @@
     width="280"
     @input="toggleDrawer"
   >
+    <div class="pt-8">
+      <UserCard />
+    </div>
     <SidebarMenu />
   </v-navigation-drawer>
 </template>
