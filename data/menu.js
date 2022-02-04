@@ -5,9 +5,9 @@ const menu = [
     to: '/dashboard',
   },
   {
-    title: 'Suporte - Chat',
+    title: 'Suporte',
     icon: 'mdi-forum',
-    to: '/chat',
+    to: '/suporte',
     role: 'admin',
   },
   {
@@ -15,12 +15,6 @@ const menu = [
     icon: 'mdi-forum',
     to: '/atendimento',
     role: 'user',
-  },
-  {
-    title: 'FAQ - Perguntas frequentes',
-    description: 'Encontre aqui as respostas das perguntas mais comuns',
-    icon: 'mdi-frequently-asked-questions',
-    to: '/faq',
   },
   {
     title: 'Clientes',

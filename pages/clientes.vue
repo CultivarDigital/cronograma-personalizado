@@ -26,7 +26,7 @@
               </div>
             </v-list-item-content>
             <v-list-item-action-text>
-              <v-btn :to="'/chat/' + member.id" icon>
+              <v-btn :to="'/suporte/' + member.id" icon>
                 <v-icon left>mdi-send</v-icon>
               </v-btn>
               <small

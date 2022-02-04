@@ -27,12 +27,14 @@
       />
     </v-btn>
     <v-btn
-      :to="$auth.user && $auth.user.role === 'admin' ? '/chat' : '/atendimento'"
+      :to="
+        $auth.user && $auth.user.role === 'admin' ? '/suporte' : '/atendimento'
+      "
     >
       <img
         :src="
           require('~/assets/img/bottom-navigation/chat' +
-            ($route.path.startsWith('/chat') ||
+            ($route.path.startsWith('/suporte') ||
             $route.path.startsWith('/atendimento')
               ? '-active'
               : '') +

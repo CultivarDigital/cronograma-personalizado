@@ -2,7 +2,7 @@
   <div>
     <TopNavigation
       :active="'Atendimento' + (user ? ' - ' + user.name : '')"
-      :links="[['Chat', '/chat']]"
+      :links="[['Suporte', '/suporte']]"
     />
     <v-list v-if="messages" subheader dense>
       <template v-for="message in messages">
