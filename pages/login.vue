@@ -17,12 +17,12 @@
             name="e-mail"
             rules="required"
           >
-            <h4
+            <!-- <h4
               class="text-subtitle-1 font-weight-black mb-3"
               style="opacity: 0.6"
             >
               Login
-            </h4>
+            </h4> -->
             <v-text-field
               v-model="form.login"
               outlined
@@ -35,12 +35,12 @@
             name="senha"
             rules="required"
           >
-            <h4
+            <!-- <h4
               class="text-subtitle-1 font-weight-black mb-3"
               style="opacity: 0.6"
             >
               Senha
-            </h4>
+            </h4> -->
             <v-text-field
               v-model="form.password"
               outlined
