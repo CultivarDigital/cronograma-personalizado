@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TopNavigation active="Perguntas frequentes" />
+    <TopNavigation active="Pri Responde" />
     <FaqForm
       v-if="!currentFaq && $auth.user && $auth.user.role === 'admin'"
       @change="load"
