@@ -26,8 +26,18 @@
               <User :user="message.admin" thumb size="40" />
             </v-list-item-avatar>
             <v-list-item-content>
-              <v-card color="grey" class="pa-3">
-                <h6 class="mb-2" v-text="message.admin.name" />
+              <v-card elevation="1" color="grey" class="pa-3 lighten-2">
+                <h6 class="mb-2">
+                  {{ message.admin.name }}
+                  <small
+                    class="font-weight-light"
+                    :title="
+                      $moment(message.createdAt).format('DD/MM/YYYY h:mm:ss')
+                    "
+                  >
+                    {{ $moment(message.createdAt).fromNow(true) }} atrás
+                  </small>
+                </h6>
                 <div
                   v-linkify
                   class="body-2 subtitle-1"
@@ -36,40 +46,35 @@
                 <div v-if="message.images.length" class="">
                   <Gallery :images="message.images" />
                 </div>
-                <small
-                  class="font-weight-light"
-                  :title="
-                    $moment(message.createdAt).format('DD/MM/YYYY h:mm:ss')
-                  "
-                >
-                  {{ $moment(message.createdAt).fromNow(true) }}
-                </small>
               </v-card>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item
-            v-else
-            :key="message._id"
-            class="py-2"
-            :class="message.admin && !message.read ? 'grey lighten-3' : ''"
-          >
+          <v-list-item v-else :key="message._id" class="py-2">
             <v-list-item-content>
-              <v-card color="white" class="pa-3 text-right grey lighten-2">
-                <h6 class="mb-2" v-text="message.user.name" />
+              <v-card
+                elevation="1"
+                color="grey"
+                class="pa-3 text-right"
+                :class="message.admin && !message.read ? '' : 'lighten-3'"
+              >
+                <h6 class="mb-2">
+                  {{ message.user.name }}
+                  <small
+                    class="font-weight-light"
+                    :title="
+                      $moment(message.createdAt).format('DD/MM/YYYY h:mm:ss')
+                    "
+                  >
+                    {{ $moment(message.createdAt).fromNow(true) }} atrás
+                  </small>
+                </h6>
                 <div class="subtitle-1">
                   <div v-linkify>{{ message.message }}</div>
                 </div>
                 <div v-if="message.images.length" class="">
                   <Gallery :images="message.images" />
                 </div>
-                <small
-                  class="font-weight-light grey--text"
-                  :title="
-                    $moment(message.createdAt).format('DD/MM/YYYY h:mm:ss')
-                  "
-                >
-                  {{ $moment(message.createdAt).fromNow(true) }}
-                </small>
+
                 <!-- <Remove v-if="!message.admin" @confirm="remove(message)" /> -->
               </v-card>
             </v-list-item-content>

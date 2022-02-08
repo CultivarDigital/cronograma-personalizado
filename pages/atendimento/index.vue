@@ -24,12 +24,12 @@
           <h6 class="text-h6 primary--text mb-3">Fale com o suporte</h6>
           <div class="d-flex justify-center">
             <div>
-              <div class="mb-3">
+              <!-- <div class="mb-3">
                 <img
                   src="~/assets/img/atendimento-tempo-de-resposta.png"
                   alt="Atendimento - Tempo de resposta"
                 />
-              </div>
+              </div> -->
               <v-btn color="primary" rounded class="px-6">
                 <v-icon left>mdi-send</v-icon> Abrir chat
               </v-btn>
