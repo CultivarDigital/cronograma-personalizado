@@ -43,7 +43,7 @@
           >
         </div>
       </div>
-      <div class="d-flex justify-center align-center text-center">
+      <div class="d-flex justify-center align-center text-center mb-6">
         <div class="week">
           <div>M1</div>
           <h3>S1</h3>
@@ -73,69 +73,97 @@
           <h3>S3</h3>
         </div>
       </div>
-      <v-row></v-row>
     </v-container>
-    <v-card class="rounded-lg py-3 px-3 pb-0 mb-0 bg-primary-gradient">
-      <v-container class="white--text pb-16">
-        <img src="~/assets/img/chat.png" alt="Atendimento" />
-        <div class="px-6">
-          <h4 class="text-h4">
-            Olá,
-            {{ $auth.user.name ? $auth.user.name.split(' ')[0] : 'Cliente' }} 👋
-          </h4>
-          <p>Se você precisa de ajuda, estamos aqui para isso!</p>
-        </div>
-      </v-container>
-    </v-card>
-    <v-container class="mt-n16 px-6">
-      <v-card color="#F7F7F7" class="pt-8" rounded="0" to="/chat">
-        <div class="px-6 mb-10">
-          <h6 class="text-h6 primary--text mb-3">Fale com o suporte</h6>
-          <div class="d-flex justify-center">
-            <div>
-              <!-- <div class="mb-3">
-                <img
-                  src="~/assets/img/atendimento-tempo-de-resposta.png"
-                  alt="Atendimento - Tempo de resposta"
-                />
-              </div> -->
-              <v-btn color="primary" rounded class="px-6">
-                <v-icon left>mdi-send</v-icon> Abrir chat
-              </v-btn>
-            </div>
+    <v-divider class="mb-6"></v-divider>
+    <v-container class="cronograma px-3">
+      <v-row>
+        <v-col cols="4">
+          <h6 class="subtitle-1 text-center">Quando</h6>
+        </v-col>
+        <v-col cols="8">
+          <h6 class="subtitle-1">Tratamento</h6>
+        </v-col>
+      </v-row>
+      <v-row class="align-center item">
+        <v-col cols="4">
+          <div class="red--text body-2">Esta semana</div>
+        </v-col>
+        <v-col cols="8">
+          <v-btn
+            style="background-color: rgba(238, 96, 94, 0.8)"
+            dark
+            block
+            x-large
+            elevation="6"
+            class="justify-space-between"
+          >
+            Hidratação
+            <v-icon right>mdi-circle-outline</v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-row class="align-center item">
+        <v-col cols="4">
+          <div class="red--text body-2">Esta semana</div>
+        </v-col>
+        <v-col cols="8">
+          <v-btn
+            style="background-color: #939393"
+            dark
+            block
+            x-large
+            elevation="6"
+            class="justify-space-between"
+          >
+            Nutrição
+            <v-icon right>mdi-check-circle-outline</v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-row class="align-center item">
+        <v-col cols="4">
+          <div class="red--text body-2">Esta semana</div>
+        </v-col>
+        <v-col cols="8">
+          <v-btn
+            style="background-color: rgba(238, 96, 94, 0.6)"
+            dark
+            block
+            x-large
+            elevation="6"
+            class="justify-space-between"
+          >
+            Nutrição
+            <v-icon right>mdi-circle-outline</v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="4"> </v-col>
+        <v-col cols="8">
+          <h6 class="subtitle-1">Complementares</h6>
+        </v-col>
+      </v-row>
+      <v-row class="align-center item">
+        <v-col cols="4">
+          <div class="body-2" style="color: rgba(123, 163, 162, 0.8)">
+            Noite anterior a cada tratamento
           </div>
-        </div>
-        <v-divider></v-divider>
-        <div class="px-6 py-6 primary--text">Veja o histórico de conversas</div>
-      </v-card>
-    </v-container>
-    <v-container class="px-6">
-      <div class="px-6">
-        <p class="font-weight-bold" style="color: rgba(0, 0, 0, 0.53)">
-          Procurar uma resposta rápida
-        </p>
-        <v-form @submit.prevent="search">
-          <div class="d-flex justify-center">
-            <v-text-field
-              v-model="filters.search"
-              class="mb-6 rounded-0"
-              placeholder="Pesquise no Pri Responde"
-              outlined
-              :hide-details="true"
-              dense
-            >
-            </v-text-field>
-            <v-btn
-              type="submit"
-              color="primary"
-              class="rounded-0 elevation-0"
-              style="height: 40px; margin-left: -1px"
-            >
-              <v-icon>mdi-chevron-right</v-icon>
-            </v-btn>
-          </div>
-        </v-form>
-      </div>
+        </v-col>
+        <v-col cols="8">
+          <v-btn
+            style="background-color: rgba(123, 163, 162, 0.8)"
+            dark
+            block
+            x-large
+            elevation="6"
+            class="justify-space-between"
+          >
+            Umectação
+            <v-icon right>mdi-circle-outline</v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
     </v-container>
   </div>
 </template>
@@ -160,6 +188,17 @@ export default {
 }
 </script>
 <style scoped lang="sass">
+.cronograma
+  .subtitle-1
+    color: #939393
+    font-weight: 600
+  .item
+    .col-4
+      border-right: 1px solid rgba(215, 215, 215, 0.4)
+      text-align: right
+    .v-btn
+      .v-icon
+        font-size: 22px
 .week
   color: #919191
   padding: 10px 10px
