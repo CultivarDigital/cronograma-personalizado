@@ -4,7 +4,13 @@
     <v-container class="px-9">
       <v-row>
         <v-col>
-          <v-card color="#EE605E" dark class="pa-4" rounded="lg">
+          <v-card
+            to="/cronograma"
+            color="#EE605E"
+            dark
+            class="pa-4"
+            rounded="lg"
+          >
             <p style="line-height: 16px" class="mb-6">
               <small>Tratamentos da semana</small>
             </p>
@@ -15,6 +21,7 @@
         </v-col>
         <v-col>
           <v-card
+            to="/cronograma"
             elevation="lg"
             style="background-color: rgba(123, 163, 162, 0.8)"
             dark
@@ -103,13 +110,33 @@
       </v-row>
       <p class="text-subtitle-1">Precisa de ajuda?</p>
       <v-card
-        class="pa-6 d-flex align-center justify-center primary--text mb-3"
+        class="pa-6 d-flex align-center justify-start primary--text mb-3 px-12"
+        rounded="lg"
+        to="/pri-responde"
+      >
+        <img class="mr-3" src="~/assets/img/icon-info.png" alt="Ajuda" />
+        <span class="text-h6" style="rgba(123, 163, 162, 0.6)"
+          >Tenho uma dúvida</span
+        >
+      </v-card>
+      <v-card
+        class="pa-6 d-flex align-center justify-start primary--text mb-3 px-12"
         rounded="lg"
         to="/atendimento"
       >
         <img class="mr-3" src="~/assets/img/icon-info.png" alt="Ajuda" />
         <span class="text-h6" style="rgba(123, 163, 162, 0.6)"
-          >Tenho uma dúvida</span
+          >Atendimento</span
+        >
+      </v-card>
+      <v-card
+        class="pa-6 d-flex align-center justify-start primary--text mb-3 px-12"
+        rounded="lg"
+        to="/atendimento"
+      >
+        <img class="mr-3" src="~/assets/img/icon-info.png" alt="Ajuda" />
+        <span class="text-h6" style="rgba(123, 163, 162, 0.6)"
+          >Críticas e Sugestões</span
         >
       </v-card>
     </v-container>
