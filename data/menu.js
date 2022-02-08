@@ -5,16 +5,22 @@ const menu = [
     to: '/dashboard',
   },
   {
-    title: 'Suporte',
-    icon: 'mdi-forum',
-    to: '/suporte',
-    role: 'admin',
-  },
-  {
     title: 'Atendimento',
     icon: 'mdi-forum',
     to: '/atendimento',
     role: 'user',
+  },
+  {
+    title: 'Meu cronograma',
+    icon: 'mdi-forum',
+    to: '/cronograma',
+    role: 'user',
+  },
+  {
+    title: 'Suporte',
+    icon: 'mdi-forum',
+    to: '/suporte',
+    role: 'admin',
   },
   {
     title: 'Clientes',
