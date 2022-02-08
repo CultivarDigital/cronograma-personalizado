@@ -43,34 +43,16 @@
           >
         </div>
       </div>
-      <div class="d-flex justify-center align-center text-center mb-6">
-        <div class="week">
-          <div>M1</div>
-          <h3>S1</h3>
-        </div>
-        <div class="week">
-          <div>M1</div>
-          <h3>S2</h3>
-        </div>
-        <div class="week">
-          <div>M1</div>
-          <h3>S3</h3>
-        </div>
-        <div class="week active">
-          <div>M1</div>
-          <h3>S4</h3>
-        </div>
-        <div class="week">
-          <div>M2</div>
-          <h3>S1</h3>
-        </div>
-        <div class="week">
-          <div>M2</div>
-          <h3>S2</h3>
-        </div>
-        <div class="week">
-          <div>M2</div>
-          <h3>S3</h3>
+      <div class="d-flex justify-space-around align-center text-center mb-6">
+        <div
+          v-for="(week, index) in weeks"
+          :key="index"
+          class="week pointer"
+          :class="{ active: index === active }"
+          @click="active = index"
+        >
+          <div>{{ week.month }}</div>
+          <h3>{{ week.week }}</h3>
         </div>
       </div>
     </v-container>
@@ -174,6 +156,37 @@ export default {
       filters: {
         search: null,
       },
+      active: 4,
+      weeks: [
+        {
+          month: 'M1',
+          week: 'S1',
+        },
+        {
+          month: 'M1',
+          week: 'S2',
+        },
+        {
+          month: 'M1',
+          week: 'S3',
+        },
+        {
+          month: 'M1',
+          week: 'S4',
+        },
+        {
+          month: 'M2',
+          week: 'S1',
+        },
+        {
+          month: 'M2',
+          week: 'S2',
+        },
+        {
+          month: 'M2',
+          week: 'S3',
+        },
+      ],
     }
   },
   methods: {
