@@ -13,10 +13,16 @@
         <template v-for="post in posts">
           <v-col :key="post._id" class="py-3" cols="12" lg="3">
             <v-card :to="'/conteudo-exclusivo/' + post.slug">
-              <v-img
-                v-if="post.pictures && post.pictures.length"
-                :src="apiURL + post.pictures[0]"
-              />
+              <div
+                class="pt-3 px-3"
+                style="background-color: rgba(123, 163, 162, 0.4)"
+              >
+                <v-img
+                  v-if="post.pictures && post.pictures.length"
+                  :src="apiURL + post.pictures[0]"
+                />
+              </div>
+
               <div class="pa-3">
                 <div v-if="post.stats" class="" style="color: #5ba092">
                   <small>
