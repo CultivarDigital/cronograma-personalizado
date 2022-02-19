@@ -117,7 +117,7 @@ export default {
       ogImage: '/cover.jpeg',
     },
     workbox: {
-      offlineStrategy: 'StaleWhileRevalidate',
+      offlineStrategy: 'NetworkFirst',
       offlineAnalytics: true,
       runtimeCaching: [
         { urlPattern: 'https://fonts.googleapis.com/.*' },
