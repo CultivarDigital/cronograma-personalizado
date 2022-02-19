@@ -12,9 +12,14 @@ const menu = [
   },
   {
     title: 'Meu cronograma',
-    icon: 'mdi-forum',
+    icon: 'mdi-calendar',
     to: '/cronograma',
     role: 'user',
+  },
+  {
+    title: 'Conteúdo exclusivo',
+    icon: 'mdi-post',
+    to: '/conteudo-exclusivo',
   },
   {
     title: 'Suporte',

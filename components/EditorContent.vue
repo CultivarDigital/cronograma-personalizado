@@ -1,10 +1,6 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
-  <div
-    v-if="content"
-    class="tiptap-content mb-3 text-justify"
-    v-html="content"
-  ></div>
+  <div v-if="content" class="tiptap-content mb-3" v-html="content"></div>
 </template>
 
 <script>

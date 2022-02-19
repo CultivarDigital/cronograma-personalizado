@@ -26,7 +26,7 @@
           v-bind="attrs"
           v-on="on"
         >
-          <v-icon dark>mdi-chat-plus</v-icon>
+          <v-icon dark>mdi-plus</v-icon>
         </v-btn>
       </div>
     </template>
@@ -40,25 +40,16 @@
       <v-container class="pt-6">
         <ValidationObserver v-slot="{ validate, invalid }">
           <v-form @submit.prevent="validate().then(save)">
+            <Carousel
+              :items="form.pictures"
+              show-remove
+              @remove="removePicture"
+            />
+            <div class="text-center mb-6">
+              <UploadImage button prefix="posts" @input="addPictures" />
+            </div>
+
             <div class="mb-6">
-              <div class="mb-6">
-                <v-checkbox
-                  v-for="category in categories"
-                  :key="category.title"
-                  v-model="form.categories"
-                  :label="category.title"
-                  :color="category.color"
-                  :value="category.title"
-                  hide-details
-                  class="d-inline-block mr-3 mt-0"
-                >
-                  <template #label>
-                    <span :style="'color: ' + category.color">{{
-                      category.title
-                    }}</span>
-                  </template>
-                </v-checkbox>
-              </div>
               <validation-provider
                 v-slot="{ errors }"
                 name="título"
@@ -141,7 +132,6 @@ import { ValidationObserver, ValidationProvider } from 'vee-validate'
 // import { Researcher, Paper } from 'yoastseo'
 // import slugify from 'slugify'
 import readingTime from 'reading-time'
-import categories from '@/data/post-categories.json'
 
 export default {
   components: {
@@ -156,7 +146,6 @@ export default {
   },
   data() {
     return {
-      categories,
       dialog: false,
       tags: [],
       form: {
@@ -164,10 +153,10 @@ export default {
         description: '',
         body: '',
         tags: [],
-        categories: [],
         published: false,
         highlighted: false,
         stats: null,
+        pictures: [],
       },
     }
   },
@@ -192,18 +181,28 @@ export default {
       const form = { ...this.form }
       if (this.post) {
         this.$axios.$patch('/v1/posts/' + this.post._id, form).then((post) => {
-          this.$notifier.success('Conversa salva!')
+          this.$notifier.success('Publicação salva!')
           this.$emit('change', post)
           this.dialog = false
         })
       } else {
         this.$axios.$post('/v1/posts', form).then((post) => {
-          this.$notifier.success('Conversa iniciada!')
+          this.$notifier.success('Publicação salva!')
           this.dialog = false
-          this.$router.replace('/blog/' + post.slug)
+          this.$router.replace('/conteudo-exclusivo/' + post.slug)
           this.$emit('change', post)
         })
       }
+    },
+    addPictures(picture) {
+      if (picture) {
+        this.form.pictures.push(picture)
+      }
+    },
+    removePicture(index) {
+      this.form.pictures = this.form.pictures.filter(
+        (picture, i) => i !== index
+      )
     },
   },
 }

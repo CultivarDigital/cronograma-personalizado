@@ -48,7 +48,7 @@
       <p class="text-subtitle-2">Por aqui</p>
       <v-row class="text-center mb-3">
         <v-col cols="4">
-          <v-card class="pa-3 pt-4">
+          <v-card class="pa-3 pt-4" to="/conteudo-exclusivo">
             <v-btn
               icon
               style="
