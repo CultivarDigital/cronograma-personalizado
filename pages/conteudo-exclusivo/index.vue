@@ -14,9 +14,9 @@
           <v-col :key="post._id" class="py-3" cols="12" lg="3">
             <v-card :to="'/conteudo-exclusivo/' + post.slug">
               <v-img
-                height="250"
-                src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-              ></v-img>
+                v-if="post.pictures && post.pictures.length"
+                :src="apiURL + post.pictures[0]"
+              />
               <div class="pa-3">
                 <div v-if="post.stats" class="" style="color: #5ba092">
                   <small>
@@ -66,6 +66,7 @@ export default {
   },
   data() {
     return {
+      apiURL: process.env.API_URL,
       categories,
       posts: [],
       tags: [],
