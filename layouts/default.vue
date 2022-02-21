@@ -4,7 +4,7 @@
       <BottomNavigation />
       <DrawerNavigation />
 
-      <v-main class="mb-4">
+      <v-main>
         <Welcome v-if="!$store.state.hasBeenGreeted" />
         <Nuxt />
       </v-main>

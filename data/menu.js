@@ -22,6 +22,11 @@ const menu = [
     to: '/conteudo-exclusivo',
   },
   {
+    title: 'Consultoria mensal',
+    icon: 'mdi-calendar-star',
+    to: '/consultoria-mensal',
+  },
+  {
     title: 'Suporte',
     icon: 'mdi-forum',
     to: '/suporte',

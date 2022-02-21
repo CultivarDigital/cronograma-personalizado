@@ -88,7 +88,7 @@
           </v-card>
         </v-col>
         <v-col cols="4">
-          <v-card class="pa-3 pt-4">
+          <v-card class="pa-3 pt-4" to="/consultoria-mensal">
             <v-btn
               icon
               style="
@@ -130,7 +130,7 @@
         >
       </v-card>
       <v-card
-        class="pa-6 d-flex align-center justify-start primary--text mb-3 px-12"
+        class="pa-6 d-flex align-center justify-start primary--text mb-12 px-12"
         rounded="lg"
         to="/atendimento"
       >
