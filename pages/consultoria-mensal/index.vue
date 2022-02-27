@@ -124,6 +124,11 @@
           </div>
         </v-card>
       </div>
+      <div class="text-center">
+        <v-btn to="/renovacao" x-large dark color="rgba(123, 163, 162, 0.6)">
+          RENOVAR O CRONOGRAMA
+        </v-btn>
+      </div>
     </v-container>
   </div>
 </template>

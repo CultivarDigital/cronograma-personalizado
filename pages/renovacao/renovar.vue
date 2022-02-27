@@ -3,23 +3,23 @@
     <TopNavigation active="Meu cronograma" />
     <v-container class="pt-0 px-6">
       <div class="mb-8">
-        <Subtitle label="Consultoria Mensal" back-to="/consultoria-mensal" />
+        <Subtitle label="Renovar" back-to="/renovacao" />
       </div>
       <div class="text-center">
         <img
           class="mb-3"
-          src="~/assets/img/illustration.png"
+          src="~/assets/img/renovar.png"
           alt="Consultoria mensal"
           style="max-width: 100%"
         />
         <h3 class="text-h5 font-weight-bold mb-3">
-          Vamos te acompanhar de pertinho!
+          Você continua no nosso time!
         </h3>
         <p class="mb-8" style="color: #78746d">
           <small>
-            Na consultoria mensal podemos ver a cada passo a evolução do seu
-            Cronograma e talvez promover mudanças necessárias. Para que façamos
-            a análise, por gentileza, preencha o formulário abaixo.
+            Estamos felizes pela confiança e principalmente pelos resultados que
+            você alcançou.Para seguir com a renovação, basta preencher o
+            formulário abaixo.
           </small>
         </p>
       </div>
@@ -29,13 +29,13 @@
         style="font-size: 13px; color: #262626"
         class="text-transform-none"
       >
-        <v-chip small class="mr-3 rounded-lg">1</v-chip> Mês passado
+        <v-chip small class="mr-3 rounded-lg">1</v-chip> Informações gerais
       </v-tab>
       <v-tab
         style="font-size: 13px; color: #262626"
         class="text-transform-none"
       >
-        <v-chip small class="mr-3 rounded-lg">2</v-chip> Este mês
+        <v-chip small class="mr-3 rounded-lg">2</v-chip> Cronograma
       </v-tab>
     </v-tabs>
     <v-container class="px-6 mb-6">
@@ -51,7 +51,7 @@
           ></v-checkbox>
         </v-tab-item>
         <v-tab-item>
-          <v-card flat> Informações deste mês </v-card>
+          <v-card flat> Formulário sobre o cronograma </v-card>
         </v-tab-item>
       </v-tabs-items>
     </v-container>
