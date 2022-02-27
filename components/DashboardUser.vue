@@ -132,7 +132,7 @@
       <v-card
         class="pa-6 d-flex align-center justify-start primary--text mb-12 px-12"
         rounded="lg"
-        to="/atendimento"
+        to="/sac/criticas-e-sugestoes"
       >
         <img class="mr-3" src="~/assets/img/icon-info.png" alt="Ajuda" />
         <span class="text-h6" style="rgba(123, 163, 162, 0.6)"

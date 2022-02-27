@@ -27,6 +27,11 @@ const menu = [
     to: '/consultoria-mensal',
   },
   {
+    title: 'Críticas e sugestões',
+    icon: 'mdi-message-alert-outline',
+    to: '/sac/criticas-e-sugestoes',
+  },
+  {
     title: 'Suporte',
     icon: 'mdi-forum',
     to: '/suporte',

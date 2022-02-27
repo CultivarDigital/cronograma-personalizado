@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/no-v-html -->
 <!-- eslint-disable vue/no-lone-template -->
 <template>
-  <div id="message-form" class="message-form">
+  <div id="message-form" class="message-form mb-6">
     <v-list-item class="py-0">
       <v-list-item-content class="py-0">
         <div>
@@ -11,7 +11,11 @@
             auto-grow
             rows="1"
             hide-details
-            placeholder="Qual a sua dúvida?"
+            :placeholder="
+              $auth.user.role === 'admin'
+                ? 'Envie uma mensagem'
+                : 'Qual a sua dúvida?'
+            "
           >
             <template #append>
               <UploadImage prefix="messages" @input="addImage" />
