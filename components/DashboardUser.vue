@@ -68,7 +68,7 @@
           </v-card>
         </v-col>
         <v-col cols="4">
-          <v-card class="pa-3 pt-4">
+          <v-card class="pa-3 pt-4" to="/mini-curso">
             <v-btn
               icon
               style="
@@ -115,7 +115,7 @@
         to="/pri-responde"
       >
         <img class="mr-3" src="~/assets/img/icon-info.png" alt="Ajuda" />
-        <span class="text-h6" style="rgba(123, 163, 162, 0.6)"
+        <span class="text-h6" style="color: rgba(123, 163, 162, 0.6)"
           >Tenho uma dúvida</span
         >
       </v-card>
@@ -125,7 +125,7 @@
         to="/atendimento"
       >
         <img class="mr-3" src="~/assets/img/icon-info.png" alt="Ajuda" />
-        <span class="text-h6" style="rgba(123, 163, 162, 0.6)"
+        <span class="text-h6" style="color: rgba(123, 163, 162, 0.6)"
           >Atendimento</span
         >
       </v-card>
@@ -135,7 +135,7 @@
         to="/sac/criticas-e-sugestoes"
       >
         <img class="mr-3" src="~/assets/img/icon-info.png" alt="Ajuda" />
-        <span class="text-h6" style="rgba(123, 163, 162, 0.6)"
+        <span class="text-h6" style="color: rgba(123, 163, 162, 0.6)"
           >Críticas e Sugestões</span
         >
       </v-card>

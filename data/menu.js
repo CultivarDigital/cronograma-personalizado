@@ -27,6 +27,11 @@ const menu = [
     to: '/consultoria-mensal',
   },
   {
+    title: 'Mini curso',
+    icon: 'mdi-youtube',
+    to: '/mini-curso',
+  },
+  {
     title: 'Críticas e sugestões',
     icon: 'mdi-message-alert-outline',
     to: '/sac/criticas-e-sugestoes',
