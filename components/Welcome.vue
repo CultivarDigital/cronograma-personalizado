@@ -81,13 +81,11 @@ export default {
     prev() {
       if (this.tab > 0) {
         this.tab = this.tab - 1
-        console.log('prev')
       }
     },
     next() {
       if (this.tab < 1) {
         this.tab = this.tab + 1
-        console.log('Next')
       } else {
         this.setGreeted()
       }

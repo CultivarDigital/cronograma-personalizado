@@ -1,4 +1,3 @@
-/* eslint-disable import/no-named-as-default */
 <!-- eslint-disable import/no-named-as-default -->
 <template>
   <div class="tiptap-editor mb-6">
