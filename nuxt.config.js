@@ -184,7 +184,7 @@ export default {
   },
   env: {
     BASE_URL: process.env.BASE_URL || 'http://localhost:3000',
-    API_URL: process.env.API_URL || 'http://localhost:5000',
+    API_URL: process.env.API_URL || 'http://localhost:5001',
     npm_package_description: process.env.npm_package_description || '',
     FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
     FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,

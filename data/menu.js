@@ -43,9 +43,16 @@ const menu = [
     role: 'admin',
   },
   {
+    title: 'Turmas',
+    description: 'Lista das turmas cadastradas',
+    icon: 'mdi-account-group',
+    to: '/turmas',
+    role: 'admin',
+  },
+  {
     title: 'Clientes',
     description: 'Lista de clientes',
-    icon: 'mdi-account-group-outline',
+    icon: 'mdi-face-woman-shimmer-outline',
     to: '/clientes',
     role: 'admin',
   },
