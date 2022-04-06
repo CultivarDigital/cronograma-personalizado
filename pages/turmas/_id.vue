@@ -42,37 +42,32 @@
               </div>
             </div>
           </v-col>
-          <v-col cols="8">
+          <v-col cols="8" class="font-size: 14px; line-height: 14px;">
             <v-card
               style="
                 background-color: rgba(123, 163, 162, 0.4);
                 border-radius: 4px;
-                font-size: 14px;
-                line-height: 14px;
               "
-              class="px-3 py-6 primary--text text-center"
+              class="px-3 py-6 primary--text text-center mb-3"
               elevation="0"
             >
               <h3>EDITAR TURMA</h3>
             </v-card>
-            <div class="text-center">
-              <div
-                style="font-size: 42px"
-                class="primary--text font-weight-bold"
-              >
-                {{ $moment(group.startAt).format('DD') }}
-              </div>
-              <div
-                style="
-                  color: rgba(123, 163, 162, 0.4);
-                  font-size: 16px;
-                  line-height: 18px;
-                  text-transform: capitalize;
-                "
-              >
-                {{ $moment(group.startAt).format('MMM YYYY') }}
-              </div>
-            </div>
+            <v-card
+              style="
+                background-color: rgba(196, 196, 196, 0.4);
+                color: rgba(0, 0, 0, 0.8);
+                border-radius: 8px;
+              "
+              class="px-3 py-3 text-center"
+              elevation="0"
+              @click="copyURL"
+            >
+              <small>{{ registerUrl }}</small>
+            </v-card>
+            <small style="font-size: 12px"
+              >clique para copiar o link da turma</small
+            >
           </v-col>
         </v-row>
       </v-container>
@@ -116,6 +111,13 @@ export default {
     }
   },
   computed: {
+    registerUrl() {
+      let url = 'https://prijorge.com/'
+      if (this.group) {
+        url += this.group._id
+      }
+      return url
+    },
     membersDataset() {
       if (this.members) {
         return {
@@ -165,17 +167,16 @@ export default {
       this.loading = true
       this.group = await this.$axios.$get('/v1/groups/' + this.$route.params.id)
       this.members = await this.$axios.$get(
-        '/v1/groups/' + this.$route.params.id + '/members',
-        {
-          params: {
-            group: this.$route.params.id,
-          },
-        }
+        '/v1/groups/' + this.$route.params.id + '/members'
       )
       this.possibleMembers = await this.$axios.$get(
         '/v1/groups/' + this.$route.params.id + '/possible-members'
       )
       this.loading = false
+    },
+    async copyURL() {
+      await navigator.clipboard.writeText(this.registerUrl)
+      this.notify('Link copiado!')
     },
   },
 }
