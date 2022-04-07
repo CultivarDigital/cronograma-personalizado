@@ -3,7 +3,7 @@
     <TopNavigation active="Clientes" />
     <div v-if="members">
       <v-container class="text-center">
-        <strong>{{ members.length }}</strong> clientes encontrados
+        <strong>{{ members.length }}</strong> clientes encontradas
       </v-container>
       <v-list>
         <template v-for="member in members">

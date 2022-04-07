@@ -65,9 +65,11 @@
             >
               <small>{{ registerUrl }}</small>
             </v-card>
-            <small style="font-size: 12px"
-              >clique para copiar o link da turma</small
-            >
+            <p>
+              <small style="font-size: 12px">
+                clique para copiar o link da turma
+              </small>
+            </p>
           </v-col>
         </v-row>
       </v-container>
@@ -112,9 +114,9 @@ export default {
   },
   computed: {
     registerUrl() {
-      let url = 'https://prijorge.com/'
+      let url = process.env.BASE_URL
       if (this.group) {
-        url += this.group._id
+        url += `/${this.group._id}`
       }
       return url
     },
@@ -125,10 +127,10 @@ export default {
             label: 'Adesão',
             value: 'Clientes da turma',
           },
-          items: this.members.map((members) => ({
-            label: this.$moment(members.createdAt).format('DD/MM/YYYY'),
-            value: members.name,
-            url: `/turmas/${members._id}`,
+          items: this.members.map((member) => ({
+            label: this.$moment(member.createdAt).format('DD/MM/YYYY'),
+            value: member.name,
+            url: `/clientes/${member._id}`,
           })),
         }
       }
@@ -141,10 +143,10 @@ export default {
             label: 'Adesão',
             value: 'Clientes sem turma',
           },
-          items: this.possibleMembers.map((members) => ({
-            label: this.$moment(members.createdAt).format('DD/MM/YYYY'),
-            value: members.name,
-            url: `/turmas/${members._id}`,
+          items: this.possibleMembers.map((member) => ({
+            label: this.$moment(member.createdAt).format('DD/MM/YYYY'),
+            value: member.name || member.email,
+            url: `/clientes/${member.id}`,
           })),
         }
       }

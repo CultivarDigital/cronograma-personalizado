@@ -3,9 +3,10 @@
     <v-app>
       <BottomNavigation />
       <DrawerNavigation />
-
       <v-main>
-        <Welcome v-if="!$store.state.hasBeenGreeted" />
+        <Anamnese
+          v-if="!$auth.user.status || $auth.user.status === 'created'"
+        />
         <Nuxt />
       </v-main>
       <Snackbar />
