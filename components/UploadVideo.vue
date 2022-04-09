@@ -1,5 +1,5 @@
 <template>
-  <span class="upload-image">
+  <span class="upload-video">
     <v-btn
       v-if="button"
       small
@@ -29,8 +29,8 @@
     </v-btn>
     <input
       v-show="false"
-      :ref="'upload-image-input-' + inputId"
-      accept="image/*"
+      :ref="'upload-video-input-' + inputId"
+      accept="video/*"
       type="file"
       @change="uploadFiles"
     />
@@ -59,7 +59,7 @@ export default {
     },
     icon: {
       type: String,
-      default: 'mdi-image',
+      default: 'mdi-video',
     },
   },
   data() {
@@ -81,7 +81,7 @@ export default {
         const formData = new FormData()
         formData.append('file', file, file.name)
         this.$axios
-          .$post('/v1/uploads/images?prefix=' + this.prefix, formData, {
+          .$post('/v1/uploads/videos?prefix=' + this.prefix, formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
@@ -98,7 +98,7 @@ export default {
     },
     upload() {
       // eslint-disable-next-line dot-notation
-      this.$refs['upload-image-input-' + this.inputId].click()
+      this.$refs['upload-video-input-' + this.inputId].click()
     },
   },
 }

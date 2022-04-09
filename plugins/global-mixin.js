@@ -35,7 +35,7 @@ if (!Vue.__my_mixin__) {
         })
       },
       apiDataToForm(form, data) {
-        Object.keys(form).forEach((key) => {
+        Object.keys({ ...form }).forEach((key) => {
           if (data && data[key]) {
             if (
               typeof data[key] === 'string' &&

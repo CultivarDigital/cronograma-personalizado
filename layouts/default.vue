@@ -5,7 +5,10 @@
       <DrawerNavigation />
       <v-main>
         <Anamnese
-          v-if="!$auth.user.status || $auth.user.status === 'created'"
+          v-if="
+            ($auth.user.role === 'user' && !$auth.user.status) ||
+            $auth.user.status === 'created'
+          "
         />
         <Nuxt />
       </v-main>
