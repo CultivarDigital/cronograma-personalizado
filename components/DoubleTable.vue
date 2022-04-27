@@ -1,5 +1,5 @@
 <template>
-  <div class="double-table">
+  <div class="double-table mb-6">
     <div v-if="data && data.items.length" class="double-table-header">
       <v-row v-if="data.header" no-gutters class="mb-6">
         <v-col cols="4">

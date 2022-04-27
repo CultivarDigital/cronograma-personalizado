@@ -2,11 +2,11 @@
 <template>
   <div class="d-inline-block pointer">
     <v-avatar :size="size" :color="color">
-      <img
+      <v-img
         avatar
         :title="profile.name"
         :alt="profile.name"
-        :src="require('~/assets/img/user.png')"
+        :src="picture"
         :size="size"
         :color="color"
         :thumb="thumb"
@@ -49,6 +49,17 @@ export default {
     }
   },
   computed: {
+    picture() {
+      if (this.profile && this.profile.picture) {
+        if (this.profile.picture.startsWith('http')) {
+          return this.profile.picture
+        } else {
+          return process.env.API_URL + this.profile.picture
+        }
+      } else {
+        return require('~/assets/img/user.png')
+      }
+    },
     sameUser() {
       return (
         this.$auth.user &&
