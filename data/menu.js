@@ -56,6 +56,13 @@ const menu = [
     to: '/clientes',
     role: 'admin',
   },
+  {
+    title: 'Modelos',
+    description: 'Modelos de cronograma personalizado',
+    icon: 'mdi-view-module-outline',
+    to: '/modelos',
+    role: 'admin',
+  },
 ]
 
 export default menu

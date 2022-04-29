@@ -43,6 +43,7 @@ export default {
     '~/plugins/global-mixin',
     { src: '~/plugins/persisted-state', ssr: false },
     { src: '~/plugins/vue-the-mask', ssr: false },
+    { src: '~/plugins/vuedraggable', ssr: false },
     '~/plugins/notifier.js',
     '~/plugins/db.js',
     '~/plugins/moment.js',

@@ -3,10 +3,10 @@
     <TopNavigation active="Montar Cronograma" />
     <v-container class="pt-0 px-6">
       <div class="mb-8">
-        <Subtitle label="Turma" />
+        <Subtitle label="Turma" back-to="/turmas" />
       </div>
     </v-container>
-    <GroupForm @change="load" />
+    <GroupForm :group="group" @change="load" />
     <div>
       <v-container v-if="group" class="px-4">
         <v-row>
