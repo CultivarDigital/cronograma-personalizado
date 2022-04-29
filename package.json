@@ -37,7 +37,7 @@
     "@tiptap/starter-kit": "^2.0.0-beta.142",
     "@tiptap/vue-2": "^2.0.0-beta.69",
     "cheerio": "^1.0.0-rc.10",
-    "core-js": "^3.8.2",
+    "core-js": "^3.22.3",
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
     "firebase": "^9.1.0",
@@ -54,6 +54,7 @@
     "vue-infinite-loading": "^2.4.5",
     "vue-mention": "^1.0.0",
     "vue-the-mask": "^0.11.1",
+    "vuedraggable": "^2.24.3",
     "vuex-persistedstate": "^4.0.0-beta.3",
     "yoastseo": "^1.91.0"
   },
