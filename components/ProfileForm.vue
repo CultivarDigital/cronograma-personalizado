@@ -85,24 +85,33 @@
 
         <v-container>
           <UploadImage
+            v-if="$auth.user.id === profile.id"
             button
             label="Enviar foto"
             prefix="profile"
             @input="updateImage"
           />
-          <div v-if="groups && groups.length" class="pt-3">
-            <v-select
-              v-if="groups"
-              v-model="form.group"
-              outlined
-              label="Turma"
-              :items="groups"
-              item-text="name"
-              item-value="_id"
-              clearable
-              hide-details="auto"
-              @input="save(false)"
-            />
+          <div
+            v-if="$auth.user.role === 'admin' && $auth.user.id !== profile.id"
+            class="mb-3"
+          >
+            <ContractForm />
+            <CCPForm v-if="current_contract" :contract="current_contract" />
+            {{ current_contract }}
+            <!-- <div v-if="current_contract && current_contract.length" class="pt-3">
+              <v-select
+                v-if="current_contract"
+                v-model="form.group"
+                outlined
+                label="Turma"
+                :items="current_contract"
+                item-text="name"
+                item-value="_id"
+                clearable
+                hide-details="auto"
+                @input="save(false)"
+              />
+            </div> -->
           </div>
         </v-container>
       </div>
@@ -111,10 +120,16 @@
           <v-tab style="font-size: 13px; color: #262626">
             <v-chip small class="mr-3 rounded-lg">1</v-chip> Pessoal
           </v-tab>
-          <v-tab style="font-size: 13px; color: #262626">
+          <v-tab
+            v-if="profile.role !== 'admin'"
+            style="font-size: 13px; color: #262626"
+          >
             <v-chip small class="mr-3 rounded-lg">2</v-chip> Histórico
           </v-tab>
-          <v-tab style="font-size: 13px; color: #262626">
+          <v-tab
+            v-if="profile.role !== 'admin'"
+            style="font-size: 13px; color: #262626"
+          >
             <v-chip small class="mr-3 rounded-lg">3</v-chip> Imagens
           </v-tab>
         </v-tabs>
@@ -595,7 +610,7 @@ export default {
       showTutorial: false,
       greeted: true,
       loading: false,
-      groups: null,
+      current_contract: null,
       form: {
         group: null,
         picture: null,
@@ -641,8 +656,8 @@ export default {
   },
   created() {
     this.apiDataToForm(this.form, this.profile)
-    if (this.value && this.$auth.user && this.$auth.user.role === 'admin') {
-      this.loadGroups()
+    if (this.value) {
+      this.loadCurrentContract()
     }
   },
   methods: {
@@ -684,8 +699,8 @@ export default {
       this.form.picture = image
       this.save(false)
     },
-    async loadGroups() {
-      this.groups = await this.$axios.$get('/v1/groups')
+    async loadCurrentContract() {
+      this.current_contract = await this.$axios.$get('/v1/contracts/current')
     },
   },
 }
