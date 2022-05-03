@@ -18,11 +18,14 @@ export default {
       user: null,
     }
   },
-  updateUser(user) {
-    this.user = user
-  },
+
   async created() {
     this.user = await this.$axios.$get('/v1/users/' + this.$route.params.id)
+  },
+  methods: {
+    updateUser(user) {
+      this.user = user
+    },
   },
 }
 </script>

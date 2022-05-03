@@ -48,19 +48,68 @@
           <ValidationObserver v-slot="{ validate, invalid }">
             <v-form @submit.prevent="validate().then(save)">
               <div>
-                <hr class="mb-6" />
-                <validation-provider
-                  v-slot="{ errors }"
-                  name="Nome do modelo"
-                  rules="required"
-                >
-                  <v-text-field
-                    v-model="form.name"
-                    label="Nome do modelo"
-                    outlined
-                    :error-messages="errors"
-                  />
-                </validation-provider>
+                <div v-if="openGroups">
+                  <div v-if="openGroups.length > 0">
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="Turma"
+                      rules="required"
+                    >
+                      <v-select
+                        v-model="form.group"
+                        label="Selecione a turma"
+                        outlined
+                        :items="openGroups"
+                        item-text="name"
+                        item-value="_id"
+                        :error-messages="errors"
+                      >
+                        <template slot="selection" slot-scope="data">
+                          <div class="py-3 primary--text">
+                            Turma: <strong>{{ data.item.name }}</strong>
+                            <br />
+                            <small>
+                              Começa em:
+                              <strong>
+                                {{
+                                  $moment(data.item.startAt).format(
+                                    'DD/MM/YYYY'
+                                  )
+                                }}
+                              </strong>
+                            </small>
+                          </div>
+                        </template>
+                        <template slot="item" slot-scope="data">
+                          <div class="py-3 primary--text">
+                            Turma: <strong>{{ data.item.name }}</strong>
+                            <br />
+                            <small>
+                              Começa em:
+                              <strong>
+                                {{
+                                  $moment(data.item.startAt).format(
+                                    'DD/MM/YYYY'
+                                  )
+                                }}
+                              </strong>
+                            </small>
+                          </div>
+                        </template>
+                      </v-select>
+                    </validation-provider>
+                  </div>
+                  <div v-if="openGroups.length == 0">
+                    <v-alert
+                      v-if="invalid"
+                      type="error"
+                      class="d-flex justify-center"
+                    >
+                      Não existem turmas abertas
+                    </v-alert>
+                    <v-btn to="/turmas"> Gerenciar turmas </v-btn>
+                  </div>
+                </div>
               </div>
               <div class="text-right">
                 <Save :invalid="invalid" :block="false" label="Salvar" />
@@ -81,8 +130,8 @@ export default {
     ValidationProvider,
   },
   props: {
-    contract: {
-      type: Object,
+    value: {
+      type: Array,
       default: () => null,
     },
     user: {
@@ -100,38 +149,13 @@ export default {
     }
 
     return {
-      active_month: 1,
-      ccp_options: [
-        {
-          value: 'H',
-          description: 'Hidratação',
-        },
-        {
-          value: 'N',
-          description: 'Nutrição',
-        },
-        {
-          value: 'R',
-          description: 'Reconstrução',
-        },
-        {
-          value: 'U',
-          description: 'Umectação',
-        },
-      ],
       dialog: true,
+      openGroups: null,
+      contracts: this.value,
       form: {
-        user: '',
+        user: this.user.id,
         group: '',
-        type: '',
-        startAt: {
-          type: Date,
-          required: true,
-        },
-        status: '',
-        data: {
-          type: Object,
-        },
+        status: 'active',
       },
     }
   },
@@ -153,32 +177,21 @@ export default {
     },
   },
   created() {
-    if (this.contract) {
-      Object.keys(this.form).forEach((key) => {
-        if (this.contract[key]) {
-          this.form[key] = this.contract[key]
-        }
-      })
+    if (this.contracts.length === 0) {
+      this.loadOpenGroups()
     }
   },
   methods: {
+    async loadOpenGroups() {
+      this.openGroups = await this.$axios.$get('/v1/groups/open-groups')
+    },
     save() {
       const form = { ...this.form }
-      if (this.contract) {
-        this.$axios
-          .$patch('/v1/contracts/' + this.contract._id, form)
-          .then((contract) => {
-            this.$notifier.success('Atualizado!')
-            this.$emit('change', contract)
-            this.dialog = false
-          })
-      } else {
-        this.$axios.$post('/v1/contracts', form).then((contract) => {
-          this.$notifier.success('Salvo!')
-          this.dialog = false
-          this.$emit('change', contract)
-        })
-      }
+      this.$axios.$post('/v1/contracts', form).then((contract) => {
+        this.$notifier.success('Salvo!')
+        this.dialog = false
+        this.$emit('input', [contract, ...this.contracts])
+      })
     },
     toggleMonth(month) {
       if (this.active_month === month) {
