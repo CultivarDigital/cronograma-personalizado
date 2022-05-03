@@ -95,16 +95,22 @@
             v-if="$auth.user.role === 'admin' && $auth.user.id !== profile.id"
             class="mb-3"
           >
-            <ContractForm />
+            <Contracts
+              v-if="contracts && profile"
+              v-model="contracts"
+              :user="profile"
+            />
             <CCPForm v-if="current_contract" :contract="current_contract" />
-            {{ current_contract }}
-            <!-- <div v-if="current_contract && current_contract.length" class="pt-3">
+            <p>
+              {{ contracts }}
+            </p>
+            <!-- <div v-if="contracts && contracts.length" class="pt-3">
               <v-select
-                v-if="current_contract"
+                v-if="contracts"
                 v-model="form.group"
                 outlined
                 label="Turma"
-                :items="current_contract"
+                :items="contracts"
                 item-text="name"
                 item-value="_id"
                 clearable
@@ -610,7 +616,7 @@ export default {
       showTutorial: false,
       greeted: true,
       loading: false,
-      current_contract: null,
+      contracts: null,
       form: {
         group: null,
         picture: null,
@@ -653,11 +659,17 @@ export default {
     profile() {
       return this.value || this.$auth.user
     },
+    current_contract() {
+      if (this.contracts && this.contracts.length) {
+        return this.contracts.find((contract) => contract.status === 'active')
+      }
+      return null
+    },
   },
   created() {
     this.apiDataToForm(this.form, this.profile)
     if (this.value) {
-      this.loadCurrentContract()
+      this.loadContracts()
     }
   },
   methods: {
@@ -699,8 +711,10 @@ export default {
       this.form.picture = image
       this.save(false)
     },
-    async loadCurrentContract() {
-      this.current_contract = await this.$axios.$get('/v1/contracts/current')
+    async loadContracts() {
+      this.contracts = await this.$axios.$get('/v1/contracts', {
+        params: { user: this.$route.params.id },
+      })
     },
   },
 }
