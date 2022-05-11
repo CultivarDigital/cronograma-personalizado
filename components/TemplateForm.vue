@@ -60,7 +60,8 @@
                 />
               </validation-provider>
             </div>
-            <div class="text-right">
+            <div class="d-flex justify-space-between align-center">
+              <Remove v-if="template" button @confirm="remove" />
               <Save :invalid="invalid" :block="false" label="Salvar" />
             </div>
           </v-form>
@@ -144,6 +145,15 @@ export default {
           this.$notifier.success('Salvo!')
           this.dialog = false
           this.$emit('change', template)
+        })
+      }
+    },
+    remove() {
+      if (this.template) {
+        this.$axios.$delete('/v1/templates/' + this.template._id).then(() => {
+          this.$notifier.success('Removido!')
+          this.$emit('delete')
+          this.dialog = false
         })
       }
     },

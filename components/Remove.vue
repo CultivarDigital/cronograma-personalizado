@@ -5,7 +5,10 @@
     @click:outside="removeComment = null"
   >
     <template #activator="{ on, attrs }">
-      <v-btn v-bind="attrs" icon x-small v-on="on">
+      <v-btn v-if="button" small dark color="error" v-bind="attrs" v-on="on">
+        <v-icon left>mdi-delete</v-icon> Remover
+      </v-btn>
+      <v-btn v-else v-bind="attrs" icon x-small v-on="on">
         <v-icon dark>mdi-delete</v-icon>
       </v-btn>
     </template>
@@ -25,6 +28,12 @@
 
 <script>
 export default {
+  props: {
+    button: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data: () => ({
     dialog: false,
   }),
