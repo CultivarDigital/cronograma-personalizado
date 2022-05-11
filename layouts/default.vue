@@ -6,8 +6,8 @@
       <v-main>
         <Anamnese
           v-if="
-            ($auth.user.role === 'user' && !$auth.user.status) ||
-            $auth.user.status === 'created'
+            $auth.user.role !== 'admin' &&
+            (!$auth.user.status || $auth.user.status === 'created')
           "
         />
         <Nuxt />
@@ -48,6 +48,18 @@ export default {
     font-weight: bold;
     font-size: 24px;
     cursor: move;
+    &.H {
+      background-color: rgba(238, 96, 94, 1);
+    }
+    &.N {
+      background-color: rgba(238, 96, 94, 0.8);
+    }
+    &.R {
+      background-color: rgba(238, 96, 94, 0.6);
+    }
+    &.U {
+      background-color: rgba(123, 163, 162, 0.6);
+    }
   }
   .months {
     text-align: center;

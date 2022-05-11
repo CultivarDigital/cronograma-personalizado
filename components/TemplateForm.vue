@@ -43,51 +43,9 @@
         <ValidationObserver v-slot="{ validate, invalid }">
           <v-form @submit.prevent="validate().then(save)">
             <div>
-              <div class="ccp-options">
-                <draggable
-                  :list="ccp_options"
-                  :group="{ name: 'cc-options', pull: 'clone', put: false }"
-                >
-                  <div
-                    v-for="option in ccp_options"
-                    :key="option.value"
-                    class="ccp-option"
-                  >
-                    {{ option.value }}
-                  </div>
-                </draggable>
-              </div>
-              <div class="months">
-                <div v-for="month in 4" :key="'month-' + month">
-                  <h4 @click="toggleMonth(month)">Mês {{ month }}</h4>
-                  <div
-                    v-for="week in 4"
-                    v-show="active_month === month"
-                    :key="'week-' + week"
-                    class="week"
-                  >
-                    <p>Semana {{ week }}</p>
-                    <div>
-                      <draggable
-                        :list="form.data[month - 1][week - 1]"
-                        group="cc-options"
-                        class="week-input drop-zone"
-                      >
-                        <div
-                          v-for="(option, index) in form.data[month - 1][
-                            week - 1
-                          ]"
-                          :key="option.value + index"
-                          class="ccp-option"
-                          @click="removeItem(month, week, index)"
-                        >
-                          {{ option.value }}
-                        </div>
-                      </draggable>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <TemplateEditor v-model="form.data" />
+            </div>
+            <div>
               <hr class="mb-6" />
               <validation-provider
                 v-slot="{ errors }"

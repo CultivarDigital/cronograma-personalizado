@@ -23,6 +23,7 @@
                   v-for="(option, index) in template.data[month - 1][week - 1]"
                   :key="option.value + index"
                   class="ccp-option"
+                  style="cursor: auto"
                 >
                   {{ option.value }}
                 </div>

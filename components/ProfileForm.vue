@@ -100,10 +100,6 @@
               v-model="contracts"
               :user="profile"
             />
-            <CCPForm v-if="current_contract" :contract="current_contract" />
-            <p>
-              {{ contracts }}
-            </p>
             <!-- <div v-if="contracts && contracts.length" class="pt-3">
               <v-select
                 v-if="contracts"

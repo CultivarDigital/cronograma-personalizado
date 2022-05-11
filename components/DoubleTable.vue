@@ -14,7 +14,7 @@
         :key="item._id"
         no-gutters
         class="text-center item pa-0 mb-3"
-        :class="{ pointer: item.url }"
+        :class="{ pointer: item.url || clickable }"
         @click="clicked(item)"
       >
         <v-col
@@ -47,11 +47,15 @@ export default {
       default: () => null,
       required: true,
     },
+    clickable: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     clicked(item) {
+      this.$emit('click', item)
       if (item.url) {
-        this.$emit('click', item)
         this.$router.push(item.url)
       }
     },

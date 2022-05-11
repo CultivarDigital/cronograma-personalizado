@@ -31,92 +31,115 @@
         {{ user.name }}
       </div>
       <v-divider color="#fefefe" />
-      <div class="font-weight-bold text-center primary--text py-6">
-        {{
-          contracts && contracts.length
-            ? 'Está no ' + contracts.length + 'º cronograma'
-            : 'Cliente sem contrato'
-        }}
-      </div>
-      <div v-if="contracts && contracts.length">
-        <h3>CONTRATO/RENOVAÇÕES</h3>
-        <DoubleTable :data="contractsDataset" />
+      <div v-if="contract">
+        <h3>EDITAR CRONOGRAMA</h3>
+        <v-container>
+          <Contract v-model="contract" @close="contract = null" />
+          <v-btn
+            color="primary"
+            x-large
+            block
+            class="mb-6"
+            @click="saveContract"
+          >
+            Salvar
+          </v-btn>
+        </v-container>
       </div>
       <div v-else>
-        <h3>CRIAR PRIMEIRO CONTRATO</h3>
-        <v-container class="pt-6">
-          <ValidationObserver v-slot="{ validate, invalid }">
-            <v-form @submit.prevent="validate().then(save)">
-              <div>
-                <div v-if="openGroups">
-                  <div v-if="openGroups.length > 0">
-                    <validation-provider
-                      v-slot="{ errors }"
-                      name="Turma"
-                      rules="required"
-                    >
-                      <v-select
-                        v-model="form.group"
-                        label="Selecione a turma"
-                        outlined
-                        :items="openGroups"
-                        item-text="name"
-                        item-value="_id"
-                        :error-messages="errors"
+        <div class="font-weight-bold text-center primary--text py-6">
+          {{
+            contracts && contracts.length
+              ? 'Está no ' + contracts.length + 'º cronograma'
+              : 'Cliente sem contrato'
+          }}
+        </div>
+        <div v-if="contracts && contracts.length">
+          <h3>CONTRATO/RENOVAÇÕES</h3>
+          <v-container>
+            <DoubleTable
+              :data="contractsDataset"
+              clickable
+              @click="openContract"
+            />
+          </v-container>
+        </div>
+        <div v-else>
+          <h3>CRIAR PRIMEIRO CONTRATO</h3>
+          <v-container class="pt-6">
+            <ValidationObserver v-slot="{ validate, invalid }">
+              <v-form @submit.prevent="validate().then(save)">
+                <div>
+                  <div v-if="openGroups">
+                    <div v-if="openGroups.length > 0">
+                      <validation-provider
+                        v-slot="{ errors }"
+                        name="Turma"
+                        rules="required"
                       >
-                        <template slot="selection" slot-scope="data">
-                          <div class="py-3 primary--text">
-                            Turma: <strong>{{ data.item.name }}</strong>
-                            <br />
-                            <small>
-                              Começa em:
-                              <strong>
-                                {{
-                                  $moment(data.item.startAt).format(
-                                    'DD/MM/YYYY'
-                                  )
-                                }}
-                              </strong>
-                            </small>
-                          </div>
-                        </template>
-                        <template slot="item" slot-scope="data">
-                          <div class="py-3 primary--text">
-                            Turma: <strong>{{ data.item.name }}</strong>
-                            <br />
-                            <small>
-                              Começa em:
-                              <strong>
-                                {{
-                                  $moment(data.item.startAt).format(
-                                    'DD/MM/YYYY'
-                                  )
-                                }}
-                              </strong>
-                            </small>
-                          </div>
-                        </template>
-                      </v-select>
-                    </validation-provider>
-                  </div>
-                  <div v-if="openGroups.length == 0">
-                    <v-alert
-                      v-if="invalid"
-                      type="error"
-                      class="d-flex justify-center"
-                    >
-                      Não existem turmas abertas
-                    </v-alert>
-                    <v-btn to="/turmas"> Gerenciar turmas </v-btn>
+                        <v-select
+                          v-model="form.group"
+                          label="Selecione a turma"
+                          outlined
+                          :items="openGroups"
+                          item-text="name"
+                          item-value="_id"
+                          :error-messages="errors"
+                        >
+                          <template slot="selection" slot-scope="data">
+                            <div class="py-3 primary--text">
+                              Turma: <strong>{{ data.item.name }}</strong>
+                              <br />
+                              <small>
+                                Começa em:
+                                <strong>
+                                  {{
+                                    $moment(data.item.startAt).format(
+                                      'DD/MM/YYYY'
+                                    )
+                                  }}
+                                </strong>
+                              </small>
+                            </div>
+                          </template>
+                          <template slot="item" slot-scope="data">
+                            <div class="py-3 primary--text">
+                              Turma: <strong>{{ data.item.name }}</strong>
+                              <br />
+                              <small>
+                                Começa em:
+                                <strong>
+                                  {{
+                                    $moment(data.item.startAt).format(
+                                      'DD/MM/YYYY'
+                                    )
+                                  }}
+                                </strong>
+                              </small>
+                            </div>
+                          </template>
+                        </v-select>
+                      </validation-provider>
+                    </div>
+                    <div v-if="openGroups.length == 0">
+                      <v-alert
+                        v-if="invalid"
+                        type="error"
+                        class="d-flex justify-center"
+                      >
+                        Não existem turmas abertas
+                      </v-alert>
+                      <v-btn to="/turmas"> Gerenciar turmas </v-btn>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="text-right">
-                <Save :invalid="invalid" :block="false" label="Salvar" />
-              </div>
-            </v-form>
-          </ValidationObserver>
-        </v-container>
+                <div class="text-right">
+                  <Save :invalid="invalid" :block="false" label="Salvar" />
+                </div>
+              </v-form>
+            </ValidationObserver>
+          </v-container>
+        </div>
       </div>
     </v-card>
   </v-dialog>
@@ -149,9 +172,10 @@ export default {
     }
 
     return {
-      dialog: true,
+      dialog: false,
       openGroups: null,
       contracts: this.value,
+      contract: null,
       form: {
         user: this.user.id,
         group: '',
@@ -170,6 +194,7 @@ export default {
           items: this.contracts.map((contract, index) => ({
             label: this.$moment(contract.startAt).format('DD/MM/YYYY'),
             value: index === 0 ? '1º Contrato' : index + 'º Renovação',
+            data: contract,
           })),
         }
       }
@@ -193,6 +218,24 @@ export default {
         this.$emit('input', [contract, ...this.contracts])
       })
     },
+    saveContract() {
+      const data = this.contract.data
+      this.$axios
+        .$patch('/v1/contracts/' + this.contract._id, { data })
+        .then((savedContract) => {
+          this.$notifier.success('Salvo!')
+          this.contract = null
+          this.$emit(
+            'input',
+            this.contracts.map((c) => {
+              if (c._id === savedContract._id) {
+                return savedContract
+              }
+              return c
+            })
+          )
+        })
+    },
     toggleMonth(month) {
       if (this.active_month === month) {
         this.active_month = null
@@ -202,6 +245,10 @@ export default {
     },
     removeItem(month, week, index) {
       this.form.data[month - 1][week - 1].splice(index, 1)
+    },
+    openContract(contract) {
+      console.log('contract', contract)
+      this.contract = contract.data
     },
   },
 }
