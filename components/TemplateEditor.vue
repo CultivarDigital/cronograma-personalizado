@@ -1,5 +1,16 @@
 <template>
   <div>
+    <v-select
+      v-if="templates"
+      outlined
+      label="Carregar template"
+      :items="templates"
+      item-text="name"
+      item-value="data"
+      clearable
+      class="mb-3"
+      @input="applyTemplate"
+    />
     <div class="ccp-options">
       <draggable
         :list="ccp_options"
@@ -66,6 +77,7 @@ export default {
     }
 
     return {
+      templates: null,
       active_month: 1,
       ccp_options: [
         {
@@ -89,9 +101,20 @@ export default {
       form: this.value || ccpData,
     }
   },
+  created() {
+    this.loadTemplates()
+  },
   methods: {
+    async loadTemplates() {
+      this.templates = await this.$axios.$get('/v1/templates')
+    },
     changed() {
       this.$emit('input', this.form)
+    },
+    applyTemplate(template) {
+      console.log(this.form)
+      console.log(template)
+      this.form = template
     },
     toggleMonth(month) {
       if (this.active_month === month) {
