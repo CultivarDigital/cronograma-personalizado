@@ -100,6 +100,7 @@
               v-model="contracts"
               :user="profile"
             />
+
             <!-- <div v-if="contracts && contracts.length" class="pt-3">
               <v-select
                 v-if="contracts"

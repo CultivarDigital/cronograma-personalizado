@@ -94,9 +94,9 @@
                                 Começa em:
                                 <strong>
                                   {{
-                                    $moment(data.item.startAt).format(
-                                      'DD/MM/YYYY'
-                                    )
+                                    $moment(data.item.startAt)
+                                      .tz('UTC')
+                                      .format('DD/MM/YYYY')
                                   }}
                                 </strong>
                               </small>
@@ -110,9 +110,9 @@
                                 Começa em:
                                 <strong>
                                   {{
-                                    $moment(data.item.startAt).format(
-                                      'DD/MM/YYYY'
-                                    )
+                                    $moment(data.item.startAt)
+                                      .tz('UTC')
+                                      .format('DD/MM/YYYY')
                                   }}
                                 </strong>
                               </small>
@@ -179,7 +179,6 @@ export default {
       form: {
         user: this.user.id,
         group: '',
-        status: 'active',
       },
     }
   },
@@ -192,7 +191,9 @@ export default {
             value: 'Contrato',
           },
           items: this.contracts.map((contract, index) => ({
-            label: this.$moment(contract.startAt).format('DD/MM/YYYY'),
+            label: this.$moment(contract.startAt)
+              .tz('UTC')
+              .format('DD/MM/YYYY'),
             value: index === 0 ? '1º Contrato' : index + 'º Renovação',
             data: contract,
           })),

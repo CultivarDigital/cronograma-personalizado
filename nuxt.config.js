@@ -156,6 +156,7 @@ export default {
   },
   moment: {
     defaultTimezone: 'America/Sao_Paulo',
+    // defaultTimezone: 'UTC',
     defaultLocale: 'pt-br',
     locales: ['pt-br'],
   },
