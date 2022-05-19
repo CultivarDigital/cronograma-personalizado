@@ -35,7 +35,7 @@
     "@tiptap/extension-placeholder": "^2.0.0-beta.44",
     "@tiptap/extension-text-align": "^2.0.0-beta.28",
     "@tiptap/starter-kit": "^2.0.0-beta.142",
-    "@tiptap/vue-2": "^2.0.0-beta.69",
+    "@tiptap/vue-2": "^2.0.0-beta.79",
     "cheerio": "^1.0.0-rc.10",
     "core-js": "^3.8.2",
     "cors": "^2.8.5",
