@@ -91,31 +91,6 @@
             prefix="profile"
             @input="updateImage"
           />
-          <div
-            v-if="$auth.user.role === 'admin' && $auth.user.id !== profile.id"
-            class="mb-3"
-          >
-            <Contracts
-              v-if="contracts && profile"
-              v-model="contracts"
-              :user="profile"
-            />
-
-            <!-- <div v-if="contracts && contracts.length" class="pt-3">
-              <v-select
-                v-if="contracts"
-                v-model="form.group"
-                outlined
-                label="Turma"
-                :items="contracts"
-                item-text="name"
-                item-value="_id"
-                clearable
-                hide-details="auto"
-                @input="save(false)"
-              />
-            </div> -->
-          </div>
         </v-container>
       </div>
       <v-container>
@@ -613,7 +588,6 @@ export default {
       showTutorial: false,
       greeted: true,
       loading: false,
-      contracts: null,
       form: {
         group: null,
         picture: null,
@@ -656,18 +630,9 @@ export default {
     profile() {
       return this.value || this.$auth.user
     },
-    current_contract() {
-      if (this.contracts && this.contracts.length) {
-        return this.contracts.find((contract) => contract.status === 'active')
-      }
-      return null
-    },
   },
   created() {
     this.apiDataToForm(this.form, this.profile)
-    if (this.value) {
-      this.loadContracts()
-    }
   },
   methods: {
     prev() {
@@ -707,11 +672,6 @@ export default {
     updateImage(image) {
       this.form.picture = image
       this.save(false)
-    },
-    async loadContracts() {
-      this.contracts = await this.$axios.$get('/v1/contracts', {
-        params: { user: this.$route.params.id },
-      })
     },
   },
 }

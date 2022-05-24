@@ -3,11 +3,10 @@
     <v-select
       v-if="templates"
       outlined
-      label="Carregar template"
+      label="Carregar um modelo"
       :items="templates"
       item-text="name"
       item-value="data"
-      clearable
       class="mb-3"
       @input="applyTemplate"
     />
@@ -112,9 +111,8 @@ export default {
       this.$emit('input', this.form)
     },
     applyTemplate(template) {
-      console.log(this.form)
-      console.log(template)
       this.form = template
+      this.changed()
     },
     toggleMonth(month) {
       if (this.active_month === month) {
