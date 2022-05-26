@@ -112,6 +112,7 @@ export default {
           .loginWith('local', {
             data: {
               token,
+              group_id: this.$route.query.codigo,
             },
           })
           .then((resp) => {

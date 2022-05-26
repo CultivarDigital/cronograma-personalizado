@@ -53,25 +53,25 @@
             >
               <h3>EDITAR TURMA</h3>
             </v-card>
-            <v-card
-              style="
-                background-color: rgba(196, 196, 196, 0.4);
-                color: rgba(0, 0, 0, 0.8);
-                border-radius: 8px;
-              "
-              class="px-3 py-3 text-center"
-              elevation="0"
-              @click="copyURL"
-            >
-              <small>{{ registerUrl }}</small>
-            </v-card>
-            <p>
-              <small style="font-size: 12px">
-                clique para copiar o link da turma
-              </small>
-            </p>
           </v-col>
         </v-row>
+        <v-card
+          style="
+            background-color: rgba(196, 196, 196, 0.4);
+            color: rgba(0, 0, 0, 0.8);
+            border-radius: 8px;
+          "
+          class="px-3 py-3 text-center mt-10"
+          elevation="0"
+          @click="copyURL"
+        >
+          <small>{{ registerUrl }}</small>
+        </v-card>
+        <p class="text-center">
+          <small style="font-size: 12px">
+            clique para copiar o link de cadastro da turma
+          </small>
+        </p>
       </v-container>
     </div>
     <hr class="mb-3" style="border-color: rgba(215, 215, 215, 0.37)" />
@@ -116,7 +116,7 @@ export default {
     registerUrl() {
       let url = process.env.BASE_URL
       if (this.group) {
-        url += `/${this.group._id}`
+        url += `?codigo=${this.group._id}`
       }
       return url
     },

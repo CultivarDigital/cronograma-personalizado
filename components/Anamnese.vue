@@ -23,9 +23,15 @@
 
 <script>
 export default {
+  props: {
+    value: {
+      type: Object,
+      default: () => null,
+    },
+  },
   data() {
     return {
-      greeted: true,
+      greeted: false,
     }
   },
   methods: {

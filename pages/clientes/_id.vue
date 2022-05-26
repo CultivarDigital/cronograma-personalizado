@@ -1,7 +1,10 @@
 <template>
   <div>
     <TopNavigation active="Montar cronograma" />
-    <div v-if="user" class="template-form">
+    <div v-if="loading" class="pa-3 text-center pt-12">
+      <v-progress-circular indeterminate></v-progress-circular>
+    </div>
+    <div v-else-if="user" class="template-form">
       <v-container>
         <div>
           <Subtitle label="Editar cliente" back-to="/clientes" />
@@ -55,7 +58,7 @@
         />
       </div>
       <div v-if="tab === 2">
-        <ProfileForm :value="user" />
+        <ProfileForm :value="user" @input="updateUser" />
       </div>
     </div>
   </div>
@@ -68,15 +71,20 @@ export default {
       user: null,
       contracts: null,
       active_contract: null,
+      waiting_contract: null,
+      loading: true,
     }
   },
   async created() {
     this.user = await this.$axios.$get('/v1/users/' + this.$route.params.id)
-    this.loadContracts()
+    await this.loadContracts()
+    this.loading = false
   },
   methods: {
     updateUser(user) {
+      this.loading = true
       this.user = user
+      this.loading = false
     },
     async loadContracts() {
       this.contracts = await this.$axios.$get('/v1/contracts', {

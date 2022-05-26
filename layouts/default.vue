@@ -4,12 +4,12 @@
       <BottomNavigation />
       <DrawerNavigation />
       <v-main>
-        <Anamnese
+        <!-- <Anamnese
           v-if="
             $auth.user.role !== 'admin' &&
             (!$auth.user.status || $auth.user.status === 'created')
           "
-        />
+        /> -->
         <Nuxt />
       </v-main>
       <Snackbar />
