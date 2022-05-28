@@ -1,16 +1,53 @@
 <template>
   <div>
     <v-app>
-      <BottomNavigation />
-      <DrawerNavigation />
+      <BottomNavigation
+        v-if="!loading && ($auth.user.role !== 'user' || currentContract)"
+      />
+      <DrawerNavigation
+        v-if="!loading && ($auth.user.role !== 'user' || currentContract)"
+      />
       <v-main>
-        <!-- <Anamnese
-          v-if="
-            $auth.user.role !== 'admin' &&
-            (!$auth.user.status || $auth.user.status === 'created')
-          "
-        /> -->
-        <Nuxt />
+        <div
+          v-if="loading"
+          class="text-center d-flex justify-center align-center fill-height"
+        >
+          <v-progress-circular color="secondary" indeterminate size="20" />
+        </div>
+        <template v-else>
+          <Profile v-if="!$auth.user.cpf" />
+          <Anamnese
+            v-else-if="currentContract && !currentContract.anamnese"
+            :value="currentContract"
+          />
+          <Anamnese
+            v-else-if="waitingContract && !waitingContract.anamnese"
+            v-model="waitingContract"
+          />
+          <Nuxt v-if="$auth.user.role !== 'user' || currentContract" />
+          <div
+            v-else-if="waitingContract"
+            class="text-center fill-height d-flex align-center justify-center"
+          >
+            <v-alert color="success" dark>
+              Seu contrato começa
+              {{
+                waitingContract.remaining_days > 1
+                  ? 'em ' + waitingContract.remaining_days + 'dias'
+                  : 'amanhã'
+              }}
+            </v-alert>
+          </div>
+          <div
+            v-else
+            class="text-center fill-height d-flex align-center justify-center"
+          >
+            <v-alert color="error" dark>
+              Você não possui um contrato ativo. Por favor entre em contato com
+              nossa equipe
+            </v-alert>
+          </div>
+        </template>
       </v-main>
       <Snackbar />
     </v-app>
@@ -20,6 +57,33 @@
 <script>
 export default {
   middleware: 'auth',
+  data() {
+    return {
+      loading: false,
+      waitingContract: null,
+    }
+  },
+  computed: {
+    currentContract() {
+      return this.$store.state.currentContract
+    },
+  },
+  async created() {
+    this.loading = true
+    if (this.$auth.user.role !== 'admin') {
+      const currentContract = await this.$axios.$get(
+        `/v1/contracts/status/active`
+      )
+      this.$store.dispatch('setCurrentContract', currentContract)
+      if (!currentContract) {
+        const waitingContract = await this.$axios.$get(
+          `/v1/contracts/status/waiting`
+        )
+        this.waitingContract = waitingContract
+      }
+    }
+    this.loading = false
+  },
 }
 </script>
 <style lang="scss">
@@ -49,16 +113,16 @@ export default {
     font-size: 24px;
     cursor: move;
     &.H {
-      background-color: rgba(238, 96, 94, 1);
+      background-color: rgba(238, 96, 94, 1) !important;
     }
     &.N {
-      background-color: rgba(238, 96, 94, 0.8);
+      background-color: rgba(238, 96, 94, 0.8) !important;
     }
     &.R {
-      background-color: rgba(238, 96, 94, 0.6);
+      background-color: rgba(238, 96, 94, 0.6) !important;
     }
     &.U {
-      background-color: rgba(123, 163, 162, 0.6);
+      background-color: rgba(123, 163, 162, 0.6) !important;
     }
   }
   .months {

@@ -1,8 +1,7 @@
 <template>
   <v-dialog :value="true" app fullscreen persistent>
     <div>
-      <Welcome v-if="!greeted" @finish="setGreeted" />
-      <v-card v-else class="rounded-0 anamnese">
+      <v-card class="rounded-0 anamnese">
         <div
           style="background-color: rgba(123, 163, 162, 0.4)"
           class="white--text py-10 px-6 text-center"
@@ -15,7 +14,7 @@
             necessárias para iniciar o seu Cronograma Capilar Personalizado.
           </p>
         </div>
-        <ProfileForm />
+        <AnamneseForm :value="value" @input="changed" />
       </v-card>
     </div>
   </v-dialog>
@@ -29,14 +28,9 @@ export default {
       default: () => null,
     },
   },
-  data() {
-    return {
-      greeted: false,
-    }
-  },
   methods: {
-    setGreeted() {
-      this.greeted = true
+    changed(contract) {
+      this.$emit('input', contract)
     },
   },
 }

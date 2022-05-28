@@ -450,8 +450,8 @@ export default {
     }
   },
   created() {
-    if (this.value) {
-      this.apiDataToForm(this.form, this.value)
+    if (this.value && this.value.anamnese) {
+      this.apiDataToForm(this.form, this.value.anamnese)
     }
   },
   methods: {
@@ -473,6 +473,9 @@ export default {
         .then((contract) => {
           this.apiDataToForm(this.form, contract.anamnese)
           this.$emit('input', contract)
+          if (contract.status === 'active') {
+            this.$store.dispatch('setCurrentContract', contract)
+          }
           this.loading = false
           if (changeTab) {
             this.tab += 1

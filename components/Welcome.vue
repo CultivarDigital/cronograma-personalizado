@@ -5,6 +5,7 @@
       right: () => prev(),
     }"
     class="rounded-0"
+    style="min-height: 100vh"
   >
     <v-container style="max-width: 340px" class="pt-10">
       <p class="text-subtitle-1 ml-3" style="color: #bdbdbd">Primeiro acesso</p>

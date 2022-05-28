@@ -2,7 +2,7 @@
   <div class="primary--text">
     <UserCard />
     <v-container class="px-9">
-      <v-row>
+      <v-row v-if="currentContract">
         <v-col>
           <v-card
             to="/cronograma"
@@ -14,9 +14,16 @@
             <p style="line-height: 16px" class="mb-6">
               <small>Tratamentos da semana</small>
             </p>
-            <p class="mb-0"><strong>Hidratação</strong></p>
-            <p class="mb-0"><strong>Nutrição</strong></p>
-            <p class="mb-0"><strong>Umectação</strong></p>
+            <div v-if="currentContract.data">
+              <p class="mb-0"><strong>Hidratação</strong></p>
+              <p class="mb-0"><strong>Nutrição</strong></p>
+              <p class="mb-0"><strong>Umectação</strong></p>
+            </div>
+            <div v-else>
+              <p class="mb-0" style="line-height: 1">
+                <strong><small>Estamos montando seu cronograma</small></strong>
+              </p>
+            </div>
           </v-card>
         </v-col>
         <v-col>
@@ -30,7 +37,9 @@
             <p class="mb-0" style="font-size: 14px; line-height: 14px">
               Você está na
             </p>
-            <p class="mb-0" style="font-size: 45px">12ª</p>
+            <p class="mb-0" style="font-size: 45px">
+              {{ currentContract.week * currentContract.month }}ª
+            </p>
             <p class="mb-0" style="font-size: 14px; line-height: 14px">
               <strong>Semana</strong>
             </p>
@@ -148,6 +157,11 @@ export default {
     return {
       value: 0,
     }
+  },
+  computed: {
+    currentContract() {
+      return this.$store.state.currentContract
+    },
   },
 }
 </script>

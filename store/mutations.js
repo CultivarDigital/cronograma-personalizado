@@ -14,4 +14,7 @@ export default {
   setGreeted(state, hasBeenGreeted) {
     state.hasBeenGreeted = hasBeenGreeted
   },
+  setCurrentContract(state, currentContract) {
+    state.currentContract = currentContract
+  },
 }

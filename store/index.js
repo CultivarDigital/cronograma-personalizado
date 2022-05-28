@@ -7,5 +7,6 @@ export const state = () => {
     showDrawer: null,
     offlineMode: null,
     hasBeenGreeted: false,
+    currentContract: null,
   }
 }

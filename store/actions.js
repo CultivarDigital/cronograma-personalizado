@@ -43,6 +43,9 @@ export default {
   setOfflineMode({ commit }, offlineMode) {
     commit('setOfflineMode', offlineMode)
   },
+  setCurrentContract({ commit }, currentContract) {
+    commit('setCurrentContract', currentContract)
+  },
   setGreeted({ commit }, status) {
     commit('setGreeted', status)
   },

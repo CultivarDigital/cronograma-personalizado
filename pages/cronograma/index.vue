@@ -8,7 +8,11 @@
       <div class="d-flex justify-space-between align-center mb-6">
         <div class="d-flex justify-center align-center">
           <div style="font-size: 42px" class="primary--text font-weight-bold">
-            24
+            {{
+              new Date().toLocaleString('pt-BR', {
+                day: 'numeric',
+              })
+            }}
           </div>
           <div class="ml-3">
             <div
@@ -18,7 +22,7 @@
                 line-height: 20px;
               "
             >
-              Qua
+              {{ new Date().toLocaleString('pt-BR', { weekday: 'long' }) }}
             </div>
             <div
               style="
@@ -27,7 +31,12 @@
                 line-height: 18px;
               "
             >
-              Fev 2022
+              {{
+                new Date().toLocaleString('pt-BR', {
+                  month: 'short',
+                  year: 'numeric',
+                })
+              }}
             </div>
           </div>
         </div>
@@ -44,20 +53,32 @@
         </div>
       </div>
       <div class="d-flex justify-space-around align-center text-center mb-6">
-        <div
-          v-for="(week, index) in weeks"
-          :key="index"
-          class="week pointer"
-          :class="{ active: index === active }"
-          @click="active = index"
-        >
-          <div>{{ week.month }}</div>
-          <h3>{{ week.week }}</h3>
-        </div>
+        <template v-for="month in 4">
+          <template v-for="week in 4">
+            <div
+              v-if="
+                month >= currentContract.month &&
+                week >= currentContract.week &&
+                month * week < currentContract.month * currentContract.week + 4
+              "
+              :key="'month-' + month + '-week-' + week"
+              class="week pointer"
+              :class="{
+                active:
+                  month === currentContract.month &&
+                  week === currentContract.week,
+              }"
+              @click="active = index"
+            >
+              <div>M{{ month }}</div>
+              <h3>S{{ week }}</h3>
+            </div>
+          </template>
+        </template>
       </div>
     </v-container>
     <v-divider class="mb-6"></v-divider>
-    <v-container class="cronograma px-3">
+    <v-container v-if="currentContract.data" class="cronograma px-3">
       <v-row>
         <v-col cols="4">
           <h6 class="subtitle-1 text-center">Quando</h6>
@@ -66,86 +87,69 @@
           <h6 class="subtitle-1">Tratamento</h6>
         </v-col>
       </v-row>
-      <v-row class="align-center item">
+      <v-row
+        v-for="(item, index) in currentContract.data[currentContract.month - 1][
+          currentContract.week - 1
+        ].filter((i) => i.value !== 'U')"
+        :key="index"
+        class="align-center item template-form"
+      >
         <v-col cols="4">
           <div class="red--text body-2">Esta semana</div>
         </v-col>
         <v-col cols="8">
           <v-btn
-            style="background-color: rgba(238, 96, 94, 0.8)"
             dark
             block
             x-large
             elevation="6"
-            class="justify-space-between"
+            class="justify-space-between ccp-option"
+            :class="item.value"
           >
-            Hidratação
+            {{ item.description }}
             <v-icon right>mdi-circle-outline</v-icon>
           </v-btn>
         </v-col>
       </v-row>
-      <v-row class="align-center item">
-        <v-col cols="4">
-          <div class="red--text body-2">Esta semana</div>
-        </v-col>
-        <v-col cols="8">
-          <v-btn
-            style="background-color: #939393"
-            dark
-            block
-            x-large
-            elevation="6"
-            class="justify-space-between"
-          >
-            Nutrição
-            <v-icon right>mdi-check-circle-outline</v-icon>
-          </v-btn>
-        </v-col>
-      </v-row>
-      <v-row class="align-center item">
-        <v-col cols="4">
-          <div class="red--text body-2">Esta semana</div>
-        </v-col>
-        <v-col cols="8">
-          <v-btn
-            style="background-color: rgba(238, 96, 94, 0.6)"
-            dark
-            block
-            x-large
-            elevation="6"
-            class="justify-space-between"
-          >
-            Nutrição
-            <v-icon right>mdi-circle-outline</v-icon>
-          </v-btn>
-        </v-col>
-      </v-row>
-      <v-row>
+      <v-row
+        v-if="
+          currentContract.data[currentContract.month - 1][
+            currentContract.week - 1
+          ].filter((i) => i.value === 'U').length > 0
+        "
+      >
         <v-col cols="4"> </v-col>
         <v-col cols="8">
           <h6 class="subtitle-1">Complementares</h6>
         </v-col>
       </v-row>
-      <v-row class="align-center item">
+      <v-row
+        v-for="(item, index) in currentContract.data[currentContract.month - 1][
+          currentContract.week - 1
+        ].filter((i) => i.value === 'U')"
+        :key="index"
+        class="align-center item template-form"
+      >
         <v-col cols="4">
-          <div class="body-2" style="color: rgba(123, 163, 162, 0.8)">
-            Noite anterior a cada tratamento
-          </div>
+          <div class="red--text body-2">Esta semana</div>
         </v-col>
         <v-col cols="8">
           <v-btn
-            style="background-color: rgba(123, 163, 162, 0.8)"
             dark
             block
             x-large
             elevation="6"
-            class="justify-space-between"
+            class="justify-space-between ccp-option"
+            :class="item.value"
           >
-            Umectação
+            {{ item.description }}
             <v-icon right>mdi-circle-outline</v-icon>
           </v-btn>
         </v-col>
       </v-row>
+    </v-container>
+    <v-container v-else class="text-center">
+      <v-alert color="info" dark> Estamos montando seu cronograma </v-alert>
     </v-container>
   </div>
 </template>
@@ -188,6 +192,11 @@ export default {
         },
       ],
     }
+  },
+  computed: {
+    currentContract() {
+      return this.$store.state.currentContract
+    },
   },
   methods: {
     search() {
