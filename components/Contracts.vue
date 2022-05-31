@@ -93,18 +93,16 @@
                   </validation-provider>
                 </div>
                 <div v-if="openGroups.length == 0">
-                  <v-alert
-                    v-if="invalid"
-                    type="error"
-                    class="d-flex justify-center"
-                  >
+                  <v-alert color="error" class="d-flex justify-center" dark>
                     Não existem turmas abertas
                   </v-alert>
-                  <v-btn to="/turmas"> Gerenciar turmas </v-btn>
+                  <v-btn to="/turmas" color="primary" large block>
+                    Gerenciar turmas
+                  </v-btn>
                 </div>
               </div>
             </div>
-            <div class="text-right">
+            <div v-if="form.group" class="text-right">
               <Save :invalid="invalid" :block="false" label="Salvar" />
             </div>
           </v-form>

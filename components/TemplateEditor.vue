@@ -47,7 +47,7 @@
                 :key="option.value + index"
                 :class="option.value"
                 class="ccp-option"
-                @click="removeItem(month, week, index)"
+                @click.prevent="removeItem(month, week, index)"
               >
                 {{ option.value }}
               </div>

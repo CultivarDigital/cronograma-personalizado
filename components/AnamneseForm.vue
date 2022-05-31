@@ -90,6 +90,7 @@
                 >
                   <v-textarea
                     v-model="form.expectations"
+                    :disabled="disabled"
                     outlined
                     label="Qual a sua expectativa com o Cronograma?"
                     :error-messages="errors"
@@ -102,6 +103,7 @@
                 >
                   <v-textarea
                     v-model="form.traumas"
+                    :disabled="disabled"
                     outlined
                     label="Já aconteceu algo no seu cabelo que foi muito marcante?"
                     :error-messages="errors"
@@ -114,6 +116,7 @@
                 >
                   <v-textarea
                     v-model="form.complaints"
+                    :disabled="disabled"
                     outlined
                     label="Qual sua principal queixa capilar?"
                     :error-messages="errors"
@@ -126,6 +129,7 @@
                 >
                   <v-textarea
                     v-model="form.previous_treatments"
+                    :disabled="disabled"
                     outlined
                     label="Já realizou algum tratamento químico? Se sim, qual/quais?"
                     :error-messages="errors"
@@ -138,6 +142,7 @@
                 >
                   <v-radio-group
                     v-model="form.scalp"
+                    :disabled="disabled"
                     outlined
                     label="Você considera seu couro cabeludo"
                     :error-messages="errors"
@@ -157,6 +162,7 @@
                 >
                   <v-radio-group
                     v-model="form.hair"
+                    :disabled="disabled"
                     outlined
                     label="Você considera seu cabelo"
                     :error-messages="errors"
@@ -182,6 +188,7 @@
                 >
                   <v-radio-group
                     v-model="form.discolored"
+                    :disabled="disabled"
                     outlined
                     label="Seu cabelo é descolorido?"
                     :error-messages="errors"
@@ -197,6 +204,7 @@
                 >
                   <v-radio-group
                     v-model="form.dandruff"
+                    :disabled="disabled"
                     outlined
                     label="Você sofre com caspas?"
                     :error-messages="errors"
@@ -212,6 +220,7 @@
                 >
                   <v-radio-group
                     v-model="form.paint_monthly"
+                    :disabled="disabled"
                     outlined
                     label="Você pinta a raiz mensalmente?"
                     :error-messages="errors"
@@ -228,6 +237,7 @@
                   <legend>Quantas vezes lava o cabelo por semana?</legend>
                   <v-slider
                     v-model="form.washes_per_week"
+                    :disabled="disabled"
                     min="1"
                     max="7"
                     outlined
@@ -245,6 +255,7 @@
                 >
                   <v-radio-group
                     v-model="form.investment_availability"
+                    :disabled="disabled"
                     outlined
                     label="Qual a sua disponibilidade de investimento para os produtos do seu Cronograma?"
                     :error-messages="errors"
@@ -268,6 +279,7 @@
                 >
                   <v-radio-group
                     v-model="form.essential_oils"
+                    :disabled="disabled"
                     outlined
                     label="Você tem interesse em utilizar óleos essenciais no Cronograma?"
                     :error-messages="errors"
@@ -283,12 +295,18 @@
                 >
                   <v-textarea
                     v-model="form.difficulties"
+                    :disabled="disabled"
                     outlined
                     label="Qual a sua maior dificuldade com tratamentos capilares?"
                     :error-messages="errors"
                   />
                 </validation-provider>
-                <Save :invalid="invalid" :loading="loading" label="Próximo" />
+                <Save
+                  v-if="!disabled"
+                  :invalid="invalid"
+                  :loading="loading"
+                  label="Próximo"
+                />
               </v-form>
             </ValidationObserver>
           </v-tab-item>
@@ -302,6 +320,7 @@
                 >
                   <v-textarea
                     v-model="form.reuse_products"
+                    :disabled="disabled"
                     outlined
                     label="Você tem produtos (cheios ou mais da metade) que deseja usar no Cronograma?"
                     :error-messages="errors"
@@ -314,6 +333,7 @@
                     />
                   </div>
                   <UploadImage
+                    v-if="!disabled"
                     prefix="anamnese"
                     button
                     icon="mdi-paperclip"
@@ -322,6 +342,7 @@
                   />
                 </validation-provider>
                 <div
+                  v-if="!disabled"
                   style="background-color: rgba(123, 163, 162, 0.4)"
                   class="white--text py-10 px-6 text-center my-6 rounded-lg"
                 >
@@ -351,13 +372,15 @@
                   </div>
                   <legend class="primary--text mb-2">
                     <small>
-                      <strong>
+                      <strong v-if="disabled"> Fotos: </strong>
+                      <strong v-else>
                         Enviar
                         {{ form.images.length ? 'outra foto' : 'foto' }}:
                       </strong>
                     </small>
                   </legend>
                   <UploadImage
+                    v-if="!disabled"
                     prefix="anamnese"
                     button
                     icon="mdi-paperclip"
@@ -385,6 +408,7 @@
                     </small>
                   </legend>
                   <UploadVideo
+                    v-if="!disabled"
                     prefix="anamnese"
                     button
                     icon="mdi-paperclip"
@@ -392,7 +416,12 @@
                     @input="(video) => (form.video = video)"
                   />
                 </div>
-                <Save :invalid="invalid" :loading="loading" label="Próximo" />
+                <Save
+                  v-if="!disabled"
+                  :invalid="invalid"
+                  :loading="loading"
+                  label="Próximo"
+                />
               </v-form>
             </ValidationObserver>
           </v-tab-item>
@@ -417,6 +446,10 @@ export default {
     value: {
       type: Object,
       default: () => null,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {

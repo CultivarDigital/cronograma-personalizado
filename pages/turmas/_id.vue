@@ -85,12 +85,6 @@
       >
         <DoubleTable :data="membersDataset" clickable />
       </v-container>
-      <v-container
-        v-if="possibleMembersDataset && possibleMembersDataset.items.length"
-        class="px-4"
-      >
-        <DoubleTable :data="possibleMembersDataset" clickable />
-      </v-container>
     </div>
   </div>
 </template>
@@ -106,7 +100,6 @@ export default {
     return {
       group: null,
       members: null,
-      possibleMembers: null,
       active: null,
       currentGroup: null,
       loading: false,
@@ -130,22 +123,6 @@ export default {
           items: this.members.map((member) => ({
             label: this.$moment(member.createdAt).format('DD/MM/YYYY'),
             value: member.name,
-            url: `/clientes/${member._id}`,
-          })),
-        }
-      }
-      return null
-    },
-    possibleMembersDataset() {
-      if (this.possibleMembers) {
-        return {
-          header: {
-            label: 'Adesão',
-            value: 'Clientes sem turma',
-          },
-          items: this.possibleMembers.map((member) => ({
-            label: this.$moment(member.createdAt).format('DD/MM/YYYY'),
-            value: member.name || member.email,
             url: `/clientes/${member.id}`,
           })),
         }
@@ -170,9 +147,6 @@ export default {
       this.group = await this.$axios.$get('/v1/groups/' + this.$route.params.id)
       this.members = await this.$axios.$get(
         '/v1/groups/' + this.$route.params.id + '/members'
-      )
-      this.possibleMembers = await this.$axios.$get(
-        '/v1/groups/' + this.$route.params.id + '/possible-members'
       )
       this.loading = false
     },

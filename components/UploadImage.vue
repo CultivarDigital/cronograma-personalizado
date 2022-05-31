@@ -61,6 +61,10 @@ export default {
       type: String,
       default: 'mdi-image',
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
