@@ -9,44 +9,24 @@
         <h3 class="text-h5 font-weight-bold mb-3" style="color: #acacac">
           Vamos realizar nosso Acompanhamento Mensal?
         </h3>
-        <p class="mb-8" style="color: #78746d">
+        <p style="color: #78746d">
           <small>
             A consultoria mensal é indispensável para o melhor acompanhamento do
             seu Cronograma Capilar Personalizado.
           </small>
         </p>
       </div>
-      <div v-if="success">
-        <v-card
-          color="#F4F4F4"
-          to="/consultoria-mensal/id"
-          rounded="3"
-          class="d-flex justify-start align-center pa-6 primary--text mb-6"
-          elevation="3"
-        >
-          <v-avatar
-            left
-            color="rgba(123, 163, 162, 0.4)"
-            class="primary--text"
-            size="60"
-          >
-            <v-icon dark>mdi-check</v-icon>
-          </v-avatar>
-          <div class="w-100 ml-3">
-            <h4>Pedido realizado com sucesso!</h4>
-            <small style="font-size: 10px">
-              Clique aqui para realizar o pagamento
-            </small>
-          </div>
-        </v-card>
-      </div>
-      <div v-else>
+    </v-container>
+    <div>
+      <v-container
+        v-if="currentContract && consultations && consultations.length === 0"
+      >
         <v-card
           color="#F4F4F4"
           rounded="3"
           class="d-flex justify-start align-center pa-6 primary--text mb-6"
           elevation="3"
-          @click="create"
+          @click="create(1)"
         >
           <v-avatar
             left
@@ -59,7 +39,7 @@
           <div class="w-100 ml-3">
             <h4>USO ÚNICO - R$ 0,00</h4>
             <small style="font-size: 10px"
-              >Será feito uma única vez durante o seu CCp</small
+              >Será feito uma única vez durante o seu CCP</small
             >
           </div>
         </v-card>
@@ -68,7 +48,7 @@
           rounded="3"
           class="d-flex justify-start align-center pa-6 primary--text mb-6"
           elevation="3"
-          @click="create"
+          @click="create(3)"
         >
           <v-avatar
             left
@@ -85,87 +65,61 @@
             </small>
           </div>
         </v-card>
-        <!-- <v-card
-          color="#F4F4F4"
-          to="/consultoria-mensal/item"
-          rounded="3"
-          class="d-flex justify-start align-center pa-6 primary--text mb-6"
-          elevation="3"
-        >
-          <v-avatar
-            left
-            color="rgba(123, 163, 162, 0.4)"
-            class="primary--text"
-            size="60"
-          >
-            <strong class="primary--text">JAN</strong>
-          </v-avatar>
-          <div class="w-100 ml-3">
-            <h4>Consultoria #3</h4>
-            <v-progress-linear
-              color="primary"
-              rounded
-              value="80"
-              style="width: 72px"
-              class="d-inline-block mr-1"
-            ></v-progress-linear>
-          </div>
-        </v-card> -->
+      </v-container>
+      <div v-if="consultations && consultations.length" class="template-form">
+        <h3 class="mb-6">MEUS ACOMPANHAMENTOS</h3>
+        <v-container>
+          <ConsultationCard
+            v-for="consultation in consultations"
+            :key="consultation._id"
+            :consultation="consultation"
+          />
+        </v-container>
       </div>
-    </v-container>
+    </div>
   </div>
 </template>
 <script>
+import statusList from '@/data/status-list'
 export default {
   data() {
     return {
-      filters: {
-        search: null,
-      },
-      active: 4,
-      success: false,
-      weeks: [
-        {
-          month: 'M1',
-          week: 'S1',
-        },
-        {
-          month: 'M1',
-          week: 'S2',
-        },
-        {
-          month: 'M1',
-          week: 'S3',
-        },
-        {
-          month: 'M1',
-          week: 'S4',
-        },
-        {
-          month: 'M2',
-          week: 'S1',
-        },
-        {
-          month: 'M2',
-          week: 'S2',
-        },
-        {
-          month: 'M2',
-          week: 'S3',
-        },
-      ],
+      consultations: null,
+      statusList,
     }
   },
+  computed: {
+    currentContract() {
+      return this.$store.state.currentContract
+    },
+  },
+  created() {
+    this.loadConsultations()
+  },
   methods: {
-    search() {
-      if (this.filters.search) {
-        this.$router.push('/pri-responde?search=' + this.filters.search)
-      } else {
-        this.$router.push('/pri-responde')
+    async create(qtd) {
+      const savedConsultation = await this.$axios.$post('/v1/consultations', {
+        contract: this.currentContract._id,
+        qtd,
+      })
+      this.loadConsultations()
+      if (savedConsultation) {
+        this.$router.push('/consultoria-mensal/' + savedConsultation._id)
+        this.notify('Sua consultoria foi solicitada!')
       }
     },
-    create() {
-      this.success = true
+    isActive(startAt) {
+      return this.dateDiff(startAt) <= 0
+    },
+    dateDiff(date) {
+      return this.$moment(new Date(date).setHours(0, 0, 0, 0))
+        .tz('UTC')
+        .diff(this.$moment(new Date()).tz('UTC'), 'days')
+    },
+    loadConsultations() {
+      this.$axios.$get('/v1/consultations').then((consultations) => {
+        this.consultations = consultations
+      })
     },
   },
 }

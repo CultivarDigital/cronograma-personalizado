@@ -3,9 +3,10 @@
     <template #activator="{ on, attrs }">
       <v-btn
         v-if="value.anamnese"
-        color="rgba(238, 96, 94, 1)"
+        color="primary"
         dark
         v-bind="attrs"
+        x-large
         v-on="on"
       >
         Ver anamnese

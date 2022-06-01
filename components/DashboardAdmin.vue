@@ -35,7 +35,7 @@
               color="rgba(238, 96, 94, .8)"
               dark
               class="font-weight-bold text-center pa-5"
-              to="/consultoria-mensal"
+              to="/acompanhamentos"
             >
               <p class="mb-0" style="font-size: 14px; line-height: 14px">
                 Temos

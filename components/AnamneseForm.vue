@@ -362,14 +362,6 @@
                   </v-btn>
                 </div>
                 <div class="mb-6">
-                  <div class="text-center">
-                    <img
-                      v-for="image in form.images"
-                      :key="image"
-                      :src="apiURL + image"
-                      class="rounded picture mb-3"
-                    />
-                  </div>
                   <legend class="primary--text mb-2">
                     <small>
                       <strong v-if="disabled"> Fotos: </strong>
@@ -379,6 +371,15 @@
                       </strong>
                     </small>
                   </legend>
+                  <div class="text-center">
+                    <img
+                      v-for="image in form.images"
+                      :key="image"
+                      :src="apiURL + image"
+                      class="rounded picture mb-3"
+                      style="max-width: 100%"
+                    />
+                  </div>
                   <UploadImage
                     v-if="!disabled"
                     prefix="anamnese"
@@ -393,20 +394,21 @@
                   />
                 </div>
                 <div class="mb-6">
-                  <div v-if="form.video" class="text-center">
-                    <video
-                      :src="apiURL + form.video"
-                      controls
-                      class="rounded picture mb-3"
-                    >
-                      Your browser does not support the video tag.
-                    </video>
-                  </div>
                   <legend class="primary--text mb-2">
                     <small>
                       <strong> Vídeo: </strong>
                     </small>
                   </legend>
+                  <div v-if="form.video" class="text-center">
+                    <video
+                      :src="apiURL + form.video"
+                      controls
+                      class="rounded picture mb-3"
+                      style="max-width: 100%"
+                    >
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
                   <UploadVideo
                     v-if="!disabled"
                     prefix="anamnese"

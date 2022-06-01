@@ -56,6 +56,16 @@
           :user="user"
           @input="loadContracts"
         />
+        <div class="pt-3">
+          <h3>RENOVAÇÕES</h3>
+          <v-container>
+            <ConsultationCard
+              v-for="consultation in consultations"
+              :key="consultation._id"
+              :consultation="consultation"
+            />
+          </v-container>
+        </div>
       </div>
       <div v-if="tab === 2">
         <ProfileForm :value="user" @input="updateUser" />
@@ -70,14 +80,37 @@ export default {
       tab: 0,
       user: null,
       contracts: null,
+      consultations: null,
       active_contract: null,
       waiting_contract: null,
       loading: true,
     }
   },
+  computed: {
+    consultationsDataset() {
+      if (this.consultations) {
+        return {
+          header: {
+            label: 'Quando',
+            value: 'Acompanhamento',
+          },
+          items: this.consultations.map((consultation, index) => ({
+            label: this.$moment(consultation.startAt)
+              .tz('UTC')
+              .format('DD/MM/YYYY'),
+            value: consultation.name,
+            data: consultation,
+            url: `/acompanhamentos/${consultation._id}`,
+          })),
+        }
+      }
+      return null
+    },
+  },
   async created() {
     this.user = await this.$axios.$get('/v1/users/' + this.$route.params.id)
     await this.loadContracts()
+    await this.loadConsultations()
     this.loading = false
   },
   methods: {
@@ -98,6 +131,11 @@ export default {
           (contract) => contract.status === 'waiting'
         )
       }
+    },
+    async loadConsultations() {
+      this.consultations = await this.$axios.$get('/v1/consultations', {
+        params: { user: this.$route.params.id },
+      })
     },
   },
 }

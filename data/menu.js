@@ -25,6 +25,13 @@ const menu = [
     title: 'Consultoria mensal',
     icon: 'mdi-calendar-star',
     to: '/consultoria-mensal',
+    role: 'user',
+  },
+  {
+    title: 'Acompanhamentos',
+    icon: 'mdi-calendar-star',
+    to: '/acompanhamentos',
+    role: 'admin',
   },
   {
     title: 'Mini curso',

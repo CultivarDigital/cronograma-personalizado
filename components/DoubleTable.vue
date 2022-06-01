@@ -23,6 +23,7 @@
             border-right: 1px solid rgba(215, 215, 215, 0.4);
             color: rgba(145, 145, 145, 0.5);
           "
+          class="d-flex align-center"
         >
           {{ item.label }}
         </v-col>
@@ -33,6 +34,12 @@
         >
           <div>
             {{ item.value }}
+            <div
+              v-if="item.description"
+              style="font-size: 10px; margin-top: -1px"
+            >
+              {{ item.description }}
+            </div>
           </div>
         </v-col>
       </v-row>
