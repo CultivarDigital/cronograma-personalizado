@@ -198,7 +198,6 @@ export default {
       this.form.data[month - 1][week - 1].splice(index, 1)
     },
     openContract(contract) {
-      console.log('contract', contract)
       this.contract = contract.data
     },
   },

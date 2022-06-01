@@ -8,7 +8,9 @@
         class="mb-10"
       >
         Este contrato inicia em
-        <strong>{{ $moment(contract.startAt).format('DD/MM/YYYY') }}</strong>
+        <strong>{{
+          $moment(contract.startAt).tz('UTC').format('DD/MM/YYYY')
+        }}</strong>
       </v-alert>
       <v-alert
         v-if="contract.status === 'finished'"
@@ -18,7 +20,10 @@
       >
         Este contrato finalizou em
         <strong>{{
-          $moment(contract.startAt).add(120, 'days').format('DD/MM/YYYY')
+          $moment(contract.startAt)
+            .tz('UTC')
+            .add(120, 'days')
+            .format('DD/MM/YYYY')
         }}</strong>
       </v-alert>
       <v-row>
@@ -38,7 +43,10 @@
             color="primary"
             label="Finalização CCP"
             :value="
-              $moment(contract.startAt).add(120, 'days').format('DD/MM/YYYY')
+              $moment(contract.startAt)
+                .tz('UTC')
+                .add(120, 'days')
+                .format('DD/MM/YYYY')
             "
             outlined
             hide-details="auto"

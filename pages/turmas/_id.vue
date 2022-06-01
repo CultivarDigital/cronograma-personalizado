@@ -6,7 +6,6 @@
         <Subtitle label="Turma" back-to="/turmas" />
       </div>
     </v-container>
-    <GroupForm :group="group" @change="load" />
     <div>
       <v-container v-if="group" class="px-4">
         <v-row>
@@ -28,7 +27,7 @@
                 style="font-size: 42px"
                 class="primary--text font-weight-bold"
               >
-                {{ $moment(group.startAt).format('DD') }}
+                {{ $moment(group.startAt).tz('UTC').format('DD') }}
               </div>
               <div
                 style="
@@ -38,21 +37,12 @@
                   text-transform: capitalize;
                 "
               >
-                {{ $moment(group.startAt).format('MMM YYYY') }}
+                {{ $moment(group.startAt).tz('UTC').format('MMM YYYY') }}
               </div>
             </div>
           </v-col>
           <v-col cols="8" class="font-size: 14px; line-height: 14px;">
-            <v-card
-              style="
-                background-color: rgba(123, 163, 162, 0.4);
-                border-radius: 4px;
-              "
-              class="px-3 py-6 primary--text text-center mb-3"
-              elevation="0"
-            >
-              <h3>EDITAR TURMA</h3>
-            </v-card>
+            <GroupForm :group="group" @change="load" />
           </v-col>
         </v-row>
         <v-card

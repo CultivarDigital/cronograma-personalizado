@@ -1,20 +1,16 @@
 <template>
   <v-dialog v-model="dialog" fullscreen>
     <template #activator="{ on, attrs }">
-      <v-btn
+      <v-card
         v-if="group"
         v-bind="attrs"
-        small
-        fab
-        bottom
-        right
-        fixed
-        dark
-        color="primary"
+        style="background-color: rgba(123, 163, 162, 0.4); border-radius: 4px"
+        class="px-3 py-6 primary--text text-center mb-3"
+        elevation="0"
         v-on="on"
       >
-        <v-icon dark>mdi-pencil</v-icon>
-      </v-btn>
+        <h3>EDITAR TURMA</h3>
+      </v-card>
       <div v-else class="text-center">
         <v-btn
           fab
@@ -54,6 +50,7 @@
                 />
               </validation-provider>
               <validation-provider
+                v-if="!group"
                 v-slot="{ errors }"
                 name="Data de Início"
                 rules="required"
@@ -111,7 +108,7 @@ export default {
     }
 
     if (!this.form.name) {
-      this.form.name = this.$moment(new Date()).format('MMM-YYYY')
+      this.form.name = this.$moment(new Date()).tz('UTC').format('MMM-YYYY')
     }
   },
   methods: {

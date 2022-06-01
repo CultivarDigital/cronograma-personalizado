@@ -7,19 +7,19 @@
       </div>
       <div class="text-center">
         <h3 class="text-h5 font-weight-bold mb-3" style="color: #acacac">
-          Vamos realizar nossa consultoria mensal?
+          Vamos realizar nosso Acompanhamento Mensal?
         </h3>
         <p class="mb-8" style="color: #78746d">
-          <small
-            >A consultoria mensal é indispensável para o melhor acompanhamento
-            do seu Cronograma Capilar Personalizado.</small
-          >
+          <small>
+            A consultoria mensal é indispensável para o melhor acompanhamento do
+            seu Cronograma Capilar Personalizado.
+          </small>
         </p>
       </div>
-      <div>
+      <div v-if="success">
         <v-card
           color="#F4F4F4"
-          to="/consultoria-mensal/item"
+          to="/consultoria-mensal/id"
           rounded="3"
           class="d-flex justify-start align-center pa-6 primary--text mb-6"
           elevation="3"
@@ -30,26 +30,23 @@
             class="primary--text"
             size="60"
           >
-            <strong class="primary--text">NOV</strong>
+            <v-icon dark>mdi-check</v-icon>
           </v-avatar>
           <div class="w-100 ml-3">
-            <h4>Consultoria #1</h4>
-            <v-progress-linear
-              color="primary"
-              rounded
-              value="80"
-              style="width: 72px"
-              class="d-inline-block mr-1"
-            ></v-progress-linear>
-            <small style="font-size: 10px">Concluido em xx/xx/xx</small>
+            <h4>Pedido realizado com sucesso!</h4>
+            <small style="font-size: 10px">
+              Clique aqui para realizar o pagamento
+            </small>
           </div>
         </v-card>
+      </div>
+      <div v-else>
         <v-card
           color="#F4F4F4"
-          to="/consultoria-mensal/item"
           rounded="3"
           class="d-flex justify-start align-center pa-6 primary--text mb-6"
           elevation="3"
+          @click="create"
         >
           <v-avatar
             left
@@ -57,21 +54,38 @@
             class="primary--text"
             size="60"
           >
-            <strong class="primary--text">DEZ</strong>
+            <strong class="primary--text">1X</strong>
           </v-avatar>
           <div class="w-100 ml-3">
-            <h4>Consultoria #2</h4>
-            <v-progress-linear
-              color="primary"
-              rounded
-              value="80"
-              style="width: 72px"
-              class="d-inline-block mr-1"
-            ></v-progress-linear>
-            <small style="font-size: 10px">Em análise</small>
+            <h4>USO ÚNICO - R$ 0,00</h4>
+            <small style="font-size: 10px"
+              >Será feito uma única vez durante o seu CCp</small
+            >
           </div>
         </v-card>
         <v-card
+          color="#F4F4F4"
+          rounded="3"
+          class="d-flex justify-start align-center pa-6 primary--text mb-6"
+          elevation="3"
+          @click="create"
+        >
+          <v-avatar
+            left
+            color="rgba(123, 163, 162, 0.4)"
+            class="primary--text"
+            size="60"
+          >
+            <strong class="primary--text">3X</strong>
+          </v-avatar>
+          <div class="w-100 ml-3">
+            <h4>PACK TOTAL - R$ 0,00</h4>
+            <small style="font-size: 10px">
+              Você será acompanhada durante os próximos 3 meses
+            </small>
+          </div>
+        </v-card>
+        <!-- <v-card
           color="#F4F4F4"
           to="/consultoria-mensal/item"
           rounded="3"
@@ -96,38 +110,7 @@
               class="d-inline-block mr-1"
             ></v-progress-linear>
           </div>
-        </v-card>
-        <v-card
-          color="#F4F4F4"
-          to="/consultoria-mensal/item"
-          rounded="3"
-          class="d-flex justify-start align-center pa-6 primary--text mb-6"
-          elevation="3"
-        >
-          <v-avatar
-            left
-            color="rgba(123, 163, 162, 0.4)"
-            class="primary--text"
-            size="60"
-          >
-            <strong class="primary--text">FEV</strong>
-          </v-avatar>
-          <div class="w-100 ml-3">
-            <h4>Consultoria #4</h4>
-            <v-progress-linear
-              color="primary"
-              rounded
-              value="80"
-              style="width: 72px"
-              class="d-inline-block mr-1"
-            ></v-progress-linear>
-          </div>
-        </v-card>
-      </div>
-      <div class="text-center">
-        <v-btn to="/renovacao" x-large dark color="rgba(123, 163, 162, 0.6)">
-          RENOVAR O CRONOGRAMA
-        </v-btn>
+        </v-card> -->
       </div>
     </v-container>
   </div>
@@ -140,6 +123,7 @@ export default {
         search: null,
       },
       active: 4,
+      success: false,
       weeks: [
         {
           month: 'M1',
@@ -179,6 +163,9 @@ export default {
       } else {
         this.$router.push('/pri-responde')
       }
+    },
+    create() {
+      this.success = true
     },
   },
 }

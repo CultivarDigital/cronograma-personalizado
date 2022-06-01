@@ -2,7 +2,7 @@
   <small
     v-if="date"
     class="font-weight-light"
-    :title="$moment(date).format('DD/MM/YYYY h:mm:ss')"
+    :title="$moment(date).tz('UTC').format('DD/MM/YYYY h:mm:ss')"
   >
     {{ $moment(date).fromNow(true) }}
   </small>
