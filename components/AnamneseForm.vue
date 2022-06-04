@@ -486,7 +486,7 @@ export default {
   },
   created() {
     if (this.value && this.value.anamnese) {
-      this.apiDataToForm(this.form, this.value.anamnese)
+      this.apiDataToForm(this.form, { ...this.value.anamnese })
     }
   },
   methods: {

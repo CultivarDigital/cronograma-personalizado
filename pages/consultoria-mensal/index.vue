@@ -112,9 +112,15 @@ export default {
       return this.dateDiff(startAt) <= 0
     },
     dateDiff(date) {
-      return this.$moment(new Date(date).setHours(0, 0, 0, 0))
+      const today = new Date()
+      return this.$moment(date)
         .tz('UTC')
-        .diff(this.$moment(new Date()).tz('UTC'), 'days')
+        .diff(
+          this.$moment(
+            Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())
+          ).tz('UTC'),
+          'days'
+        )
     },
     loadConsultations() {
       this.$axios.$get('/v1/consultations').then((consultations) => {

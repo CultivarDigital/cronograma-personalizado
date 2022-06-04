@@ -31,7 +31,7 @@
           <v-text-field
             color="primary"
             label="Início CCP"
-            :value="$moment(contract.startAt).format('DD/MM/YYYY')"
+            :value="$moment(contract.startAt).tz('UTC').format('DD/MM/YYYY')"
             outlined
             hide-details="auto"
             disabled

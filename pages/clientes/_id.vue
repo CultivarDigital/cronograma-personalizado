@@ -56,8 +56,8 @@
           :user="user"
           @input="loadContracts"
         />
-        <div class="pt-3">
-          <h3>RENOVAÇÕES</h3>
+        <div v-if="consultations && consultations.length" class="pt-3">
+          <h3>ACOMPANHAMENTOS MENSAIS</h3>
           <v-container>
             <ConsultationCard
               v-for="consultation in consultations"

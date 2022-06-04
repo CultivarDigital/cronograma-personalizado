@@ -108,7 +108,10 @@ export default {
     }
 
     if (!this.form.name) {
-      this.form.name = this.$moment(new Date()).tz('UTC').format('MMM-YYYY')
+      this.form.name = this.$moment(new Date())
+        .tz('UTC')
+        .format('MMM-YYYY')
+        .toUpperCase()
     }
   },
   methods: {

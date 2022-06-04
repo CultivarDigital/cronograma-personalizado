@@ -11,13 +11,24 @@
             class="pa-4"
             rounded="lg"
           >
-            <p style="line-height: 16px" class="mb-6">
+            <p style="line-height: 16px" class="mb-3">
               <small>Tratamentos da semana</small>
             </p>
             <div v-if="currentContract.data">
-              <p class="mb-0"><strong>Hidratação</strong></p>
-              <p class="mb-0"><strong>Nutrição</strong></p>
-              <p class="mb-0"><strong>Umectação</strong></p>
+              <div v-if="weekItems && weekItems.length">
+                <p
+                  v-for="(weekItem, index) in weekItems"
+                  :key="index"
+                  class="mb-0"
+                >
+                  <strong>{{ weekItem.description }}</strong>
+                </p>
+              </div>
+              <div v-else>
+                <p class="mb-0" style="line-height: 1">
+                  <strong><small>Sem tratamentos pendentes </small></strong>
+                </p>
+              </div>
             </div>
             <div v-else>
               <p class="mb-0" style="line-height: 1">
@@ -161,6 +172,14 @@ export default {
   computed: {
     currentContract() {
       return this.$store.state.currentContract
+    },
+    weekItems() {
+      if (this.currentContract && this.currentContract.data) {
+        return this.currentContract.data[this.currentContract.month - 1][
+          this.currentContract.week - 1
+        ].filter((item) => !item.checked)
+      }
+      return []
     },
   },
 }

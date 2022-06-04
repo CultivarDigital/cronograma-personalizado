@@ -17,11 +17,19 @@
         <template v-else>
           <Profile v-if="!$auth.user.cpf" />
           <Anamnese
-            v-else-if="currentContract && !currentContract.anamnese"
-            :value="currentContract"
+            v-else-if="
+              currentContract &&
+              (!currentContract.anamnese ||
+                !currentContract.anamnese.reuse_products)
+            "
+            :value="JSON.parse(JSON.stringify(currentContract))"
           />
           <Anamnese
-            v-else-if="waitingContract && !waitingContract.anamnese"
+            v-else-if="
+              waitingContract &&
+              (!waitingContract.anamnese ||
+                !waitingContract.anamnese.reuse_products)
+            "
             v-model="waitingContract"
           />
           <Nuxt v-if="$auth.user.role !== 'user' || currentContract" />

@@ -75,6 +75,11 @@
       >
         <DoubleTable :data="membersDataset" clickable />
       </v-container>
+      <v-container v-else>
+        <v-alert class="text-center" color="grey" dark>
+          Nenhuma cliente nessa turma
+        </v-alert>
+      </v-container>
     </div>
   </div>
 </template>

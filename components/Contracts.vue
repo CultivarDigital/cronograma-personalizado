@@ -161,7 +161,7 @@ export default {
             label: this.$moment(contract.startAt)
               .tz('UTC')
               .format('DD/MM/YYYY'),
-            value: index === 0 ? '1º Contrato' : index + 'º Renovação',
+            value: index === 0 ? '1º Cronograma' : index + 'º Renovação',
             data: contract,
           })),
         }
