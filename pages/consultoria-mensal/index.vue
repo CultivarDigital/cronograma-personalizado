@@ -19,9 +19,12 @@
     </v-container>
     <div>
       <v-container
-        v-if="currentContract && consultations && consultations.length === 0"
+        v-if="
+          currentContract && consultations && (canBuyIndividual || canBuyPack)
+        "
       >
         <v-card
+          v-if="canBuyIndividual"
           color="#F4F4F4"
           rounded="3"
           class="d-flex justify-start align-center pa-6 primary--text mb-6"
@@ -37,13 +40,14 @@
             <strong class="primary--text">1X</strong>
           </v-avatar>
           <div class="w-100 ml-3">
-            <h4>USO ÚNICO - R$ 0,00</h4>
+            <h4>USO ÚNICO - R$ 99,00</h4>
             <small style="font-size: 10px"
               >Será feito uma única vez durante o seu CCP</small
             >
           </div>
         </v-card>
         <v-card
+          v-if="canBuyPack"
           color="#F4F4F4"
           rounded="3"
           class="d-flex justify-start align-center pa-6 primary--text mb-6"
@@ -59,7 +63,7 @@
             <strong class="primary--text">3X</strong>
           </v-avatar>
           <div class="w-100 ml-3">
-            <h4>PACK TOTAL - R$ 0,00</h4>
+            <h4>PACK TOTAL - R$ 250,00</h4>
             <small style="font-size: 10px">
               Você será acompanhada durante os próximos 3 meses
             </small>
@@ -89,6 +93,35 @@ export default {
     }
   },
   computed: {
+    canBuyIndividual() {
+      if (this.currentConsultations) {
+        if (this.currentConsultations.length) {
+          const latestDate =
+            this.currentConsultations[this.currentConsultations.length - 1]
+              .createdAt
+          return (
+            this.dateDiff(latestDate) > 30 &&
+            this.currentContract.remaining_days >= 30
+          )
+        }
+        return true
+      }
+      return false
+    },
+    canBuyPack() {
+      if (this.currentConsultations && this.currentConsultations.length === 0) {
+        return this.currentContract.remaining_days >= 90
+      }
+      return false
+    },
+    currentConsultations() {
+      if (this.consultations && this.currentContract) {
+        return this.consultations.filter(
+          (consultation) => consultation.contract === this.currentContract._id
+        )
+      }
+      return null
+    },
     currentContract() {
       return this.$store.state.currentContract
     },
@@ -109,7 +142,7 @@ export default {
       }
     },
     isActive(startAt) {
-      return this.dateDiff(startAt) <= 0
+      return this.dateDiff(startAt) <= 1
     },
     dateDiff(date) {
       const today = new Date()

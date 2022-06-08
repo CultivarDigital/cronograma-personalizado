@@ -63,6 +63,34 @@
     <div v-else-if="!loading">
       <ValidationObserver v-slot="{ validate, invalid }">
         <v-form @submit.prevent="validate().then(save)">
+          <div class="mb-6">
+            <legend class="primary--text mb-2">
+              <small>
+                <strong v-if="disabled"> Comprovante do PIX: </strong>
+                <strong v-else> Enviar comprovante do PIX </strong>
+              </small>
+            </legend>
+            <div class="text-center">
+              <a :href="apiURL + form.pix" target="_blank">
+                <img
+                  v-if="form.pix"
+                  :src="apiURL + form.pix"
+                  class="rounded picture mb-3"
+                  style="max-width: 100%"
+                />
+              </a>
+            </div>
+            <UploadImage
+              v-if="!disabled"
+              prefix="consultation"
+              button
+              icon="mdi-paperclip"
+              :label="'clique aqui para enviar'"
+              class="mb-3"
+              @input="(image) => (form.pix = image)"
+            />
+          </div>
+          <hr class="mb-10" />
           <validation-provider
             v-slot="{ errors }"
             name="Quais produtos precisamos alterar?"
@@ -106,31 +134,7 @@
               Ver tutorial
             </v-btn>
           </div>
-          <div class="mb-6">
-            <legend class="primary--text mb-2">
-              <small>
-                <strong v-if="disabled"> Comprovante do PIX: </strong>
-                <strong v-else> Enviar comprovante do PIX </strong>
-              </small>
-            </legend>
-            <div class="text-center">
-              <img
-                v-if="form.pix"
-                :src="apiURL + form.pix"
-                class="rounded picture mb-3"
-                style="max-width: 100%"
-              />
-            </div>
-            <UploadImage
-              v-if="!disabled"
-              prefix="consultation"
-              button
-              icon="mdi-paperclip"
-              :label="'clique aqui para enviar'"
-              class="mb-3"
-              @input="(image) => (form.pix = image)"
-            />
-          </div>
+
           <div class="mb-6">
             <legend class="primary--text mb-2">
               <small>
@@ -142,13 +146,18 @@
               </small>
             </legend>
             <div class="text-center">
-              <img
+              <a
                 v-for="image in form.images"
                 :key="image"
-                :src="apiURL + image"
-                class="rounded picture mb-3"
-                style="max-width: 100%"
-              />
+                :href="apiURL + image"
+                target="_blank"
+              >
+                <img
+                  :src="apiURL + image"
+                  class="rounded picture mb-3"
+                  style="max-width: 100%"
+                />
+              </a>
             </div>
             <UploadImage
               v-if="!disabled"
@@ -189,7 +198,7 @@
             />
           </div>
           <Save
-            v-if="!disabled"
+            v-if="!disabled && form.video && form.images.length && form.pix"
             :invalid="invalid"
             :loading="loading"
             label="Próximo"

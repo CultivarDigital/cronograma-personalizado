@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     isActive(startAt) {
-      return this.dateDiff(startAt) <= 0
+      return this.dateDiff(startAt) <= 1
     },
     dateDiff(date) {
       const today = new Date()

@@ -18,11 +18,37 @@
       </div>
     </v-container>
     <v-container v-if="consultation" class="px-6">
-      <v-alert color="info" dark class="text-center mb-10">
-        {{ statusList[consultation.status].label }}
-      </v-alert>
+      <div class="mb-10">
+        <v-alert color="info" dark class="text-center">
+          {{ statusList[consultation.status].label }}
+        </v-alert>
+        <div v-if="consultation.status === 'created'">
+          <v-btn
+            v-if="consultation.type === 'pack'"
+            target="_blank"
+            block
+            x-large
+            color="success"
+            href="https://prijorge.com/produto/acompanhamento-mensal-pack"
+          >
+            Realizar pagamento
+          </v-btn>
+          <v-btn
+            v-else
+            target="_blank"
+            block
+            x-large
+            color="success"
+            href="https://prijorge.com/produto/acompanhamento-mensal"
+          >
+            Realizar pagamento
+          </v-btn>
+        </div>
+      </div>
+
       <ConsultationInfoForm
         v-model="consultation"
+        :disabled="consultation.status !== 'created'"
         @input="$router.replace('/consultoria-mensal')"
       />
     </v-container>

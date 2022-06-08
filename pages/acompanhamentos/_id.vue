@@ -5,18 +5,10 @@
       <div class="mb-8">
         <Subtitle label="Consultoria Mensal" back-to="/acompanhamentos" />
       </div>
-      <div class="text-center">
-        <h3 class="text-h5 font-weight-bold mb-3" style="color: #acacac">
-          Vamos realizar nosso Acompanhamento Mensal?
-        </h3>
-        <p class="mb-0" style="color: #78746d">
-          <small>
-            A consultoria mensal é indispensável para o melhor acompanhamento do
-            seu Cronograma Capilar Personalizado.
-          </small>
-        </p>
-      </div>
     </v-container>
+    <div class="mb-6">
+      <ProfileHeader v-if="user" :user="user" />
+    </div>
     <v-container v-if="consultation" class="px-6">
       <div class="mb-10">
         <v-alert
@@ -33,7 +25,11 @@
           large
           @click="setStatus('paid')"
         >
-          Confirmar pagamento
+          {{
+            consultation.type === 'pack'
+              ? 'Confirmar pagamento do pack'
+              : 'Confirmar pagamento'
+          }}
         </v-btn>
         <v-btn
           v-if="consultation.status === 'paid'"
@@ -68,17 +64,22 @@ export default {
   data() {
     return {
       consultation: null,
+      user: null,
       statusList,
     }
   },
-  created() {
-    this.loadConsultation()
+  async created() {
+    await this.loadConsultation()
+    await this.loadUser()
   },
   methods: {
     async loadConsultation() {
       this.consultation = await this.$axios.$get(
         '/v1/consultations/' + this.$route.params.id
       )
+    },
+    async loadUser() {
+      this.user = await this.$axios.$get('/v1/users/' + this.consultation.user)
     },
     async setStatus(status) {
       this.consultation = await this.$axios.$patch(
