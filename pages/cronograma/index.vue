@@ -5,6 +5,19 @@
       <div class="mb-8">
         <Subtitle label="Consultoria Mensal" />
       </div>
+      <div v-if="currentContract.remaining_days <= 15" class="mb-5">
+        <v-alert
+          v-if="currentContract.status === 'active'"
+          color="info"
+          dark
+          class="text-center"
+        >
+          Seu contrato termina em {{ currentContract.remaining_days }} dias
+        </v-alert>
+        <v-btn x-large color="success" block to="/renovacao">
+          Renove agora seu contrato
+        </v-btn>
+      </div>
       <div class="d-flex justify-space-between align-center mb-6">
         <div class="d-flex justify-center align-center">
           <div style="font-size: 42px" class="primary--text font-weight-bold">
@@ -175,40 +188,7 @@
 export default {
   data() {
     return {
-      filters: {
-        search: null,
-      },
       active: null,
-      weeks: [
-        {
-          month: 'M1',
-          week: 'S1',
-        },
-        {
-          month: 'M1',
-          week: 'S2',
-        },
-        {
-          month: 'M1',
-          week: 'S3',
-        },
-        {
-          month: 'M1',
-          week: 'S4',
-        },
-        {
-          month: 'M2',
-          week: 'S1',
-        },
-        {
-          month: 'M2',
-          week: 'S2',
-        },
-        {
-          month: 'M2',
-          week: 'S3',
-        },
-      ],
     }
   },
   computed: {
@@ -242,13 +222,6 @@ export default {
         if (contract) {
           this.$store.dispatch('setCurrentContract', contract)
         }
-      }
-    },
-    search() {
-      if (this.filters.search) {
-        this.$router.push('/pri-responde?search=' + this.filters.search)
-      } else {
-        this.$router.push('/pri-responde')
       }
     },
   },

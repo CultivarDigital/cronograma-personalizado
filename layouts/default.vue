@@ -16,22 +16,25 @@
         </div>
         <template v-else>
           <Profile v-if="!$auth.user.cpf" />
-          <Anamnese
-            v-else-if="
-              currentContract &&
-              (!currentContract.anamnese ||
-                !currentContract.anamnese.reuse_products)
-            "
-            :value="JSON.parse(JSON.stringify(currentContract))"
-          />
-          <Anamnese
-            v-else-if="
-              waitingContract &&
-              (!waitingContract.anamnese ||
-                !waitingContract.anamnese.reuse_products)
-            "
-            v-model="waitingContract"
-          />
+          <div v-else>
+            <Anamnese
+              v-if="
+                currentContract &&
+                (!currentContract.anamnese ||
+                  !currentContract.anamnese.reuse_products)
+              "
+              :value="JSON.parse(JSON.stringify(currentContract))"
+            />
+            <RenewAnswer
+              v-else-if="
+                waitingContract &&
+                (!waitingContract.renew_answer ||
+                  !waitingContract.renew_answer.pix)
+              "
+              v-model="waitingContract"
+            />
+          </div>
+
           <Nuxt v-if="$auth.user.role !== 'user' || currentContract" />
           <div
             v-else-if="waitingContract"
@@ -83,12 +86,10 @@ export default {
         `/v1/contracts/status/active`
       )
       this.$store.dispatch('setCurrentContract', currentContract)
-      if (!currentContract) {
-        const waitingContract = await this.$axios.$get(
-          `/v1/contracts/status/waiting`
-        )
-        this.waitingContract = waitingContract
-      }
+      const waitingContract = await this.$axios.$get(
+        `/v1/contracts/status/waiting`
+      )
+      this.waitingContract = waitingContract
     }
     this.loading = false
   },

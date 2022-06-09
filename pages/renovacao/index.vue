@@ -40,3 +40,12 @@
     </v-container>
   </div>
 </template>
+<script>
+export default {
+  methods: {
+    async renew() {
+      await this.$axios.$post('/v1/contracts/renew')
+    },
+  },
+}
+</script>
