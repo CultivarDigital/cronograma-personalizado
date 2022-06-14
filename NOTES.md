@@ -42,7 +42,26 @@ Correçoes:
   - https://prijorge.com/produto/acompanhamento-mensal-pack/
   - https://prijorge.com/produto/acompanhamento-mensal/
 
+
+
+- Corrigir erro na hora de cadastrar: Request failed with status code 401 
+- incluir telefone da cliente no perfil
+- na tela "meu cronograma" está escrito "consultoria mensal"
+- mudar para "Acompanhamento mensal" onde tem escrito "consultoria mensal"
+- formulário do acompanhamento mensal ta travado, sem opção de enviar.
+- Retirar botão "responder o formulário"
+- adicionar formulario para alterar senha
+- Mostrar a senha (na hora do cadastro)
+
+- aqui estão os vídeos todos pra gente upar lá no app vimeo.com/user/135142449/folder/11050060
+- no conteúdo exclusivo, carregar vídeos pelo vimeo etc por link (pra nao pesar no servidor)
+
 - replicar logica de pagamento na renovação e controle de status das renovações
+- Notificação quando tiver msg nova no chat
+- Enviar email confirmação de cadastro e boas vindas a turma
+- criar notificação assim: mensagem dizendo que o formulário foi enviado
+- sistema de notificação
+
 - adicionar notificação em massa com:
   - filtro de turma
   - select para selecionar as clientes para enviar
@@ -50,3 +69,4 @@ Correçoes:
 - melhorar o visual na tela de atendimento do chat
 - remover botão de editar videos do dashboard da gestora
 - publicar em produção
+
