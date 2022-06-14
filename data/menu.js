@@ -22,9 +22,9 @@ const menu = [
     to: '/conteudo-exclusivo',
   },
   {
-    title: 'Consultoria mensal',
+    title: 'Acompanhamento mensal',
     icon: 'mdi-calendar-star',
-    to: '/consultoria-mensal',
+    to: '/acompanhamento-mensal',
     role: 'user',
   },
   {

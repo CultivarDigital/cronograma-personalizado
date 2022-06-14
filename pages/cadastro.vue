@@ -31,10 +31,18 @@
           <v-text-field
             v-model="form.password"
             outlined
-            type="password"
+            :type="showPassword ? 'text' : 'password'"
             label="Vamos criar uma senha pra você?"
             :error-messages="errors"
-          />
+          >
+            <v-icon
+              slot="append"
+              color="primary"
+              @click="showPassword = !showPassword"
+            >
+              mdi-eye
+            </v-icon>
+          </v-text-field>
         </validation-provider>
         <validation-provider
           v-slot="{ errors }"
@@ -44,14 +52,27 @@
           <v-text-field
             v-model="form.password_confirmation"
             outlined
-            type="password"
+            :type="showPassword ? 'text' : 'password'"
             label="Confirme sua senha"
             :error-messages="errors"
-          />
+          >
+            <v-icon
+              slot="append"
+              color="primary"
+              @click="showPassword = !showPassword"
+            >
+              mdi-eye
+            </v-icon>
+          </v-text-field>
         </validation-provider>
         <Save :invalid="invalid" :loading="loading" label="Cadastrar" />
         <div class="text-center">
-          <v-btn color="primary" plain to="/login">Entre</v-btn>
+          <v-btn
+            color="primary"
+            plain
+            :to="{ path: '/login', query: $route.query }"
+            >Entre</v-btn
+          >
         </div>
       </v-form>
     </ValidationObserver>
@@ -69,6 +90,7 @@ export default {
   data() {
     return {
       loading: false,
+      showPassword: false,
       form: {
         name: '',
         email: '',
@@ -100,6 +122,7 @@ export default {
           .loginWith('local', {
             data: {
               token,
+              group_id: this.$route.query.codigo,
             },
           })
           .then((resp) => {
@@ -110,9 +133,7 @@ export default {
                 this.$auth.setUser(user)
                 this.welcome(userCredential.user)
               })
-              .catch(this.error)
           })
-          .catch(this.error)
       })
     },
     error(error) {

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <TopNavigation active="Meu cronograma" />
+    <TopNavigation active="Cronograma personalizado" />
     <v-container class="pt-0 px-6">
       <div class="mb-8">
-        <Subtitle label="Consultoria Mensal" />
+        <Subtitle label="Meu cronograma" />
       </div>
       <div v-if="currentContract.remaining_days <= 15" class="mb-5">
         <v-alert

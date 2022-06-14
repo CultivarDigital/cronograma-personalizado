@@ -108,7 +108,7 @@
           </v-card>
         </v-col>
         <v-col cols="4">
-          <v-card class="pa-3 pt-4" to="/consultoria-mensal">
+          <v-card class="pa-3 pt-4" to="/acompanhamento-mensal">
             <v-btn
               icon
               style="
@@ -123,7 +123,7 @@
               style="line-height: 13px; font-size: 13px"
               class="caption primary--text"
             >
-              Consultoria Mensal
+              Acompanhamento mensal
             </p>
           </v-card>
         </v-col>

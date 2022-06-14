@@ -11,7 +11,10 @@
     >
       <v-icon>mdi-chevron-left</v-icon>
     </v-btn>
-    <h2 class="text-h5" style="color: rgba(123, 163, 162, 0.8)">
+    <h2
+      class="text-h5"
+      style="color: rgba(123, 163, 162, 0.8); font-size: 22px !important"
+    >
       {{ label }}
     </h2>
   </div>

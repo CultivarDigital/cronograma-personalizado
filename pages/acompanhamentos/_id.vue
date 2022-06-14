@@ -3,7 +3,7 @@
     <TopNavigation active="Meu cronograma" />
     <v-container class="pt-0 px-6">
       <div class="mb-8">
-        <Subtitle label="Consultoria Mensal" back-to="/acompanhamentos" />
+        <Subtitle label="Acompanhamento mensal" back-to="/acompanhamentos" />
       </div>
     </v-container>
     <div class="mb-6">

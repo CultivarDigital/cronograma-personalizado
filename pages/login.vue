@@ -44,11 +44,19 @@
             <v-text-field
               v-model="form.password"
               outlined
-              type="password"
+              :type="showPassword ? 'text' : 'password'"
               :error-messages="errors"
               label="Digite sua senha"
               hide-details="auto"
-            />
+            >
+              <v-icon
+                slot="append"
+                color="primary"
+                @click="showPassword = !showPassword"
+              >
+                mdi-eye
+              </v-icon>
+            </v-text-field>
           </validation-provider>
           <div class="text-right mb-6 mt-2">
             <v-btn
@@ -72,7 +80,13 @@
         >
           <v-icon left>mdi-google</v-icon> Entrar com o google
         </v-btn>
-        <v-btn color="primary" plain to="/cadastro">Cadastre-se</v-btn>
+        <v-btn
+          color="primary"
+          plain
+          :to="{ path: '/cadastro', query: $route.query }"
+        >
+          Cadastre-se
+        </v-btn>
       </v-form>
     </ValidationObserver>
   </v-container>
@@ -88,6 +102,7 @@ export default {
   layout: 'front',
   data() {
     return {
+      showPassword: false,
       loading: false,
       form: {
         login: '',
@@ -119,7 +134,10 @@ export default {
             this.welcome(userCredential.user)
             this.loading = false
           })
-          .catch(this.$notifier.apiError)
+          .catch((error) => {
+            this.$notifier.apiError(error)
+            this.loading = false
+          })
       })
     },
     login() {

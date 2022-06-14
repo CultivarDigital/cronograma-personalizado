@@ -31,14 +31,7 @@
         class="d-inline-block mr-1"
       ></v-progress-linear>
       <div v-if="isActive(consultation.startAt)">
-        <v-btn
-          v-if="$auth.user.role === 'user' && !consultation.consultation_info"
-          color="primary"
-          class="mt-3"
-        >
-          Responder formulário
-        </v-btn>
-        <small v-else style="font-size: 10px">
+        <small style="font-size: 10px">
           {{ statusList[consultation.status].label }}
         </small>
       </div>
@@ -69,7 +62,7 @@ export default {
     baseLink() {
       return this.$auth.user.role === 'admin'
         ? '/acompanhamentos/'
-        : '/consultoria-mensal/'
+        : '/acompanhamento-mensal/'
     },
   },
   methods: {

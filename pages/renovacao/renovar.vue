@@ -9,7 +9,7 @@
         <img
           class="mb-3"
           src="~/assets/img/renovar.png"
-          alt="Consultoria mensal"
+          alt="Acompanhamento mensal"
           style="max-width: 100%"
         />
         <h3 class="text-h5 font-weight-bold mb-3">

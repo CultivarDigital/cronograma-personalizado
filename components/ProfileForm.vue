@@ -31,6 +31,19 @@
             </validation-provider>
             <validation-provider
               v-slot="{ errors }"
+              name="Telefone"
+              rules="required"
+            >
+              <v-text-field
+                v-model="form.phone"
+                v-mask="['(##) ####-####', '(##) #####-####']"
+                outlined
+                label="Telefone"
+                :error-messages="errors"
+              />
+            </validation-provider>
+            <validation-provider
+              v-slot="{ errors }"
               name="Data de nascimento"
               rules="required"
             >
@@ -170,6 +183,7 @@ export default {
         group: null,
         picture: null,
         name: '', // Nome completo
+        phone: '', // Telefone
         birth: null, // Data de nascimento
         cpf: '', // CPF
         cep: '', // CEP

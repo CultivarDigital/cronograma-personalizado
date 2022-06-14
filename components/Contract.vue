@@ -58,14 +58,13 @@
     </v-container>
     <div v-if="contract.status !== 'waiting'">
       <h3>CRONOGRAMA</h3>
-      <div
-        v-if="contract.contract_type === 'new'"
-        class="text-center mb-5 pt-3"
-      >
-        <AnamneseDisplay :value="contract" />
-      </div>
-
       <v-container>
+        <div
+          v-if="contract.contract_type === 'new'"
+          class="text-center mb-5 pt-3"
+        >
+          <AnamneseDisplay :value="contract" />
+        </div>
         <TemplateEditor v-model="contract.data" @input="change" />
         <v-btn
           v-if="contract.status === 'active'"

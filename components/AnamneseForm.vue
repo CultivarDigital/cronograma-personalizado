@@ -73,10 +73,10 @@
       <v-container>
         <v-tabs v-model="tab">
           <v-tab style="font-size: 13px; color: #262626">
-            <v-chip small class="mr-3 rounded-lg">2</v-chip> Histórico
+            <v-chip small class="mr-3 rounded-lg">1</v-chip> Histórico
           </v-tab>
           <v-tab style="font-size: 13px; color: #262626">
-            <v-chip small class="mr-3 rounded-lg">3</v-chip> Imagens
+            <v-chip small class="mr-3 rounded-lg">2</v-chip> Imagens
           </v-tab>
         </v-tabs>
         <v-tabs-items v-model="tab" class="pt-8">
@@ -390,7 +390,13 @@
                       (form.images.length ? 'outra foto' : 'sua foto')
                     "
                     class="mb-3"
-                    @input="(image) => form.images.push(image)"
+                    @input="
+                      (image) => {
+                        const images = [...form.images]
+                        images.push(image)
+                        form.images = [...images]
+                      }
+                    "
                   />
                 </div>
                 <div class="mb-6">

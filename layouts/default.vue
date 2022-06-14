@@ -49,15 +49,19 @@
               }}
             </v-alert>
           </div>
-          <div
+          <v-container
             v-else
             class="text-center fill-height d-flex align-center justify-center"
           >
-            <v-alert color="error" dark>
-              Você não possui um contrato ativo. Por favor entre em contato com
-              nossa equipe
-            </v-alert>
-          </div>
+            <div>
+              <v-alert color="error" dark>
+                Você não possui um contrato ativo.
+                <br />
+                Por favor entre em contato com nossa equipe.
+              </v-alert>
+              <v-btn large color="primary" @click="$auth.logout()">Sair</v-btn>
+            </div>
+          </v-container>
         </template>
       </v-main>
       <Snackbar />

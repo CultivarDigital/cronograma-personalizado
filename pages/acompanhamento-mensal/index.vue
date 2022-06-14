@@ -3,7 +3,7 @@
     <TopNavigation active="Meu cronograma" />
     <v-container class="pt-0 px-6">
       <div class="mb-8">
-        <Subtitle label="Consultoria Mensal" />
+        <Subtitle label="Acompanhamento mensal" />
       </div>
       <div class="text-center">
         <h3 class="text-h5 font-weight-bold mb-3" style="color: #acacac">
@@ -11,8 +11,8 @@
         </h3>
         <p style="color: #78746d">
           <small>
-            A consultoria mensal é indispensável para o melhor acompanhamento do
-            seu Cronograma Capilar Personalizado.
+            O acompanhamento mensal é indispensável para o melhor acompanhamento
+            do seu Cronograma Capilar Personalizado.
           </small>
         </p>
       </div>
@@ -137,8 +137,8 @@ export default {
       })
       this.loadConsultations()
       if (savedConsultation) {
-        this.$router.push('/consultoria-mensal/' + savedConsultation._id)
-        this.notify('Sua consultoria foi solicitada!')
+        this.$router.push('/acompanhamento-mensal/' + savedConsultation._id)
+        this.notify('Seu acompanhamento foi solicitado!')
       }
     },
     isActive(startAt) {

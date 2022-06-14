@@ -3,7 +3,7 @@
     <TopNavigation active="Meu cronograma" />
     <v-container class="pt-0 px-6">
       <div class="mb-8">
-        <Subtitle label="Consultoria Mensal" />
+        <Subtitle label="Acompanhamento mensal" />
       </div>
     </v-container>
     <v-container v-if="consultations && consultations.length === 0">
@@ -95,7 +95,7 @@ export default {
       this.loadConsultations()
       if (savedConsultation) {
         this.$router.push('/acompanhamentos/' + savedConsultation._id)
-        this.notify('Sua consultoria foi solicitada!')
+        this.notify('Seu acompanhamento foi solicitado!')
       }
     },
     isActive(startAt) {

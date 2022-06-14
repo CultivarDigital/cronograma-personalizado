@@ -2,85 +2,9 @@
   <div>
     <TopNavigation active="Meus dados" />
     <v-tabs v-if="$auth.user" v-model="tab">
-      <v-tab key="profile" dark> Dados do perfil </v-tab>
       <v-tab key="credentials"> Email e senha </v-tab>
     </v-tabs>
     <v-tabs-items v-model="tab" class="pt-3">
-      <v-tab-item key="profile">
-        <v-container fluid>
-          <ValidationObserver v-slot="{ validate, invalid }">
-            <form @submit.prevent="validate().then(save)">
-              <div class="text-center mb-6">
-                <v-avatar size="64" class="avatar-upload mb-3">
-                  <v-img v-if="picture" :src="picture" size="64" />
-                  <v-icon v-else dark color="primary" size="32"
-                    >mdi-account</v-icon
-                  >
-                </v-avatar>
-                <br />
-                <UploadImage prefix="profile" button @input="addImage" />
-              </div>
-              <validation-provider
-                v-slot="{ errors }"
-                name="nome"
-                rules="required"
-              >
-                <v-text-field
-                  v-model="form.name"
-                  outlined
-                  label="Seu nome"
-                  :error-messages="errors"
-                />
-              </validation-provider>
-              <!-- <v-select
-                v-model="form.region"
-                outlined
-                label="Qual sua região?"
-                :items="['Centro-oeste', 'Nordeste', 'Norte', 'Sudeste', 'Sul']"
-                clearable
-              /> -->
-              <v-select
-                v-if="estados"
-                v-model="form.uf"
-                outlined
-                label="Qual seu estado?"
-                :items="estados"
-                item-text="uf"
-                item-value="uf"
-                clearable
-                @input="setRegion"
-              />
-              <v-select
-                v-if="municipios"
-                v-model="form.city"
-                outlined
-                label="Qual sua cidade?"
-                :items="municipios"
-                item-text="nome"
-                item-value="nome"
-                clearable
-              />
-              <v-textarea
-                v-model="form.bio"
-                outlined
-                label="Conte um pouco sobre você"
-              />
-              <p class="text-center">
-                <v-checkbox v-model="accept_terms">
-                  <template #label>
-                    <div><AcceptTerms /></div>
-                  </template>
-                </v-checkbox>
-              </p>
-              <Save v-if="accept_terms" :invalid="invalid" :loading="loading" />
-              <v-alert v-else type="error" class="d-flex justify-center">
-                Estar de acordo com os termos de uso e política de privacidade é
-                necessário para usar esta plataforma
-              </v-alert>
-            </form>
-          </ValidationObserver>
-        </v-container>
-      </v-tab-item>
       <v-tab-item key="credentials">
         <v-container fluid>
           <ValidationObserver v-slot="{ validate, invalid }">
@@ -105,10 +29,18 @@
                 <v-text-field
                   v-model="passwordForm.current_password"
                   label="Sua senha atual"
-                  type="password"
+                  :type="showPassword ? 'text' : 'password'"
                   :error-messages="errors"
                   outlined
-                />
+                >
+                  <v-icon
+                    slot="append"
+                    color="primary"
+                    @click="showPassword = !showPassword"
+                  >
+                    mdi-eye
+                  </v-icon>
+                </v-text-field>
               </validation-provider>
               <validation-provider
                 v-slot="{ errors }"
@@ -118,10 +50,18 @@
                 <v-text-field
                   v-model="passwordForm.password"
                   label="Crie uma nova senha"
-                  type="password"
+                  :type="showPassword ? 'text' : 'password'"
                   :error-messages="errors"
                   outlined
-                />
+                >
+                  <v-icon
+                    slot="append"
+                    color="primary"
+                    @click="showPassword = !showPassword"
+                  >
+                    mdi-eye
+                  </v-icon>
+                </v-text-field>
               </validation-provider>
               <validation-provider
                 v-slot="{ errors }"
@@ -131,10 +71,18 @@
                 <v-text-field
                   v-model="passwordForm.password_confirmation"
                   label="Confirme sua nova senha"
-                  type="password"
+                  :type="showPassword ? 'text' : 'password'"
                   :error-messages="errors"
                   outlined
-                />
+                >
+                  <v-icon
+                    slot="append"
+                    color="primary"
+                    @click="showPassword = !showPassword"
+                  >
+                    mdi-eye
+                  </v-icon>
+                </v-text-field>
               </validation-provider>
               <Save
                 :invalid="invalid"
@@ -159,6 +107,7 @@ export default {
   },
   data() {
     return {
+      showPassword: false,
       estados: estados.sort((a, b) => {
         return a.uf.localeCompare(b.uf)
       }),
