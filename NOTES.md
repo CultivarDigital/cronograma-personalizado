@@ -52,21 +52,41 @@ Correçoes:
 - Retirar botão "responder o formulário"
 - adicionar formulario para alterar senha
 - Mostrar a senha (na hora do cadastro)
+- adicionar os videos reais na seção de mini curso vimeo.com/user/135142449/folder/11050060
+- melhorar o visual na tela de atendimento do chat
 
-- aqui estão os vídeos todos pra gente upar lá no app vimeo.com/user/135142449/folder/11050060
-- no conteúdo exclusivo, carregar vídeos pelo vimeo etc por link (pra nao pesar no servidor)
 
 - replicar logica de pagamento na renovação e controle de status das renovações
-- Notificação quando tiver msg nova no chat
-- Enviar email confirmação de cadastro e boas vindas a turma
-- criar notificação assim: mensagem dizendo que o formulário foi enviado
-- sistema de notificação
 
+- sistema de notificação
+- Notificação quando tiver msg nova no chat
 - adicionar notificação em massa com:
   - filtro de turma
   - select para selecionar as clientes para enviar
-- adicionar os videos reais na seção de mini curso
-- melhorar o visual na tela de atendimento do chat
+- Enviar email confirmação de cadastro e boas vindas a turma
+- criar notificação assim: mensagem dizendo que o formulário foi enviado
+
+- no conteúdo exclusivo, carregar vídeos pelo vimeo etc por link (pra nao pesar no servidor) 
+
 - remover botão de editar videos do dashboard da gestora
+- contadores do dashboard
 - publicar em produção
 
+
+google cloud platform
+
+[19:42, 15/06/2022] Afrânio: contato@prijorge.com
+[19:42, 15/06/2022] Afrânio: @Sucesso123.!
+
+ID do cliente
+769123613965-5fr6en503rad0lukivfmo85gh84no07i.apps.googleusercontent.com
+Chave secreta do cliente
+c7M0J-lqeXyp6tOitVHuKFy1
+
+Authorization code: 
+4/0AX4XfWiavI5oWGUGdE6FdSoX_0u9nBKyz1-TYK01WtCIkq_0lJGo1tf6u90_gzhBC8GiHQ
+
+Refresh token: 
+1//04Ry-Ix_OIDV-CgYIARAAGAQSNwF-L9Irj_T82GrvkMgJ0K-ZxNhtM77TBIVwotz6bbhx2lEU-HoyJQNHhQgVnAUiNUsT3Q31oTM
+Access token: 
+ya29.a0ARrdaM8MJdm1oaelKokM2q39nCG4PGqaFGMnQbZ9ehhW1xq3qIjp_RepLgI9BFyPiwg_lp2rR9u8xMyNrCozHgYQWmVD59YLbFzbmsZGZJYjy5UO4rMsuwJe9ZXImtS3ICPjKiZpR0YBklXDi5aYSioGHONU
