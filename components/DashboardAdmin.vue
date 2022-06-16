@@ -19,11 +19,14 @@
               color="rgba(238, 96, 94, .8)"
               dark
               class="font-weight-bold text-center pa-5"
+              to="/renovacoes"
             >
               <p class="mb-0" style="font-size: 14px; line-height: 14px">
                 Temos
               </p>
-              <p class="mb-0" style="font-size: 45px">179</p>
+              <p class="mb-0" style="font-size: 45px">
+                {{ summary.contracts }}
+              </p>
               <p class="mb-0" style="font-size: 14px; line-height: 14px">
                 <strong>Renovações</strong>
               </p>
@@ -40,7 +43,9 @@
               <p class="mb-0" style="font-size: 14px; line-height: 14px">
                 Temos
               </p>
-              <p class="mb-0" style="font-size: 45px">217</p>
+              <p class="mb-0" style="font-size: 45px">
+                {{ summary.consultations }}
+              </p>
               <p class="mb-0" style="font-size: 14px; line-height: 14px">
                 <strong>Acomp. Mensais</strong>
               </p>
@@ -106,7 +111,7 @@
                   icon
                   style="background-color: #fff; width: 43px; height: 43px"
                   class="primary--text mb-3"
-                  >249</v-btn
+                  >{{ summary.messages }}</v-btn
                 >
                 <p
                   style="line-height: 13px; font-size: 13px"
@@ -139,19 +144,8 @@
                 dark
                 class="font-weight-normal text-uppercase text-center pa-3 mb-3"
               >
-                <p class="mb-0" style="font-size: 14px; line-height: 14px">
+                <p class="mb-0" style="font-size: 18px; line-height: 18px">
                   Editar FAQ
-                </p>
-              </v-card>
-              <v-card
-                to="/mini-curso"
-                elevation="lg"
-                color="primary-8"
-                dark
-                class="font-weight-normal text-uppercase text-center pa-3"
-              >
-                <p class="mb-0" style="font-size: 14px; line-height: 14px">
-                  Editar vídeos
                 </p>
               </v-card>
             </v-col>
@@ -209,7 +203,18 @@
 export default {
   data() {
     return {
+      summary: {
+        messages: 0,
+        consultations: 0,
+        contracts: 0,
+      },
       value: 0,
+    }
+  },
+  async created() {
+    const summary = await this.$axios.$get('/v1/dashboard/admin/summary')
+    if (summary) {
+      this.summary = summary
     }
   },
 }

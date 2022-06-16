@@ -63,6 +63,7 @@
             </div>
           </v-container>
         </template>
+        <PushNotification />
       </v-main>
       <Snackbar />
     </v-app>
@@ -95,6 +96,7 @@ export default {
       )
       this.waitingContract = waitingContract
     }
+
     this.loading = false
   },
 }

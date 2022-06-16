@@ -3,6 +3,19 @@
     <v-app-bar app color="#fff" hide-on-scroll style="box-shadow: none">
       <v-app-bar-title class="primary--text">{{ active }}</v-app-bar-title>
       <v-spacer></v-spacer>
+      <n-link to="/notificacoes">
+        <v-badge
+          color="error"
+          class="mr-6"
+          :content="unreadNotifications.length"
+          :value="unreadNotifications.length > 0"
+          offset-x="10px"
+          offset-y="10px"
+        >
+          <v-icon color="primary"> mdi-bell-outline </v-icon>
+        </v-badge>
+      </n-link>
+
       <a @click="toggleDrawer">
         <img :src="require('~/assets/img/menu.png')" />
       </a>
@@ -79,6 +92,9 @@ export default {
     apiURL() {
       return process.env.API_URL
     },
+    unreadNotifications() {
+      return this.$store.state.unreadNotifications
+    },
   },
   created() {
     this.$store.dispatch('setPage', {
@@ -87,6 +103,7 @@ export default {
       description: this.pageDescription(),
       links: this.links,
     })
+    this.$store.dispatch('checkUnreadNotifications')
   },
   methods: {
     pageTitle() {

@@ -56,4 +56,16 @@ export default {
     this.$firebase.logout()
     commit('LOGOUT')
   },
+  async checkUnreadNotifications({ commit, state, $moment }) {
+    const syncedAt = state.notificationsSyncedAt
+    if (!syncedAt || $moment(syncedAt).diff(Date.now(), 'seconds') > 10) {
+      console.log('loadNotifications')
+      const unreadNotifications = await this.$axios.$get(
+        '/v1/notifications/unread'
+      )
+      if (unreadNotifications) {
+        commit('setUnreadNotifications', unreadNotifications)
+      }
+    }
+  },
 }

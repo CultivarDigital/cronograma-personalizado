@@ -17,4 +17,8 @@ export default {
   setCurrentContract(state, currentContract) {
     state.currentContract = currentContract
   },
+  setUnreadNotifications(state, unreadNotifications) {
+    state.unreadNotifications = unreadNotifications
+    state.notificationsSyncedAt = Date.now()
+  },
 }

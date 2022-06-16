@@ -30,6 +30,10 @@
     </div>
     <v-card v-else class="rounded-lg py-6 px-2 mb-6 bg-primary-gradient">
       <v-container>
+        <div v-if="faqs.length === 0" class="white--text text-center">
+          Nenhum ítem encontrado
+        </div>
+
         <v-expansion-panels
           v-model="active"
           :round="0"

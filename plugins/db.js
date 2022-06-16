@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
+import { getMessaging, getToken } from 'firebase/messaging'
 
 import {
   getAuth,
@@ -27,12 +28,17 @@ export default ({ app, store }, inject) => {
     appId: process.env.FIREBASE_APP_ID,
     measurementId: process.env.FIREBASE_MEASUREMENT_ID,
   }
+  // messaging public key
+  const vapidKey = process.env.FIREBASE_MESSAGING_VAPID_KEY
+
   // eslint-disable-next-line no-console
   console.log('INITIALIZE FIREBASE', firebaseConfig.authDomain)
   const firebase = initializeApp(firebaseConfig)
   if (process.client) {
     getAnalytics(firebase)
   }
+
+  const messaging = getMessaging(firebase)
 
   let firebaseAuth = null
 
@@ -115,6 +121,20 @@ export default ({ app, store }, inject) => {
     })
   }
 
+  const getMessagingToken = () => {
+    return getToken(messaging, {
+      vapidKey,
+    })
+      .then((currentToken) => {
+        console.log('messaging token: ', currentToken)
+        return currentToken
+      })
+      .catch((err) => {
+        console.log('deu erro', err)
+        return null
+      })
+  }
+
   inject('firebase', {
     register,
     login,
@@ -125,5 +145,6 @@ export default ({ app, store }, inject) => {
     setPassword,
     logout,
     getUser,
+    getMessagingToken,
   })
 }
