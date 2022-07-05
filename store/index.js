@@ -8,7 +8,7 @@ export const state = () => {
     offlineMode: null,
     hasBeenGreeted: false,
     currentContract: null,
-    unreadNotifications: [],
+    unreadNotifications: 0,
     notificationsSyncedAt: null,
   }
 }

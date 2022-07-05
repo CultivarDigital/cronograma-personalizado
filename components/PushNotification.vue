@@ -24,8 +24,10 @@ export default {
   },
   methods: {
     notifyMe() {
-      if (!('Notification' in window)) {
-        return alert('This browser does not support desktop notification')
+      if (!window || !('Notification' in window)) {
+        // eslint-disable-next-line no-console
+        console.log('This browser does not support desktop notification')
+        return
       }
 
       this.currentPermission = Notification.permission

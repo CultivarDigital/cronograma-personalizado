@@ -194,6 +194,18 @@
             Críticas e sugestões
           </div>
         </v-card>
+        <v-card
+          class="pa-6 d-flex align-center justify-start primary--text mb-3"
+          rounded="lg"
+          to="/notificacao-em-massa"
+        >
+          <div class="text-h6" style="color: rgba(123, 163, 162, 0.6)">
+            <v-icon left color="rgba(123, 163, 162, 0.6)"
+              >mdi-email-plus-outline</v-icon
+            >
+            Enviar mensagem
+          </div>
+        </v-card>
       </v-container>
     </div>
     <!-- <Menu /> -->

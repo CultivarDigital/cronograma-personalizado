@@ -7,8 +7,8 @@
         <v-badge
           color="error"
           class="mr-6"
-          :content="unreadNotifications.length"
-          :value="unreadNotifications.length > 0"
+          :content="unreadNotifications"
+          :value="unreadNotifications > 0"
           offset-x="10px"
           offset-y="10px"
         >

@@ -19,6 +19,9 @@ export default {
   created() {
     this.$firebase.getUser()
     this.checkEmailLogin()
+    if (this.$auth.user) {
+      this.$router.push('/dashboard')
+    }
   },
   methods: {
     checkEmailLogin() {

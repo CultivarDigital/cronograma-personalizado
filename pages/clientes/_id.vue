@@ -21,8 +21,13 @@
         <div class="mb-3 pa-1 rounded-circle white d-inline-block">
           <User size="80" :user="user" />
         </div>
-        <br />
-        {{ user.name }}
+        <div class="mb-6">
+          {{ user.name }}
+        </div>
+        <v-btn :to="'/suporte/' + user.id" color="primary">
+          <v-icon left>mdi-forum</v-icon>
+          Mensagens
+        </v-btn>
       </div>
       <v-tabs v-model="tab">
         <v-tab style="font-size: 13px; color: #262626">

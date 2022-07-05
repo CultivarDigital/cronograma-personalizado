@@ -1,8 +1,13 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <div>
-    <TopNavigation active="Mini curso" />
-    <div v-if="playVideo" class="text-center">
+    <TopNavigation active="Conteúdo exclusivo" />
+    <v-container>
+      <div class="mb-8">
+        <Subtitle label="Mini curso" />
+      </div>
+    </v-container>
+    <v-container v-if="playVideo" class="text-center">
       <div class="video-player">
         <iframe
           :title="playVideo.name"
@@ -11,13 +16,13 @@
           frameborder="0"
         ></iframe>
       </div>
-    </div>
+    </v-container>
     <v-list>
       <template v-for="(video, i) in videos">
         <v-list-item :key="i" class="primary--text" @click="playVideo = video">
           <v-list-item-content>
             <div class="px-6">
-              <p class="mb-1">{{ i }}. {{ video.name }}</p>
+              <p class="mb-1">{{ video.name }}</p>
               <p
                 class="font-weight-black mb-0"
                 style="color: rgba(123, 163, 162, 0.6)"

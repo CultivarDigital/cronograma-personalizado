@@ -8,42 +8,35 @@
     </v-container>
     <div style="height: calc(100vh - 280px); overflow-y: auto">
       <div v-if="notifications">
-        <v-list v-if="notifications.length" subheader dense>
+        <v-container v-if="notifications.length" subheader dense>
           <template v-for="notification in notifications">
-            <v-list-item
-              v-if="notification.admin"
+            <v-card
               :key="notification._id"
-              class="py-2"
-              :class="!notification.read ? 'grey lighten-3' : ''"
+              :href="notification.link"
+              class="mb-3"
+              outlined
+              :style="notification.read ? '' : 'border-color: red'"
             >
-              <v-list-item-icon>
-                <v-icon> mdi-bell</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-card elevation="1" color="grey" class="pa-3 lighten-2">
-                  <h6 class="mb-2">
-                    {{ notification.subject }}
-                    <small
-                      class="font-weight-light"
-                      :title="
-                        $moment(notification.createdAt).format(
-                          'DD/MM/YYYY h:mm:ss'
-                        )
-                      "
-                    >
-                      {{ $moment(notification.createdAt).fromNow(true) }} atrás
-                    </small>
-                  </h6>
-                  <div
-                    v-linkify
-                    class="body-2 subtitle-1"
-                    v-text="notification.body"
-                  ></div>
-                </v-card>
-              </v-list-item-content>
-            </v-list-item>
+              <v-card-title class="mb-2 primary--text">
+                {{ notification.subject }}
+              </v-card-title>
+              <v-card-subtitle
+                class="font-weight-light"
+                :title="
+                  $moment(notification.createdAt).format('DD/MM/YYYY h:mm:ss')
+                "
+              >
+                {{ $moment(notification.createdAt).fromNow(true) }} atrás
+              </v-card-subtitle>
+              <v-card-text v-linkify v-text="notification.body"></v-card-text>
+              <v-card-actions v-if="notification.link">
+                <v-btn color="primary" block>
+                  <v-icon>mdi-chevron-right</v-icon> Abrir
+                </v-btn>
+              </v-card-actions>
+            </v-card>
           </template>
-        </v-list>
+        </v-container>
         <v-container v-else class="text-center">
           <v-alert class="text-center" color="grey" dark>
             Você não tem notificações

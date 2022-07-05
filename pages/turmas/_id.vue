@@ -104,7 +104,7 @@ export default {
     registerUrl() {
       let url = process.env.BASE_URL
       if (this.group) {
-        url += `?codigo=${this.group._id}`
+        url += `/cadastro?codigo=${this.group._id}`
       }
       return url
     },

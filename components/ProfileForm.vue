@@ -29,19 +29,46 @@
                 :error-messages="errors"
               />
             </validation-provider>
-            <validation-provider
-              v-slot="{ errors }"
-              name="Telefone"
-              rules="required"
-            >
-              <v-text-field
-                v-model="form.phone"
-                v-mask="['(##) ####-####', '(##) #####-####']"
-                outlined
-                label="Telefone"
-                :error-messages="errors"
-              />
-            </validation-provider>
+            <v-row>
+              <v-col cols="5" sm="4" md="3" lg="2">
+                <validation-provider
+                  v-slot="{ errors }"
+                  name="Código do país"
+                  rules="required"
+                >
+                  <v-autocomplete
+                    v-model="form.phone_country"
+                    :items="
+                      countryPhoneCodes.map((country) => {
+                        return {
+                          value: country.code,
+                          text: country.flag + ' ' + country.code,
+                        }
+                      })
+                    "
+                    outlined
+                    label="Código do país"
+                    :error-messages="errors"
+                  />
+                </validation-provider>
+              </v-col>
+              <v-col>
+                <validation-provider
+                  v-slot="{ errors }"
+                  name="Telefone"
+                  rules="required"
+                >
+                  <v-text-field
+                    v-model="form.phone"
+                    v-mask="['(##) ####-####', '(##) #####-####']"
+                    outlined
+                    label="Telefone"
+                    :error-messages="errors"
+                  />
+                </validation-provider>
+              </v-col>
+            </v-row>
+
             <validation-provider
               v-slot="{ errors }"
               name="Data de nascimento"
@@ -163,6 +190,7 @@
 
 <script>
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import countryPhoneCodes from '@/data/country-phone-codes.json'
 
 export default {
   components: {
@@ -179,11 +207,13 @@ export default {
     return {
       apiURL: process.env.API_URL,
       loading: false,
+      countryPhoneCodes,
       form: {
         group: null,
         picture: null,
         name: '', // Nome completo
         phone: '', // Telefone
+        phone_country: '', // Código do País do Telefone
         birth: null, // Data de nascimento
         cpf: '', // CPF
         cep: '', // CEP
