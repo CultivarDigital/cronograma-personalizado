@@ -60,58 +60,35 @@ Correçoes:
   - filtro de turma
   - select para selecionar as clientes para enviar
 - redirecionar para o dashboard se o usuário estiver logado nas telas externas
-- replicar logica de pagamento na renovação e controle de status das renovações
+
 
 - link da turma cair direto na pagina de cadastro (quando a cliente acessar o link, ao invés dela ir pra ela principal ela ja cair no cadastro)
-
 - this browser does not support desktop notification (print, isso só no iphone em 3 versões testamos: 8,11 e13)
-
 - padrão do numero do celular é brasileiro, precisa ser internacional (add o codigo de pais)
-
 - CPF como opcional (clientes fora do br)
-
 - CEP padrão internacional (clientes em portugal e europa)
 - mudar formato do "quantidade de lavagem do cabelo" tirar slider e colocar numerador
-
----
-
 adicionar texto:
 na anamnese onde tem "qual a sua disponibilidade para investimento dos produtos..."
-adicionar "qual a sua disponibilidade de investimento para os 7 (numeral) produtos
-
----
-
+adicionar "Qual a sua disponibilidade de investimento para os 7 produtos
 Adicionar depois de "óleos essenciais " (média de valor R$ 150,00)
+texto cortado na aba dos produtos "cheios ou da metade" adicionar quebra de texto.
+- mudar no chat: atendimento às quartas feiras das 10h às 15h
+- notificação de quando ela finaliza e envia a ficha de anamnese (nao entra nenhum aviso falando nada.. dai elas podem ficar na duvida se deu certo ou n)
+- nessa tela a gente teria como colar um box pra selecionar todas (tipo de uma turma)?
+- mudar frase dentro da tela do CCP “esta semana” rodar o automatizador
+- mudar a cor dentro do CCP quando o tratamento for marcado como feito.
+- Erro: quando o tratamento é repetido ao marcar um o outro marca automaticamente.
 
---
-texto cortado na aba dos produtos "cheios ou da metade"
-adicionar quebra de texto.
 
----
+- mudar fotos e vídeos do tutorial (vou enviar)
+- especificar que as fotos são:
+  - de frente
+  - de costas
+  - laterais
 
-## mudar fotos e vídeos do tutorial (vou enviar)
 
-especificar que as fotos são:
-
-- de frente
-- de costas
-- laterais
-
----
-
-## notificação de quando ela finaliza e envia a ficha de anamnese (nao entra nenhum aviso falando nada.. dai elas podem ficar na duvida se deu certo ou n)
-
-mudar no chat:
-atendimento às quartas feiras das 10h às 15h
---
-
-## mudar frase dentro da tela do CCP “esta semana” rodar o automatizador
-
-mudar a cor dentro do CCP quando o tratamento for marcado como feito.
-
-Erro: quando o tratamento é repetido ao marcar um o outro marca automaticamente.
-nessa tela a gente teria como colar um box pra selecionar todas (tipo de uma turma)?
-
+- replicar logica de pagamento na renovação e controle de status das renovações
 - Notificação quando tiver msg nova no chat
 - Enviar email confirmação de cadastro e boas vindas a turma
 - criar notificação assim: mensagem dizendo que o formulário foi enviado
