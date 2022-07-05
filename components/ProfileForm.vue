@@ -82,19 +82,12 @@
                 :error-messages="errors"
               />
             </validation-provider>
-            <validation-provider
-              v-slot="{ errors }"
-              name="CPF"
-              rules="required"
-            >
-              <v-text-field
-                v-model="form.cpf"
-                v-mask="['###.###.###-##']"
-                outlined
-                label="CPF"
-                :error-messages="errors"
-              />
-            </validation-provider>
+            <v-text-field
+              v-model="form.cpf"
+              v-mask="['###.###.###-##']"
+              outlined
+              label="CPF"
+            />
             <validation-provider
               v-slot="{ errors }"
               name="CEP"
@@ -102,7 +95,6 @@
             >
               <v-text-field
                 v-model="form.cep"
-                v-mask="['#####-###']"
                 outlined
                 label="CEP"
                 :error-messages="errors"
@@ -223,6 +215,7 @@ export default {
         state: '', // Estado
 
         instagram: '', // Instagram
+        how_know: '', // Instagram
       },
     }
   },

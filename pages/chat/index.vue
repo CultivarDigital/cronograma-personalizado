@@ -8,8 +8,9 @@
         </v-list-item-avatar>
         <v-list-item-content style="color: #acacac" class="py-0">
           <h4>Suporte Prijorge</h4>
-          <div>Atendimento diário</div>
-          <div><small>(segunda à sexta, das 8 as 18 horas)</small></div>
+          <div>
+            <small> Atendimento às quartas feiras das 10h às 15h </small>
+          </div>
         </v-list-item-content>
       </v-list-item>
     </v-list>

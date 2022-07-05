@@ -234,30 +234,28 @@
                   name="Quantas vezes lava o cabelo por semana?"
                   rules="required"
                 >
-                  <legend>Quantas vezes lava o cabelo por semana?</legend>
-                  <v-slider
+                  <v-text-field
                     v-model="form.washes_per_week"
+                    label="Quantas vezes lava o cabelo por semana?  "
+                    type="number"
                     :disabled="disabled"
                     min="1"
                     max="7"
                     outlined
                     :error-messages="errors"
-                    thumb-label="always"
-                    thumb-size="20"
-                    persistent-hint
-                    hint="Mesmo que varie, selecione a média"
+                    hint="Mesmo que varie, informe a média"
                   />
                 </validation-provider>
                 <validation-provider
                   v-slot="{ errors }"
-                  name="Qual a sua disponibilidade de investimento para os produtos do seu Cronograma?"
+                  name="Qual a sua disponibilidade de investimento para os 7 produtos do seu Cronograma?"
                   rules="required"
                 >
                   <v-radio-group
                     v-model="form.investment_availability"
                     :disabled="disabled"
                     outlined
-                    label="Qual a sua disponibilidade de investimento para os produtos do seu Cronograma?"
+                    label="Qual a sua disponibilidade de investimento para os 7 produtos do seu Cronograma?"
                     :error-messages="errors"
                   >
                     <v-radio
@@ -274,14 +272,14 @@
                 </validation-provider>
                 <validation-provider
                   v-slot="{ errors }"
-                  name="Você tem interesse em utilizar óleos essenciais no Cronograma?"
+                  name="Você tem interesse em utilizar óleos essenciais no Cronograma? (média de valor R$ 150,00)"
                   rules="required"
                 >
                   <v-radio-group
                     v-model="form.essential_oils"
                     :disabled="disabled"
                     outlined
-                    label="Você tem interesse em utilizar óleos essenciais no Cronograma?"
+                    label="Você tem interesse em utilizar óleos essenciais no Cronograma? (média de valor R$ 150,00)"
                     :error-messages="errors"
                   >
                     <v-radio label="Sim" :value="true" />
@@ -472,8 +470,8 @@ export default {
         paint_monthly: false, // Você pinta a raiz mensalmente?
 
         washes_per_week: 7, // Quantas vezes lava o cabelo por semana?
-        investment_availability: '', // Qual a sua disponibilidade de investimento para os produtos?
-        essential_oils: false, // Você tem interesse em utilizar óleos essenciais no Cronograma?
+        investment_availability: '', // Qual a sua disponibilidade de investimento para os 7 produtos do seu Cronograma?
+        essential_oils: false, // Você tem interesse em utilizar óleos essenciais no Cronograma? (média de valor R$ 150,00)
         difficulties: '', // Qual a sua maior dificuldade com tratamentos capilares?
         reuse_products: '', // Você tem produtos (cheios ou mais da metade) que deseja usar?
 

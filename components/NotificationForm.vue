@@ -74,17 +74,30 @@
             <template #default>
               <thead>
                 <tr>
-                  <th class="text-left">Cliente</th>
-                  <th class="text-right">Selecionar</th>
+                  <th class="text-left">Clientes</th>
+                  <th class="d-flex justify-end align-center">
+                    <v-checkbox
+                      color="success"
+                      hide-details
+                      class="mt-0"
+                      @change="toggleAll"
+                    />
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="user in users" :key="user.name">
-                  <td>{{ user.name || user.email }}</td>
-                  <td class="d-flex justify-end">
+                <tr v-for="user in users" :key="user._id" class="align-center">
+                  <td>
+                    {{ user.name || user.email }}
+                    <div v-if="user.name && user.email" class="text-secondary">
+                      <small>{{ user.email || user.phone }}</small>
+                    </div>
+                  </td>
+                  <td class="d-flex justify-end align-center">
                     <v-checkbox
                       v-model="selected_users"
                       color="success"
+                      class="mt-0"
                       :value="user._id"
                       hide-details
                     />
@@ -130,12 +143,6 @@ export default {
       },
     }
   },
-  computed() {
-    if (this.group) {
-      return this.users.filter((user) => user.group === this.group)
-    }
-    return this.users
-  },
   async created() {
     await this.loadUsers()
     await this.loadGroups()
@@ -158,6 +165,13 @@ export default {
           .catch(this.error)
       }
       this.success()
+    },
+    toggleAll(val) {
+      if (val) {
+        this.selected_users = this.users.map((user) => user._id)
+      } else {
+        this.selected_users = []
+      }
     },
     error(error) {
       this.$notifier.firebaseError(error)

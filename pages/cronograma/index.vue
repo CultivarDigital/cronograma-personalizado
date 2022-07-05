@@ -61,8 +61,9 @@
             "
             class="primary--text rounded-1 px-6"
             elevation="0"
-            >Esta semana</v-btn
           >
+            {{ weekLabel }}
+          </v-btn>
         </div>
       </div>
       <div
@@ -114,32 +115,38 @@
           <h6 class="subtitle-1">Tratamento</h6>
         </v-col>
       </v-row>
-      <v-row
+      <template
         v-for="(item, index) in currentContract.data[getActive.month - 1][
           getActive.week - 1
-        ].filter((i) => i.value !== 'U')"
-        :key="index"
-        class="align-center item template-form"
+        ]"
       >
-        <v-col cols="4">
-          <div class="red--text body-2">Esta semana</div>
-        </v-col>
-        <v-col cols="8">
-          <v-btn
-            dark
-            block
-            x-large
-            elevation="6"
-            class="justify-space-between ccp-option"
-            :class="item.value"
-            @click="checkItem(item.value, !item.checked)"
-          >
-            {{ item.description }}
-            <v-icon v-if="item.checked" right>mdi-check-circle-outline</v-icon>
-            <v-icon v-else right>mdi-circle-outline</v-icon>
-          </v-btn>
-        </v-col>
-      </v-row>
+        <v-row
+          v-if="item.value !== 'U'"
+          :key="index"
+          class="align-center item template-form"
+        >
+          <v-col cols="4">
+            <div class="red--text body-2">{{ weekLabel }}</div>
+          </v-col>
+          <v-col cols="8">
+            <v-btn
+              dark
+              block
+              x-large
+              elevation="6"
+              class="justify-space-between ccp-option"
+              :class="item.value + ' ' + (item.checked ? 'checked' : '')"
+              @click="checkItem(index, !item.checked)"
+            >
+              {{ item.description }}
+              <v-icon v-if="item.checked" right
+                >mdi-check-circle-outline</v-icon
+              >
+              <v-icon v-else right>mdi-circle-outline</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </template>
       <v-row
         v-if="
           currentContract.data[getActive.month - 1][getActive.week - 1].filter(
@@ -152,32 +159,38 @@
           <h6 class="subtitle-1">Complementares</h6>
         </v-col>
       </v-row>
-      <v-row
+      <template
         v-for="(item, index) in currentContract.data[getActive.month - 1][
           getActive.week - 1
-        ].filter((i) => i.value === 'U')"
-        :key="'complementares-' + index"
-        class="align-center item template-form"
+        ]"
       >
-        <v-col cols="4">
-          <div class="red--text body-2">Esta semana</div>
-        </v-col>
-        <v-col cols="8">
-          <v-btn
-            dark
-            block
-            x-large
-            elevation="6"
-            class="justify-space-between ccp-option"
-            :class="item.value"
-            @click="checkItem(item.value, !item.checked)"
-          >
-            {{ item.description }}
-            <v-icon v-if="item.checked" right>mdi-check-circle-outline</v-icon>
-            <v-icon v-else right>mdi-circle-outline</v-icon>
-          </v-btn>
-        </v-col>
-      </v-row>
+        <v-row
+          v-if="item.value === 'U'"
+          :key="'complementares-' + index"
+          class="align-center item template-form"
+        >
+          <v-col cols="4">
+            <div class="red--text body-2">{{ weekLabel }}</div>
+          </v-col>
+          <v-col cols="8">
+            <v-btn
+              dark
+              block
+              x-large
+              elevation="6"
+              class="justify-space-between ccp-option"
+              :class="item.value + ' ' + (item.checked ? 'checked' : '')"
+              @click="checkItem(index, !item.checked)"
+            >
+              {{ item.description }}
+              <v-icon v-if="item.checked" right
+                >mdi-check-circle-outline</v-icon
+              >
+              <v-icon v-else right>mdi-circle-outline</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </template>
     </v-container>
     <v-container v-else class="text-center">
       <v-alert color="info" dark> Estamos montando seu cronograma </v-alert>
@@ -192,6 +205,18 @@ export default {
     }
   },
   computed: {
+    weekLabel() {
+      const monthDiff = this.getActive.month - this.currentContract.month
+      const weekDiff =
+        this.getActive.week - this.currentContract.week + monthDiff * 4
+
+      if (weekDiff === 0) {
+        return 'Esta semana'
+      } else if (weekDiff === 1) {
+        return 'Próxima semana'
+      }
+      return 'Daqui ' + weekDiff + ' semanas'
+    },
     currentContract() {
       return this.$store.state.currentContract
     },
@@ -207,7 +232,7 @@ export default {
     },
   },
   methods: {
-    async checkItem(type, checked) {
+    async checkItem(index, checked) {
       if (
         this.currentContract.month === this.getActive.month &&
         this.currentContract.week === this.getActive.week
@@ -215,7 +240,7 @@ export default {
         const contract = await this.$axios.$patch(
           '/v1/contracts/' + this.currentContract._id + '/check-item',
           {
-            type,
+            index,
             checked,
           }
         )

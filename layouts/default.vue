@@ -15,7 +15,7 @@
           <v-progress-circular color="secondary" indeterminate size="20" />
         </div>
         <template v-else>
-          <Profile v-if="!$auth.user.cpf" />
+          <Profile v-if="!$auth.user.birth" />
           <div v-else>
             <Anamnese
               v-if="
@@ -138,6 +138,9 @@ export default {
     }
     &.U {
       background-color: rgba(123, 163, 162, 0.6) !important;
+    }
+    &.checked {
+      background-color: #939393 !important;
     }
   }
   .months {
