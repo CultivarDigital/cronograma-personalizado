@@ -74,8 +74,8 @@ export default {
       'nuxt-twa-module',
       {
         /* module options */
-        defaultUrl: 'https://cronograma-personalizado.web.app',
-        hostName: 'cronograma-personalizado.web.app',
+        defaultUrl: 'https://app.prijorge.com',
+        hostName: 'app.prijorge.com',
         applicationId: 'com.ionicframework.plantai563575',
         launcherName: 'Cronograma Personalizado',
         versionCode: 10,
@@ -115,7 +115,7 @@ export default {
     },
     meta: {
       ogHost: process.env.BASE_URL,
-      ogImage: '/cover.jpeg',
+      ogImage: '/cover.png',
     },
     workbox: {
       offlineStrategy: 'NetworkFirst',

@@ -205,7 +205,7 @@ export default {
         picture: null,
         name: '', // Nome completo
         phone: '', // Telefone
-        phone_country: '', // Código do País do Telefone
+        phone_country: '+55', // Código do País do Telefone
         birth: null, // Data de nascimento
         cpf: '', // CPF
         cep: '', // CEP

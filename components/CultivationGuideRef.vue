@@ -3,7 +3,7 @@
     <small>
       As informações deste guia são baseadas em:
       <a
-        href="https://cronograma-personalizado.web.app/docs/cartilha-para-plantio-de-pequenos-jardins-urbanos.pdf"
+        href="https://app.prijorge.com/docs/cartilha-para-plantio-de-pequenos-jardins-urbanos.pdf"
         target="_blank"
       >
         Cartilha para plantio de pequenos jardins urbanos - Composta São Paulo

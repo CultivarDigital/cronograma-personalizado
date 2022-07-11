@@ -12,49 +12,22 @@
       <div class="text-center primary--text">
         <h2 class="text-h4 font-weight-bold mb-6">Seja bem-vinda!</h2>
         <div v-if="tab === 0">
-          <img
-            :src="require('~/assets/img/bem-vinda-video-1.png')"
-            alt="Bem vinda - Video 1"
-            class="mb-2 w-100"
-          />
+          <div class="video-player">
+            <iframe
+              title="vimeo-player"
+              src="https://player.vimeo.com/video/721506698?h=d3cd85b733"
+              frameborder="0"
+              height="282px"
+              allowfullscreen
+            />
+          </div>
           <p>
             É um prazer tê-la em nosso time, te explicarei como funciona o
             Cronograma Capilar Personalizado e como você poderá desfrutar ao
             máximo por aqui.
           </p>
         </div>
-        <div v-if="tab === 1">
-          <img
-            :src="require('~/assets/img/bem-vinda-video-2.png')"
-            alt="Bem vinda - Video 2"
-            class="mb-2 w-100"
-          />
-          <p>
-            Neste vídeo te explicaremos as funções do app e como encontrar tudo
-            o que precisa nele.
-          </p>
-        </div>
-        <v-btn
-          color="primary"
-          :outlined="tab !== 0"
-          :class="{ primary: tab === 0 }"
-          icon
-          @click="tab = 0"
-        ></v-btn>
-        <v-btn
-          color="primary"
-          :outlined="tab !== 1"
-          :class="{ primary: tab === 1 }"
-          icon
-          @click="tab = 1"
-        ></v-btn>
-        <v-btn
-          color="primary"
-          :outlined="tab !== 2"
-          :class="{ primary: tab === 2 }"
-          icon
-          @click="finish"
-        ></v-btn>
+        <v-btn color="primary" x-large @click="finish">Continuar</v-btn>
       </div>
     </v-container>
   </v-card>
