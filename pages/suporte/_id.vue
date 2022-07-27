@@ -1,11 +1,28 @@
 <template>
   <div>
     <TopNavigation active="Suporte" />
-    <v-container class="pt-0 px-6">
+    <v-container class="py-0 px-6">
       <div class="mb-8">
         <Subtitle label="Atendimento" />
       </div>
+      <v-card
+        v-if="user"
+        class="mb-6 pa-3"
+        color="primary"
+        dark
+        rounded
+        :to="'/clientes/' + user.id"
+      >
+        {{ user.name }}
+        <div>
+          <small>{{ user.email }}</small>
+        </div>
+        <div v-if="user.phone">
+          <small>{{ user.phone }}</small>
+        </div>
+      </v-card>
     </v-container>
+
     <v-list v-if="messages" subheader dense>
       <template v-for="message in messages">
         <v-list-item

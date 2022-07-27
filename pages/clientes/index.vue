@@ -60,7 +60,8 @@ export default {
           },
           items: filteredMembers.map((member) => ({
             label: this.$moment(member.createdAt).format('DD/MM/YYYY'),
-            value: member.name || member.email,
+            value: member.name,
+            description: member.email,
             url: `/clientes/${member._id}`,
           })),
         }
