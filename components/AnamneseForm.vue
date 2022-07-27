@@ -56,7 +56,14 @@
             ser visto com detalhes.
           </small>
         </p>
-        <h4 class="mb-4">O vídeo correto:</h4>
+        <iframe
+          title="vimeo-player"
+          src="https://player.vimeo.com/video/721511048?h=f77f5f6911"
+          frameborder="0"
+          height="282px"
+          allowfullscreen
+        />
+        <h4 class="mb-4">Vídeo explicativo:</h4>
         <p>
           <small>
             Precisa aplicar a mesma lógica da iluminação das fotos e mostrar o

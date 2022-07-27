@@ -107,7 +107,7 @@ export default {
       ) {
         this.loading = true
         this.$firebase
-          .register(this.form.email, this.form.password)
+          .register(this.form.email.trim(), this.form.password)
           .then((userCredential) => {
             this.authenticateApi(userCredential)
           })

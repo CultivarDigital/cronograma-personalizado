@@ -6,17 +6,17 @@
   >
     <template #activator="{ on, attrs }">
       <v-btn v-if="button" small dark color="error" v-bind="attrs" v-on="on">
-        <v-icon left>mdi-delete</v-icon> Remover
+        <v-icon left>{{ icon }}</v-icon> {{ buttonLabel }}
       </v-btn>
       <v-btn v-else v-bind="attrs" icon x-small v-on="on">
-        <v-icon dark>mdi-delete</v-icon>
+        <v-icon dark>{{ icon }}</v-icon>
       </v-btn>
     </template>
     <v-card>
       <v-card-title class="text-h5">
-        Tem certeza que deseja excluír?
+        {{ label }}
       </v-card-title>
-      <v-card-text> Esta alteração não pode ser desfeita </v-card-text>
+      <v-card-text> {{ hint }} </v-card-text>
       <v-card-actions>
         <v-spacer />
         <v-btn color="error" text @click="cancel"> Não </v-btn>
@@ -32,6 +32,22 @@ export default {
     button: {
       type: Boolean,
       default: false,
+    },
+    label: {
+      type: String,
+      default: 'Tem certeza que deseja excluír?',
+    },
+    hint: {
+      type: String,
+      default: 'Esta alteração não pode ser desfeita',
+    },
+    icon: {
+      type: String,
+      default: 'mdi-delete',
+    },
+    buttonLabel: {
+      type: String,
+      default: 'Remover',
     },
   },
   data: () => ({

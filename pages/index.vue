@@ -19,7 +19,7 @@
             color="#EFD5B9"
             elevation="0"
             class="primary--text px-10 rounded mb-6"
-            :to="{ path: '/login', query: $route.query }"
+            :to="{ path: '/dashboard', query: $route.query }"
           >
             Entrar
           </v-btn>

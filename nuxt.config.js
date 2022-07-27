@@ -17,7 +17,7 @@ export default {
   // },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Cronograma Personalizado',
+    title: 'PriJorge',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -77,7 +77,7 @@ export default {
         defaultUrl: 'https://app.prijorge.com',
         hostName: 'app.prijorge.com',
         applicationId: 'com.ionicframework.plantai563575',
-        launcherName: 'Cronograma Personalizado',
+        launcherName: 'PriJorge',
         versionCode: 10,
         versionName: process.env.npm_package_version,
         statusBarColor: '#7BA3A2',
@@ -87,7 +87,7 @@ export default {
         sha256Fingerprints: [process.env.FINGERPRINT],
         /* optional */
         /* overwrite default location for icon */
-        iconPath: '/static/icon.png',
+        iconPath: '/static/cronograma-personalizado-icon.png',
         /* Overwrite folder where to put .wellknown */
         distFolder: '.nuxt/dist/client',
       },
@@ -110,8 +110,8 @@ export default {
   pwa: {
     manifest: {
       lang: 'pt-BR',
-      name: 'Cronograma Personalizado',
-      short_name: 'Cronograma Personalizado',
+      name: 'PriJorge',
+      short_name: 'PriJorge',
     },
     meta: {
       ogHost: process.env.BASE_URL,

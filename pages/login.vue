@@ -80,13 +80,13 @@
         >
           <v-icon left>mdi-google</v-icon> Entrar com o google
         </v-btn>
-        <v-btn
+        <!-- <v-btn
           color="primary"
           plain
           :to="{ path: '/cadastro', query: $route.query }"
         >
           Cadastre-se
-        </v-btn>
+        </v-btn> -->
       </v-form>
     </ValidationObserver>
   </v-container>
@@ -143,7 +143,7 @@ export default {
     login() {
       this.loading = true
       this.$firebase
-        .login(this.form.login, this.form.password)
+        .login(this.form.login.trim(), this.form.password)
         .then((userCredential) => {
           this.authenticateApi(userCredential)
         })

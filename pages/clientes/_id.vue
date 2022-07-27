@@ -23,11 +23,24 @@
         </div>
         <div class="mb-6">
           {{ user.name }}
+          <div>
+            <small>{{ user.email }}</small>
+          </div>
+          <div v-if="user.phone">
+            <small>{{ user.phone }}</small>
+          </div>
         </div>
+        <div class="mb-6"></div>
         <v-btn :to="'/suporte/' + user.id" color="primary">
           <v-icon left>mdi-forum</v-icon>
           Mensagens
         </v-btn>
+        <v-container v-if="user.disabled" class="text-center">
+          <v-alert dark color="red"> Esta cliente está desabilitada </v-alert>
+          <v-btn large color="green" dark @click="enable"
+            >Habilitar cliente</v-btn
+          >
+        </v-container>
       </div>
       <v-tabs v-model="tab">
         <v-tab style="font-size: 13px; color: #262626">
@@ -74,6 +87,15 @@
       </div>
       <div v-if="tab === 2">
         <ProfileForm :value="user" @input="updateUser" />
+      </div>
+
+      <div class="text-center pt-6">
+        <Remove
+          button-label="Desabilitar cliente"
+          label="Tem certeza que deseja desabilitar a cliente?"
+          button
+          @confirm="disable"
+        />
       </div>
     </div>
   </div>
@@ -141,6 +163,16 @@ export default {
       this.consultations = await this.$axios.$get('/v1/consultations', {
         params: { user: this.$route.params.id },
       })
+    },
+    async disable() {
+      await this.$axios.$delete('/v1/users/' + this.$route.params.id)
+      this.notify('Cliente desabilitada')
+      this.$router.replace('/clientes')
+    },
+    async enable() {
+      await this.$axios.$patch('/v1/users/' + this.$route.params.id + '/enable')
+      this.notify('Cliente habilitada')
+      this.$router.replace('/clientes')
     },
   },
 }

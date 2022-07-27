@@ -17,6 +17,12 @@
       <v-container>
         <ValidationObserver v-slot="{ validate, invalid }">
           <v-form @submit.prevent="validate().then(save)">
+            <v-text-field
+              v-model="form.email"
+              outlined
+              label="Email"
+              disabled
+            />
             <validation-provider
               v-slot="{ errors }"
               name="Nome"
@@ -203,6 +209,7 @@ export default {
       form: {
         group: null,
         picture: null,
+        email: '', // Email
         name: '', // Nome completo
         phone: '', // Telefone
         phone_country: '+55', // Código do País do Telefone

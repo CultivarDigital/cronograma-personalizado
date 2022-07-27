@@ -1,4 +1,4 @@
-# Cronograma personalizado 
+# PriJorge
 
 Sistema de gerenciamento de cronograma personalizado de personal hair stylist.
 

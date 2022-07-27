@@ -13,6 +13,14 @@
         label="Buscar cliente"
         append-icon="mdi-magnify"
       />
+      <div class="text-center mb-3">
+        <v-btn v-if="!disabled" x-small @click="showDisabled">
+          Ver clientes desabilitadas
+        </v-btn>
+        <v-btn v-if="disabled" x-small @click="showEnabled">
+          Ver clientes ativas
+        </v-btn>
+      </div>
       <DoubleTable :data="membersDataset" clickable />
     </v-container>
     <div v-else class="text-center py-6">
@@ -27,6 +35,7 @@ export default {
     return {
       members: null,
       search: '',
+      disabled: false,
     }
   },
   computed: {
@@ -59,8 +68,25 @@ export default {
       return null
     },
   },
-  async created() {
-    this.members = await this.$axios.$get('/v1/users/members')
+  created() {
+    this.load()
+  },
+  methods: {
+    async load() {
+      const params = {}
+      if (this.disabled) {
+        params.disabled = true
+      }
+      this.members = await this.$axios.$get('/v1/users/members', { params })
+    },
+    showDisabled() {
+      this.disabled = true
+      this.load()
+    },
+    showEnabled() {
+      this.disabled = false
+      this.load()
+    },
   },
 }
 </script>

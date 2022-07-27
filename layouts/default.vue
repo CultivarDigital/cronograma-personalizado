@@ -16,7 +16,7 @@
         </div>
         <template v-else>
           <Profile v-if="!$auth.user.birth" />
-          <div v-else>
+          <!-- <div v-else>
             <Anamnese
               v-if="
                 currentContract &&
@@ -33,7 +33,7 @@
               "
               v-model="waitingContract"
             />
-          </div>
+          </div> -->
 
           <Nuxt v-if="$auth.user.role !== 'user' || currentContract" />
           <div
